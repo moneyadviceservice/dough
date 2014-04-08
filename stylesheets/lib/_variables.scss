@@ -1,0 +1,66 @@
+$color-white: #fff !default;
+$color-off-white: #f5f7f7 !default;
+$color-white-translucent: rgba(255, 255, 255, 0.2) !default;
+$color-white-translucent-fallback: rgb(255, 255, 255) !default;
+$color-transparent: transparent !default;
+
+$color-black: #555 !default;
+$color-grey-primary: #6d6d6d !default;
+
+$color-green-primary: #388426 !default;
+$color-green-secondary: #61a612 !default;
+$color-green-tertiary: #115329 !default;
+$color-green-quaternary: #337018 !default;
+
+$color-green-paler: #f5f7f8 !default;
+$color-green-pale: #f7fbec !default;
+$color-green-light: #b9dd48 !default;
+$color-green-medium: #81c724 !default;
+$color-green-bright: #adcf3f !default;
+$color-green-dark: #388426 !default;
+
+$color-teal-light: #109e89 !default;
+$color-teal-dark: #0e7f6c !default;
+
+$color-blue-pale: #ebf2f5 !default;
+$color-blue-light: #e6f2f7 !default;
+$color-blue-medium: #1f6faa !default;
+$color-blue-dark: #18507a !default;
+$color-blue-extra-dark: #0a4358 !default;
+
+$color-grey-palest: #dce3e1 !default;
+
+$color-grey-paler: #f2f4f5 !default;
+$color-grey-pale: #edf0f0 !default;
+
+$color-grey-paleo: #ecf0ef !default;
+$color-grey-light: #a8b2ba !default;
+$color-grey-medium-dark: #6a6d6d !default;
+
+$color-grey-medium: #526675 !default;
+$color-grey-dark: #394752 !default;
+
+$color-bluegrey-dark: #96b4c0 !default;
+$color-bluegrey-medium: #cbdae0 !default;
+$color-bluegrey-light: #dae1df !default;
+
+$color-pink-medium: #e43c8a !default;
+$color-pink-dark: #bf2682 !default;
+
+$color-red-medium: #d52b30 !default;
+$color-red-dark: #af2745 !default;
+
+$color-orange-medium: #f06431 !default;
+$color-orange-dark: #c95d2d !default;
+
+$color-yellow-light: #ebd520 !default;
+$color-yellow-dark: #ddae1f !default;
+
+// Typography
+$color-text-default: $color-black !default;
+$color-text-icon: $color-white !default;
+
+// Default Links
+$color-link-default: $color-blue-medium !default;
+$color-link-visited: $color-blue-dark !default;
+$color-link-focus: $color-blue-light !default;
