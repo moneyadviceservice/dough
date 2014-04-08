@@ -1,5 +1,9 @@
 {
     "name": "frontend-assets",
     "private": true,
+    "ignore": [
+        "bower.json",
+        "README.md"
+    ],
     "dependencies": {}
 }
