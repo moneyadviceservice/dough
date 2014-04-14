@@ -2,9 +2,6 @@ body {
   @extend %type;
   @extend %font-smoothing;
   @extend %prevent-text-zooming;
-
-  @include legibility(normal);
-  @include font-features(liga, kern);
   color: $color-text-default;
 }
 
