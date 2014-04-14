@@ -10,6 +10,7 @@
       }
     }
   } @else if $min-width <= $mq-l and (not $max-width or $max-width and $max-width >= $mq-l) {
+    // output content without mediaqueries if fixed width and less than x-large
     @content;
   }
 }
