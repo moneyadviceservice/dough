@@ -2,6 +2,8 @@
 //
 // Styleguide Search
 
+@if $include-panel-footer { 
+
 .search-box {
   position: relative;
   margin: 0 auto;
@@ -48,3 +50,5 @@
     }
   }
 }
+
+} // END @IF

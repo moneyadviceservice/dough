@@ -1,0 +1,27 @@
+//= depend_on_asset MuseoSans_300.woff
+//= depend_on_asset MuseoSans_500.woff
+//= depend_on_asset MuseoSans_700.woff
+//= depend_on_asset MuseoSans_300.eot
+//= depend_on_asset MuseoSans_500.eot
+//= depend_on_asset MuseoSans_700.eot
+
+@font-face {
+  font-family: 'museo_sans';
+  src: asset-data-url('MuseoSans_300.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'museo_sans';
+  src: asset-data-url('MuseoSans_500.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'museo_sans';
+  src: asset-data-url('MuseoSans_700.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
