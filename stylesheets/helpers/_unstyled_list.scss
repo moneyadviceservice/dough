@@ -1,0 +1,17 @@
+// Basic unstyled list helper class to remove formatting from a list element.
+//
+// Styleguide unstyled-list
+
+.unstyled-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+
+  > li:before{
+    content: none;
+  }
+}
+
+.unstyled-list-icon:before {
+  content: none;
+}
