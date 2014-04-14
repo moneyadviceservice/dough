@@ -6,14 +6,8 @@ $padding-vertical-button: 12px;
 $padding-horizontal-button: 22px;
 $padding-button-small-square: 8px;
 
-// VERTICAL RYTHEM
-$gutter: 20px;
-$line-height: 22px;
-
-$baseline-unit: 6px;
-@if $responsive == true {
-  $baseline-unit: 0.375rem; // 6px
-}
+// VERTICAL RHYTHEM
+$baseline-unit: if($responsive, 0.375rem, 6px);
 
 // COLOURS
 $color-white: #fff !default;
@@ -84,7 +78,6 @@ $color-link-default: $color-blue-medium !default;
 $color-link-visited: $color-blue-dark !default;
 $color-link-focus: $color-blue-light !default;
 
-
 // Global Colours
 $color-site-bg: $color-green-primary !default;
 $color-heading: $color-green-secondary !default;
@@ -92,18 +85,6 @@ $color-heading: $color-green-secondary !default;
 // Typography
 $color-text-default: $color-black !default;
 $color-text-icon: $color-white !default;
-
-// Default Links
-$color-link-default: $color-blue-medium !default;
-$color-link-visited: $color-blue-dark !default;
-$color-link-focus: $color-blue-light !default;
-
-// Navigation Links
-$color-link-nav: $color-green-tertiary !default;
-$color-link-nav-visited: $color-green-tertiary !default;
-
-// Article Links
-$color-link-external: $color-grey-light !default;
 
 // Tables
 $color-table-heading: $color-white !default;
@@ -127,5 +108,5 @@ $color-button-primary-border: $color-yellow-dark !default;
 // Panels
 $color-panel-background: $color-grey-pale;
 
-// Callout Colours
+// Callout
 $color-callout-background: $color-green-pale !default;
