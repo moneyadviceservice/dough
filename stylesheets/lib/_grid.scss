@@ -32,7 +32,7 @@ $mq-xl: px-to-em(1200) !default;
 
 // Set $total-width to 100% for a fluid layout
 $total-width: 100% !default;
-@if $responsive = false {
+@if $responsive == false {
   $total-width: $mq-l !default;
 }
 
