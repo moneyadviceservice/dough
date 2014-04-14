@@ -63,3 +63,27 @@ ul {
     margin-bottom: $baseline-unit*2;
   }
 }
+
+// Basic primary links and their accompanying hover and focus states
+//
+// :visited - Foo
+// :hover - Foo
+// :focus - Foo
+//
+// Styleguide a
+
+a {
+  color: $color-link-default;
+  text-decoration: none;
+
+  &:visited {
+    color: $color-link-default;
+  }
+
+  &:hover,
+  &:focus {
+    outline: none;
+    color: $color-link-default;
+    text-decoration: underline;
+  }
+}
