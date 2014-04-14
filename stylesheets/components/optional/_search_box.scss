@@ -25,7 +25,7 @@
 }
 
 .search-box__submit {
-  @extend .button--unstyled;
+  @extend .unstyled-button;
   position: absolute;
   bottom: 0;
   right: 0;
