@@ -36,6 +36,21 @@ $total-width: 100% !default;
   $total-width: $mq-l !default;
 }
 
+
+// TODO Can this be consolidated with clearfix in helpers?
+@mixin clearfix() {
+  *zoom: 1;
+
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
+
 @mixin row($columns: $columns) {
   display: block;
   width: $total-width*(($gutter-width + gridsystem-width($columns))/gridsystem-width($columns));
