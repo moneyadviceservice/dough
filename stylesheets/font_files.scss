@@ -1,30 +1,33 @@
 //= depend_on_asset MuseoSans_300.woff
 //= depend_on_asset MuseoSans_500.woff
 //= depend_on_asset MuseoSans_700.woff
+
 //= depend_on_asset MuseoSans_300.eot
 //= depend_on_asset MuseoSans_500.eot
 //= depend_on_asset MuseoSans_700.eot
 
-@font-face {
-  font-family: 'museo_sans';
-  src: url(font-path('MuseoSans_300.eot'));
-  src: url(font-path('MuseoSans_300.eot') + '?#iefix') format('embedded-opentype');
-  font-weight: 300;
-  font-style: normal;
+//= depend_on_asset MuseoSans_300.ttf
+//= depend_on_asset MuseoSans_500.ttf
+//= depend_on_asset MuseoSans_700.ttf
+
+//= depend_on_asset MuseoSans_300.svg
+//= depend_on_asset MuseoSans_500.svg
+//= depend_on_asset MuseoSans_700.svg
+
+
+@mixin fontface($name, $file, $weight) {
+  @font-face {
+    font-family: 'museo_sans';
+    src: url(font-path($file + '.eot'));
+    src: url(font-path($file + '.eot') + '?#iefix') format('embedded-opentype'),
+    url(font-path($file + '.woff')) format('woff'),
+    url(font-path($file + '.ttf'))  format('truetype'),
+    url(font-path($file + '.svg') + '#svgFontName') format('svg');
+    font-weight: $weight;
+    font-style: normal;
+  }
 }
 
-@font-face {
-  font-family: 'museo_sans';
-  src: url(font-path('MuseoSans_500.eot'));
-  src: url(font-path('MuseoSans_500.eot') + '?#iefix') format('embedded-opentype');
-  font-weight: 500;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'museo_sans';
-  src: url(font-path('MuseoSans_700.woff'));
-  src: url(font-path('MuseoSans_700.woff') + '?#iefix') format('embedded-opentype');
-  font-weight: 700;
-  font-style: normal;
-}
+@include fontface('museo_sans', 'MuseoSans_300', 300);
+@include fontface('museo_sans', 'MuseoSans_500', 500);
+@include fontface('museo_sans', 'MuseoSans_700', 700);
