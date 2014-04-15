@@ -31,13 +31,13 @@ $mq-xl: px-to-em(1200) !default;
 }
 
 // Set $total-width to 100% for a fluid layout
-$total-width: 100% !default;
-@if $responsive == false {
-  $total-width: $mq-l !default;
+$total-width: $mq-l !default;
+
+@if $responsive == true {
+  $total-width: 100%;
 }
 
-
-// TODO Can this be consolidated with clearfix in helpers?
+// The micro clearfix http://nicolasgallagher.com/micro-clearfix-hack/
 @mixin clearfix() {
   *zoom: 1;
 
