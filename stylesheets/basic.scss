@@ -1,5 +1,9 @@
 // @todo: include normalize
 
+$responsive: false;
+
+@import 'lib';
+
 @import 'base/base';
 @import 'base/forms';
 @import 'base/typography';
