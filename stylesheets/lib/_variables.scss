@@ -1,3 +1,15 @@
+// BUTTONS
+$border-radius-button: 4px;
+$border-width-button: 3px;
+$lighten-button: 10%;
+$padding-vertical-button: 12px;
+$padding-horizontal-button: 22px;
+$padding-button-small-square: 8px;
+
+// VERTICAL RHYTHEM
+$baseline-unit: if($responsive, 0.375rem, 6px);
+
+// COLOURS
 $color-white: #fff !default;
 $color-off-white: #f5f7f7 !default;
 $color-white-translucent: rgba(255, 255, 255, 0.2) !default;
@@ -57,6 +69,7 @@ $color-yellow-light: #ebd520 !default;
 $color-yellow-dark: #ddae1f !default;
 
 // Typography
+$color-heading-default: $color-green-secondary !default;
 $color-text-default: $color-black !default;
 $color-text-icon: $color-white !default;
 
@@ -64,3 +77,41 @@ $color-text-icon: $color-white !default;
 $color-link-default: $color-blue-medium !default;
 $color-link-visited: $color-blue-dark !default;
 $color-link-focus: $color-blue-light !default;
+
+// Global Colours
+$color-site-bg: $color-green-primary !default;
+$color-heading: $color-green-secondary !default;
+
+// Typography
+$color-text-default: $color-black !default;
+$color-text-icon: $color-white !default;
+
+// Tables
+$color-table-heading: $color-white !default;
+$color-table-background: $color-green-primary !default;
+$color-table-background-alt: $color-green-paler !default;
+$color-table-border: $color-grey-light !default;
+
+// Lists
+$color-list-bullet: $color-green-secondary !default;
+$color-list-yes: $color-green-secondary !default;
+$color-list-no: $color-red-dark !default;
+
+// Buttons
+$color-button-default: $color-green-light !default;
+$color-button-default-border: $color-green-medium !default;
+$color-button-default-text: $color-black !default;
+
+$color-button-primary: $color-yellow-light !default;
+$color-button-primary-border: $color-yellow-dark !default;
+
+// Panels
+$color-panel-background: $color-grey-pale;
+
+// Callout
+$color-callout-background: $color-green-pale !default;
+
+// Search
+$color-search-border: $color-grey-light !default;
+$color-search-background: $color-green-quaternary !default;
+$color-search-text: $color-grey-medium-dark !default;
