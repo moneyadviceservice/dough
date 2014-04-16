@@ -12,6 +12,7 @@
 
   @if $responsive {
     max-width: $mq-xl;
+    width: 100%;
   } @else {
     width: $mq-l;
   }
