@@ -1,5 +1,2 @@
-// @todo: include normalize
-
-@import 'base/base';
-@import 'base/forms';
-@import 'base/typography';
+//= require normalize-css/normalize
+//= require_self

@@ -5,5 +5,7 @@
         "bower.json",
         "README.md"
     ],
-    "dependencies": {}
+    "dependencies": {
+      "normalize-css": "~3.0.0"
+    }
 }
