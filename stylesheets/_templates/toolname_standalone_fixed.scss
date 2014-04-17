@@ -1,16 +1,20 @@
-//$responsive = false;
-//
-//@import "settings";
-//
-//@import 'frontend-assets/stylesheets/font_files';
-//@import 'frontend-assets/stylesheets/lib';
-//@import 'frontend-assets/stylesheets/common';
-//@import 'frontend-assets/stylesheets/optional';
-//
+/*
+$responsive = false;
+
+@import "settings";
+
+@import 'frontend-assets/stylesheets/font_files'; // import until available as file on server
+@import 'frontend-assets/stylesheets/lib';
+@import 'frontend-assets/stylesheets/common';
+@import 'frontend-assets/stylesheets/optional';
+*/
+
 // TOOL SPECIFIC FILES
-//@import 'lib/variables';
-//@import 'components/common/all';
-//@import 'components/page_specific/all';
-//@import 'helpers/all';
-//@import 'layout/common/all';
-//@import 'layout/page_specific/all';
+/*
+@import 'lib/variables';
+@import 'components/common/all';
+@import 'components/page_specific/all';
+@import 'helpers/all';
+@import 'layout/common/all';
+@import 'layout/page_specific/all';
+*/
