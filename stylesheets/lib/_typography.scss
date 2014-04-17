@@ -114,7 +114,7 @@
 %heading-large {
   @include heading(32, 36);
   @extend %font-heading-heavy;
-  color: $color-green-secondary;
+  color: $color-heading-default;
 
   @include respond-to($mq-m) {
     @include heading(40, 48);
@@ -134,7 +134,7 @@
 %heading-small {
   @extend %font-heading-heavy;
   @include heading(20, 30);
-  color: $color-green-secondary;
+  color: $color-heading-default;
 
   @include respond-to($mq-m) {
     @include heading(20, 30);
