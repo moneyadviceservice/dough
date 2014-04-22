@@ -1,7 +1,7 @@
-@import 'frontend-assets/stylesheets/lib/variables';
-@import 'frontend-assets/stylesheets/lib/grid';
-@import 'frontend-assets/stylesheets/lib/mediaqueries';
-@import 'frontend-assets/stylesheets/lib/css3';
-@import 'frontend-assets/stylesheets/lib/typography';
+@import 'lib/variables';
+@import 'lib/grid';
+@import 'lib/mediaqueries';
+@import 'lib/css3';
+@import 'lib/typography';
 
-@import 'frontend-assets/stylesheets/lib/js_modules/collapsable';
+@import 'lib/js_modules/*';
