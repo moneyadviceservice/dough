@@ -1,6 +1,21 @@
-@import 'base/base';
-@import 'base/forms';
+@import 'frontend-assets/stylesheets/base/base';
+@import 'frontend-assets/stylesheets/base/forms';
 
-@import 'helpers/*';
-@import 'layout/common/*';
-@import 'components/common/*';
+@import 'frontend-assets/stylesheets/helpers/clearfix';
+@import 'frontend-assets/stylesheets/helpers/inline_block';
+@import 'frontend-assets/stylesheets/helpers/unstyled_button';
+@import 'frontend-assets/stylesheets/helpers/unstyled_list';
+@import 'frontend-assets/stylesheets/helpers/video_wrapper';
+@import 'frontend-assets/stylesheets/helpers/visually_hidden';
+
+@import 'frontend-assets/stylesheets/layout/common/common';
+
+@import 'frontend-assets/stylesheets/components/common/button';
+@import 'frontend-assets/stylesheets/components/common/callout';
+@import 'frontend-assets/stylesheets/components/common/icon';
+@import 'frontend-assets/stylesheets/components/common/icon_2x';
+@import 'frontend-assets/stylesheets/components/common/intro';
+@import 'frontend-assets/stylesheets/components/common/lists';
+@import 'frontend-assets/stylesheets/components/common/panel';
+@import 'frontend-assets/stylesheets/components/common/tables';
+

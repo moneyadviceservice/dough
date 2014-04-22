@@ -1,4 +1,8 @@
 // Use template/settings to include / exclude optional files
-@import 'settings';
-@import 'layout/optional/*';
-@import 'components/optional/*';
+@import 'frontend-assets/stylesheets/settings';
+
+@import 'frontend-assets/stylesheets/layout/optional/example';
+
+@import 'frontend-assets/stylesheets/components/optional/panel_footer';
+@import 'frontend-assets/stylesheets/components/optional/search_box';
+
