@@ -4,51 +4,55 @@
 
 @if $include-search-box {
 
-.search-box {
-  position: relative;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.search-box__input {
-  @extend %font-heading-medium;
-  width: 100%;
-  height: $baseline-unit*7;
-  padding-left: $baseline-unit*2;
-  border: 0;
-  background-color: $color-off-white;
-
-  &::-webkit-input-placeholder {
-    color: $color-search-text;
+  .search-box {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
   }
 
-}
+  .search-box__input {
+    @extend %font-heading-medium;
+    width: 100%;
+    height: $baseline-unit*7;
+    padding-left: $baseline-unit*2;
+    border: 0;
+    background-color: $color-off-white;
 
-.search-box__submit {
-  @extend .unstyled-button;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: $baseline-unit*7;
-  height: $baseline-unit*7;
-  font-size: 24px;
-  color: $color-search-text;
+    &::-webkit-input-placeholder {
+      color: $color-search-text;
+    }
 
-  .icon--search {
+  }
+
+  .search-box__submit {
+    @extend .unstyled-button;
     position: absolute;
-    top: $baseline-unit*2;
-    left: $baseline-unit*2;
-  }
-
-  &:focus {
-    outline: 0;
-    background-color: $color-green-secondary;
-    color: $color-white;
+    bottom: 0;
+    right: 0;
+    width: $baseline-unit*7;
+    height: $baseline-unit*7;
+    font-size: 24px;
+    color: $color-search-text;
 
     .icon--search {
-      @extend .icon--search-white;
+      position: absolute;
+      top: $baseline-unit*2;
+      left: $baseline-unit*2;
+    }
+
+    &:focus {
+      outline: 0;
+      background-color: $color-green-secondary;
+      color: $color-white;
+
+      .icon--search {
+        // changes the search icon to icon--search-white,cannot be extended or will not appear in the Styleguide.
+        background-position: -271px -73px;
+        @include device-pixel-ratio() {
+          background-position: -272px -8px;
+        }
+      }
     }
   }
-}
 
-} // END @IF
+}
