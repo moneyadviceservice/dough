@@ -79,27 +79,19 @@
 }
 
 %font-body {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'museo_sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
-  .wf-museosans-n4-active & {
-    font-family: 'museo_sans';
-  }
 }
 
 %font-heading-medium {
-  font-family: Arial;
+  font-family: 'museo_sans', Arial, sans-serif;
   font-weight: 500;
-  .wf-museosans-n4-active & {
-    font-family: 'museo_sans';
-  }
 }
 
+
 %font-heading-heavy {
-  font-family: Arial;
+  font-family: 'museo_sans', Arial, sans-serif;
   font-weight: 700;
-  .wf-museosans-n4-active & {
-    font-family: 'museo_sans';
-  }
 }
 
 %heading-extra-large {
