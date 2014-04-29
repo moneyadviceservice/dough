@@ -64,7 +64,6 @@
   opacity: .6;
 }
 
-// Primary Button
 .button--primary {
   background: $color-button-primary;
   border-bottom-color: $color-button-primary-border;
@@ -90,19 +89,23 @@
   padding: $padding-button-small-square;
   height: auto;
   width: auto;
+
   > .icon {
     vertical-align: middle;
   }
-  > .button--compact__text {
-    @extend %type-small;
-    margin-left: 2px;
-    margin-right: 5px;
-  }
+
   @include respond-to(0, $mq-m) {
-    > .button--compact__text {
-      display: none;
-    }
     height: 40px;
     width: 40px;
+  }
+}
+
+.button--compact__text {
+  @extend %type-small;
+  margin-left: 2px;
+  margin-right: 5px;
+
+  @include respond-to(0, $mq-m) {
+    @include visually-hidden;
   }
 }
