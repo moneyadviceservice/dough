@@ -26,7 +26,7 @@ $color-white-translucent: rgba(255, 255, 255, 0.2) !default;
 $color-white-translucent-fallback: rgb(255, 255, 255) !default;
 $color-transparent: transparent !default;
 
-$color-black: #555 !default;
+$color-black: #2e3030 !default;
 $color-grey-primary: #6d6d6d !default;
 
 $color-green-primary: #388426 !default;
@@ -108,10 +108,9 @@ $color-list-yes: $color-green-secondary !default;
 $color-list-no: $color-red-dark !default;
 
 // Buttons
-$color-button-default: $color-green-light !default;
-$color-button-default-border: $color-green-medium !default;
+$color-button-default: $color-grey-normal !default;
+$color-button-default-border: $color-grey-seven !default;
 $color-button-default-text: $color-black !default;
-
 $color-button-primary: $color-yellow-light !default;
 $color-button-primary-border: $color-yellow-dark !default;
 

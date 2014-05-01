@@ -170,7 +170,7 @@
 }
 
 %type-button {
-  @extend %font-heading-medium;
+  @extend %font-body;
   @extend %font-smoothing;
   @include body(18, 24);
 }
