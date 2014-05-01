@@ -40,6 +40,7 @@ $color-green-light: #b9dd48 !default;
 $color-green-medium: #81c724 !default;
 $color-green-bright: #adcf3f !default;
 $color-green-dark: #388426 !default;
+$color-green-one: #77bf24 !default;
 
 $color-teal-light: #109e89 !default;
 $color-teal-dark: #0e7f6c !default;
@@ -51,14 +52,16 @@ $color-blue-dark: #18507a !default;
 $color-blue-extra-dark: #0a4358 !default;
 
 $color-grey-palest: #dce3e1 !default;
-
 $color-grey-paler: #f2f4f5 !default;
 $color-grey-pale: #edf0f0 !default;
-
 $color-grey-paleo: #ecf0ef !default;
+$color-grey-normal: #d1d5d5 !default;
+$color-grey-seven: #929494 !default;
+$color-grey-eight: #dce0e0 !default;
+$color-grey-nine: #e2e2e2 !default;
+$color-grey-ten: #f4f4f4 !default;
 $color-grey-light: #a8b2ba !default;
 $color-grey-medium-dark: #6a6d6d !default;
-
 $color-grey-medium: #526675 !default;
 $color-grey-dark: #394752 !default;
 
@@ -95,9 +98,9 @@ $color-heading: $color-green-secondary !default;
 
 // Tables
 $color-table-heading: $color-white !default;
-$color-table-background: $color-green-primary !default;
-$color-table-background-alt: $color-green-paler !default;
-$color-table-border: $color-grey-light !default;
+$color-table-background: $color-grey-nine !default;
+$color-table-background-alt: $color-grey-ten !default;
+$color-table-border: $color-green-one !default;
 
 // Lists
 $color-list-bullet: $color-green-secondary !default;
