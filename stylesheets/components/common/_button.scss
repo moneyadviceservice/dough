@@ -14,7 +14,6 @@
 //
 // Styleguide buttons
 
-// Default Button
 .button {
   @extend %type-button;
   @include inline-block;
@@ -27,58 +26,58 @@
   border: none;
   background: $color-button-default;
   border-bottom: $border-width-button solid $color-button-default-border;
-  color: $color-black;
   transition: background 0.2s ease;
+  color: $color-button-default-text;
+
+
+  &:visited {
+    color: $color-button-default-text;
+  }
+
+  &:focus {
+    outline: thin dotted;
+    outline: 3px auto -webkit-focus-ring-color;
+    outline-offset: -1px;
+  }
+
+  &:focus,
+  &:hover {
+    background: lighten($color-button-default, $lighten-button);
+    border-color: lighten($color-button-default-border, $lighten-button);
+    text-decoration: none;
+  }
+
+  &:active {
+    padding-top: $padding-vertical-button - $border-width-button;
+    border-bottom-color: $color-button-default;
+    border-top: $border-width-button solid $color-button-default-border;
+  }
+
+  &.is-disabled,
+  &[disabled] {
+    pointer-events: none;
+    cursor: not-allowed;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    filter: alpha(opacity=6);
+    opacity: .6;
+  }
 }
 
-.button:visited {
-  color: $color-black;
-}
-
-.button:focus {
-  outline: thin dotted;
-  outline: 3px auto -webkit-focus-ring-color;
-  outline-offset: -1px;
-}
-
-.button:focus,
-.button:hover {
-  background: lighten($color-button-default, $lighten-button);
-  border-color: lighten($color-button-default-border, $lighten-button);
-  text-decoration: none;
-}
-
-.button:active {
-  padding-top: $padding-vertical-button - $border-width-button;
-  border-bottom-color: $color-button-default;
-  border-top: $border-width-button solid $color-button-default-border;
-}
-
-.button.is-disabled,
-.button[disabled] {
-  pointer-events: none;
-  cursor: not-allowed;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  filter: alpha(opacity=6);
-  opacity: .6;
-}
-
-// Primary Button
 .button--primary {
   background: $color-button-primary;
   border-bottom-color: $color-button-primary-border;
-}
 
-.button--primary:focus,
-.button--primary:hover {
-  background: lighten($color-button-primary, $lighten-button);
-  border-color: lighten($color-button-primary-border, $lighten-button);
-}
+  &:focus,
+  &:hover {
+    background: lighten($color-button-primary, $lighten-button);
+    border-color: lighten($color-button-primary-border, $lighten-button);
+  }
 
-.button--primary:active {
-  border-bottom-color: $color-button-primary;
-  border-top-color: $color-button-primary-border;
+  &:active {
+    border-bottom-color: $color-button-primary;
+    border-top-color: lighten($color-button-primary-border, $lighten-button);
+  }
 }
 
 // Requires the text to be wrapped in a sub-element in order to hide it at small viewport widths
@@ -87,22 +86,30 @@
 
 .button--compact {
   cursor: pointer;
-  padding: $padding-button-small-square;
-  height: auto;
-  width: auto;
+  padding: 12px 8px;
+  height: 52px;
+  width: 93px;
+
   > .icon {
-    vertical-align: middle;
+    position: relative;
+    top:5px;
   }
-  > .button--compact__text {
-    @extend %type-small;
-    margin-left: 2px;
-    margin-right: 5px;
-  }
+
   @include respond-to(0, $mq-m) {
-    > .button--compact__text {
-      display: none;
+    height: $baseline-unit*7;
+    width: $baseline-unit*7;
+
+    > .icon {
+      top:1px;
     }
-    height: 40px;
-    width: 40px;
+  }
+}
+
+.button--compact__text {
+  margin-left: 5px;
+  margin-right: 5px;
+
+  @include respond-to(0, $mq-m) {
+    @include visually-hidden;
   }
 }

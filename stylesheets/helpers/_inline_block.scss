@@ -2,7 +2,7 @@
   @if $responsive == true {
     display: inline-block;
   } @else {
-    float: left;
-    display: block;
+    display: inline-block;
+    zoom: 1;
   }
 }
