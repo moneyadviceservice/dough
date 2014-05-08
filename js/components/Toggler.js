@@ -16,7 +16,16 @@ define(['jquery', 'MASModule'], function($, MASModule) {
      *
      * Events used: toggler:toggled(element, isShown) [Event for when the toggler is doing its work]
      *
-     * @param {Object} $el
+     * Escape the given `html`.
+     *
+     * Examples:
+     *
+     *     utils.escape('<script></script>')
+     *     // => '&lt;script&gt;&lt;/script&gt;'
+     *
+     * @param {String} html string to be escaped
+     * @return {String} escaped html
+     * @api public
      */
     function Toggler($el) {
       this.setElement($el);

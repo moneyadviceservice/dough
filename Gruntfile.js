@@ -1,6 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-dox');
 
   // Project configuration.
@@ -24,5 +25,5 @@ module.exports = function(grunt) {
   });
 
   grunt.registerTask('default', ['dox']);
-  grunt.registerTask('watch', ['dox', 'watch']);
+  grunt.registerTask('watch:js', ['dox', 'watch']);
 };

@@ -38,7 +38,7 @@ $ grunt
 To run Grunt's 'watch' task, which will watch for any file changes in the Javascript components directory (```./js/components/```) and rebuild the documentation automatically, use the following:
 
 ```sh
-$ grunt watch
+$ grunt watch:js
 ```
 
 ## Contributing
