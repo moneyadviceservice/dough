@@ -7,6 +7,9 @@ The Money Advice Service's frontend assets.
 
 * [Git]
 * [Bower]
+* [NodeJS]
+* [Grunt]
+
 
 
 ## Installation
@@ -21,6 +24,7 @@ Make sure all dependencies are available:
 
 ```sh
 $ bower install
+$ npm install
 ```
 
 ## Contributing
@@ -35,3 +39,5 @@ $ bower install
 
 [bower]: http://bower.io
 [git]: http://git-scm.com
+[nodejs]: http://nodejs.org/
+[grunt]: http://gruntjs.com/getting-started
