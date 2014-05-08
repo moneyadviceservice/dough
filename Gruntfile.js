@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     watch: {
       components: {
-        files: ['javascript/components/*.js'],
+        files: ['js/components/*.js'],
         tasks: ['dox']
       }
     },
