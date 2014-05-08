@@ -1,32 +1,33 @@
+/**
+ * # Element visiblity toggler.
+ *
+ * Requires an element to have a data-mas-toggler attribute. The application
+ * file will spawn an instance of this class for each element it finds on the page.
+ *
+ * Events used: toggler:toggled(element, isShown) [Event for when the toggler is doing its work]
+ *
+ * ## Examples:
+ *
+ * ### Normal Toggler, specifies selector as target to show/hide on element click.
+ *
+ *     <div class="row" data-mas-toggler=".target"></div>
+ *
+ *
+ *
+ * ### Hide the trigger element after toggling visiblity of the target.
+ *
+ *     <div class="row" data-mas-toggler=".target" data-toggler-hide-me></div>
+ */
+
+
+//
 define(['jquery', 'MASModule'], function($, MASModule) {
   'use strict';
 
   return (function() {
-    /**
-     * Class variable definitions.
-     */
+    // Class variables
     var TogglerProto;
 
-    /**
-     * Set up a new toggler.
-     *
-     * Requires an element to have a data-mas-toggler attribute. The application
-     * file will spawn an instance
-     * of this class for each element it finds on the page.
-     *
-     * Events used: toggler:toggled(element, isShown) [Event for when the toggler is doing its work]
-     *
-     * Escape the given `html`.
-     *
-     * Examples:
-     *
-     *     utils.escape('<script></script>')
-     *     // => '&lt;script&gt;&lt;/script&gt;'
-     *
-     * @param {String} html string to be escaped
-     * @return {String} escaped html
-     * @api public
-     */
     function Toggler($el) {
       this.setElement($el);
       this.attrs = ['toggler'];
