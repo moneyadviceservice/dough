@@ -97,7 +97,7 @@
 
   @include respond-to(0, $mq-m) {
     height: $baseline-unit*7;
-    width: $baseline-unit*7;
+    min-width: $baseline-unit*7;
 
     > .icon {
       top:1px;
