@@ -20,7 +20,13 @@
  */
 
 
-//
+/**
+ * Require from Config
+ * @param  {[type]} $         [description]
+ * @param  {[type]} MASModule [description]
+ * @return {[type]}           [description]
+ * @private
+ */
 define(['jquery', 'MASModule'], function($, MASModule) {
   'use strict';
 
@@ -40,12 +46,13 @@ define(['jquery', 'MASModule'], function($, MASModule) {
     /**
      * Inherit from base module, for shared methods and interface
      * @type {[type]}
+     * @private
      */
     TogglerProto = Toggler.prototype = new MASModule();
 
     /**
      * Init function
-     * @return {[type]}
+     * @return {Toggler}
      */
     TogglerProto.init = function() {
       this.$target = $(this.attr('toggler'));
