@@ -20,6 +20,7 @@
   "gitHead": "5a4eff929bd3959721a996b2f0a4519306e9e53d",
   "readmeFilename": "README.md",
   "devDependencies": {
-    "dox-foundation": "~0.5.6"
+    "dox-foundation": "~0.5.6",
+    "grunt-dox": "~0.5.0"
   }
 }
