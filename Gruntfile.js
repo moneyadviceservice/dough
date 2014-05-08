@@ -17,8 +17,7 @@ module.exports = function(grunt) {
         title: 'MAS Frontend Assets'
       },
       files: {
-        ignore: [''],
-        src: ['public/js/src/', 'routes', 'modules'],
+        src: ['js/components/'],
         dest: 'docs'
       }
     }
