@@ -24,6 +24,6 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.registerTask('default', ['dox']);
   grunt.registerTask('watch', ['dox', 'watch']);
-  grunt.registerTask('docs', ['dox']);
 };
