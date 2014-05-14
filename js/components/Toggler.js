@@ -1,5 +1,5 @@
 /**
- * # Element visiblity toggler.
+ * # Element visibility toggler.
  *
  * Requires an element to have a data-mas-toggler attribute. The application
  * file will spawn an instance of this class for each element it finds on the page.
@@ -14,7 +14,7 @@
  *
  *
  *
- * ### Hide the trigger element after toggling visiblity of the target.
+ * ### Hide the trigger element after toggling visibility of the target.
  *
  *     <div class="row" data-mas-toggler=".target" data-toggler-hide-me></div>
  */
@@ -27,7 +27,7 @@
  * @return {[type]}           [description]
  * @private
  */
-define(['jquery', 'MASModule'], function($, MASModule) {
+define(['jquery', 'MASModule', 'eventsWithPromises'], function($, MASModule, eventsWithPromises) {
   'use strict';
 
   return (function() {
@@ -98,9 +98,11 @@ define(['jquery', 'MASModule'], function($, MASModule) {
       // toggle the class on the trigger element (active = shown / nothing = not shown)
       this.$el[func]('active');
 
-      // can bind to this by toggler.bind('toggler:toggled', function(Toggler) { });
+      // can bind to this by eventsWithPromises.subscribe('toggler:toggled', function(Toggler) { });
       if (typeof forceTo === 'undefined') {
-        this.trigger('toggler:toggled', this);
+        eventsWithPromises.publish('toggler:toggled', {
+          emitter: this
+        });
       }
 
       return this;

@@ -1,4 +1,4 @@
-define(['MicroEvent'], function(MicroEvent) {
+define([], function() {
   'use strict';
 
   /**
@@ -25,7 +25,7 @@ define(['MicroEvent'], function(MicroEvent) {
       return this;
     }
 
-    var MASModuleProto = MASModule.prototype = new MicroEvent();
+    var MASModuleProto = MASModule.prototype;
 
     /**
      * Set the parent element for this context.
