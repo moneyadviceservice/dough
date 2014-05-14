@@ -28,6 +28,7 @@
   border-bottom: $border-width-button solid $color-button-default-border;
   transition: background 0.2s ease;
   color: $color-button-default-text;
+  filter: none;
 
 
   &:visited {
@@ -88,7 +89,7 @@
   cursor: pointer;
   padding: 12px 8px;
   height: 52px;
-  width: 93px;
+  min-width: 93px;
 
   > .icon {
     position: relative;
@@ -97,7 +98,7 @@
 
   @include respond-to(0, $mq-m) {
     height: $baseline-unit*7;
-    width: $baseline-unit*7;
+    min-width: $baseline-unit*7;
 
     > .icon {
       top:1px;
