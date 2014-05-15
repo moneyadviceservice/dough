@@ -70,9 +70,11 @@ $color-bluegrey-dark: #96b4c0 !default;
 $color-bluegrey-medium: #cbdae0 !default;
 $color-bluegrey-light: #dae1df !default;
 
+$color-pink-light: #fae8e8 !default;
 $color-pink-medium: #e43c8a !default;
 $color-pink-dark: #bf2682 !default;
 
+$color-red-light: #e06e72 !default;
 $color-red-medium: #d52b30 !default;
 $color-red-dark: #af2745 !default;
 
@@ -125,3 +127,8 @@ $color-callout-background: $color-green-pale !default;
 $color-search-border: $color-grey-light !default;
 $color-search-background: $color-green-quaternary !default;
 $color-search-text: $color-grey-medium-dark !default;
+
+// Form Validation
+$color-validation-border: $color-red-light !default;
+$color-validation-text: $color-red-medium !default;
+$color-validation-summary-background: $color-pink-light !default;
