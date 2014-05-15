@@ -1,3 +1,9 @@
 button {
   @extend %font-smoothing;
 }
+
+.is-errored {
+  border-left: 10px solid $color-validation-border;
+  padding-left:10px;
+  color:$color-validation-text;
+}
