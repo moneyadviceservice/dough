@@ -218,7 +218,7 @@ code {
   margin-right: 6px;
   font-size: 0.7em;
 }
-</style><script srr="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/vendor/custom.modernizr.js"></script></head><body><div class="row"><div class="small-12 columns"><h1 class="page-title">MAS Frontend Assets<small> js/components/Toggler.js</small></h1></div></div><div class="row"><div id="nav" class="large-3 columns"><div data-section="accordian" data-options="" class="section-container accordian"><div class="section active"><p data-section-title class="title"><a href="../../../docs/js/components/Toggler.js.html"><small>js/components/</small>Toggler.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/js/components/Toggler.js.html#init">init</a></li><li><a href="../../../docs/js/components/Toggler.js.html#setListeners">setListeners</a></li><li><a href="../../../docs/js/components/Toggler.js.html#toggle">toggle</a></li><li><a href="../../../docs/js/components/Toggler.js.html#destroy">destroy</a></li></ul></div></div></div></div><div class="small-12 large-9 columns"><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><h1>Element visiblity toggler.</h1>
+</style><script srr="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/vendor/custom.modernizr.js"></script></head><body><div class="row"><div class="small-12 columns"><h1 class="page-title">MAS Frontend Assets<small> js/components/VisibilityToggler.js</small></h1></div></div><div class="row"><div id="nav" class="large-3 columns"><div data-section="accordian" data-options="" class="section-container accordian"><div class="section active"><p data-section-title class="title"><a href="../../../docs/js/components/VisibilityToggler.js.html"><small>js/components/</small>VisibilityToggler.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/js/components/VisibilityToggler.js.html#init">init</a></li><li><a href="../../../docs/js/components/VisibilityToggler.js.html#setListeners">setListeners</a></li><li><a href="../../../docs/js/components/VisibilityToggler.js.html#toggle">toggle</a></li><li><a href="../../../docs/js/components/VisibilityToggler.js.html#destroy">destroy</a></li></ul></div></div></div></div><div class="small-12 large-9 columns"><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><h1>Element visibility toggler.</h1>
 
 <p>Requires an element to have a data-mas-toggler attribute. The application<br />file will spawn an instance of this class for each element it finds on the page.</p>
 
@@ -231,52 +231,52 @@ code {
 <pre><code>&lt;div class="row" data-mas-toggler=".target"&gt;&lt;/div&gt;
 </code></pre>
 
-<h3>Hide the trigger element after toggling visiblity of the target.</h3>
+<h3>Hide the trigger element after toggling visibility of the target.</h3>
 
 <pre><code>&lt;div class="row" data-mas-toggler=".target" data-toggler-hide-me&gt;&lt;/div&gt;
-</code></pre></div></div></div></article><article class="comment"><header><h1 id="init">init</h1><h5 class="subheader"><div class="label radius ctx-type">method</div>TogglerProto.init()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@return: </span><span class="types">{Toggler}</span><span class="description"></span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Init function</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">TogglerProto.init = function() {
-      this.$target = $(this.attr('toggler'));
-      this.isShown = !!this.$target.hasClass('show'); // is the target element visible already
+</code></pre></div></div></div></article><article class="comment"><header><h1 id="init">init</h1><h5 class="subheader"><div class="label radius ctx-type">method</div>TogglerProto.init()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@return: </span><span class="types">{Toggler}</span><span class="description"></span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Init function</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">TogglerProto.init = function () {
+    this.$target = $(this.attr('toggler'));
+    this.isShown = !!this.$target.hasClass('show'); // is the target element visible already
 
-      return this.setListeners(true);
-    };</code></pre></div></div></div></article><article class="comment"><header><h1 id="setListeners">setListeners</h1><h5 class="subheader"><div class="label radius ctx-type">method</div>TogglerProto.setListeners()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@param: </span><span class="types">{Boolean}</span><span class="name">isActive</span><span class="description">Set to 'true' to bind to events, 'false' to unbind.</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Bind or unbind relevant DOM events</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">TogglerProto.setListeners = function(isActive) {
-      this.$el[isActive ? 'on' : ' off']('click', $.proxy(function(e) {
-        this.toggle();
+    return this.setListeners(true);
+  };</code></pre></div></div></div></article><article class="comment"><header><h1 id="setListeners">setListeners</h1><h5 class="subheader"><div class="label radius ctx-type">method</div>TogglerProto.setListeners()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@param: </span><span class="types">{Boolean}</span><span class="name">isActive</span><span class="description">Set to 'true' to bind to events, 'false' to unbind.</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Bind or unbind relevant DOM events</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">TogglerProto.setListeners = function (isActive) {
+    this.$el[isActive ? 'on' : ' off']('click', $.proxy(function (e) {
+      this.toggle();
 
-        e.preventDefault();
-      }, this));
+      e.preventDefault();
+    }, this));
 
-      return this;
-    };</code></pre></div></div></div></article><article class="comment"><header><h1 id="toggle">toggle</h1><h5 class="subheader"><div class="label radius ctx-type">method</div>TogglerProto.toggle()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@param: </span><span class="types">{[type]}</span><span class="name">forceTo</span><span class="description">Supply 'show' or 'hide' to</span></li><li class="tag"><span class="type">@explicitly: </span><span class="string">set, otherwise will automatically toggle</span></li><li class="tag"><span class="type">@return: </span><span class="types">{[type]}</span><span class="description">[description]</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Toggle the element</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">TogglerProto.toggle = function(forceTo) {
-      var func;
+    return this;
+  };</code></pre></div></div></div></article><article class="comment"><header><h1 id="toggle">toggle</h1><h5 class="subheader"><div class="label radius ctx-type">method</div>TogglerProto.toggle()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@param: </span><span class="types">{[type]}</span><span class="name">forceTo</span><span class="description">Supply 'show' or 'hide' to</span></li><li class="tag"><span class="type">@explicitly: </span><span class="string">set, otherwise will automatically toggle</span></li><li class="tag"><span class="type">@return: </span><span class="types">{[type]}</span><span class="description">[description]</span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Toggle the element</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">TogglerProto.toggle = function (forceTo) {
+    var func;
 
-      // is there an override parameter?
-      if (typeof forceTo !== 'undefined') {
-        func = forceTo === 'show' ? 'addClass' : 'removeClass';
-      }
-      else {
-        func = this.isShown ? 'removeClass' : 'addClass';
-      }
+    // is there an override parameter?
+    if (typeof forceTo !== 'undefined') {
+      func = forceTo === 'show' ? 'addClass' : 'removeClass';
+    }
+    else {
+      func = this.isShown ? 'removeClass' : 'addClass';
+    }
 
-      // toggle the element
-      this.isShown = !!this.$target[func]('show').hasClass('show');
+    // toggle the element
+    this.isShown = !!this.$target[func]('show').hasClass('show');
 
-      // toggle the class on the trigger element (active = shown / nothing = not shown)
-      this.$el[func]('active');
+    // toggle the class on the trigger element (active = shown / nothing = not shown)
+    this.$el[func]('active');
 
-      // can bind to this by toggler.bind('toggler:toggled', function(Toggler) { });
-      if (typeof forceTo === 'undefined') {
-        this.trigger('toggler:toggled', this);
-      }
+    // can bind to this by eventsWithPromises.subscribe('toggler:toggled', function(Toggler) { });
+    if (typeof forceTo === 'undefined') {
+      eventsWithPromises.publish('toggler:toggled', {
+        emitter: this
+      });
+    }
 
-      return this;
-    };</code></pre></div></div></div></article><article class="comment"><header><h1 id="destroy">destroy</h1><h5 class="subheader"><div class="label radius ctx-type">method</div>TogglerProto.destroy()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@return: </span><span class="types">{[type]}</span><span class="description"></span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Public method to unbind all events this instance bound.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">TogglerProto.destroy = function() {
-      return this.setListeners(false);
-    };
+    return this;
+  };</code></pre></div></div></div></article><article class="comment"><header><h1 id="destroy">destroy</h1><h5 class="subheader"><div class="label radius ctx-type">method</div>TogglerProto.destroy()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@return: </span><span class="types">{[type]}</span><span class="description"></span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Public method to unbind all events this instance bound.</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">TogglerProto.destroy = function () {
+    return this.setListeners(false);
+  };
 
-    return Toggler;
-
-  }());
+  return Toggler;
 });</code></pre></div></div></div></article></div></div><!-- Foundation JS--><script type="text/javascript">document.write('<script src=' +
 ('__proto__' in {} ? 'http://cdnjs.cloudflare.com/ajax/libs/zepto/1.0/zepto.min' : 'http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min') +
 '.js><\/script>')
