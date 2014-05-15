@@ -19,10 +19,12 @@
 }
 
 .l-padded {
-  padding: 0 $baseline-unit;
+  padding-left: $baseline-unit;
+  padding-right: $baseline-unit;
 
   @include respond-to($mq-l) {
-    padding: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 

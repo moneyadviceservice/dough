@@ -3,6 +3,7 @@
 // Styleguide pagination
 
 .pagination__counter {
-  display: inline;
-  margin: 0 $baseline-unit*2;
+  @include inline-block;
+  vertical-align: middle;
+  margin: 0 $baseline-unit*3;
 }

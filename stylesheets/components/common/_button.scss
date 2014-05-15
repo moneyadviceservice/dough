@@ -30,7 +30,6 @@
   color: $color-button-default-text;
   filter: none;
 
-
   &:visited {
     color: $color-button-default-text;
   }
@@ -45,6 +44,7 @@
   &:hover {
     background: lighten($color-button-default, $lighten-button);
     border-color: lighten($color-button-default-border, $lighten-button);
+    color: $color-button-default-text;
     text-decoration: none;
   }
 
@@ -90,10 +90,11 @@
   padding: 12px 8px;
   height: 52px;
   min-width: 93px;
+  vertical-align: middle;
 
   > .icon {
     position: relative;
-    top:5px;
+    top: 5px;
   }
 
   @include respond-to(0, $mq-m) {
@@ -101,7 +102,7 @@
     min-width: $baseline-unit*7;
 
     > .icon {
-      top:1px;
+      top: 1px;
     }
   }
 }
