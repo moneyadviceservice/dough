@@ -7,6 +7,9 @@ The Money Advice Service's frontend assets.
 
 * [Git]
 * [Bower]
+* [NodeJS]
+* [Grunt]
+
 
 
 ## Installation
@@ -21,6 +24,21 @@ Make sure all dependencies are available:
 
 ```sh
 $ bower install
+$ npm install
+```
+
+## Generating Docs
+
+Ensure all dependencies are installed, and simply run:
+
+```sh
+$ grunt
+```
+
+To run Grunt's 'watch' task, which will watch for any file changes in the Javascript components directory (```./js/components/```) and rebuild the documentation automatically, use the following:
+
+```sh
+$ grunt watch:js
 ```
 
 ## Contributing
@@ -35,3 +53,5 @@ $ bower install
 
 [bower]: http://bower.io
 [git]: http://git-scm.com
+[nodejs]: http://nodejs.org/
+[grunt]: http://gruntjs.com/getting-started
