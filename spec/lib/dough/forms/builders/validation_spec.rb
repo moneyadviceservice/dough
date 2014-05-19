@@ -15,9 +15,9 @@ module Dough
         let(:model) do
           model = ValidationBuilderModel.new
           model.errors[:base] << "base error A"
-          model.errors[:field_one] << "field_one error A"
-          model.errors[:field_one] << "field_one error B"
-          model.errors[:field_two] << "field_two error A"
+          model.errors[:field_one] << "field_one error 1"
+          model.errors[:field_one] << "field_one error 2"
+          model.errors[:field_two] << "field_two error 1"
           model
         end
 
@@ -46,9 +46,9 @@ module Dough
         context "when there are multiple objects" do
           let(:another_model) do
             model = ValidationBuilderModel.new
-            model.errors[:field_a] << "field_a error 1"
-            model.errors[:field_a] << "field_a error 2"
-            model.errors[:field_b] << "field_b error 1"
+            model.errors[:field_a] << "field_a error a"
+            model.errors[:field_a] << "field_a error b"
+            model.errors[:field_b] << "field_b error a"
             model
           end
 
