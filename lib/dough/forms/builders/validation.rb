@@ -2,28 +2,15 @@ module Dough
   module Forms
     module Builders
       module ValidationModule
-        include ActionView::Helpers::TagHelper
-        include ActionView::Context
         include ActionView::Helpers::UrlHelper
+        include ActionView::Helpers::RenderingHelper
 
-        # TODO partials
         def validation_summary
-          content_tag(:div, class: "validation-summary") do
-            content_tag(:ol, class: "validation-summary__list") do
-              errors.map do |error|
-                summary_li_for_error(error)
-              end.join.html_safe
-            end
-          end
+          render 'summary_for_errors', errors: errors
         end
 
-        # TODO partials
         def errors_for(object, field)
-          content_tag(:ol, id: "#{field}-errors") do
-            errors.select{|hash| hash[:object] == object && hash[:field] == field}.map do |error|
-              content_tag(:li, "#{error[:number]}. #{error[:message]}")
-            end.join.html_safe
-          end
+          render 'errors_for_field', errors: errors, object: object, field: field
         end
 
         def validates(*models)
@@ -34,7 +21,15 @@ module Dough
           errors.count
         end
 
+        def lookup_context
+          ActionView::LookupContext.new(ActionController::Base.view_paths + [Dough::Engine.root.join('app/views/dough/forms/builders/validation')])
+        end
+
         private
+
+        def view_renderer
+          ActionView::Renderer.new(lookup_context)
+        end
 
         def error_models
           @error_models ||= [object]
@@ -54,14 +49,6 @@ module Dough
           end
 
           @errors
-        end
-
-        def summary_li_for_error(error)
-          if error[:field] == :base
-            content_tag(:li, "#{error[:number]}. #{error[:message]}".html_safe)
-          else
-            content_tag(:li, "#{error[:number]}. #{link_to error[:message], "##{error[:field]}-errors"}".html_safe)
-          end
         end
       end
 
