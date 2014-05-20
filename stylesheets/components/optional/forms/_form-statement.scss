@@ -1,0 +1,35 @@
+// Statement form pattern (AKA madlibs form pattern)
+//
+// .form--statement - Base form
+// .form__item - Form row
+//
+// No styleguide reference.
+
+// Default form
+//
+@if $include-form-statement {
+
+  .form--statement {
+    @include clearfix();
+    margin-bottom: $baseline-unit * 3;
+
+    .form__item {
+      border-bottom: 1px dashed $color-green-primary;
+      clear: both;
+      padding: $baseline-unit * 3 0;
+
+      &.form__item--first {
+        padding-top: 0;
+      }
+
+      &.form__item--last {
+        border-bottom: 0;
+      }
+
+      @include respond-to($mq-m) {
+        float: left;
+      };
+    }
+  }
+
+} // END @if
