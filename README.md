@@ -17,7 +17,7 @@ The Money Advice Service's frontend assets.
 Clone the repository:
 
 ```sh
-$ git clone https://github.com/moneyadviceservice/frontend-assets.git
+$ git clone https://github.com/moneyadviceservice/dough.git
 ```
 
 Make sure all dependencies are available:
