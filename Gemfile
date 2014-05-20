@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+source "http://gems.test.mas"
 
 # Declare your gem's dependencies in dough.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
