@@ -1,4 +1,4 @@
-# Frontend Assets
+# Dough
 
 The Money Advice Service's frontend assets.
 
