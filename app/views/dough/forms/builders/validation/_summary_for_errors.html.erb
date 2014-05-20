@@ -1,0 +1,7 @@
+<div class="validation-summary">
+  <ol class="validation-summary__list">
+    <% errors.map do |error| %>
+      <%= render 'summary_for_errors_li', error: error %>
+    <% end %>
+  </ol>
+</div>
