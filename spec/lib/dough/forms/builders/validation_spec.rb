@@ -31,15 +31,15 @@ module Dough
 
         describe :validation_summary do
           it 'lists all errors for the object' do
-            expect(tidy_markup(subject.validation_summary)).to eql("<div class=\"validation-summary\"><ol class=\"validation-summary__list\"><li>1. base error A</li><li>2. <a href=\"#field_one-errors\">Field one field_one error A</a></li><li>3. <a href=\"#field_one-errors\">Field one field_one error B</a></li><li>4. <a href=\"#field_two-errors\">Field two field_two error A</a></li></ol></div>")
+            expect(tidy_markup(subject.validation_summary)).to eql("<div class=\"validation-summary\"><ol class=\"validation-summary__list\"><li>1. base error A</li><li>2. <a href=\"#field_one-errors\">Field one field_one error 1</a></li><li>3. <a href=\"#field_one-errors\">Field one field_one error 2</a></li><li>4. <a href=\"#field_two-errors\">Field two field_two error 1</a></li></ol></div>")
           end
         end
 
         describe :errors_for do
           it 'lists all errors for the field' do
-            expect(tidy_markup(subject.errors_for(model, :field_one))).to eql("<ol id=\"field_one-errors\"><li>2. Field one field_one error A</li><li>3. Field one field_one error B</li></ol>")
+            expect(tidy_markup(subject.errors_for(model, :field_one))).to eql("<ol id=\"field_one-errors\"><li>2. Field one field_one error 1</li><li>3. Field one field_one error 2</li></ol>")
 
-            expect(tidy_markup(subject.errors_for(model, :field_two))).to eql("<ol id=\"field_two-errors\"><li>4. Field two field_two error A</li></ol>")
+            expect(tidy_markup(subject.errors_for(model, :field_two))).to eql("<ol id=\"field_two-errors\"><li>4. Field two field_two error 1</li></ol>")
           end
         end
 
@@ -58,7 +58,7 @@ module Dough
             end
 
             it 'lists all errors for the objects' do
-              expect(tidy_markup(subject.validation_summary)).to eql("<div class=\"validation-summary\"><ol class=\"validation-summary__list\"><li>1. base error A</li><li>2. <a href=\"#field_one-errors\">Field one field_one error A</a></li><li>3. <a href=\"#field_one-errors\">Field one field_one error B</a></li><li>4. <a href=\"#field_two-errors\">Field two field_two error A</a></li><li>5. <a href=\"#field_a-errors\">Field a field_a error 1</a></li><li>6. <a href=\"#field_a-errors\">Field a field_a error 2</a></li><li>7. <a href=\"#field_b-errors\">Field b field_b error 1</a></li></ol></div>")
+              expect(tidy_markup(subject.validation_summary)).to eql("<div class=\"validation-summary\"><ol class=\"validation-summary__list\"><li>1. base error A</li><li>2. <a href=\"#field_one-errors\">Field one field_one error 1</a></li><li>3. <a href=\"#field_one-errors\">Field one field_one error 2</a></li><li>4. <a href=\"#field_two-errors\">Field two field_two error 1</a></li><li>5. <a href=\"#field_a-errors\">Field a field_a error a</a></li><li>6. <a href=\"#field_a-errors\">Field a field_a error b</a></li><li>7. <a href=\"#field_b-errors\">Field b field_b error a</a></li></ol></div>")
             end
           end
         end
