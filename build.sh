@@ -2,6 +2,7 @@
 
 set -e -x
 
+export RAILS_ENV=build
 export BUNDLE_WITHOUT="development:test"
 
 time bundle install
