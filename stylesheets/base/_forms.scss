@@ -2,19 +2,7 @@ button {
   @extend %font-smoothing;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="date"],
-input[type="datetime"],
-input[type="datetime-local"],
-input[type="month"],
-input[type="week"],
-input[type="email"],
-input[type="number"],
-input[type="search"],
-input[type="tel"],
-input[type="time"],
-input[type="url"],
+#{$all-text-inputs},
 textarea {
   -webkit-appearance: none;
   background-color: white;
@@ -32,19 +20,7 @@ textarea {
   transition: box-shadow 0.45s, border-color 0.45s ease-in-out;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus,
-input[type="date"]:focus,
-input[type="datetime"]:focus,
-input[type="datetime-local"]:focus,
-input[type="month"]:focus,
-input[type="week"]:focus,
-input[type="email"]:focus,
-input[type="number"]:focus,
-input[type="search"]:focus,
-input[type="tel"]:focus,
-input[type="time"]:focus,
-input[type="url"]:focus,
+#{$all-text-inputs-focus},
 textarea:focus {
   background: #fafafa;
   border-color: #999999;
@@ -52,19 +28,7 @@ textarea:focus {
   outline: auto 5px -webkit-focus-ring-color;
 }
 
-input[type="text"][disabled],
-input[type="password"][disabled],
-input[type="date"][disabled],
-input[type="datetime"][disabled],
-input[type="datetime-local"][disabled],
-input[type="month"][disabled],
-input[type="week"][disabled],
-input[type="email"][disabled],
-input[type="number"][disabled],
-input[type="search"][disabled],
-input[type="tel"][disabled],
-input[type="time"][disabled],
-input[type="url"][disabled],
+#{$all-text-inputs-disabled},
 textarea[disabled] {
   background-color: #dddddd;
 }

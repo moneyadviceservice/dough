@@ -1,0 +1,12 @@
+@function assign-inputs($inputs, $pseudo: false, $attribute: false) {
+  $list : ();
+
+  @each $input in $inputs {
+    $input: unquote($input);
+    $input: if($pseudo, $input + ":" + $pseudo, $input);
+    $input: if($attribute, $input + "[" + $attribute + "]", $input);
+    $list: append($list, $input, comma);
+  }
+
+  @return $list;
+}
