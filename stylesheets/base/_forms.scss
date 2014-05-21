@@ -17,20 +17,19 @@ textarea {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  transition: box-shadow 0.45s, border-color 0.45s ease-in-out;
 }
 
 #{$all-text-inputs-focus},
 textarea:focus {
   background: #fafafa;
-  border-color: #999999;
+  border-color: $color-grey-primary;
   outline: initial;
   outline: auto 5px -webkit-focus-ring-color;
 }
 
 #{$all-text-inputs-disabled},
 textarea[disabled] {
-  background-color: #dddddd;
+  background-color: $color-grey-normal;
 }
 
 .is-errored {
