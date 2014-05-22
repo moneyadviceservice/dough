@@ -1,0 +1,16 @@
+<h1>Forms</h1>
+
+<h2>Validation</h2>
+
+<% @user = User.new %>
+<% @user.errors[:base] << "This is an error on base" %>
+<% @user.errors[:name] << "must be present" %>
+
+<code>
+  <pre>
+<%= File.open(Rails.root.join("app/views/forms/_validation_summary.html.erb")).read %>
+  </pre>
+</code>
+
+<%= render 'validation_summary' %>
+
