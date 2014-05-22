@@ -1,0 +1,8 @@
+{
+  "name": "dough-ruby",
+    "private": true,
+    "ignore": ["*", "!app/assets/**/*", "!vendor/assets/fonts/*"],
+    "dependencies": {
+      "frontend-assets": "git://github.com/moneyadviceservice/frontend-assets.git#latest"
+    }
+}
