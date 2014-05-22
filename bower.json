@@ -1,7 +1,7 @@
 {
   "name": "dough-ruby",
-    "private": true,
-    "dependencies": {
-      "frontend-assets": "git://github.com/moneyadviceservice/frontend-assets.git#latest"
-    }
+  "private": true,
+  "dependencies": {
+    "frontend-assets": "git://github.com/moneyadviceservice/frontend-assets.git#latest"
+  }
 }
