@@ -61,6 +61,11 @@
   }
 }
 
+.l-2col-even-right {
+  @extend .l-2col-even;
+  float: right;
+}
+
 // Layout split
 //
 // Styleguide layout-split
