@@ -1,0 +1,40 @@
+// CTA callout panel
+//
+// .add-action - Default
+// .add-action--padded - Adds additional padding around content
+//
+// Styleguide Add Action CTA panel
+
+.add-action {
+  position: relative;
+  background-color: $color-cta-callout;
+  padding: $baseline-unit $baseline-unit*2;
+  display: block;
+  margin: $baseline-unit*5 0;
+  clear: both;
+
+  &:before {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 0 10px;
+    border-color: transparent transparent transparent $color-cta-callout;
+  }
+
+  a {
+    border-bottom: 0;
+
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+}
+
+.add-action--padded {
+  padding: $baseline-unit*3;
+}
