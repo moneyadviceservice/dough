@@ -41,6 +41,10 @@ module Dough
 
             expect(tidy_markup(subject.errors_for(model, :field_two))).to eql("<ol id=\"field_two-errors\"><li>4. Field two field_two error 1</li></ol>")
           end
+
+          it 'uses the form model by default' do
+            expect(tidy_markup(subject.errors_for(:field_one))).to eql("<ol id=\"field_one-errors\"><li>2. Field one field_one error 1</li><li>3. Field one field_one error 2</li></ol>")
+          end
         end
 
         context "when there are multiple objects" do

@@ -9,8 +9,8 @@ module Dough
           render 'summary_for_errors', errors: errors
         end
 
-        def errors_for(object, field)
-          render 'errors_for_field', errors: errors, object: object, field: field
+        def errors_for(obj=nil, field)
+          render 'errors_for_field', errors: errors, object: (obj || object), field: field
         end
 
         def validates(*models)
