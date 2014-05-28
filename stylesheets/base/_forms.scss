@@ -30,6 +30,7 @@ input[type="password"] {
 
   &[disabled] {
     background-color: $color-input-disabled-background;
+    color: $color-input-disabled-text-color;
   }
 }
 
