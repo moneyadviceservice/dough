@@ -2,7 +2,10 @@ button {
   @extend %font-smoothing;
 }
 
-#{$all-text-inputs},
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="password"],
 textarea {
   -webkit-appearance: none;
   background-color: $color-input-background;
@@ -17,19 +20,17 @@ textarea {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
 
-#{$all-text-inputs-focus},
-textarea:focus {
-  background: $color-input-focus-background;
-  border-color: $color-input-focus-border-color;
-  outline: initial;
-  outline: auto 5px -webkit-focus-ring-color;
-}
+  &:focus {
+    background: $color-input-focus-background;
+    border-color: $color-input-focus-border-color;
+    outline: initial;
+    outline: auto 5px -webkit-focus-ring-color;
+  }
 
-#{$all-text-inputs-disabled},
-textarea[disabled] {
-  background-color: $color-input-disabled-background;
+  &[disabled] {
+    background-color: $color-input-disabled-background;
+  }
 }
 
 .is-errored {
