@@ -32,6 +32,7 @@
   filter: none;
 
   &:visited {
+    background: darken($color-button-default, 10%);
     color: $color-button-default-text;
   }
 
@@ -47,12 +48,16 @@
     border-color: lighten($color-button-default-border, $lighten-button);
     color: $color-button-default-text;
     text-decoration: none;
+    outline: 0;
   }
 
   &:active {
-    padding-top: $padding-vertical-button - $border-width-button;
-    border-bottom-color: $color-button-default;
-    border-top: $border-width-button solid $color-button-default-border;
+    position: relative;
+    top: 3px;
+    background: lighten($color-button-default, $lighten-button);
+    padding-top: $padding-vertical-button;
+    border-bottom-width: 0;
+    outline: 0;
   }
 
   &.is-disabled,
@@ -70,6 +75,10 @@
   background: $color-button-primary;
   border-bottom-color: $color-button-primary-border;
 
+  &:visited {
+    background: $color-button-primary;
+  }
+
   &:focus,
   &:hover {
     background: lighten($color-button-primary, $lighten-button);
@@ -77,6 +86,7 @@
   }
 
   &:active {
+    background: lighten($color-button-primary, $lighten-button);
     border-bottom-color: $color-button-primary;
     border-top-color: lighten($color-button-primary-border, $lighten-button);
   }
