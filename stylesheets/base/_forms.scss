@@ -22,7 +22,7 @@ input[type="password"] {
   box-sizing: border-box;
 
   &:focus {
-    background: $color-input-focus-background;
+    background-color: $color-input-focus-background;
     border-color: $color-input-focus-border-color;
     outline: initial;
     outline: auto 5px -webkit-focus-ring-color;
