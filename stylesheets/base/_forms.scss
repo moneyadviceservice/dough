@@ -11,6 +11,7 @@ input[type="password"] {
   @extend %font-body;
   color: $color-input-text-color;
   border: 1px solid $color-input-border-color;
+  border-radius: 0;
   display: block;
   margin: 0 0 $baseline-unit*3 0;
   padding: 0 $baseline-unit;
