@@ -5,8 +5,7 @@ button {
 input[type="text"],
 input[type="email"],
 input[type="search"],
-input[type="password"],
-textarea {
+input[type="password"] {
   -webkit-appearance: none;
   background-color: $color-input-background;
   @extend %font-body;
