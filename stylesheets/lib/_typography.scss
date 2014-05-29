@@ -169,6 +169,14 @@
   @include body(18, 24);
 }
 
+%base-font-style {
+  @include body(16, 22);
+
+  @include respond-to($mq-l) {
+    @include body(18, 24);
+  }
+}
+
 %paragraph {
   @include paragraph(16, 22);
 
