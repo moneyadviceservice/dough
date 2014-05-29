@@ -12,8 +12,7 @@ input[type="password"] {
   color: $color-input-text-color;
   border: 1px solid $color-input-border-color;
   border-radius: 0;
-  display: block;
-  margin: 0 0 $baseline-unit*3 0;
+  display: inline-block;
   padding: 0 $baseline-unit;
   height: $baseline-unit*6;
   width: 100%;
