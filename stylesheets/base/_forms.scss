@@ -2,6 +2,38 @@ button {
   @extend %font-smoothing;
 }
 
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="password"] {
+  -webkit-appearance: none;
+  background-color: $color-input-background;
+  @extend %font-body;
+  color: $color-input-text-color;
+  border: 1px solid $color-input-border-color;
+  border-radius: 0;
+  display: block;
+  margin: 0 0 $baseline-unit*3 0;
+  padding: 0 $baseline-unit;
+  height: $baseline-unit*6;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  &:focus {
+    background-color: $color-input-focus-background;
+    border-color: $color-input-focus-border-color;
+    outline: initial;
+    outline: auto 5px -webkit-focus-ring-color;
+  }
+
+  &[disabled] {
+    background-color: $color-input-disabled-background;
+    color: $color-input-disabled-text-color;
+  }
+}
+
 .is-errored {
   border-left: 10px solid $color-validation-border;
   padding-left:10px;

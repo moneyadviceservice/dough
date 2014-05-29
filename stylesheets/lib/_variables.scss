@@ -132,3 +132,14 @@ $color-search-text: $color-grey-medium-dark !default;
 $color-validation-border: $color-red-light !default;
 $color-validation-text: $color-red-medium !default;
 $color-validation-summary-background: $color-pink-light !default;
+
+// Forms
+$color-input-text-color: $color-black !default;
+$color-input-background: $color-white !default;
+$color-input-border-color: $color-grey-primary !default;
+
+$color-input-focus-background: $color-off-white !default;
+$color-input-focus-border-color: $color-green-primary !default;
+
+$color-input-disabled-background: $color-grey-normal !default;
+$color-input-disabled-text-color: $color-grey-medium !default;
