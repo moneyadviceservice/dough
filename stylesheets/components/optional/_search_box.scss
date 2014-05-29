@@ -10,6 +10,7 @@
     width: 100%;
   }
 
+  // using input to be more specific than base style which uses attribute selector
   input.search-box__input {
     @extend %font-heading-medium;
     width: 100%;
