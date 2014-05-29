@@ -10,7 +10,7 @@
     width: 100%;
   }
 
-  .search-box__input {
+  input.search-box__input {
     @extend %font-heading-medium;
     width: 100%;
     height: $baseline-unit*7;
