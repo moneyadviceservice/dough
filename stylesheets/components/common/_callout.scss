@@ -5,8 +5,9 @@
 // Styleguide Call out
 
 .callout {
+  @extend %clearfix;
   display: block;
-  padding: $baseline-unit*3 0 0;
+  padding: $baseline-unit*3 0 0 0;
   margin: $baseline-unit*4 0;
   border-radius: 5px;
   background-color: $color-callout-background;
@@ -19,12 +20,13 @@
 
   p {
     @extend %type-callout;
-    margin:0 $baseline-unit*3 $baseline-unit*3;
+    margin: 0 $baseline-unit*3 $baseline-unit*3 $baseline-unit*3;
   }
 
   .editorial & {
+
     @include respond-to($mq-l) {
-      @include column(3.5,7);
+      @include column(3.5, 7);
       float: right;
       margin-bottom: $baseline-unit*2;
     }
