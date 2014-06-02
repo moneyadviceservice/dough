@@ -3,13 +3,11 @@
 // :hover      - green
 // :focus      - green
 // :active     - green
-// :visited     - green
 // .is-disabled - green
 // .button--primary            - yellow
 // .button--primary:hover      - yellow
 // .button--primary:focus      - yellow
 // .button--primary:active     - yellow
-// .button--primary:visited    - yellow
 // .button--primary.is-disabled - yellow
 //
 // Styleguide buttons
@@ -31,11 +29,6 @@
   cursor: pointer;
   filter: none;
 
-  &:visited {
-    background: darken($color-button-default, 10%);
-    color: $color-button-default-text;
-  }
-
   &:focus {
     outline: thin dotted;
     outline: 3px auto -webkit-focus-ring-color;
@@ -48,16 +41,12 @@
     border-color: lighten($color-button-default-border, $lighten-button);
     color: $color-button-default-text;
     text-decoration: none;
-    outline: 0;
   }
 
   &:active {
-    position: relative;
-    top: 3px;
-    background: lighten($color-button-default, $lighten-button);
-    padding-top: $padding-vertical-button;
-    border-bottom-width: 0;
-    outline: 0;
+    padding-top: $padding-vertical-button - $border-width-button;
+    border-bottom-color: $color-button-default;
+    border-top: $border-width-button solid $color-button-default-border;
   }
 
   &.is-disabled,
@@ -75,10 +64,6 @@
   background: $color-button-primary;
   border-bottom-color: $color-button-primary-border;
 
-  &:visited {
-    background: $color-button-primary;
-  }
-
   &:focus,
   &:hover {
     background: lighten($color-button-primary, $lighten-button);
@@ -86,7 +71,6 @@
   }
 
   &:active {
-    background: lighten($color-button-primary, $lighten-button);
     border-bottom-color: $color-button-primary;
     border-top-color: lighten($color-button-primary-border, $lighten-button);
   }
