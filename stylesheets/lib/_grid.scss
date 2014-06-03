@@ -1,4 +1,3 @@
-// Defaults which you can freely override
 $column-width: 60px !default;
 $gutter-width: 40px !default;
 $columns: 12 !default;
@@ -24,8 +23,6 @@ $total-width: 100%;
   display: block;
   width: $total-width*(($gutter-width + gridsystem-width($columns))/gridsystem-width($columns));
   margin: 0 $total-width*((($gutter-width*.5)/gridsystem-width($columns))*-1);
-  //  *width: $total-width*(($gutter-width + gridsystem-width($columns))/gridsystem-width($columns))-$correction;
-  //  *margin: 0 $total-width*((($gutter-width*.5)/gridsystem-width($columns))*-1)-$correction;
 }
 
 @mixin column($x, $columns: $columns) {
@@ -33,8 +30,6 @@ $total-width: 100%;
   float: left;
   width: $total-width*(((($gutter-width+$column-width)*$x)-$gutter-width) / gridsystem-width($columns));
   margin: 0 $total-width*(($gutter-width*.5)/gridsystem-width($columns));
-  //  *width: $total-width*(((($gutter-width+$column-width)*$x)-$gutter-width) / gridsystem-width($columns))-$correction;
-  //  *margin: 0 $total-width*(($gutter-width*.5)/gridsystem-width($columns))-$correction;
 }
 
 @mixin push($offset: 1) {
@@ -43,9 +38,4 @@ $total-width: 100%;
 
 @mixin pull($offset: 1) {
   margin-right: $total-width*((($gutter-width+$column-width)*$offset) / gridsystem-width($columns)) + $total-width*(($gutter-width*.5)/gridsystem-width($columns));
-}
-
-@mixin columnPadding($x, $columns: $columns) {
-  display: block;
-  padding: 0 $total-width*(($gutter-width*.5)/gridsystem-width($columns));
 }
