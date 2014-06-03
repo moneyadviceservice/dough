@@ -13,20 +13,20 @@ $baseline-unit: 6px !default;
 
 // Utility function for converting px to em for responsive paddings and margins
 @function px($px) {
-  @return ($px / 16) + em
+  @return ($px / $base-font-size) + em
 }
 
 @mixin font-size($font-size) {
   @if $responsive == true {
-    font-size: ($font-size / $base-font-size) + em;
+    font-size: ($font-size / $base-font-size) + rem;
   } @else {
     font-size: $font-size + px;
   }
 }
 
-@mixin line-height($line-height, $font-size) {
-  line-height: ($line-height / $font-size);
-}
+//@mixin line-height($line-height, $font-size) {
+//  line-height: ($line-height / $font-size);
+//}
 
 @mixin font-weight($font-weight) {
   @if $font-weight == bold {
@@ -77,7 +77,8 @@ $micro: 8 !default;
 $nano: 8 !default;
 // 0.000 000 001
 
-.extra-large {
+.extra-large,
+%extra-large {
   @include font-size(32, 36);
 
   @include respond-to($mq-m) {
