@@ -42,7 +42,19 @@ module Dough
           counter = 1
 
           error_models.each do |model|
-            model.errors.each do |field,message|
+            if model.respond_to? :field_order
+              model_errors = []
+
+              (model.field_order + model.errors.keys).uniq.each do |field|
+                model.errors[field].each do |message|
+                  model_errors << [field, message]
+                end
+              end
+            else
+              model_errors = model.errors
+            end
+
+            model_errors.each do |field,message|
               @errors << {number: counter, object: model, field: field, message: model.errors.full_message(field, message)}
               counter += 1
             end

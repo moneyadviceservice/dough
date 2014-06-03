@@ -33,6 +33,14 @@ module Dough
           it 'lists all errors for the object' do
             expect(tidy_markup(form_builder.validation_summary)).to eql("<div class=\"validation-summary\"><div class=\"validation-summary__content-container\"><ul class=\"validation-summary__list\"><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">1</span>base error A</li><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">2</span><a href=\"#field_one-errors\">Field one field_one error 1</a></li><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">3</span><a href=\"#field_one-errors\">Field one field_one error 2</a></li><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">4</span><a href=\"#field_two-errors\">Field two field_two error 1</a></li></ul></div></div>")
           end
+
+          context "when model implements field order" do
+            it 'lists errors in order' do
+              model.stub(:field_order).and_return{ [:field_two, :field_one] }
+
+              expect(tidy_markup(subject.validation_summary)).to eql("<div class=\"validation-summary\"><div class=\"validation-summary__content-container\"><ul class=\"validation-summary__list\"><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">1</span><a href=\"#field_two-errors\">Field two field_two error 1</a></li><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">2</span><a href=\"#field_one-errors\">Field one field_one error 1</a></li><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">3</span><a href=\"#field_one-errors\">Field one field_one error 2</a></li><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">4</span>base error A</li></ul></div></div>")
+            end
+          end
         end
 
         describe '#errors_for' do
