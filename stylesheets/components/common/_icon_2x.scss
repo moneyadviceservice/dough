@@ -1,11 +1,11 @@
 @include device-pixel-ratio() {
   .icon {
-    background-size: 339px;
+    background-size: 400px;
   }
 
   %icon {
     // prevent HD screens from breaking when extending .icon
-    background-size: 339px;
+    background-size: 400px;
   }
 
   .icon--logo {
@@ -64,22 +64,6 @@
     background-position: -140px -55px;
   }
 
-  .icon--down-chevron {
-    background-position: -238px -10px;
-  }
-
-  .icon--up-chevron {
-    background-position: -205px -10px;
-  }
-
-  .icon--left-chevron {
-    background-position: -284px -107px;
-  }
-
-  .icon--right-chevron {
-    background-position: -301px -107px;
-  }
-
   .icon--close {
     background-position: -139px -105px;
   }
@@ -90,5 +74,31 @@
 
   .icon--search-white {
     background-position: -272px -8px;
+  }
+
+  // Chevrons
+
+  .icon--up-chevron {
+    background-position: -205px -10px;
+  }
+
+  .icon--down-chevron {
+    background-position: -238px -10px;
+  }
+
+  .icon--up-chevron-blue {
+    background-position: -334px -10px;
+  }
+
+  .icon--down-chevron-blue {
+    background-position: -368px -10px;
+  }
+
+  .icon--left-chevron {
+    background-position: -284px -107px;
+  }
+
+  .icon--right-chevron {
+    background-position: -301px -107px;
   }
 }
