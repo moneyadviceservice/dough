@@ -6,7 +6,7 @@ module Dough
         include ActionView::Helpers::RenderingHelper
 
         def validation_summary
-          render 'summary_for_errors', errors: errors
+          render 'summary_for_errors', errors: errors unless errors.empty?
         end
 
         def errors_for(obj=nil, field)
