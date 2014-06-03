@@ -1,0 +1,67 @@
+$brand-font-family: museo_sans !default;
+$base-font-stack: $brand-font-family, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$base-font-size: 16 !default;
+$base-line-height: 24 !default;
+$base-text-colour: $color-black !default;
+$base-heading-colour: $color-green-secondary !default;
+
+@mixin font-size($font-size, $line-height) {
+  @if $responsive == true {
+    font-size: ($font-size / $base-font-size) + rem;
+    line-height: ($line-height / 16) + rem;
+  } @else {
+    font-size: $font-size + px;
+    line-height: $line-height + px;
+  }
+}
+
+@mixin font-weight($font-weight) {
+  @if $font-weight == bold {
+    font-weight: 700;
+  } @else if $font-weight == medium {
+    font-weight: 500;
+  } @else if $font-weight == light {
+    font-weight: 300;
+  }
+}
+
+%base-heading-style {
+  text-rendering: optimizeLegibility;   // helps to enable ligatures and kerning
+  line-height: 1;                       // prevent excess whitespace when a heading wraps onto two lines
+  margin-top: 0;                        // abide by single-direction margins for type
+}
+
+//$tera:    117 !default;
+//$giga:    90  !default;
+//$mega:    72  !default;
+//
+//$alpha:   60  !default;
+//$beta:    48  !default;
+//$gamma:   36  !default;
+//$delta:   24  !default;
+//$epsilon: 21  !default;
+//
+//$zeta:    14  !default;
+
+// Usage
+
+body {
+  @include font-size(16,24);
+  @include font-weight(light);
+  font-family: $base-font-stack;
+  color: $base-text-colour;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @extend %base-heading-style;
+  color: $base-heading-colour;
+}
+
+p {
+  margin-bottom: px(16);
+}
