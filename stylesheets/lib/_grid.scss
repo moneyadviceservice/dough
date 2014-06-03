@@ -1,7 +1,17 @@
+
+// Utility function for converting px to rem if the responsive flag is set. To be used instead of the $baseline-unit variable.
+@function px($px) {
+  @if $responsive == true {
+    @return ($px / 16) + rem
+  }
+  @return $px + px
+}
+
 // Defaults which you can freely override
 $column-width: 60px !default;
 $gutter-width: 40px !default;
 $columns: 12 !default;
+
 
 @function px-to-em($px) {
   @return ($px / 16) * 1em;
