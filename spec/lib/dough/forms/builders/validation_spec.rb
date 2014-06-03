@@ -9,7 +9,10 @@ module Dough
         end
 
         def tidy_markup(markup)
-          markup.gsub("\n", "").gsub(/\>\s*\</,"><").gsub(/\>\s*/, ">").gsub(/\s*\<\//, "</")
+          markup.gsub("\n", "")
+                .gsub(/\>\s*\</,"><")
+                .gsub(/\>\s*/, ">")
+                .gsub(/\s*\<\//, "</") if markup
         end
 
         let(:model) do
@@ -30,6 +33,13 @@ module Dough
         end
 
         describe '#validation_summary' do
+          context 'when there are no errors' do
+            it 'does not render an empty div' do
+              model.errors.clear
+              expect(tidy_markup(form_builder.validation_summary)).to be_nil
+            end
+          end
+
           it 'lists all errors for the object' do
             expect(tidy_markup(form_builder.validation_summary)).to eql("<div class=\"validation-summary\"><div class=\"validation-summary__content-container\"><ul class=\"validation-summary__list\"><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">1</span>base error A</li><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">2</span><a href=\"#field_one-errors\">Field one field_one error 1</a></li><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">3</span><a href=\"#field_one-errors\">Field one field_one error 2</a></li><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">4</span><a href=\"#field_two-errors\">Field two field_two error 1</a></li></ul></div></div>")
           end
