@@ -1,5 +1,5 @@
-<ol id="<%= field %>-errors">
+<ul id="<%= field %>-errors">
   <% errors.select{|hash| hash[:object] == object && hash[:field] == field}.each do |error| %>
     <%= render 'errors_for_field_li', error: error %>
   <% end %>
-</ol>
+</ul>
