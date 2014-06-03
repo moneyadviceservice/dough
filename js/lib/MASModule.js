@@ -1,4 +1,4 @@
-define([], function() {
+define([], function () {
   'use strict';
 
   /**
@@ -10,62 +10,63 @@ define([], function() {
    *  logging
    *  i18n library
    */
-  return (function() {
 
-    function MASModule() {
-
-      /*
-       Populate this array with the data attributes this module will use.
-       Exclude 'data-mas-' prefix, as this is automatically added.
-
-       For example: ['collapsible', 'only-first']
-       */
-      this.attrs = [];
-
-      return this;
+  function MASModule($el, config) {
+    if (!$el || !$el.length) {
+      throw "Element not supplied to MASModule constructor";
     }
+    this.setElement($el);
+    /*
+     Populate this array with the data attributes this module will use.
+     Exclude 'data-mas-' prefix, as this is automatically added.
 
-    var MASModuleProto = MASModule.prototype;
-
-    /**
-     * Set the parent element for this context.
-     * @param {[type]} $el [description]
+     For example: ['collapsible', 'only-first']
      */
-    MASModuleProto.setElement = function($el) {
-      this.$el = $el;
-      return this;
-    };
+    this.attrs = [];
 
-    /**
-     * Fetch the parent element
-     * @return {Array} jQuery object or empty array (for safe jQuery ops)
-     */
-    MASModuleProto.getElement = function() {
-      return this.$el || [];
-    };
+    return this;
+  }
 
-    /**
-     * Get attribute from data attributes on element.
-     * @param  {[type]} attr [description]
-     * @return {[type]}      [description]
-     */
-    MASModuleProto.attr = function(attr) {
-      return this.getElement().attr('data-mas-' + attr);
-    };
+  var MASModuleProto = MASModule.prototype;
 
-    /**
-     * All MASModules (if applicable) should have this method,
-     * which will unbind all events it attached when initialising itself.
-     *
-     * After this has been run, you can safely run 'delete [[instance]]' to remove it from memory.
-     *
-     * @return {[type]}
-     */
-    MASModuleProto.destroy = function() {
-      return this;
-    };
+  /**
+   * Set the parent element for this context.
+   * @param {[type]} $el [description]
+   */
+  MASModuleProto.setElement = function ($el) {
+    this.$el = $el;
+    return this;
+  };
 
-    return MASModule;
+  /**
+   * Fetch the parent element
+   * @return {Array} jQuery object or empty array (for safe jQuery ops)
+   */
+  MASModuleProto.getElement = function () {
+    return this.$el || [];
+  };
 
-  }());
+  /**
+   * Get attribute from data attributes on element.
+   * @param  {[type]} attr [description]
+   * @return {[type]}      [description]
+   */
+  MASModuleProto.attr = function (attr) {
+    return this.getElement().attr('data-mas-' + attr);
+  };
+
+  /**
+   * All MASModules (if applicable) should have this method,
+   * which will unbind all events it attached when initialising itself.
+   *
+   * After this has been run, you can safely run 'delete [[instance]]' to remove it from memory.
+   *
+   * @return {[type]}
+   */
+  MASModuleProto.destroy = function () {
+    return this;
+  };
+
+  return MASModule;
+
 });

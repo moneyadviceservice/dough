@@ -34,7 +34,7 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
   var TogglerProto;
 
   function Toggler($el) {
-    this.setElement($el);
+    MASModule.apply(this, arguments);
     this.attrs = ['toggler'];
 
     this.init();
