@@ -1,12 +1,18 @@
 <% @user = User.new %>
+<% @user.instance_eval do; def field_order; [:email, :name]; end; end; %>
+
 <% @user.errors[:base] << "This is an error on base" %>
 <% @user.errors[:name] << "must be present" %>
+<% @user.errors[:email] << "must be present" %>
 
 <%= form_for @user, url: forms_path, builder: Dough::Forms::Builders::Validation do |f| %>
   <%= f.validation_summary %>
 
-  <%= f.errors_for @user, :name %>
+  <%= f.errors_for @user, :email %>
+  <%= f.label :email %>
+  <%= f.text_field :email %>
 
+  <%= f.errors_for @user, :name %>
   <%= f.label :name %>
   <%= f.text_field :name %>
 <% end %>
