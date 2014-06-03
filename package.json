@@ -1,14 +1,11 @@
 {
-  "name": "frontend-assets",
+  "name": "dough",
   "version": "0.0.0",
   "description": "Reusable frontend UI components from the Money Advice Service.",
   "main": "index.js",
-  "scripts": {
-    "test": "mocha"
-  },
   "repository": {
     "type": "git",
-    "url": "git://github.com/moneyadviceservice/frontend-assets.git"
+    "url": "git://github.com/moneyadviceservice/dough.git"
   },
   "keywords": [
     "ui",

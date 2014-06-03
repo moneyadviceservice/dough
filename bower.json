@@ -1,5 +1,5 @@
 {
-    "name": "frontend-assets",
+    "name": "dough",
     "private": true,
     "ignore": [
         "bower.json",
