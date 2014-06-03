@@ -4,6 +4,7 @@ class User
 
   attr_reader   :errors
   attr_accessor :name
+  attr_accessor :email
 
   def initialize
     @errors = ActiveModel::Errors.new(self)
