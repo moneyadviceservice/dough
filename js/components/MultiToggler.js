@@ -15,8 +15,10 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
       attrNameTrigger = 'data-mas-toggler-target',
       attrNamePanel = 'data-mas-toggler',
       eventActive = 'contentActive',
-      eventInactive = 'contentInactive';
-
+      eventInactive = 'contentInactive',
+      uiEvents = {
+        'click [data-mas-toggler-target]': '_handleClickEvent'
+      };
 
   /**
    *
@@ -26,23 +28,20 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    * @constructor
    */
   var MultiToggler = function ($el, config) {
+    this.uiEvents = uiEvents;
     MultiToggler.baseConstructor.apply(this, arguments);
-    this._attachUIListeners();
   };
 
   MASModule.extend(MultiToggler);
 
   /**
-   * Attach UI handlers to the component container
+   * Handle a click on a trigger
    * @returns {MultiToggler}
    * @private
    */
-  MultiToggler.prototype._attachUIListeners = function () {
-    var self = this;
-    this.$el.on('click', '[' + attrNameTrigger + ']', function (e) {
-      self._updateDOM($(this));
-      e.preventDefault();
-    });
+  MultiToggler.prototype._handleClickEvent = function (e) {
+    this._updateDOM($(e.target));
+    e.preventDefault();
     return this;
   };
 

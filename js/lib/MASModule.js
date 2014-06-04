@@ -1,6 +1,7 @@
 define([], function () {
   'use strict';
 
+
   /**
    * This is used as the base class for all modules.
    * All modules/components should extend this class.
@@ -24,6 +25,7 @@ define([], function () {
      */
     this.attrs = [];
 
+    this._bindUiEvents(this.uiEvents || {});
     return this;
   }
 
@@ -31,8 +33,10 @@ define([], function () {
    * Extend MASModule class using the supplied constructor
    * @param {function} Subclass
    */
-  MASModule.extend = function(Subclass) {
-    function TempConstructor() { }
+  MASModule.extend = function (Subclass) {
+    function TempConstructor() {
+    }
+
     TempConstructor.prototype = MASModule.prototype;
     Subclass.prototype = new TempConstructor();
     Subclass.prototype.constructor = Subclass;
@@ -77,6 +81,64 @@ define([], function () {
    * @return {[type]}
    */
   MASModuleProto.destroy = function () {
+    return this;
+  };
+
+  /**
+   * Set callbacks, where `this.events` is a hash of
+   *
+   * {"event selector": "callback"}*
+   *
+   *     {
+   *       'mousedown .title':  'edit',
+   *       'click .button':     'save',
+   *       'click .open':       function(e) { ... }
+   *     }
+   *
+   * pairs. Callbacks will be bound to the view, with `this` set properly.
+   * Uses event delegation for efficiency.
+   * Omitting the selector binds the event to `this.el`.
+   * This only works for delegate-able events: not `focus`, `blur`, and
+   * not `change`, `submit`, and `reset` in Internet Explorer.
+   *
+   * Adapted from the equivalent function in BackboneJS - http://backbonejs.org/#View-delegateEvents
+   *
+   * @param events
+   * @returns {MASModule}
+   */
+
+  MASModuleProto._bindUiEvents = function (events) {
+    var delegateEventSplitter = /^(\S+)\s*(.*)$/;
+
+    if (!events) return this;
+    this._unbindUiEvents();
+    for (var key in events) {
+      var method = events[key];
+      if (typeof method !== 'function') {
+        method = this[events[key]];
+      }
+      if (!method) continue;
+
+      var match = key.match(delegateEventSplitter);
+      var eventName = match[1], selector = match[2];
+      method = $.proxy(method, this);
+      eventName += '.boundUiEvents';
+      if (selector === '') {
+        this.$el.on(eventName, method);
+      } else {
+        this.$el.on(eventName, selector, method);
+      }
+    }
+    return this;
+  };
+
+  /**
+   * Clears all callbacks previously bound to the component with `delegateEvents`.
+   * @returns {MASModule}
+   */
+
+  MASModuleProto._unbindUiEvents = function () {
+    this.$el.off('.boundUiEvents');
     return this;
   };
 

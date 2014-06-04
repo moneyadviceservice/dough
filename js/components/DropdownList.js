@@ -7,7 +7,10 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
 
   var itemSelector = '.js-dropdown-list__item',
       DropdownList,
-      activeClass = 'is-active';
+      activeClass = 'is-active',
+      uiEvents = {
+        'click .js-dropdown-list__item': '_handleClickEvent'
+      };
 
   /**
    * Dropdown list
@@ -15,11 +18,11 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
    * @constructor
    */
   DropdownList = function ($el) {
+    this.uiEvents = uiEvents;
     DropdownList.baseConstructor.apply(this, arguments);
     this.$panel = this.$el.find('.js-dropdown-list__panel');
     this._selectItem(this.$panel.find(itemSelector).first());
     this.$el.height(this.$selected.height());
-    this._attachUIListeners();
   };
 
   MASModule.extend(DropdownList);
@@ -32,6 +35,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
   DropdownList.prototype._selectItem = function ($el) {
     this.$selected = $el.addClass(activeClass).attr('aria-selected', true);
     this.$panel.css('top', -1 * this.$selected.position().top);
+    return this;
   };
 
   /**
@@ -41,10 +45,12 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
    */
   DropdownList.prototype._deSelectItem = function ($el) {
     $el.removeClass(activeClass).attr('aria-selected', false);
+    return this;
   };
 
   /**
    * Show / hide and position the panel so the selected item remains stationary
+   * @returns {DropdownList}
    * @private
    */
   DropdownList.prototype._togglePanel = function () {
@@ -54,22 +60,20 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
     } else {
       this.$panel.removeClass(activeClass).css('top', 0);
     }
+    return this;
   };
 
   /**
-   * Attach UI handlers to the component container
-   * @returns {MultiToggler}
+   * Handle a click on a trigger
+   * @returns {DropdownList}
    * @private
    */
-  DropdownList.prototype._attachUIListeners = function () {
-    var self = this;
-    this.$el.on('click', '.js-dropdown-list__item', function () {
-      if (!$(this).hasClass(activeClass)) {
-        self._deSelectItem(self.$el.find(itemSelector + '.is-active'));
-        self._selectItem($(this));
-      }
-      self._togglePanel();
-    });
+  DropdownList.prototype._handleClickEvent = function (e) {
+    if (!$(e.currentTarget).hasClass(activeClass)) {
+      this._deSelectItem(this.$el.find(itemSelector + '.is-active'));
+      this._selectItem($(e.currentTarget));
+    }
+    this._togglePanel();
   };
 
   return DropdownList;
