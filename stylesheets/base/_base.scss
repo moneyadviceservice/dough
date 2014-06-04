@@ -97,6 +97,11 @@ a {
     color: $color-link-default;
     text-decoration: underline;
   }
+
+  // Removes active link colour that is applied in Mobile Safari
+  &[href^=tel] {
+    color: inherit;
+  }
 }
 
 img {
