@@ -1,18 +1,18 @@
-describe('panels', function () {
+describe('Multi-Toggler', function () {
 
   'use strict';
 
   before(function (done) {
     var self = this;
     requirejs(
-        ['jquery', 'panels', 'eventsWithPromises'],
-        function ($, Panels, pubsub) {
-          self.$html = $(window.__html__['test/fixtures/Panels2.html']);
+        ['jquery', 'MultiToggler', 'eventsWithPromises'],
+        function ($, MultiToggler, pubsub) {
+          self.$html = $(window.__html__['test/fixtures/MultiToggler.html']);
           self.$panel1 = self.$html.find('[data-panel="1"]');
           self.$panel2 = self.$html.find('[data-panel="2"]');
           self.$trigger2 = self.$html.find('[data-panel-target="2"]');
           self.pubsub = pubsub;
-          self.panels = new Panels(self.$html);
+          self.multiToggler = new MultiToggler(self.$html);
           done();
         }, done);
   });

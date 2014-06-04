@@ -23,7 +23,7 @@ require.config({
   callback: window.__karma__.start,
   paths: {
     MASModule: 'js/lib/MASModule',
-    panels: 'js/components/Panels2',
+    MultiToggler: 'js/components/MultiToggler',
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
     eventsWithPromises: 'vendor/assets/bower_components/eventsWithPromises/src/eventsWithPromises',
     rsvp: 'vendor/assets/bower_components/rsvp/rsvp.amd',
