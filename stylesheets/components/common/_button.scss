@@ -93,6 +93,11 @@
   min-width: 93px;
   vertical-align: middle;
 
+  &:active {
+    border-top: 0;
+    padding-top: 8px;
+  }
+
   > .icon {
     position: relative;
     top: 5px;
