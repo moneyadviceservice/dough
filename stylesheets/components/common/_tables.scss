@@ -40,6 +40,10 @@ thead > tr {
   background-color: $color-table-background;
 }
 
+tbody th {
+  text-align: left;
+}
+
 th, td {
   vertical-align: top;
   padding: $baseline-unit*2;
