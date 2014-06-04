@@ -55,13 +55,13 @@ module Dough
 
         describe '#errors_for' do
           it 'lists all errors for the field' do
-            expect(tidy_markup(form_builder.errors_for(model, :field_one))).to eql("<ul id=\"field_one-errors\"><li>2. Field one field_one error 1</li><li>3. Field one field_one error 2</li></ul>")
+            expect(tidy_markup(form_builder.errors_for(model, :field_one))).to eql("<ul id=\"field_one-errors\"><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">2</span>Field one field_one error 1</li><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">3</span>Field one field_one error 2</li></ul>")
 
-            expect(tidy_markup(form_builder.errors_for(model, :field_two))).to eql("<ul id=\"field_two-errors\"><li>4. Field two field_two error 1</li></ul>")
+            expect(tidy_markup(form_builder.errors_for(model, :field_two))).to eql("<ul id=\"field_two-errors\"><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">4</span>Field two field_two error 1</li></ul>")
           end
 
           it 'uses the form model by default' do
-            expect(tidy_markup(form_builder.errors_for(:field_one))).to eql("<ul id=\"field_one-errors\"><li>2. Field one field_one error 1</li><li>3. Field one field_one error 2</li></ul>")
+            expect(tidy_markup(form_builder.errors_for(:field_one))).to eql("<ul id=\"field_one-errors\"><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">2</span>Field one field_one error 1</li><li class=\"validation-summary__error\"><span class=\"validation-summary__error-number\">3</span>Field one field_one error 2</li></ul>")
           end
         end
 
