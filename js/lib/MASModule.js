@@ -13,7 +13,7 @@ define([], function () {
 
   function MASModule($el, config) {
     if (!$el || !$el.length) {
-      throw "Element not supplied to MASModule constructor. Element class: " + $el.attr('class');
+      throw "Element not supplied to MASModule constructor";
     }
     this.setElement($el);
     /*
