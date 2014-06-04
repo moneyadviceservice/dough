@@ -7,7 +7,7 @@ describe('panels', function () {
     requirejs(
         ['jquery', 'panels', 'eventsWithPromises'],
         function ($, Panels, pubsub) {
-          self.$html = $(window.__html__['test/fixtures/Panels.html']);
+          self.$html = $(window.__html__['test/fixtures/Panels2.html']);
           self.$panel1 = self.$html.find('[data-panel="1"]');
           self.$panel2 = self.$html.find('[data-panel="2"]');
           self.$trigger2 = self.$html.find('[data-panel-target="2"]');
