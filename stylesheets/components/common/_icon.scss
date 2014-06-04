@@ -23,17 +23,17 @@
 //
 // Styleguide icons
 
-//= depend_on_asset dough/images/icon-sprite.png
+//= depend_on_asset frontend-assets/images/icon-sprite.png
 
 %icon {
   // prevent IE8 from breaking when extending .icon into a :before it doesn't understand
-  background-image: image_url('dough/images/icon-sprite.png');
+  background-image: image_url('frontend-assets/images/icon-sprite.png');
   background-repeat: no-repeat;
   @include inline-block;
 }
 
 .icon {
-  background-image: image_url('dough/images/icon-sprite.png');
+  background-image: image_url('frontend-assets/images/icon-sprite.png');
   background-repeat: no-repeat;
   @include inline-block;
 }
