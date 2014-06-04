@@ -13,7 +13,6 @@
   padding-right: $baseline-unit*3;
 }
 
-.inset-block__title {
-  @extend %font-heading-heavy;
-  margin: 0.75em 0;
+.inset-block__text {
+  margin-bottom: 0;
 }
