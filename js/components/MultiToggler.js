@@ -11,7 +11,11 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
   'use strict';
 
   var activeClass = 'is-active',
-      inactiveClass = 'is-inactive';
+      inactiveClass = 'is-inactive',
+      attrNameTrigger = 'data-mas-toggler-target',
+      attrNamePanel = 'data-mas-toggler',
+      eventActive = 'contentActive',
+      eventInactive = 'contentInactive';
 
 
   /**
@@ -35,7 +39,7 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    */
   MultiToggler.prototype._attachUIListeners = function () {
     var self = this;
-    this.$el.on('click', '[data-panel-target]', function (e) {
+    this.$el.on('click', '[' + attrNameTrigger + ']', function (e) {
       self._updateDOM($(this));
       e.preventDefault();
     });
@@ -49,10 +53,10 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    * @private
    */
   MultiToggler.prototype._updateDOM = function ($clicked) {
-    var targetAttr = $clicked.attr('data-panel-target'),
-        $triggers = this.$el.find('[data-panel-target]').not('[data-panel-target="' + targetAttr + '"]'),
-        $target = this.$el.find('[data-panel="' + targetAttr + '"]'),
-        $panels = this.$el.find('[data-panel]').not('[data-panel="' + targetAttr + '"]');
+    var targetAttr = $clicked.attr(attrNameTrigger),
+        $triggers = this.$el.find('[' + attrNameTrigger + ']').not('[' + attrNameTrigger + '="' + targetAttr + '"]'),
+        $target = this.$el.find('[' + attrNamePanel + '="' + targetAttr + '"]'),
+        $panels = this.$el.find('[' + attrNamePanel + ']').not('[' + attrNamePanel + '="' + targetAttr + '"]');
 
     $target.add($clicked).removeClass(inactiveClass).addClass(activeClass);
     $panels.add($triggers).removeClass(activeClass).addClass(inactiveClass);
@@ -68,10 +72,10 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    * @private
    */
   MultiToggler.prototype._publishEvents = function ($target, $panels) {
-    eventsWithPromises.publish('contentShown', {
+    eventsWithPromises.publish(eventActive, {
       $el: $target
     });
-    eventsWithPromises.publish('contentHidden', {
+    eventsWithPromises.publish(eventInactive, {
       $el: $panels
     });
     return this;
