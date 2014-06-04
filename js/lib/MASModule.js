@@ -13,7 +13,7 @@ define([], function () {
 
   function MASModule($el, config) {
     if (!$el || !$el.length) {
-      throw "Element not supplied to MASModule constructor";
+      throw "Element not supplied to MASModule constructor. Element class: " + $el.attr('class');
     }
     this.setElement($el);
     /*
@@ -26,6 +26,19 @@ define([], function () {
 
     return this;
   }
+
+  /**
+   * Extend MASModule class using the supplied constructor
+   * @param {function} Subclass
+   */
+  MASModule.extend = function(Subclass) {
+    function TempConstructor() { }
+    TempConstructor.prototype = MASModule.prototype;
+    Subclass.prototype = new TempConstructor();
+    Subclass.prototype.constructor = Subclass;
+    Subclass.baseConstructor = MASModule;
+    Subclass.superClass = MASModule.prototype;
+  };
 
   var MASModuleProto = MASModule.prototype;
 

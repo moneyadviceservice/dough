@@ -1,4 +1,4 @@
-define(['MASModule'], function(MASModule) {
+define([], function() {
 
   'use strict';
 
@@ -57,19 +57,6 @@ define(['MASModule'], function(MASModule) {
     numberToCurrency: function(num) {
       var re = '\\d(?=(\\d{3})+$)';
       return '£' + Math.round(num).toFixed(0).replace(new RegExp(re, 'g'), '$&,');
-    },
-
-    /**
-     * Extend MASModule class using the supplied constructor
-     * @param {function} Subclass
-     */
-    extendMASModule: function(Subclass) {
-      function TempConstructor() { }
-      TempConstructor.prototype = MASModule.prototype;
-      Subclass.prototype = new TempConstructor();
-      Subclass.prototype.constructor = Subclass;
-      Subclass.baseConstructor = MASModule;
-      Subclass.superClass = MASModule.prototype;
     }
 
   };

@@ -6,7 +6,7 @@
  * @param {Function} MASModule
  * @param {Object} eventsWithProm
  */
-define(['jquery', 'utilities', 'eventsWithPromises'], function ($, utilities, eventsWithPromises) {
+define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, eventsWithPromises) {
 
   'use strict';
 
@@ -26,7 +26,7 @@ define(['jquery', 'utilities', 'eventsWithPromises'], function ($, utilities, ev
     this._attachUIListeners();
   };
 
-  utilities.extendMASModule(Panels);
+  MASModule.extend(Panels);
 
   Panels.prototype._attachUIListeners = function () {
     var self = this;
@@ -45,7 +45,7 @@ define(['jquery', 'utilities', 'eventsWithPromises'], function ($, utilities, ev
 
     $target.add($clicked).removeClass(inactiveClass).addClass(activeClass);
     $panels.add($triggers).removeClass(activeClass).addClass(inactiveClass);
-    this._publishEvents($target, $panels)
+    this._publishEvents($target, $panels);
     return this;
   };
 
