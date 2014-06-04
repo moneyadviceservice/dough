@@ -21,14 +21,19 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    * @param {object} [config] - hash of configuration options
    * @constructor
    */
-  var Panels = function ($el, config) {
-    Panels.baseConstructor.apply(this, arguments);
+  var MultiToggler = function ($el, config) {
+    MultiToggler.baseConstructor.apply(this, arguments);
     this._attachUIListeners();
   };
 
-  MASModule.extend(Panels);
+  MASModule.extend(MultiToggler);
 
-  Panels.prototype._attachUIListeners = function () {
+  /**
+   * Attach UI handlers to the component container
+   * @returns {MultiToggler}
+   * @private
+   */
+  MultiToggler.prototype._attachUIListeners = function () {
     var self = this;
     this.$el.on('click', '[data-panel-target]', function (e) {
       self._updateDOM($(this));
@@ -37,7 +42,13 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
     return this;
   };
 
-  Panels.prototype._updateDOM = function ($clicked) {
+  /**
+   * Update the component state after an event
+   * @param {jQuery} $clicked
+   * @returns {MultiToggler}
+   * @private
+   */
+  MultiToggler.prototype._updateDOM = function ($clicked) {
     var targetAttr = $clicked.attr('data-panel-target'),
         $triggers = this.$el.find('[data-panel-target]').not('[data-panel-target="' + targetAttr + '"]'),
         $target = this.$el.find('[data-panel="' + targetAttr + '"]'),
@@ -49,7 +60,14 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
     return this;
   };
 
-  Panels.prototype._publishEvents = function ($target, $panels) {
+  /**
+   * Publish event hub events
+   * @param {jQuery} $target
+   * @param {jQuery} $panels
+   * @returns {MultiToggler}
+   * @private
+   */
+  MultiToggler.prototype._publishEvents = function ($target, $panels) {
     eventsWithPromises.publish('contentShown', {
       $el: $target
     });
@@ -59,6 +77,6 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
     return this;
   };
 
-  return Panels;
+  return MultiToggler;
 
 });
