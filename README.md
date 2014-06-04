@@ -41,6 +41,14 @@ To run Grunt's 'watch' task, which will watch for any file changes in the Javasc
 $ grunt watch:js
 ```
 
+## Running Javascript tests
+
+Make sure you ran npm install.
+
+```sh
+$ ./node_modules/karma/bin/karma start test/karma.conf.js
+```
+
 ## Contributing
 
 1. Fork it
