@@ -22,7 +22,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
     DropdownList.baseConstructor.apply(this, arguments);
     this.$panel = this.$el.find('.js-dropdown-list__panel');
     this._selectItem(this.$panel.find(itemSelector).first());
-    this.$el.height(this.$selected.height());
+    this.$el.height(this.$panel.height());
   };
 
   MASModule.extend(DropdownList);
