@@ -29,6 +29,10 @@
   cursor: pointer;
   filter: none;
 
+  &:visited {
+    color: $color-button-default-text;
+  }
+
   &:focus {
     outline: thin dotted;
     outline: 3px auto -webkit-focus-ring-color;
