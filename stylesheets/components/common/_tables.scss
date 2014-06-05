@@ -35,10 +35,6 @@ table {
   width: 100%;
 }
 
-.table--fixed-layout {
-  table-layout: fixed;
-}
-
 
 tr:nth-child(even) {
   background-color: $color-table-background-alt;
