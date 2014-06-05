@@ -40,7 +40,7 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    * @private
    */
   MultiToggler.prototype._handleClickEvent = function (e) {
-    this._updateDOM($(e.target));
+    this._updateDOM($(e.currentTarget));
     e.preventDefault();
     return this;
   };
