@@ -31,6 +31,10 @@ table {
 
 }
 
+.table--full-width {
+  width: 100%;
+}
+
 
 tr:nth-child(even) {
   background-color: $color-table-background-alt;
