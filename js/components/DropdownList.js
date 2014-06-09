@@ -8,21 +8,21 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
   var itemSelector = '.js-dropdown-list__item',
       DropdownList,
       activeClass = 'is-active',
+      inactiveClass = 'is-inactive',
       uiEvents = {
         'click .js-dropdown-list__item': '_handleClickEvent'
       };
 
   /**
    * Dropdown list
-   * @param {jQuery} $el
+   * @param {jQuery} $el - passed to MASModule superclass
    * @constructor
    */
   DropdownList = function ($el) {
     this.uiEvents = uiEvents;
     DropdownList.baseConstructor.apply(this, arguments);
-    this.$panel = this.$el.find('.js-dropdown-list__panel');
+    this.$panel = this.$el.find('.js-dropdown-list__panel').addClass(inactiveClass);
     this._selectItem(this.$panel.find(itemSelector).first());
-    this.$el.height(this.$panel.height());
   };
 
   MASModule.extend(DropdownList);
@@ -33,7 +33,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
    * @private
    */
   DropdownList.prototype._selectItem = function ($el) {
-    this.$selected = $el.addClass(activeClass).attr('aria-selected', true);
+    this.$selected = $el.addClass(activeClass).removeClass(inactiveClass).attr('aria-selected', true);
     this.$panel.css('top', -1 * this.$selected.position().top);
     return this;
   };
@@ -44,7 +44,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
    * @private
    */
   DropdownList.prototype._deSelectItem = function ($el) {
-    $el.removeClass(activeClass).attr('aria-selected', false);
+    $el.removeClass(activeClass).addClass(inactiveClass).attr('aria-selected', false);
     return this;
   };
 
@@ -54,11 +54,11 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
    * @private
    */
   DropdownList.prototype._togglePanel = function () {
-    this.$panel.toggleClass(activeClass);
+    this.$panel.toggleClass(activeClass).toggleClass(inactiveClass);
     if (this.$panel.hasClass(activeClass)) {
       this.$panel.css('top', -1 * this.$selected.position().top);
     } else {
-      this.$panel.removeClass(activeClass).css('top', 0);
+      this.$panel.css('top', 0);
     }
     return this;
   };
