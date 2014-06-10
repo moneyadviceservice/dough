@@ -15,17 +15,27 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
 
   /**
    * Dropdown list
-   * @param {jQuery} $el - passed to MASModule superclass
    * @constructor
    */
-  DropdownList = function ($el) {
+  DropdownList = function () {
     this.uiEvents = uiEvents;
     DropdownList.baseConstructor.apply(this, arguments);
     this.$panel = this.$el.find('.js-dropdown-list__panel').addClass(inactiveClass);
-    this._selectItem(this.$panel.find(itemSelector).first());
   };
 
   MASModule.extend(DropdownList);
+
+
+  DropdownList.prototype.init = function(initialised) {
+    var $first;
+    $first = this.$panel.find(itemSelector).first();
+    if ($first.length) {
+      this._selectItem($first);
+      this._initialisedSuccess(initialised);
+    } else {
+      this._initialisedFailure(initialised);
+    }
+  };
 
   /**
    * Select a trigger
@@ -34,7 +44,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
    */
   DropdownList.prototype._selectItem = function ($el) {
     this.$selected = $el.addClass(activeClass).removeClass(inactiveClass).attr('aria-selected', true);
-    this.$panel.css('top', -1 * this.$selected.position().top);
+    this.$selected.length && this.$panel.css('top', -1 * this.$selected.position().top);
     return this;
   };
 

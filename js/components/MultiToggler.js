@@ -35,6 +35,14 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
   MASModule.extend(MultiToggler);
 
   /**
+   * Initialise the module. Called automatically by the component loader
+   * @param {object} initialised - a promise
+   */
+  MultiToggler.prototype.init = function(initialised) {
+    this._initialisedSuccess(initialised);
+  };
+
+  /**
    * Handle a click on a trigger
    * @returns {MultiToggler}
    * @private
