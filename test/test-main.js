@@ -23,6 +23,7 @@ require.config({
   callback: window.__karma__.start,
   paths: {
     MASModule: 'js/lib/MASModule',
+    componentLoader: 'js/lib/componentLoader',
     MultiToggler: 'js/components/MultiToggler',
     DropdownList: 'js/components/DropdownList',
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
