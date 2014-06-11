@@ -1,0 +1,173 @@
+// Typeplate
+//
+// settings for site wide global typography
+
+$brand-font-family: museo_sans !default;
+$base-font-stack: $brand-font-family, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$base-font-size: 16 !default;
+$base-line-height: 24 !default;
+$base-text-colour: $color-black !default;
+$base-heading-colour: $color-green-secondary !default;
+
+$baseline-unit: 6px !default;
+
+// Utility function for converting px to em for responsive paddings and margins
+@function px($px) {
+  @return ($px / $base-font-size) + em
+}
+
+@mixin font-size($font-size) {
+  @if $responsive == true {
+    font-size: ($font-size / $base-font-size) + rem;
+  } @else {
+    font-size: $font-size + px;
+  }
+}
+
+//@mixin line-height($line-height, $font-size) {
+//  line-height: ($line-height / $font-size);
+//}
+
+@mixin font-weight($font-weight) {
+  @if $font-weight == bold {
+    font-weight: 700;
+  } @else if $font-weight == medium {
+    font-weight: 500;
+  } @else if $font-weight == light {
+    font-weight: 300;
+  }
+}
+
+%base-heading-style {
+  text-rendering: optimizeLegibility; // helps to enable ligatures and kerning
+  line-height: 1; // prevent excess whitespace when a heading wraps onto two lines
+  margin-top: 0; // abide by single-direction margins for type
+}
+
+// Display font sizing
+
+$peta: 48 !default;
+// 1,000,000,000,000,000
+$tera: 42 !default;
+// 1,000,000,000,000
+$giga: 36 !default;
+// 1,000,000,000
+
+// Heading font sizes
+
+$mega: 30 !default;
+// 100000
+$kilo: 24 !default;
+// 1000
+$hecto: 18 !default;
+// 100
+$deca: 16 !default;
+// 10
+$deci: 12 !default;
+// 0.1
+$centi: 10 !default;
+// 0.01
+
+// Small print sizes
+
+$milli: 8 !default;
+// 0.001
+$micro: 8 !default;
+// 0.000 001
+$nano: 8 !default;
+// 0.000 000 001
+
+.extra-large,
+%extra-large {
+  @include font-size(32, 36);
+
+  @include respond-to($mq-m) {
+    @include font-size(40, 42);
+  }
+}
+
+.large {
+  @include font-size(32, 36);
+
+  @include respond-to($mq-m) {
+    @include font-size(40, 48);
+  }
+}
+
+.medium {
+  @include font-size(24, 30);
+
+  @include respond-to($mq-m) {
+    @include font-size(28, 36);
+  }
+}
+
+.small {
+  @include font-size(20, 30);
+
+  @include respond-to($mq-m) {
+    @include font-size(20, 30);
+  }
+}
+
+.extra-small {
+  @include font-size(16, 24);
+}
+
+// Usage
+
+body {
+  @include font-size(16, 24);
+  @include font-weight(light);
+  font-family: $base-font-stack;
+  color: $base-text-colour;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @extend %base-heading-style;
+  @include font-weight(bold);
+  color: $base-heading-colour;
+}
+
+h1 {
+  @extend .font-size-large;
+}
+
+h2 {
+  @extend .font-size-medium;
+}
+
+h3 {
+  @extend .font-size-small;
+}
+
+h4 {
+  @extend .font-size-extra-small;
+}
+
+p {
+  margin-bottom: px(16);
+}
+
+ol {
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-bottom: px(16);
+  }
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+
+  li {
+    margin-bottom: px(16);
+  }
+}
