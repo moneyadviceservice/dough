@@ -35,6 +35,14 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
   MASModule.extend(MultiToggler);
 
   /**
+   * Initialise the module. Called automatically by the component loader
+   * @param {object} initialised - a promise
+   */
+  MultiToggler.prototype.init = function(initialised) {
+    this._initialisedSuccess(initialised);
+  };
+
+  /**
    * Handle a click on a trigger
    * @returns {MultiToggler}
    * @private
@@ -53,11 +61,12 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    */
   MultiToggler.prototype._updateDOM = function ($clicked) {
     var targetAttr = $clicked.attr(attrNameTrigger),
-        $triggers = this.$el.find('[' + attrNameTrigger + ']').not('[' + attrNameTrigger + '="' + targetAttr + '"]'),
+        $selectedTriggers = this.$el.find('[' + attrNameTrigger + '="' + targetAttr + '"]'),
+        $triggers = this.$el.find('[' + attrNameTrigger + ']').not($selectedTriggers),
         $target = this.$el.find('[' + attrNamePanel + '="' + targetAttr + '"]'),
         $panels = this.$el.find('[' + attrNamePanel + ']').not('[' + attrNamePanel + '="' + targetAttr + '"]');
 
-    $target.add($clicked).removeClass(inactiveClass).addClass(activeClass);
+    $target.add($selectedTriggers).removeClass(inactiveClass).addClass(activeClass);
     $panels.add($triggers).removeClass(activeClass).addClass(inactiveClass);
     this._publishEvents($target, $panels);
     return this;

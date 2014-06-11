@@ -18,6 +18,7 @@ describe('Multi-Toggler', function () {
           self.$trigger2 = self.$html.find('[' + attrNameTrigger + '="2"]');
           self.pubsub = pubsub;
           self.multiToggler = new MultiToggler(self.$html);
+          self.multiToggler.init();
           done();
         }, done);
   });

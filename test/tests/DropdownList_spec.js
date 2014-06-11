@@ -14,6 +14,7 @@ describe('dropdown list', function () {
           self.$html = $(window.__html__['test/fixtures/DropdownList.html']);
           self.$panel = self.$html.find('.js-dropdown-list__panel');
           self.dropdownList = new DropdownList(self.$html);
+          self.dropdownList.init();
           done();
         }, done);
   });

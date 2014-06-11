@@ -16,6 +16,8 @@ define([], function () {
     if (!$el || !$el.length) {
       throw "Element not supplied to MASModule constructor";
     }
+    this.config = config || {};
+    this.componentName = this.config.componentName;
     this.setElement($el);
     /*
      Populate this array with the data attributes this module will use.
@@ -140,6 +142,24 @@ define([], function () {
   MASModuleProto._unbindUiEvents = function () {
     this.$el.off('.boundUiEvents');
     return this;
+  };
+
+  /**
+   * Indicate that the component initialised successfully, passing its component name. The resolved
+   * promise will be fed back to the component loader
+   * @private
+   */
+  MASModuleProto._initialisedSuccess = function(initialised) {
+    initialised && initialised.resolve(this.componentName);
+  };
+
+  /**
+   * Indicate that the component failed to initialise, passing its component name. The rejected
+   * promise will be fed back to the component loader
+   * @private
+   */
+  MASModuleProto._initialisedFailure = function(initialised) {
+    initialised && initialised.reject(this.componentName);
   };
 
   return MASModule;
