@@ -22,7 +22,7 @@ describe('componentLoader', function() {
 
     it('should initialize components specified in the DOM', function() {
       var self = this;
-      expect(this.componentLoader.components.DropdownList.length).to.equal(2);
+      expect(this.componentLoader.components.OptionSelector.length).to.equal(2);
       expect(this.componentLoader.components.MultiToggler.length).to.equal(1);
       $.each(this.componentLoader.components, function(componentName, list) {
         expect(self.$html.find(list[0].$el).length).to.equal(1);
@@ -74,7 +74,7 @@ describe('componentLoader', function() {
       var failed = $.map(this.results, function(o) {
         return (o.state === 'rejected') ? o : null;
       });
-      expect(failed[0].reason).to.equal('DropdownList');
+      expect(failed[0].reason).to.equal('OptionSelector');
     });
 
   });
