@@ -101,4 +101,17 @@
   .icon--right-chevron {
     background-position: -301px -107px;
   }
-}
+
+  .icon--plus {
+    background-position: -335px -55px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .icon--minus {
+    background-position: -366px -55px;
+    width: 12px;
+    height: 19px;
+  }
+
+} // end media query
