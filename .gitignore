@@ -1,2 +1,11 @@
 node_modules/
 bower_components/
+.bundle/
+log/*.log
+pkg/
+spec/dummy/db/*.sqlite3
+spec/dummy/log/*.log
+spec/dummy/tmp/
+spec/dummy/.sass-cache
+Gemfile.lock
+vendor/assets/bower_components

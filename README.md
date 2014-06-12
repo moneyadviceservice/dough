@@ -10,8 +10,6 @@ The Money Advice Service's frontend assets.
 * [NodeJS]
 * [Grunt]
 
-
-
 ## Installation
 
 Clone the repository:
