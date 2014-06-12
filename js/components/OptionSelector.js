@@ -4,15 +4,15 @@
 define(['jquery', 'MASModule'], function ($, MASModule) {
   'use strict';
 
-  var itemSelector = '[data-mas-tabselector-trigger]',
+  var itemSelector = '[data-mas-optionselector-trigger]',
       OptionSelector,
       activeClass = 'is-active',
       inactiveClass = 'is-inactive',
-      attrNameTrigger = 'data-mas-tabselector-trigger',
-      attrNamePanel = 'data-mas-tabselector-target',
-      attrNameMenu = '[data-mas-tabselector-menu]',
+      attrNameTrigger = 'data-mas-optionselector-trigger',
+      attrNamePanel = 'data-mas-optionselector-target',
+      attrNameMenu = '[data-mas-optionselector-menu]',
       uiEvents = {
-        'click [data-mas-tabselector-trigger]': '_handleClickEvent'
+        'click [data-mas-optionselector-trigger]': '_handleClickEvent'
       };
 
   /**
