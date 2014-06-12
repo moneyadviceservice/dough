@@ -17,7 +17,7 @@
 
 @mixin fontface($name, $file, $weight) {
   @font-face {
-    font-family: 'museo_sans';
+    font-family: $name;
     src: url(font-path($file + '.eot'));
     src: url(font-path($file + '.eot') + '?#iefix') format('embedded-opentype'),
     url(font-path($file + '.woff')) format('woff'),
