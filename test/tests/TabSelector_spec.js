@@ -30,15 +30,15 @@ describe('Tab selector', function () {
 
   it('replaces the currently selected item', function() {
     this.$triggerContainer.find(triggers).last().click();
-    this.$triggerContainer.find(triggers).first().click();
-    expect(this.$html.find(activeTrigger + ' a').html()).to.equal('Show panel 1');
+    this.$triggerContainer.find(triggers).eq(1).click();
+    expect(this.$triggerContainer.find(activeTrigger + ' a').html()).to.equal('Show panel 2');
     expect(this.$html.find(activeTrigger).length).to.equal(2);
   });
 
   it('toggles the menu when the selected item is clicked', function() {
-    this.$html.find(activeTrigger + ' a').first().click();
+    this.$triggerContainer.find(activeTrigger + ' a').first().click();
     expect(this.$triggerContainer.hasClass(activeClass)).to.equal(true);
-    this.$html.find(activeTrigger + ' a').first().click();
+    this.$triggerContainer.find(activeTrigger + ' a').first().click();
     expect(this.$triggerContainer.hasClass(activeClass)).to.equal(false);
   });
 
@@ -60,4 +60,8 @@ describe('Tab selector', function () {
     expect(this.$triggerContainer.find(triggers).eq(1).parent().hasClass(activeClass)).to.equal(true);
   });
 
+  it('doesn\'t open the menu if a trigger outside the menu is clicked', function() {
+    this.$html.find('#panel-2 a:eq(2)').click();
+    expect(this.$triggerContainer.hasClass(activeClass)).to.equal(false);
+  });
 });

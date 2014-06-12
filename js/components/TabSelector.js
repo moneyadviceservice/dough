@@ -86,7 +86,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
       this._selectItem($trigger);
       this._updateTargets($trigger);
     }
-    this._toggleMenu();
+    this._toggleMenu($trigger);
     e.preventDefault();
     return this;
   };
@@ -98,7 +98,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
    */
   TabSelector.prototype._selectItem = function ($el) {
     this.$selected = $el.addClass(this.selectors.activeClass).removeClass(this.selectors.inactiveClass).attr('aria-selected', true);
-    this._positionMenu(true);
+    this._positionMenu();
     return this;
   };
 
@@ -117,7 +117,11 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
    * @returns {TabSelector}
    * @private
    */
-  TabSelector.prototype._toggleMenu = function () {
+  TabSelector.prototype._toggleMenu = function ($trigger) {
+    // if the clicked item is outside the menu, and the menu is closed, do nothing
+    if (!$trigger.closest(this.$triggersContainer).length && !this.$triggersContainer.hasClass(this.selectors.activeClass)) {
+      return;
+    }
     this.$triggersContainer.toggleClass(this.selectors.activeClass).toggleClass(this.selectors.inactiveClass);
     this._positionMenu(this.$triggersContainer.hasClass(this.selectors.activeClass));
     return this;
@@ -128,8 +132,8 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
    * @param {boolean} open - is the menu open
    * @private
    */
-  TabSelector.prototype._positionMenu = function (open) {
-    var pos = open ? -1 * this.$selected.position().top : 0;
+  TabSelector.prototype._positionMenu = function () {
+    var pos = this.$triggersContainer.hasClass(this.selectors.activeClass) ? -1 * this.$selected.position().top : 0;
     this.$selected.length && this.$triggersContainer.css('top', pos);
     return this;
   };
