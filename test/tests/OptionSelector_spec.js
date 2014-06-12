@@ -13,7 +13,7 @@ describe('Tab selector', function () {
         ['jquery', 'OptionSelector'],
         function ($, OptionSelector) {
           self.$html = $(window.__html__['test/fixtures/OptionSelector.html']);
-          self.$menu = self.$html.find('[data-mas-optionselector-menu]');
+          self.$options = self.$html.find('[data-mas-optionselector-options]');
           self.tabSelector = new OptionSelector(self.$html);
           self.tabSelector.init();
           done();
@@ -25,29 +25,29 @@ describe('Tab selector', function () {
   });
 
   it('replaces the currently selected item', function() {
-    this.$menu.find(triggers).last().click();
-    this.$menu.find(triggers).first().click();
+    this.$options.find(triggers).last().click();
+    this.$options.find(triggers).first().click();
     expect(this.$html.find(activeTrigger + ' a').html()).to.equal('Show panel 1');
     expect(this.$html.find(activeTrigger).length).to.equal(1);
   });
 
   it('toggles the menu when the selected item is clicked', function() {
     this.$html.find(activeTrigger + ' a').click();
-    expect(this.$menu.hasClass(activeClass)).to.equal(true);
+    expect(this.$options.hasClass(activeClass)).to.equal(true);
     this.$html.find(activeTrigger + ' a').click();
-    expect(this.$menu.hasClass(activeClass)).to.equal(false);
+    expect(this.$options.hasClass(activeClass)).to.equal(false);
   });
 
   it('closes the menu when an item on it is clicked', function() {
     this.$html.find(activeTrigger + ' a').click();
-    this.$menu.find('a').first().click();
-    expect(this.$menu.hasClass(activeClass)).to.equal(false);
+    this.$options.find('a').first().click();
+    expect(this.$options.hasClass(activeClass)).to.equal(false);
   });
 
   it('shows the associated target panel when a trigger is clicked', function() {
-    this.$menu.find(triggers).last().click();
+    this.$options.find(triggers).last().click();
     expect(this.$html.find(activeTarget).text()).to.equal('Panel 3');
-    this.$menu.find(triggers).first().click();
+    this.$options.find(triggers).first().click();
     expect(this.$html.find(activeTarget).text()).to.equal('Panel 1');
   });
 

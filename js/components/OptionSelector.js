@@ -9,8 +9,8 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
       activeClass = 'is-active',
       inactiveClass = 'is-inactive',
       attrNameTrigger = 'data-mas-optionselector-trigger',
-      attrNamePanel = 'data-mas-optionselector-target',
-      attrNameMenu = '[data-mas-optionselector-menu]',
+      attrNameTarget = 'data-mas-optionselector-target',
+      attrNameOptions = '[data-mas-optionselector-options]',
       uiEvents = {
         'click [data-mas-optionselector-trigger]': '_handleClickEvent'
       };
@@ -22,7 +22,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
   OptionSelector = function () {
     this.uiEvents = uiEvents;
     OptionSelector.baseConstructor.apply(this, arguments);
-    this.$menu = this.$el.find(attrNameMenu).addClass(inactiveClass);
+    this.$menu = this.$el.find(attrNameOptions).addClass(inactiveClass);
   };
 
   MASModule.extend(OptionSelector);
@@ -106,8 +106,8 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
     var targetAttr = $clicked.attr(attrNameTrigger),
         $selectedTriggers = this.$el.find('[' + attrNameTrigger + '="' + targetAttr + '"]'),
         $triggers = this.$el.find('[' + attrNameTrigger + ']').not($selectedTriggers),
-        $target = this.$el.find('[' + attrNamePanel + '="' + targetAttr + '"]'),
-        $panels = this.$el.find('[' + attrNamePanel + ']').not('[' + attrNamePanel + '="' + targetAttr + '"]');
+        $target = this.$el.find('[' + attrNameTarget + '="' + targetAttr + '"]'),
+        $panels = this.$el.find('[' + attrNameTarget + ']').not('[' + attrNameTarget + '="' + targetAttr + '"]');
 
     $target.add($selectedTriggers).removeClass(inactiveClass).addClass(activeClass);
     $panels.add($triggers).removeClass(activeClass).addClass(inactiveClass);
