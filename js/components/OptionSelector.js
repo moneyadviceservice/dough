@@ -60,7 +60,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
    */
   OptionSelector.prototype._selectItem = function ($el) {
     this.$selected = $el.addClass(activeClass).removeClass(inactiveClass).attr('aria-selected', true);
-    this.$selected.length && this.$menu.css('top', -1 * this.$selected.position().top);
+    this._positionMenu(true);
     return this;
   };
 
@@ -81,11 +81,18 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
    */
   OptionSelector.prototype._toggleMenu = function () {
     this.$menu.toggleClass(activeClass).toggleClass(inactiveClass);
-    if (this.$menu.hasClass(activeClass)) {
-      this.$menu.css('top', -1 * this.$selected.position().top);
-    } else {
-      this.$menu.css('top', 0);
-    }
+    this._positionMenu(this.$menu.hasClass(activeClass));
+    return this;
+  };
+
+  /**
+   * Position the menu when it's open
+   * @param {boolean} open - is the menu open
+   * @private
+   */
+  OptionSelector.prototype._positionMenu = function (open) {
+    var pos = open ? -1 * this.$selected.position().top : 0;
+    this.$selected.length && this.$menu.css('top', pos);
     return this;
   };
 
