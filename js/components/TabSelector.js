@@ -27,12 +27,12 @@
  * @return {[type]}           [description]
  * @private
  */
-define(['jquery', 'MASModule', 'VisibilityToggler'], function ($, MASModule, VisibilityToggler) {
+define(['jquery', 'MASModule'], function ($, MASModule) {
   'use strict';
 
   var TabSelector,
       selectors = {
-        triggers: '[data-mas-tabselector-options]',
+        triggers: '[data-mas-tabselector-triggers]',
         trigger: 'data-mas-tabselector-trigger',
         target: 'data-mas-tabselector-target',
         activeClass: 'is-active',
@@ -50,10 +50,13 @@ define(['jquery', 'MASModule', 'VisibilityToggler'], function ($, MASModule, Vis
     this.uiEvents = uiEvents;
     TabSelector.baseConstructor.apply(this, arguments);
     this.selectors = $.extend(this.selectors || {}, selectors);
-    this.$options = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
+    this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
   };
 
-  MASModule.extend(TabSelector, MASModule);
+  /**
+   * Inherit from base module, for shared methods and interface
+   */
+  MASModule.extend(TabSelector);
 
   /**
    * Init function
@@ -61,7 +64,7 @@ define(['jquery', 'MASModule', 'VisibilityToggler'], function ($, MASModule, Vis
    */
   TabSelector.prototype.init = function(initialised) {
     var $first;
-    $first = this.$options.find('[' + selectors.trigger + ']').first();
+    $first = this.$triggersContainer.find('[' + selectors.trigger + ']').first();
     if ($first.length) {
       this._selectItem($first);
       this._initialisedSuccess(initialised);
@@ -84,6 +87,7 @@ define(['jquery', 'MASModule', 'VisibilityToggler'], function ($, MASModule, Vis
       this._updateTargets($trigger);
     }
     this._toggleMenu();
+    e.preventDefault();
     return this;
   };
 
@@ -114,8 +118,8 @@ define(['jquery', 'MASModule', 'VisibilityToggler'], function ($, MASModule, Vis
    * @private
    */
   TabSelector.prototype._toggleMenu = function () {
-    this.$options.toggleClass(this.selectors.activeClass).toggleClass(this.selectors.inactiveClass);
-    this._positionMenu(this.$options.hasClass(this.selectors.activeClass));
+    this.$triggersContainer.toggleClass(this.selectors.activeClass).toggleClass(this.selectors.inactiveClass);
+    this._positionMenu(this.$triggersContainer.hasClass(this.selectors.activeClass));
     return this;
   };
 
@@ -126,7 +130,7 @@ define(['jquery', 'MASModule', 'VisibilityToggler'], function ($, MASModule, Vis
    */
   TabSelector.prototype._positionMenu = function (open) {
     var pos = open ? -1 * this.$selected.position().top : 0;
-    this.$selected.length && this.$options.css('top', pos);
+    this.$selected.length && this.$triggersContainer.css('top', pos);
     return this;
   };
 
@@ -139,12 +143,12 @@ define(['jquery', 'MASModule', 'VisibilityToggler'], function ($, MASModule, Vis
   TabSelector.prototype._updateTargets = function ($clicked) {
     var targetAttr = $clicked.attr(selectors.trigger),
         $selectedTriggers = this.$el.find('[' + selectors.trigger + '="' + targetAttr + '"]'),
-        $triggers = this.$el.find('[' + selectors.trigger + ']').not($selectedTriggers),
-        $target = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
-        $panels = this.$el.find('[' + selectors.target + ']').not('[' + selectors.target + '="' + targetAttr + '"]');
+        $unselectedTriggers = this.$el.find('[' + selectors.trigger + ']').not($selectedTriggers),
+        $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
+        $unselectedTarget = this.$el.find('[' + selectors.target + ']').not('[' + selectors.target + '="' + targetAttr + '"]');
 
-    $target.add($selectedTriggers).removeClass(this.selectors.inactiveClass).addClass(this.selectors.activeClass);
-    $panels.add($triggers).removeClass(this.selectors.activeClass).addClass(this.selectors.inactiveClass);
+    $selectedTarget.add($selectedTriggers).removeClass(this.selectors.inactiveClass).addClass(this.selectors.activeClass);
+    $unselectedTarget.add($unselectedTriggers).removeClass(this.selectors.activeClass).addClass(this.selectors.inactiveClass);
     return this;
   };
 
