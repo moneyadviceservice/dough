@@ -34,16 +34,18 @@ define([], function () {
   /**
    * Extend MASModule class using the supplied constructor
    * @param {function} Subclass
+   * @param {function} [Superclass] - if not supplied, defaults to MASModule
    */
-  MASModule.extend = function (Subclass) {
+  MASModule.extend = function (Subclass, Superclass) {
+    var Super = Superclass || MASModule;
     function TempConstructor() {
     }
 
-    TempConstructor.prototype = MASModule.prototype;
+    TempConstructor.prototype = Super.prototype;
     Subclass.prototype = new TempConstructor();
     Subclass.prototype.constructor = Subclass;
-    Subclass.baseConstructor = MASModule;
-    Subclass.superClass = MASModule.prototype;
+    Subclass.baseConstructor = Super;
+    Subclass.superclass = Super.prototype;
   };
 
   var MASModuleProto = MASModule.prototype;
