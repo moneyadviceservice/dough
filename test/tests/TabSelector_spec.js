@@ -2,19 +2,19 @@ describe('Tab selector', function () {
 
   'use strict';
 
-  var activeTrigger = '[data-mas-optionselector-trigger].is-active',
-      triggers = '[data-mas-optionselector-trigger] a',
-      activeTarget = '[data-mas-optionselector-target].is-active',
-      activeClass = 'is-active';
+  var activeClass = 'is-active',
+      activeTrigger = '[data-mas-tabselector-trigger].' + activeClass,
+      triggers = '[data-mas-tabselector-trigger] a',
+      activeTarget = '[data-mas-tabselector-target].' + activeClass;
 
   beforeEach(function (done) {
     var self = this;
     requirejs(
-        ['jquery', 'OptionSelector'],
-        function ($, OptionSelector) {
-          self.$html = $(window.__html__['test/fixtures/OptionSelector.html']);
-          self.$options = self.$html.find('[data-mas-optionselector-options]');
-          self.tabSelector = new OptionSelector(self.$html);
+        ['jquery', 'TabSelector'],
+        function ($, TabSelector) {
+          self.$html = $(window.__html__['test/fixtures/TabSelector.html']);
+          self.$options = self.$html.find('[data-mas-tabselector-options]');
+          self.tabSelector = new TabSelector(self.$html);
           self.tabSelector.init();
           done();
         }, done);
