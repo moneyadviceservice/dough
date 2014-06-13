@@ -44,6 +44,7 @@ $color-green-medium: #81c724 !default;
 $color-green-bright: #adcf3f !default;
 $color-green-dark: #388426 !default;
 $color-green-one: #77bf24 !default;
+$color-green-two: #20600f !default;
 
 $color-teal-light: #109e89 !default;
 $color-teal-dark: #0e7f6c !default;
@@ -127,8 +128,8 @@ $color-callout-background: $color-green-pale !default;
 
 // Search
 $color-search-border: $color-grey-light !default;
-$color-search-background: $color-green-quaternary !default;
 $color-search-text: $color-grey-medium-dark !default;
+$color-header-buttons: $color-green-two !default;
 
 // Form Validation
 $color-validation-border: $color-red-light !default;

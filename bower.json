@@ -1,14 +1,28 @@
 {
-    "name": "frontend-assets",
-    "private": true,
-    "ignore": [
-        "bower.json",
-        "README.md"
-    ],
-    "dependencies": {
-      "normalize-css": "~3.0.0",
-      "eventsWithPromises": "https://github.com/jonnywyatt/eventsWithPromises.git#master",
-      "requirejs": null,
-      "jquery": null
-    }
+  "name": "frontend-assets",
+  "private": true,
+  "ignore": [
+    "bower.json",
+    "README.md",
+    ".rspec",
+    ".ruby-gemset",
+    ".ruby-version",
+    "Gemfile",
+    "LICENSE",
+    "README.rdoc",
+    "Rakefile",
+    "app/**/*",
+    "build.sh",
+    "dough.gemspec",
+    "lib/**/*",
+    "script/**/*",
+    "spec/**/*",
+    "test.sh"
+  ],
+  "dependencies": {
+    "normalize-css": "~3.0.0",
+    "eventsWithPromises": "https://github.com/jonnywyatt/eventsWithPromises.git#master",
+    "requirejs": null,
+    "jquery": null
+  }
 }

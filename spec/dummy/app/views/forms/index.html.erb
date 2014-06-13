@@ -1,0 +1,28 @@
+<h1>Forms</h1>
+
+<h2>Validation - Basic example</h2>
+
+<code>
+  <pre>
+<%= File.open(Rails.root.join("app/views/forms/_validation_summary.html.erb")).read %>
+  </pre>
+</code>
+
+<%= render 'validation_summary' %>
+
+<h2>Validation - With ordered fields</h2>
+
+<ul>
+  <li>Your model must implement #field_order on your model instance to return an array of symbols representing each field.</li>
+  <li>:base may be added to the array if that needs to be ordered</li>
+  <li>All fields not in the array are appended to the end in the default order</li>
+<ul>
+
+<code>
+  <pre>
+<%= File.open(Rails.root.join("app/views/forms/_validation_summary_ordered.html.erb")).read %>
+  </pre>
+</code>
+
+<%= render 'validation_summary_ordered' %>
+

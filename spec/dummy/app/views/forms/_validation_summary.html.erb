@@ -1,0 +1,12 @@
+<% @user = User.new %>
+<% @user.errors[:base] << "This is an error on base" %>
+<% @user.errors[:name] << "must be present" %>
+
+<%= form_for @user, url: forms_path, builder: Dough::Forms::Builders::Validation do |f| %>
+  <%= f.validation_summary %>
+
+  <%= f.errors_for @user, :name %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+<% end %>
