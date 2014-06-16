@@ -19,8 +19,6 @@
 }
 
 .validation-summary__list {
-  list-style-type: none;
-  padding: 0;
   margin: $baseline-unit*2 0;
 
   a {
@@ -29,21 +27,5 @@
      &:hover, &:focus {
       text-decoration:underline;
      }
-  }
-}
-
-.validation-summary__error {
-  @extend %clearfix;
-}
-
-.validation-summary__error-text {
-  @include column(11.25);
-}
-
-.validation-summary__error-number {
-  @include column(0.75);
-
-  &:after {
-    content: ".";
   }
 }

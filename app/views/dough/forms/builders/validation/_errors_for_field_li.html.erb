@@ -1,4 +1,3 @@
-<li class="validation-summary__error">
-  <span class="validation-summary__error-number"><%= error[:number] %></span>
-  <span class="validation-summary__error-text"><%= "#{error[:message]}".html_safe %></span>
-</li>
+<p>
+  <%= error[:number] %>. <%= "#{error[:message]}".html_safe %>
+</p>
