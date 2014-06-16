@@ -33,17 +33,15 @@
 }
 
 .validation-summary__error {
-  display: table;
+  @extend %clearfix;
 }
 
 .validation-summary__error-text {
-  display: table-cell;
+  @include column(11.25);
 }
 
 .validation-summary__error-number {
-  @extend .validation-summary__error-text;
-  padding-right: 10px;
-  min-width: 25px;
+  @include column(0.75);
 
   &:after {
     content: ".";
