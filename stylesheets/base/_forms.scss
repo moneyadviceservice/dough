@@ -1,0 +1,44 @@
+button {
+  @extend %font-smoothing;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="search"],
+input[type="password"] {
+  @extend %form-input;
+  &:focus {
+    background-color: $color-input-focus-background;
+    border-color: $color-input-focus-border-color;
+    outline: initial;
+    outline: auto 5px -webkit-focus-ring-color;
+  }
+
+  &[disabled] {
+    background-color: $color-input-disabled-background;
+    color: $color-input-disabled-text-color;
+  }
+}
+
+input[type="search"] {
+  box-sizing: border-box;
+}
+
+textarea {
+  width: 100%;
+}
+
+fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+
+  & > legend {
+    color: $color-fieldset-legend-fg;
+    display: block;
+    font-weight: 500;
+    margin-bottom: $baseline-unit*4;
+  }
+}
+
