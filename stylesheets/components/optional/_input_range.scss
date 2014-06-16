@@ -1,0 +1,97 @@
+
+/**
+ input range styling from
+ http://codepen.io/aronwoost/pen/nlyrf
+ http://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html
+**/
+.input--range {
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  margin-bottom: $baseline-unit * 2;
+  width: 100%;
+  padding-left:1px;
+  padding-right:1px;
+  margin-top: $baseline-unit * 4;
+  @include respond-to($mq-m) {
+    margin-top: $baseline-unit;
+  }
+}
+
+.ie8 .input--range {
+  padding: 5px;
+  height: auto;
+  width: auto;
+}
+
+@mixin range-track-colors {
+  background-color: $color-grey-palest;
+  border: 1px solid $color-grey-light;
+}
+
+.input--range::-webkit-slider-runnable-track {
+  @include range-track-colors;
+  @include respond-to($mq-m) {
+    height: 7px;
+  }
+}
+
+.input--range::-moz-range-track {
+  @include range-track-colors;
+  height: 7px;
+}
+
+.input--range::-ms-track {
+  @include range-track-colors;
+  color: transparent;
+  height: 20px;
+}
+
+.input--range::-ms-fill-lower,
+.input--range::-ms-fill-upper {
+  background: transparent;
+}
+
+.input--range::-ms-tooltip {
+  .js & {
+    display: none;
+  }
+}
+
+/* thumb */
+
+@mixin range-thumb-generic {
+  width: 40px;
+  border: 1px solid $color-grey-light;
+  background-color: $color-white;
+  @include respond-to($mq-m) {
+    width: 24px;
+  }
+}
+
+@mixin range-thumb-large {
+  height: 40px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px $color-grey-light;
+  @include respond-to($mq-m) {
+    height: 24px;
+  }
+}
+
+.input--range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  @include range-thumb-generic;
+  @include range-thumb-large;
+  @include respond-to($mq-m) {
+    margin-top: -10px;
+  }
+}
+
+.input--range::-moz-range-thumb {
+  @include range-thumb-generic;
+  @include range-thumb-large;
+}
+
+.input--range::-ms-thumb {
+  @include range-thumb-generic;
+  height: 20px;
+}
