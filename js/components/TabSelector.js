@@ -149,10 +149,10 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
         $selectedTriggers = this.$el.find('[' + selectors.trigger + '="' + targetAttr + '"]'),
         $unselectedTriggers = this.$el.find('[' + selectors.trigger + ']').not($selectedTriggers),
         $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
-        $unselectedTarget = this.$el.find('[' + selectors.target + ']').not('[' + selectors.target + '="' + targetAttr + '"]');
+        $unselectedTargets = this.$el.find('[' + selectors.target + ']').not('[' + selectors.target + '="' + targetAttr + '"]');
 
     $selectedTarget.add($selectedTriggers).removeClass(this.selectors.inactiveClass).addClass(this.selectors.activeClass);
-    $unselectedTarget.add($unselectedTriggers).removeClass(this.selectors.activeClass).addClass(this.selectors.inactiveClass);
+    $unselectedTargets.add($unselectedTriggers).removeClass(this.selectors.activeClass).addClass(this.selectors.inactiveClass);
     return this;
   };
 
