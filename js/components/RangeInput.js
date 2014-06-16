@@ -1,12 +1,27 @@
+/**
+ * Clone a range input / slider from an existing text / number input, when the range type is supported by the browser
+ * @param  {[type]} $         [description]
+ * @param  {[type]} VisibilityToggler [description]
+ * @return {[type]}           [description]
+ * @private
+ */
 define(['jquery', 'MASModule', 'featureDetect'], function ($, MASModule, featureDetect) {
   'use strict';
 
+  /**
+   * Call base constructor
+   * @constructor
+   */
   var RangeInput = function () {
     RangeInput.baseConstructor.apply(this, arguments);
   };
 
   MASModule.extend(RangeInput);
 
+  /**
+   * Init - detect range type support and clone input / label
+   * @param initialised
+   */
   RangeInput.prototype.init = function(initialised) {
 
     var $baseEl,
