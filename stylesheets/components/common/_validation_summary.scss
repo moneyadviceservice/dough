@@ -31,3 +31,17 @@
      }
   }
 }
+
+.validation-summary__error {
+  display: table;
+}
+
+.validation-summary__error-text {
+  display: table-cell;
+}
+
+.validation-summary__error-number {
+  @extend .validation-summary__error-text;
+  padding-right: px(10);
+  min-width: px(15);
+}
