@@ -24,8 +24,8 @@ require.config({
   paths: {
     MASModule: 'js/lib/MASModule',
     componentLoader: 'js/lib/componentLoader',
-    MultiToggler: 'js/components/MultiToggler',
-    DropdownList: 'js/components/DropdownList',
+    VisibilityToggler: 'js/components/VisibilityToggler',
+    TabSelector: 'js/components/TabSelector',
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
     eventsWithPromises: 'vendor/assets/bower_components/eventsWithPromises/src/eventsWithPromises',
     rsvp: 'vendor/assets/bower_components/rsvp/rsvp.amd',
