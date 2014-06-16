@@ -35,6 +35,6 @@ input[type="password"] {
 
 .is-errored {
   border-left: 10px solid $color-validation-border;
-  padding-left:10px;
+  padding-left:15px;
   color:$color-validation-text;
 }
