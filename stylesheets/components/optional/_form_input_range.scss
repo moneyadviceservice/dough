@@ -4,9 +4,8 @@
  http://codepen.io/aronwoost/pen/nlyrf
  http://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html
 **/
-.input--range {
+.form__input--range {
   -webkit-appearance: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   margin-bottom: $baseline-unit * 2;
   width: 100%;
   padding-left:1px;
@@ -17,41 +16,35 @@
   }
 }
 
-.ie8 .input--range {
-  padding: 5px;
-  height: auto;
-  width: auto;
-}
-
 @mixin range-track-colors {
-  background-color: $color-grey-palest;
-  border: 1px solid $color-grey-light;
+  background-color: $color-range-background;
+  border: 1px solid $color-range-border;
 }
 
-.input--range::-webkit-slider-runnable-track {
+.form__input--range::-webkit-slider-runnable-track {
   @include range-track-colors;
   @include respond-to($mq-m) {
     height: 7px;
   }
 }
 
-.input--range::-moz-range-track {
+.form__input--range::-moz-range-track {
   @include range-track-colors;
   height: 7px;
 }
 
-.input--range::-ms-track {
+.form__input--range::-ms-track {
   @include range-track-colors;
   color: transparent;
   height: 20px;
 }
 
-.input--range::-ms-fill-lower,
-.input--range::-ms-fill-upper {
+.form__input--range::-ms-fill-lower,
+.form__input--range::-ms-fill-upper {
   background: transparent;
 }
 
-.input--range::-ms-tooltip {
+.form__input--range::-ms-tooltip {
   .js & {
     display: none;
   }
@@ -61,7 +54,7 @@
 
 @mixin range-thumb-generic {
   width: 40px;
-  border: 1px solid $color-grey-light;
+  border: 1px solid $color-range-border;
   background-color: $color-white;
   @include respond-to($mq-m) {
     width: 24px;
@@ -71,13 +64,13 @@
 @mixin range-thumb-large {
   height: 40px;
   border-radius: 20px;
-  box-shadow: 0 2px 5px $color-grey-light;
+  box-shadow: 0 2px 5px $color-range-border;
   @include respond-to($mq-m) {
     height: 24px;
   }
 }
 
-.input--range::-webkit-slider-thumb {
+.form__input--range::-webkit-slider-thumb {
   -webkit-appearance: none;
   @include range-thumb-generic;
   @include range-thumb-large;
@@ -86,12 +79,12 @@
   }
 }
 
-.input--range::-moz-range-thumb {
+.form__input--range::-moz-range-thumb {
   @include range-thumb-generic;
   @include range-thumb-large;
 }
 
-.input--range::-ms-thumb {
+.form__input--range::-ms-thumb {
   @include range-thumb-generic;
   height: 20px;
 }

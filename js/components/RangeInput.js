@@ -32,7 +32,7 @@ define(['jquery', 'MASModule', 'featureDetect'], function ($, MASModule, feature
       $newEl = $baseEl
           .clone()
           .removeClass('input--label')
-          .addClass('input--range')
+          .addClass('.form__input--range')
           .attr({
             'id': $baseEl.attr('id') + '_range',
             'rv-range': $baseEl.attr('rv-inputchange'),
@@ -44,6 +44,7 @@ define(['jquery', 'MASModule', 'featureDetect'], function ($, MASModule, feature
             $(this).focus();
           })
           .appendTo(this.$el);
+
       this.$el.find('label[for="' + $baseEl.attr('id') + '"]')
           .clone()
           .attr('for', $newEl.attr('id'))

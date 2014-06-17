@@ -1,7 +1,7 @@
 define([], function() {
   'use strict';
 
-  var s = {};
+  var support = {};
 
   function supportTest(prop, context) {
     try {
@@ -11,14 +11,14 @@ define([], function() {
     }
   }
 
-  s.js = ( supportTest('querySelector', document) && supportTest('localStorage', window) && supportTest('addEventListener', window) ) ? 'advanced' : 'basic';
-  s.touch = ( supportTest('ontouchstart', window) || supportTest('onmsgesturechange', window) );
-  s.localstorage = supportTest('localStorage', window);
-  s.svg = (function () {
+  support.js = ( supportTest('querySelector', document) && supportTest('localStorage', window) && supportTest('addEventListener', window) ) ? 'advanced' : 'basic';
+  support.touch = ( supportTest('ontouchstart', window) || supportTest('onmsgesturechange', window) );
+  support.localstorage = supportTest('localStorage', window);
+  support.svg = (function () {
     return !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect;
   })();
 
-  s.html5Inputs = {
+  support.html5Inputs = {
     range: function(){
       var i = document.createElement('input');
       i.setAttribute('type', 'range');
@@ -26,8 +26,8 @@ define([], function() {
     }()
   };
 
-  s.test = supportTest;
+  support.test = supportTest;
 
-  return s;
+  return support;
 
 });
