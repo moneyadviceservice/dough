@@ -78,4 +78,21 @@ describe('componentLoader', function() {
 
   });
 
+  describe('dependant components', function() {
+
+    beforeEach(function (done) {
+      this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
+      this.componentLoader.init(this.$html)
+          .then(function () {
+            done();
+          });
+    });
+
+    it('should create dependant components first', function () {
+      expect(this.$html.find('[data-mas-component="RangeInput"]').attr('data-mas-index')).to.equal('0');
+      expect(this.$html.find('[data-mas-component="TabSelector"]').first().attr('data-mas-index')).to.equal('1');
+    });
+
+  });
+
 });
