@@ -96,7 +96,6 @@ define(['jquery', 'rsvp'], function($, RSVP) {
             dependencies = $el.attr('data-mas-dependencies'),
             dependencyPromises = [];
 
-       // if (($el.attr('data-mas-index') !== '1') && (idx < $components.length)) {
         if ($el.attr('data-mas-index') === undefined) {
           if (dependencies) {
             depList = dependencies.split(',');
