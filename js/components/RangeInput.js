@@ -32,7 +32,7 @@ define(['jquery', 'MASModule', 'featureDetect'], function ($, MASModule, feature
       $newEl = $baseEl
           .clone()
           .removeClass('input--label')
-          .addClass('.form__input--range')
+          .addClass('form__input--range')
           .attr({
             'id': $baseEl.attr('id') + '_range',
             'rv-range': $baseEl.attr('rv-inputchange'),
