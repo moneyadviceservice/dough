@@ -59,7 +59,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
     /**
      * Create a hash of deferreds and their associated promise properties (useful for passing to a
      * 'master' deferred for resolution)
-     * @param {jQuery} $components
+     * @param {jQuery|Array} $components
      * @returns {{deferreds: Array, promises: Array}}
      * @private
      */
@@ -93,7 +93,9 @@ define(['jquery', 'rsvp'], function($, RSVP) {
       $components.each(function() {
         var $el = $(this),
             componentName = $el.attr('data-mas-component'),
-            dependencies = $el.attr('data-mas-dependencies');
+            dependencies = $el.attr('data-mas-dependencies'),
+            dependencyPromises = [];
+
        // if (($el.attr('data-mas-index') !== '1') && (idx < $components.length)) {
         if ($el.attr('data-mas-index') === undefined) {
           if (dependencies) {
@@ -101,12 +103,18 @@ define(['jquery', 'rsvp'], function($, RSVP) {
             $.each(depList, function(i, val) {
               self.$container.find('[data-mas-component="' + val + '"]').each(function() {
                 self._instantiateComponent(val, $(this), instantiatedList[idx], idx);
+                dependencyPromises.push(instantiatedList[idx]);
                 idx++;
               });
             });
+            RSVP.allSettled(dependencyPromises).then(function() {
+              self._instantiateComponent(componentName, $el, instantiatedList[idx], idx);
+              idx++;
+            });
+          } else {
+            self._instantiateComponent(componentName, $el, instantiatedList[idx], idx);
+            idx++;
           }
-          self._instantiateComponent(componentName, $el, instantiatedList[idx], idx);
-          idx++;
         }
       });
     },

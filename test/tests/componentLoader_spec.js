@@ -33,7 +33,7 @@ describe('componentLoader', function() {
     });
 
     it('should supply any config to component', function() {
-      expect(this.componentLoader.components.TabSelector[0].config.model.key).to.equal('value');
+      expect(this.componentLoader.components.TabSelector[1].config.model.key).to.equal('value');
     });
 
   });
@@ -90,7 +90,7 @@ describe('componentLoader', function() {
 
     it('should create dependant components first', function () {
       expect(this.$html.find('[data-mas-component="RangeInput"]').attr('data-mas-index')).to.equal('0');
-      expect(this.$html.find('[data-mas-component="TabSelector"]').first().attr('data-mas-index')).to.equal('1');
+      expect(this.$html.find('[data-mas-component="TabSelector"]').first().attr('data-mas-index')).to.equal('2');
     });
 
   });
