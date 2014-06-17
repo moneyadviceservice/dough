@@ -2,7 +2,7 @@
 //
 // .form - Default form form container
 // .form__item - Container for form element(s).
-// .is-errored - Error state
+// .form__item--is-errored - Form item error state
 // .form__label-heading - Form item label
 // .form__hint - Provides further information about an input
 // .form-group - Groups multiple form elements - to be used in conjuction with `<fieldset>`
@@ -23,13 +23,12 @@
   margin-bottom: $baseline-unit*6;
 }
 
-// I think .has-error is preferable
-.is-errored {
+.is-errored,
+.form__item--is-errored {
   border-left: 10px solid $color-validation-border;
-  padding-left: 10px;
   color: $color-validation-text;
+  padding-left: 10px;
 }
-
 
 .form__label-heading {
   display: block;
@@ -65,8 +64,8 @@
 
 .form__input-container {
   @extend %form-input;
-  overflow: hidden;
   display: table;
+  overflow: hidden;
   padding-left: 0;
   padding-right: 0;
   width: 100%;
