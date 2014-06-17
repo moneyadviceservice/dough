@@ -129,8 +129,12 @@ define(['jquery', 'rsvp'], function($, RSVP) {
         if (!self.components[componentName]) {
           self.components[componentName] = [];
         }
-        self.components[componentName].push(new Constr($el, config));
-        instantiated.resolve();
+        try {
+          self.components[componentName].push(new Constr($el, config));
+          instantiated.resolve();
+        } catch (err) {
+          instantiated.reject(err);
+        }
       });
       $el.attr('data-mas-index', idx);
     },
@@ -150,7 +154,11 @@ define(['jquery', 'rsvp'], function($, RSVP) {
 
       $.each(components, function(componentName, list) {
         $.each(list, function(idx, instance) {
-          instance.init && instance.init(initialisedList[i]);
+          try {
+            instance.init && instance.init(initialisedList[i]);
+          } catch (err) {
+            initialisedList[i].reject(err);
+          }
           i++;
         });
       });
