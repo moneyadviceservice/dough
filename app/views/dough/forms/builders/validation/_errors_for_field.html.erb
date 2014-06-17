@@ -1,5 +1,9 @@
-<div id="<%= field %>-errors">
-  <% errors.select{|hash| hash[:object] == object && hash[:field] == field}.each do |error| %>
-    <%= render 'errors_for_field_li', error: error %>
-  <% end %>
+<% if errors.select{|hash| hash[:object] == object && hash[:field] == field}.any? %>
+<div id="<%= field %>-errors" class="validation-summary validation-summary--light">
+  <div class="validation-summary__content-container">
+    <% errors.select{|hash| hash[:object] == object && hash[:field] == field}.each do |error| %>
+      <%= render 'errors_for_field_li', error: error %>
+    <% end %>
+  </div>
 </div>
+<% end %>
