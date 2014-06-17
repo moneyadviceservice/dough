@@ -30,6 +30,21 @@
   padding-left: 10px;
 }
 
+.form__item--is-errored {
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="search"],
+  input[type="password"] {
+    border-color: $color-validation-border;
+    color: $color-validation-text;
+  }
+
+  label {
+    color: $color-validation-text;
+  }
+}
+
 .form__label-heading {
   display: block;
   padding-bottom: $baseline-unit*2;
