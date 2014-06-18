@@ -13,6 +13,8 @@
 // .icon--cross - cross icon
 // .icon--doc - WORD document icon
 // .icon--pdf - PDF document icon
+// .icon--plus - plus icon
+// .icon--minus - minus icon
 // .icon--up-chevron - up chevron icon
 // .icon--down-chevron - down chevron icon
 // .icon--up-chevron-blue - up chevron icon
@@ -203,15 +205,15 @@
 }
 
 .icon--plus {
-  background-position: -683px -73px;
+  background-position: -685px -73px;
   width: 20px;
   height: 20px;
 }
 
 .icon--minus {
   background-position: -742px -73px;
-  width: 12px;
-  height: 19px;
+  width: 20px;
+  height: 20px;
 }
 
 .icon--home {
