@@ -37,11 +37,11 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
 
   /**
    *
-   * @param {jQuery} $el - container element for the component
+   * @param {jQuery} $el - mandatory - container element for the component
    * @returns {Toggler}
    * @constructor
    */
-  function Toggler() {
+  function Toggler($el) {
     this.selectors = selectors;
     MASModule.apply(this, arguments);
     this.attrs = ['toggler'];
@@ -62,8 +62,8 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    */
   TogglerProto.init = function (initialised) {
     this.$target = this.$el.find(this.attr('toggler'));
-    this.isShown = !!this.$target.hasClass(selectors.activeClass); // is the target element visible already
-
+    // is the target element visible already
+    this.isShown = !!this.$target.hasClass(this.selectors.activeClass); 
     this.setListeners(true);
     this._initialisedSuccess(initialised);
     return this;
