@@ -4,10 +4,10 @@
  * eg. the following markup will cause 2 components to be initialised, DropdownList and MultiToggler
  *
  <div class="container">
-   <div data-mas-component="DropdownList">
-   </div>
-   <div data-mas-component="MultiToggler">
-   </div>
+ <div data-mas-component="DropdownList">
+ </div>
+ <div data-mas-component="MultiToggler">
+ </div>
  </div>
 
  * Components are created in 2 separate passes. The reason for this is so that all components can
@@ -59,17 +59,17 @@ define(['jquery', 'rsvp'], function($, RSVP) {
     /**
      * Create a hash of deferreds and their associated promise properties (useful for passing to a
      * 'master' deferred for resolution)
-     * @param {jQuery} $components
+     * @param {jQuery|Array} $components
      * @returns {{deferreds: Array, promises: Array}}
      * @private
      */
     _createPromises: function($components) {
       var obj = {
-        deferreds: [],
-        promises: []
-      },
-      i,
-      j;
+            deferreds: [],
+            promises: []
+          },
+          i,
+          j;
 
       for (i = 0, j = $components.length; i < j; i++) {
         obj.deferreds.push(RSVP.defer());
@@ -86,11 +86,35 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @private
      */
     _instantiateComponents: function($components, instantiatedList) {
-      var self = this;
-      $components.each(function(idx) {
+      var self = this,
+          idx = 0,
+          depList;
+
+      $components.each(function() {
         var $el = $(this),
-            componentName = $el.attr('data-mas-component');
-        self._instantiateComponent(componentName, $el, instantiatedList[idx]);
+            componentName = $el.attr('data-mas-component'),
+            dependencies = $el.attr('data-mas-dependencies'),
+            dependencyPromises = [];
+
+        if ($el.attr('data-mas-index') === undefined) {
+          if (dependencies) {
+            depList = dependencies.split(',');
+            $.each(depList, function(i, val) {
+              self.$container.find('[data-mas-component="' + val + '"]').each(function() {
+                self._instantiateComponent(val, $(this), instantiatedList[idx], idx);
+                dependencyPromises.push(instantiatedList[idx]);
+                idx++;
+              });
+            });
+            RSVP.allSettled(dependencyPromises).then(function() {
+              self._instantiateComponent(componentName, $el, instantiatedList[idx], idx);
+              idx++;
+            });
+          } else {
+            self._instantiateComponent(componentName, $el, instantiatedList[idx], idx);
+            idx++;
+          }
+        }
       });
     },
 
@@ -100,9 +124,10 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @param $el
      * @param {object} instantiated - a deferred, to be resolved after each component is required /
      * instantiated, which may be async, hence the use of a deferred
+     * @param {number} idx - the index number of the component (the order it was created in)
      * @private
      */
-    _instantiateComponent: function(componentName, $el, instantiated) {
+    _instantiateComponent: function(componentName, $el, instantiated, idx) {
       var self = this,
           config = this._parseConfig($el);
 
@@ -111,9 +136,14 @@ define(['jquery', 'rsvp'], function($, RSVP) {
         if (!self.components[componentName]) {
           self.components[componentName] = [];
         }
-        self.components[componentName].push(new Constr($el, config));
-        instantiated.resolve();
+        try {
+          self.components[componentName].push(new Constr($el, config));
+          instantiated.resolve();
+        } catch (err) {
+          instantiated.reject(err);
+        }
       });
+      $el.attr('data-mas-index', idx);
     },
 
     /**
@@ -131,7 +161,11 @@ define(['jquery', 'rsvp'], function($, RSVP) {
 
       $.each(components, function(componentName, list) {
         $.each(list, function(idx, instance) {
-          instance.init && instance.init(initialisedList[i]);
+          try {
+            instance.init && instance.init(initialisedList[i]);
+          } catch (err) {
+            initialisedList[i].reject(err);
+          }
           i++;
         });
       });
