@@ -1,8 +1,8 @@
 // Forms
 //
 // .form - Default form form container
-// .form__row - Container for form element(s).
-// .form__row--is-errored - Form item error state
+// .form__item - Container for form element(s).
+// .form__item--is-errored - Form item error state
 // .form__label-heading - Form item label
 // .form__hint - Provides further information about an input
 // .form__group - Groups multiple form elements - to be used in conjuction with `<fieldset>`
@@ -29,6 +29,21 @@
   padding-left: 10px;
 }
 
+.form__row--is-errored {
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="search"],
+  input[type="password"] {
+    border-color: $color-validation-border;
+    color: $color-validation-text;
+  }
+
+  label {
+    color: $color-validation-text;
+  }
+}
+
 .form__label-heading {
   display: block;
   padding-bottom: $baseline-unit*2;
@@ -41,7 +56,7 @@
 }
 
 
-.form__group-item {
+.form-group__item {
   display: block;
   margin-bottom: $baseline-unit*2;
 

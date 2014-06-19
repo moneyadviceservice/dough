@@ -23,9 +23,11 @@ require.config({
   callback: window.__karma__.start,
   paths: {
     MASModule: 'js/lib/MASModule',
+    featureDetect: 'js/lib/featureDetect',
     componentLoader: 'js/lib/componentLoader',
-    MultiToggler: 'js/components/MultiToggler',
-    DropdownList: 'js/components/DropdownList',
+    VisibilityToggler: 'js/components/VisibilityToggler',
+    TabSelector: 'js/components/TabSelector',
+    RangeInput: 'js/components/RangeInput',
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
     eventsWithPromises: 'vendor/assets/bower_components/eventsWithPromises/src/eventsWithPromises',
     rsvp: 'vendor/assets/bower_components/rsvp/rsvp.amd',

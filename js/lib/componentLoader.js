@@ -144,7 +144,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @private
      */
     _parseConfig: function($el) {
-      var config = $el.attr('data-mas-component-config');
+      var config = $el.attr('data-mas-config');
       try {
         config = JSON.parse(config);
       } catch (err) {

@@ -9,10 +9,7 @@ input[type="search"],
 input[type="password"] {
   @extend %form-input;
   &:focus {
-    background-color: $color-input-focus-background;
-    border-color: $color-input-focus-border-color;
-    outline: initial;
-    outline: auto 5px -webkit-focus-ring-color;
+    @extend %form-input-focus;
   }
 
   &[disabled] {
@@ -23,6 +20,13 @@ input[type="password"] {
 
 input[type="search"] {
   box-sizing: border-box;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  &:focus {
+    @extend %form-input-focus;
+  }
 }
 
 textarea {
