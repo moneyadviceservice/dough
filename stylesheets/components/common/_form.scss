@@ -27,9 +27,7 @@
   border-left: 10px solid $color-validation-border;
   color: $color-validation-text;
   padding-left: 10px;
-}
 
-.form__row--is-errored {
   input[type="text"],
   input[type="number"],
   input[type="email"],
@@ -56,7 +54,7 @@
 }
 
 
-.form-group__item {
+.form__group-item {
   display: block;
   margin-bottom: $baseline-unit*2;
 
@@ -70,9 +68,9 @@
   margin-right: 15px;
 }
 
-.form-group__label-heading {
+.form__group-input {
   display: inline-block;
-  margin-left: 5px;
+  margin-right: 5px;
 }
 
 
