@@ -28,7 +28,7 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
 
   /**
    *
-   * @param {jQuery} $el - mandatory - container element for the component
+   * @param {jQuery} $el - mandatory - the trigger
    * @returns {Toggler}
    * @constructor
    */
@@ -52,8 +52,8 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    * @return {Toggler}
    */
   TogglerProto.init = function (initialised) {
-    this.$trigger = this.$el.find('[data-mas-trigger]');
-    this.$target = this.$el.find('[data-mas-target="' + this.$trigger.attr('data-mas-trigger') + '"]');
+    this.$trigger = this.$el;
+    this.$target = $('[data-mas-target="' + this.$trigger.attr('data-mas-trigger') + '"]');
     // is the target element visible already
     this.isShown = !!this.$target.hasClass(this.selectors.activeClass);
     this.setListeners(true);

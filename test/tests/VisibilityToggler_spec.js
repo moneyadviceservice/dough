@@ -9,13 +9,17 @@ describe('Visibility toggler', function () {
     requirejs(
         ['jquery', 'VisibilityToggler'],
         function ($, VisibilityToggler) {
-          self.$html = $(window.__html__['test/fixtures/VisibilityToggler.html']);
-          self.$trigger = self.$html.find('[data-mas-trigger]');
-          self.$target = self.$html.find('[data-mas-target]');
-          self.visibilityToggler = new VisibilityToggler(self.$html);
+          self.$html = $(window.__html__['test/fixtures/VisibilityToggler.html']).appendTo('body');
+          self.$trigger = self.$html.filter('[data-mas-trigger]');
+          self.$target = self.$html.filter('[data-mas-target]');
+          self.visibilityToggler = new VisibilityToggler(self.$trigger);
           self.visibilityToggler.init();
           done();
         }, done);
+  });
+
+  afterEach(function () {
+    this.$html.remove();
   });
 
   function isActive($target){
