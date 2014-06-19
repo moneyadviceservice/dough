@@ -114,3 +114,11 @@
     @include visually-hidden;
   }
 }
+
+.button--input {
+  @extend %type-button-input;
+  height: $input-button-height;
+  line-height: 0;
+  padding: 8px 10px;
+  vertical-align: top;
+}

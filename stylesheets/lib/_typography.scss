@@ -166,6 +166,12 @@
   @include body(18, 24);
 }
 
+%type-button-input {
+  @extend %font-body;
+  @extend %font-smoothing;
+  @include body(16, 16);
+}
+
 %base-font-style {
   @include body(16, 22);
 
