@@ -137,6 +137,7 @@ $color-validation-text: $color-red-medium !default;
 $color-validation-summary-background: $color-pink-light !default;
 
 // Forms
+$input-height: $baseline-unit*5;
 $color-input-text-color: $color-black !default;
 $color-input-background: $color-white !default;
 $color-input-border-color: $color-grey-primary !default;
@@ -151,3 +152,6 @@ $color-fieldset-legend-fg: $color-green-secondary;
 
 // Inset block
 $color-inset-block-border: $color-blue-medium;
+
+// Input button
+$input-button-height: $input-height;
