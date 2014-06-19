@@ -55,7 +55,7 @@ module Dough
             end
 
             model_errors.each do |field,message|
-              @errors << {number: counter, object: model, field: field, message: model.errors.full_message(field, message)}
+              @errors << {number: counter, object: model, field: field, message: message}
               counter += 1
             end
           end
