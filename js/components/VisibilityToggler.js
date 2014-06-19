@@ -6,16 +6,7 @@
  *
  * Events used: toggler:toggled(element, isShown) [Event for when the toggler is doing its work]
  *
- * ## Examples:
- *
- * ### Normal Toggler, specifies selector as target to show/hide on element click.
- *
- *     <button class="row" data-mas-component="VisibilityToggler" data-mas-toggler=".target" type="button">Click me</button>
- *
- *
- * ### Hide the trigger element after toggling visibility of the target.
- *
- *     <div class="row" data-mas-toggler=".target" data-toggler-hide-me></div>
+ * See test fixture for sample markup - /test/fixtures/VisibilityToggler.html
  */
 
 /**
@@ -61,9 +52,10 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    * @return {Toggler}
    */
   TogglerProto.init = function (initialised) {
-    this.$target = this.$el.find(this.attr('toggler'));
+    this.$trigger = this.$el.find('[data-mas-trigger]');
+    this.$target = this.$el.find('[data-mas-target="' + this.$trigger.attr('data-mas-trigger') + '"]');
     // is the target element visible already
-    this.isShown = !!this.$target.hasClass(this.selectors.activeClass); 
+    this.isShown = !!this.$target.hasClass(this.selectors.activeClass);
     this.setListeners(true);
     this._initialisedSuccess(initialised);
     return this;
@@ -74,9 +66,8 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    * @param {Boolean} isActive Set to 'true' to bind to events, 'false' to unbind.
    */
   TogglerProto.setListeners = function (isActive) {
-    this.$el[isActive ? 'on' : ' off']('click', $.proxy(function (e) {
+    this.$trigger[isActive ? 'on' : ' off']('click', $.proxy(function (e) {
       this.toggle();
-
       e.preventDefault();
     }, this));
 
@@ -95,8 +86,7 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
     // is there an override parameter?
     if (typeof forceTo !== 'undefined') {
       func = forceTo === 'show' ? 'addClass' : 'removeClass';
-    }
-    else {
+    } else {
       func = this.isShown ? 'removeClass' : 'addClass';
     }
 
@@ -104,7 +94,7 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
     this.isShown = !!this.$target[func](selectors.activeClass).hasClass(selectors.activeClass);
 
     // toggle the class on the trigger element (active = shown / nothing = not shown)
-    this.$el[func](selectors.activeClass);
+    this.$trigger[func](selectors.activeClass);
 
     // can bind to this by eventsWithPromises.subscribe('toggler:toggled', function(Toggler) { });
     if (typeof forceTo === 'undefined') {
