@@ -117,8 +117,9 @@
 
 .button--input {
   @extend %type-button-input;
-  height: $input-button-height;
+  height: $baseline-unit*6;
   line-height: 0;
+  margin-left: 6px;
   padding: 8px 10px;
   vertical-align: top;
 }
