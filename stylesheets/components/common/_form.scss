@@ -1,14 +1,13 @@
 // Forms
 //
 // .form - Default form form container
-// .form__item - Container for form element(s).
-// .form__item--is-errored - Form item error state
+// .form__row - Container for form element(s).
+// .form__row--is-errored - Form item error state
 // .form__label-heading - Form item label
 // .form__hint - Provides further information about an input
-// .form-group - Groups multiple form elements - to be used in conjuction with `<fieldset>`
-// .form-group--horizontal - Displays the items within form-group horizontally
-// .form-group__item - An item within a form group - stacked vertically by default
-// .form-group__label-heading - Form group label
+// .form__group - Groups multiple form elements - to be used in conjuction with `<fieldset>`
+// .form__group--inline - Displays the items within form__group horizontally
+// .form__group-item - An item within a form group - stacked vertically by default
 // .form__input-container - Wrapper to group and enable formatting on .form__input-label and .form__input elements
 // .form__input-container .form__input - Input within the container group
 // .form__input-container .form__input-label - Provides additional labelling for an `<input>` - there can be multiple labels of any width
@@ -19,12 +18,12 @@
   margin-top: $baseline-unit*6;
 }
 
-.form__item {
+.form__row {
   margin-bottom: $baseline-unit*6;
 }
 
 .is-errored,
-.form__item--is-errored {
+.form__row--is-errored {
   border-left: 10px solid $color-validation-border;
   color: $color-validation-text;
   padding-left: 10px;
@@ -42,7 +41,7 @@
 }
 
 
-.form-group__item {
+.form__group-item {
   display: block;
   margin-bottom: $baseline-unit*2;
 
@@ -51,7 +50,7 @@
   }
 }
 
-.form-group--horizontal .form-group__item {
+.form__group--inline .form__group-item {
   display: inline-block;
   margin-right: 15px;
 }
