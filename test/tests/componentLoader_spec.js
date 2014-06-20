@@ -23,6 +23,7 @@ describe('componentLoader', function() {
     it('should initialize components specified in the DOM', function() {
       var self = this;
       expect(this.componentLoader.components.TabSelector.length).to.equal(2);
+      expect(this.componentLoader.components.RangeInput.length).to.equal(1);
       $.each(this.componentLoader.components, function(componentName, list) {
         expect(self.$html.find(list[0].$el).length).to.equal(1);
       });
@@ -60,7 +61,7 @@ describe('componentLoader', function() {
       var self = this;
       this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
       // make one of the components fail to init by removing some required elements
-      this.$html.find('.js-dropdown-list__panel').last().empty();
+      this.$html.find('[data-mas-component="TabSelector"]').last().empty();
       this.componentLoader.init(this.$html)
           .then(function (results) {
             self.results = results;
@@ -74,6 +75,42 @@ describe('componentLoader', function() {
         return (o.state === 'rejected') ? o : null;
       });
       expect(failed[0].reason).to.equal('TabSelector');
+    });
+
+  });
+
+  describe('errors during initialisation are trapped', function() {
+
+    beforeEach(function (done) {
+      var self = this;
+      this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
+      requirejs(['RangeInput', 'TabSelector'], function(RangeInput, TabSelector) {
+        RangeInput.prototype.init = function() {
+          throw 'Test error';
+        };
+        TabSelector.prototype.init = function(initialised) {
+          this._initialisedSuccess(initialised);
+        };
+        self.componentLoader.init(self.$html)
+            .then(function (results) {
+              self.results = results;
+              done();
+            });
+      });
+    });
+
+    it('should allow other components to initialise even if one throws an error during init', function () {
+      var failed,
+          succeeded;
+
+      failed = $.map(this.results, function(o) {
+        return (o.state === 'rejected') ? o : null;
+      });
+      succeeded = $.map(this.results, function(o) {
+        return (o.state === 'fulfilled') ? o : null;
+      });
+      expect(failed.length).to.equal(1);
+      expect(succeeded.length).to.equal(2);
     });
 
   });

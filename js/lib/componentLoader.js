@@ -111,12 +111,8 @@ define(['jquery', 'rsvp'], function($, RSVP) {
         if (!self.components[componentName]) {
           self.components[componentName] = [];
         }
-        try {
-          self.components[componentName].push(new Constr($el, config));
-          instantiated.resolve();
-        } catch (err) {
-          instantiated.reject(err);
-        }
+        self.components[componentName].push(new Constr($el, config));
+        instantiated.resolve();
       });
     },
 
