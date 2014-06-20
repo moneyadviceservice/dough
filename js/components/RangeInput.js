@@ -14,16 +14,6 @@ define(['jquery', 'MASModule', 'featureDetect'], function ($, MASModule, feature
    */
   var RangeInput = function () {
     RangeInput.baseConstructor.apply(this, arguments);
-  };
-
-  MASModule.extend(RangeInput);
-
-  /**
-   * Init - detect range type support and clone input / label
-   * @param initialised
-   */
-  RangeInput.prototype.init = function(initialised) {
-
     var $baseEl,
         $newEl;
 
@@ -32,7 +22,7 @@ define(['jquery', 'MASModule', 'featureDetect'], function ($, MASModule, feature
       $newEl = $baseEl
           .clone()
           .removeClass('input--label')
-          .addClass('.form__input--range')
+          .addClass('form__input--range')
           .attr({
             'id': $baseEl.attr('id') + '_range',
             'rv-range': $baseEl.attr('rv-inputchange'),
@@ -51,6 +41,16 @@ define(['jquery', 'MASModule', 'featureDetect'], function ($, MASModule, feature
           .attr('class', 'visually-hidden')
           .insertBefore($newEl);
     }
+  };
+
+  MASModule.extend(RangeInput);
+
+  /**
+   * Init - detect range type support and clone input / label
+   * @param initialised
+   */
+  RangeInput.prototype.init = function(initialised) {
+
     this._initialisedSuccess(initialised);
   };
 
