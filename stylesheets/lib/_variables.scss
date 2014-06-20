@@ -137,6 +137,7 @@ $color-validation-text: $color-red-medium !default;
 $color-validation-summary-background: $color-pink-light !default;
 
 // Forms
+$input-height: $baseline-unit*5;
 $color-input-text-color: $color-black !default;
 $color-input-background: $color-white !default;
 $color-input-border-color: $color-grey-primary !default;
@@ -147,8 +148,13 @@ $color-input-focus-border-color: $color-green-primary !default;
 $color-input-disabled-background: $color-grey-normal !default;
 $color-input-disabled-text-color: $color-grey-medium !default;
 
+$color-fieldset-legend-fg: $color-green-secondary;
+
 $color-range-border: $color-grey-light !default;
 $color-range-background: $color-grey-palest !default;
 
 // Inset block
 $color-inset-block-border: $color-blue-medium;
+
+// Input button
+$input-button-height: $input-height;
