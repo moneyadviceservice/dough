@@ -98,7 +98,13 @@
 }
 
 .form__input-container .form__input,
-.form__input-container .form__input-label {
+.form__input-container .form__input-label,
+.form__input-container .field_with_errors {
   display: table-cell;
   vertical-align: middle;
+}
+
+.form__input-container .field_with_errors input {
+  display: block;
+  width: 100%;
 }
