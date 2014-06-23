@@ -23,6 +23,7 @@
     "normalize-css": "~3.0.0",
     "eventsWithPromises": "https://github.com/jonnywyatt/eventsWithPromises.git#master",
     "requirejs": null,
-    "jquery": null
+    "jquery": null,
+    "jqueryThrottleDebounce": "https://github.com/cowboy/jquery-throttle-debounce.git"
   }
 }
