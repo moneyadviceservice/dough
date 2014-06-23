@@ -31,8 +31,9 @@
   }
 }
 
+// Using an include as extending clearfix is not respected in some cases (see _callout)
 @mixin clearfix() {
-  *zoom: 1;
+  zoom: 1;
 
   &:before,
   &:after {
