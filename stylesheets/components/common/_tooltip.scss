@@ -1,0 +1,22 @@
+.tooltip {
+  @extend .inset-block;
+
+  &.tooltip--onfocus {
+    @include visually-hidden;
+  }
+}
+
+.tooltip__content-container {
+  @extend .inset-block__content-container;
+}
+.tooltip__text {
+  @extend .inset-block__text;
+}
+
+input:focus + .tooltip--onfocus {
+  @extend .inset-block;
+  height: auto;
+  width: auto;
+  clip: none;
+  position: relative;
+}
