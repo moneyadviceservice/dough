@@ -26,6 +26,10 @@ define([], function() {
     }()
   };
 
+  support.mediaQueries =
+      (typeof window.matchMedia !== 'undefined') ||
+      (typeof window.msMatchMedia !== 'undefined');
+
   support.test = supportTest;
 
   return support;
