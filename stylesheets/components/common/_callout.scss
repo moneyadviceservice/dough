@@ -5,8 +5,10 @@
 // Styleguide Call out
 
 .callout {
-  @extend %clearfix;
-  display: block;
+  // prevents the callout from collapsing.
+  // Note: extending clearfix instead of including it does not work.
+  @include clearfix();
+
   padding: $baseline-unit*3 0 0 0;
   margin: $baseline-unit*4 0;
   border-radius: 5px;
