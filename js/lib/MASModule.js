@@ -152,6 +152,7 @@ define([], function () {
    * @private
    */
   MASModuleProto._initialisedSuccess = function(initialised) {
+    this.$el.attr('data-initialised', 'yes');
     initialised && initialised.resolve(this.componentName);
   };
 
