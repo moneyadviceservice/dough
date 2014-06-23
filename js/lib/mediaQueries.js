@@ -5,11 +5,13 @@ define(['jquery', 'eventsWithPromises', 'jqueryThrottleDebounce'], function ($, 
   var current = false,
       testElement = $('<div class="js-mediaquery-test" />');
 
-  function checkSize() {
+  function checkSize(forceEvent) {
     var newSize = getSize();
-    if (newSize !== current) {
+    if ((newSize !== current) || forceEvent) {
       current = newSize;
-      eventsWithPromises.publish('mediaquery:resize', newSize);
+      eventsWithPromises.publish('mediaquery:resize', {
+        newSize: newSize
+      });
     }
   }
 
@@ -19,15 +21,23 @@ define(['jquery', 'eventsWithPromises', 'jqueryThrottleDebounce'], function ($, 
 
   return {
     init: function ($el) {
-      $el.append(testElement);
 
-      // Create the listener function
-      var updateLayout = $.debounce(250, checkSize);
+      $el = $el || $('body');
+      if (!$(testElement).closest($el).length) {
+        $el.append(testElement);
 
-      // Add the event listener
-      window.addEventListener('resize', updateLayout, false);
-      // Run to get initial value;
-      checkSize();
+        // Create the listener function
+        var updateLayout = $.debounce(250, checkSize);
+
+        // Add the event listener
+        window.addEventListener('resize', updateLayout, false);
+        // Run to get initial value;
+        checkSize();
+      } else {
+        checkSize(true);
+      }
+
+
     }
   };
 
