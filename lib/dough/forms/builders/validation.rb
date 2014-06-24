@@ -9,8 +9,11 @@ module Dough
           render 'summary_for_errors', errors: errors unless errors.empty?
         end
 
-        def errors_for(obj=nil, field)
-          render 'errors_for_field', errors: errors, object: (obj || object), field: field
+        def errors_for(subject=nil, field)
+          subject ||= object
+          filtered_errors = errors.select { |hash| hash[:object] == subject && hash[:field] == field }
+
+          render partial: 'errors_for_field', collection: filtered_errors, as: 'error'
         end
 
         def validates(*models)

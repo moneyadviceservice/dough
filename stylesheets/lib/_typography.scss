@@ -86,7 +86,6 @@
   font-weight: 500;
 }
 
-
 %font-heading-heavy {
   font-family: 'museo_sans', Arial, sans-serif;
   font-weight: 700;
@@ -121,14 +120,11 @@
   }
 }
 
-%heading-small {
+%heading-small,
+.heading-small {
   @extend %font-heading-heavy;
-  @include heading(20, 30);
+  @include heading(22, 30);
   color: $color-heading-default;
-
-  @include respond-to($mq-m) {
-    @include heading(20, 30);
-  }
 }
 
 %heading-extra-small {
