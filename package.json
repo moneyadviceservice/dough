@@ -32,6 +32,7 @@
     "karma-chai": "^0.1.0",
     "sinon": "^1.9.0",
     "karma-sinon": "^1.0.3",
-    "karma-html2js-preprocessor": "^0.1.0"
+    "karma-html2js-preprocessor": "^0.1.0",
+    "sinon-chai": "^2.5.0"
   }
 }

@@ -24,6 +24,7 @@ require.config({
   paths: {
     MASModule: 'js/lib/MASModule',
     featureDetect: 'js/lib/featureDetect',
+    mediaQueries: 'js/lib/mediaQueries',
     componentLoader: 'js/lib/componentLoader',
     VisibilityToggler: 'js/components/VisibilityToggler',
     TabSelector: 'js/components/TabSelector',
@@ -31,6 +32,7 @@ require.config({
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
     eventsWithPromises: 'vendor/assets/bower_components/eventsWithPromises/src/eventsWithPromises',
     rsvp: 'vendor/assets/bower_components/rsvp/rsvp.amd',
+    jqueryThrottleDebounce: 'vendor/assets/bower_components/jqueryThrottleDebounce/jquery.ba-throttle-debounce',
     utilities: 'js/lib/utilities'
   }
 
