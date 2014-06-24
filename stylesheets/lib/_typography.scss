@@ -178,10 +178,12 @@
 }
 
 %paragraph {
-  @include paragraph(16, 22);
+  @include body(16, 22);
+  margin-bottom: px(24);
 
   @include respond-to($mq-l) {
-    @include paragraph(18, 24);
+    @include body(18, 24);
+    margin-bottom: px(24);
   }
 }
 
