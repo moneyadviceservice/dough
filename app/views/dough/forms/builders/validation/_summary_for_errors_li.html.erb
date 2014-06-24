@@ -1,9 +1,7 @@
-<% if error[:field] == :base %>
-  <li class="validation-summary__error">
+<li class="validation-summary__error">
+  <% if error[:field] == :base %>
     <%= "#{error[:message]}".html_safe %>
-  </li>
-<% else %>
-  <li class="validation-summary__error">
+  <% else %>
     <%= "#{link_to(error[:message], "##{error[:field]}-errors")}".html_safe %>
-  </li>
-<% end %>
+  <% end %>
+</li>
