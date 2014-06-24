@@ -1,9 +1,7 @@
 <div class="validation-summary">
   <div class="validation-summary__content-container">
     <ol class="validation-summary__list">
-      <% errors.map do |error| %>
-        <%= render 'summary_for_errors_li', error: error %>
-      <% end %>
+      <%= render partial: 'summary_for_errors_li', collection: errors, as: 'error' %>
     </ol>
   </div>
 </div>

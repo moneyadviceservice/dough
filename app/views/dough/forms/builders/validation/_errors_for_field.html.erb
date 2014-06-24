@@ -1,9 +1,3 @@
-<% if errors.select{|hash| hash[:object] == object && hash[:field] == field}.any? %>
-  <div id="<%= field %>-errors">
-    <% errors.select{|hash| hash[:object] == object && hash[:field] == field}.each do |error| %>
-      <p class="validation-summary__error">
-        <%= error[:number] %>. <%= "#{error[:message]}".html_safe %>
-      </p>
-    <% end %>
-  </div>
-<% end %>
+<p class="validation-summary__error" id="error-<%= error[:number] %>">
+  <%= error[:number] %>. <%= error[:message].html_safe %>
+</p>
