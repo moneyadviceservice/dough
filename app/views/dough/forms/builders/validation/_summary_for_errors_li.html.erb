@@ -1,6 +1,6 @@
 <li class="validation-summary__error">
   <% if error[:field] == :base %>
-    <%= raw(error[:message]) %>
+    <%= error[:message].html_safe %>
   <% else %>
     <%= link_to(error[:message], "#error-#{error[:number]}") %>
   <% end %>
