@@ -47,6 +47,12 @@ Make sure you ran npm install.
 $ ./node_modules/karma/bin/karma start test/karma.conf.js --single-run
 ```
 
+## Javascript style checking
+
+```
+./node_modules/jscs/bin/jscs js
+```
+
 ## Contributing
 
 1. Fork it
