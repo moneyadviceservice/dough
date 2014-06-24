@@ -6,6 +6,8 @@
   display: inline;
 }
 
+/* @lintingIgnoreBegin */
 .error_message {
-  display: none;
+  display: none !important;
 }
+/* @lintingIgnoreEnd */
