@@ -2,7 +2,7 @@ describe('componentLoader', function() {
 
   'use strict';
 
-  beforeEach(function(done){
+  beforeEach(function(done) {
     var self = this;
     requirejs(['componentLoader'], function(componentLoader) {
       self.componentLoader = componentLoader;
@@ -12,7 +12,7 @@ describe('componentLoader', function() {
 
   describe('init method', function() {
 
-    beforeEach(function(done){
+    beforeEach(function(done) {
       this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
       this.componentLoader.init(this.$html)
           .then(function() {
@@ -41,15 +41,15 @@ describe('componentLoader', function() {
 
   describe('no DOM fragment supplied', function() {
 
-    beforeEach(function (done) {
+    beforeEach(function(done) {
       this.$html = '';
       this.componentLoader.init(this.$html)
-          .then(function () {
+          .then(function() {
             done();
           });
     });
 
-    it('should scan the whole document if not passed a DOM fragment', function () {
+    it('should scan the whole document if not passed a DOM fragment', function() {
       expect(this.componentLoader.$container.selector).to.equal('body');
     });
 
@@ -57,19 +57,19 @@ describe('componentLoader', function() {
 
   describe('init receives summary of success / failure of init of components', function() {
 
-    beforeEach(function (done) {
+    beforeEach(function(done) {
       var self = this;
       this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
       // make one of the components fail to init by removing some required elements
       this.$html.find('[data-mas-component="TabSelector"]').last().empty();
       this.componentLoader.init(this.$html)
-          .then(function (results) {
+          .then(function(results) {
             self.results = results;
             done();
           });
     });
 
-    it('should receive array of init results with the failed component indicating its state', function () {
+    it('should receive array of init results with the failed component indicating its state', function() {
       expect(this.results.constructor).to.equal(Array);
       var failed = $.map(this.results, function(o) {
         return (o.state === 'rejected') ? o : null;
@@ -81,7 +81,7 @@ describe('componentLoader', function() {
 
   describe('errors during initialisation are trapped', function() {
 
-    beforeEach(function (done) {
+    beforeEach(function(done) {
       var self = this;
       this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
       requirejs(['RangeInput', 'TabSelector'], function(RangeInput, TabSelector) {
@@ -92,14 +92,14 @@ describe('componentLoader', function() {
           this._initialisedSuccess(initialised);
         };
         self.componentLoader.init(self.$html)
-            .then(function (results) {
+            .then(function(results) {
               self.results = results;
               done();
             });
       });
     });
 
-    it('should allow other components to initialise even if one throws an error during init', function () {
+    it('should allow other components to initialise even if one throws an error during init', function() {
       var failed,
           succeeded;
 

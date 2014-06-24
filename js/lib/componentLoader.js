@@ -119,7 +119,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
     /**
      * The second pass - all components have been instantiated, so now call init() on each. This
      * has given all components a chance to subscribe to events from other components, before they
-     * are initialised.
+     * are initialised. If one component errors, catch it so others to initialise
      * @param {object} components - a hash of component names and arrays of instances
      * @param {array} initialisedList - list of promises, one to pass to each component so it can
      * indicate when it has initialised (it might need to conduct async activity to do so, so it's
