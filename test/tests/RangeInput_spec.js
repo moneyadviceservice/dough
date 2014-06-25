@@ -1,15 +1,16 @@
-describe('Range input', function () {
+describe('Range input', function() {
 
   'use strict';
 
- beforeEach(function (done) {
+  beforeEach(function(done) {
     var self = this;
     requirejs(
-        ['jquery', 'RangeInput', 'featureDetect'],
-        function ($, RangeInput, featureDetect) {
+        ['jquery', 'RangeInput', 'featureDetect', 'eventsWithPromises'],
+        function($, RangeInput, featureDetect, eventsWithPromises) {
           self.featureDetect = featureDetect;
           self.$html = $(window.__html__['test/fixtures/RangeInput.html']);
           self.RangeInput = RangeInput;
+          self.eventsWithPromises = eventsWithPromises;
           done();
         }, done);
   });
@@ -28,6 +29,35 @@ describe('Range input', function () {
     this.rangeInput.init();
     expect(this.$html.find('input').length).to.equal(1);
     expect(this.$html.find('label').length).to.equal(1);
+  });
+
+  it('keeps both input values in sync', function() {
+    var $inputText,
+        $inputSlider;
+
+    this.featureDetect.html5Inputs.range = true;
+    this.rangeInput = new this.RangeInput(this.$html);
+    this.rangeInput.init();
+    $inputText = this.$html.find('[data-mas-range-input]');
+    $inputSlider = this.$html.find('.form__input-range');
+    $inputText.val('2000').trigger('change');
+    expect($inputSlider.val()).to.equal('2000');
+    $inputText.val('50000').trigger('change');
+    expect($inputSlider.val()).to.equal('5000');
+  });
+
+  it('publishes an event when the value changes', function() {
+    var spy = sinon.spy(),
+        $input = this.$html.find('[data-mas-range-input]');
+    this.featureDetect.html5Inputs.range = true;
+    this.rangeInput = new this.RangeInput(this.$html);
+    this.rangeInput.init();
+    this.eventsWithPromises.subscribe('rangeInput:change', spy);
+    $input.val('3000').trigger('change');
+    sinon.assert.calledWith(spy, {
+      emitter: $input,
+      value: '3000'
+    });
   });
 
 });
