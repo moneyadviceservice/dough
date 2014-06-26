@@ -132,6 +132,6 @@
 
 .tab-selector__target.is-inactive {
   .js & {
-    display: none;
+    @extend .visually-hidden;
   }
 }
