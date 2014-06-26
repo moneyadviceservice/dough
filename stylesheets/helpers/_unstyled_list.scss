@@ -7,8 +7,13 @@
   margin: 0;
   list-style-type: none;
 
-  > li:before{
-    content: none;
+  > li {
+    padding: 0;
+    margin: 0;
+
+    &:before {
+      content: none;
+    }
   }
 }
 
