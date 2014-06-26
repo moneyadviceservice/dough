@@ -127,10 +127,11 @@
   color: $color-heading-default;
 }
 
-%heading-extra-small {
+%heading-extra-small,
+.heading-extra-small {
   @extend %font-heading-heavy;
   @include heading(16, 24);
-  color: $color-text-default;
+  color: $color-heading-black;
 }
 
 %type {
