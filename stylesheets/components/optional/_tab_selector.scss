@@ -117,9 +117,18 @@
   }
 }
 
-.tab-selector__items-inner.is-inactive .tab-selector__item.is-active .tab-selector__hide-on-closed{
+.tab-selector__item-info {
+  @extend .visually-hidden;
+}
+
+.tab-selector__items-inner.is-active .tab-selector__item-info{
   .js & {
-    display: none;
+    clip: auto;
+    float: right;
+    font-size: 0.8em;
+    height: auto;
+    width: auto;
+    position: static;
   }
 }
 
