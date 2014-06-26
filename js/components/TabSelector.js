@@ -32,6 +32,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
 
   var TabSelector,
       selectors = {
+        triggersWrapper: '[data-mas-tabselector-wrapper]',
         triggers: '[data-mas-tabselector-triggers]',
         trigger: 'data-mas-tabselector-trigger',
         target: 'data-mas-tabselector-target',
@@ -51,6 +52,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
     TabSelector.baseConstructor.apply(this, arguments);
     this.selectors = $.extend(this.selectors || {}, selectors);
     this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
+    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.height());
   };
 
   /**

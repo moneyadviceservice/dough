@@ -1,9 +1,11 @@
-.tab-selector {
-  min-height: 1.4em;
+// Tab selector, collapsing to dropdown below medium breakpoint
+//
+// Styleguide Tab selector
+.tab-selector__items {
   position: relative;
 }
 
-.tab-selector__panel {
+.tab-selector__items-inner {
   .js & {
     background-color: $color-tab-selector-background-active;
     font-size: 0;
@@ -34,6 +36,7 @@
     border-color: $color-tab-selector-border;
     border-style: solid;
     border-width: 0;
+    cursor: pointer;
     @extend %type;
     list-style: none;
     display: none;
@@ -82,9 +85,12 @@
 }
 
 .tab-selector__trigger {
-  @extend %clearfix;
   color: $color-tab-selector-text;
-  display: block;
+  &:hover,
+  &:visited {
+    color: $color-tab-selector-text;
+    text-decoration: none;
+  }
 }
 
 .tab-selector__icon {
@@ -102,7 +108,7 @@
   }
 }
 
-.tab-selector__panel.is-active .tab-selector__item {
+.tab-selector__items-inner.is-active .tab-selector__item {
   .js & {
     display: block;
     @include respond-to($mq-m) {
@@ -111,7 +117,20 @@
   }
 }
 
-.tab-selector__panel.is-inactive .tab-selector__item.is-active .tab-selector__hide-on-closed{
+.tab-selector__items-inner.is-inactive .tab-selector__item.is-active .tab-selector__hide-on-closed{
+  .js & {
+    display: none;
+  }
+}
+
+.tab-selector__target.is-active {
+  padding: $baseline-unit * 2 12px;
+  .js & {
+    display: block;
+  }
+}
+
+.tab-selector__target.is-inactive {
   .js & {
     display: none;
   }
