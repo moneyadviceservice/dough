@@ -45,6 +45,7 @@ $color-green-bright: #adcf3f !default;
 $color-green-dark: #388426 !default;
 $color-green-one: #77bf24 !default;
 $color-green-two: #20600f !default;
+$color-green-three: #f7fbed !default;
 
 $color-teal-light: #109e89 !default;
 $color-teal-dark: #0e7f6c !default;
@@ -166,3 +167,5 @@ $color-tab-selector-background-active: $color-white;
 $color-tab-selector-background: $color-grey-nine;
 $color-tab-selector-border: $color-green-medium;
 $color-tab-selector-text: $color-text-default;
+
+$default-border-thin: 1px solid $color-grey-paleo !default;
