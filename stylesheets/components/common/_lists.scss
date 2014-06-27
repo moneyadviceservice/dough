@@ -21,6 +21,8 @@
 //
 // Styleguide list-benefits
 
+// TODO Look to removing the .list--benefits class in the near future once other repos have switched over to .list-benefits
+.list--benefits,
 .list-benefits {
   list-style: none;
   padding-left: 0;
