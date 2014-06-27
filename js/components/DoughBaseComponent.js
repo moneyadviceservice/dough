@@ -12,9 +12,9 @@ define([], function () {
    *  i18n library
    */
 
-  function MASModule($el, config) {
+  function DoughBaseComponent($el, config) {
     if (!$el || !$el.length) {
-      throw "Element not supplied to MASModule constructor";
+      throw "Element not supplied to DoughBaseComponent constructor";
     }
     this.config = config || {};
     this.componentName = this.config.componentName;
@@ -32,12 +32,12 @@ define([], function () {
   }
 
   /**
-   * Extend MASModule class using the supplied constructor
+   * Extend DoughBaseComponent class using the supplied constructor
    * @param {function} Subclass
-   * @param {function} [Superclass] - if not supplied, defaults to MASModule
+   * @param {function} [Superclass] - if not supplied, defaults to DoughBaseComponent
    */
-  MASModule.extend = function (Subclass, Superclass) {
-    var Super = Superclass || MASModule;
+  DoughBaseComponent.extend = function (Subclass, Superclass) {
+    var Super = Superclass || DoughBaseComponent;
     function TempConstructor() {
     }
 
@@ -48,13 +48,13 @@ define([], function () {
     Subclass.superclass = Super.prototype;
   };
 
-  var MASModuleProto = MASModule.prototype;
+  var DoughBaseComponentProto = DoughBaseComponent.prototype;
 
   /**
    * Set the parent element for this context.
    * @param {[type]} $el [description]
    */
-  MASModuleProto.setElement = function ($el) {
+  DoughBaseComponentProto.setElement = function ($el) {
     this.$el = $el;
     return this;
   };
@@ -63,7 +63,7 @@ define([], function () {
    * Fetch the parent element
    * @return {Array} jQuery object or empty array (for safe jQuery ops)
    */
-  MASModuleProto.getElement = function () {
+  DoughBaseComponentProto.getElement = function () {
     return this.$el || [];
   };
 
@@ -72,19 +72,19 @@ define([], function () {
    * @param  {[type]} attr [description]
    * @return {[type]}      [description]
    */
-  MASModuleProto.attr = function (attr) {
+  DoughBaseComponentProto.attr = function (attr) {
     return this.getElement().attr('data-dough-' + attr);
   };
 
   /**
-   * All MASModules (if applicable) should have this method,
+   * All DoughBaseComponents (if applicable) should have this method,
    * which will unbind all events it attached when initialising itself.
    *
    * After this has been run, you can safely run 'delete [[instance]]' to remove it from memory.
    *
    * @return {[type]}
    */
-  MASModuleProto.destroy = function () {
+  DoughBaseComponentProto.destroy = function () {
     return this;
   };
 
@@ -108,10 +108,10 @@ define([], function () {
    * Adapted from the equivalent function in BackboneJS - http://backbonejs.org/#View-delegateEvents
    *
    * @param events
-   * @returns {MASModule}
+   * @returns {DoughBaseComponent}
    */
 
-  MASModuleProto._bindUiEvents = function (events) {
+  DoughBaseComponentProto._bindUiEvents = function (events) {
     var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
     if (!events) return this;
@@ -138,10 +138,10 @@ define([], function () {
 
   /**
    * Clears all callbacks previously bound to the component with `delegateEvents`.
-   * @returns {MASModule}
+   * @returns {DoughBaseComponent}
    */
 
-  MASModuleProto._unbindUiEvents = function () {
+  DoughBaseComponentProto._unbindUiEvents = function () {
     this.$el.off('.boundUiEvents');
     return this;
   };
@@ -151,7 +151,7 @@ define([], function () {
    * promise will be fed back to the component loader
    * @private
    */
-  MASModuleProto._initialisedSuccess = function(initialised) {
+  DoughBaseComponentProto._initialisedSuccess = function(initialised) {
     this.$el.attr('data-initialised', 'yes');
     initialised && initialised.resolve(this.componentName);
   };
@@ -161,10 +161,10 @@ define([], function () {
    * promise will be fed back to the component loader
    * @private
    */
-  MASModuleProto._initialisedFailure = function(initialised) {
+  DoughBaseComponentProto._initialisedFailure = function(initialised) {
     initialised && initialised.reject(this.componentName);
   };
 
-  return MASModule;
+  return DoughBaseComponent;
 
 });

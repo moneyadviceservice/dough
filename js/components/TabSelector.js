@@ -27,7 +27,7 @@
  * @return {[type]}           [description]
  * @private
  */
-define(['jquery', 'MASModule'], function ($, MASModule) {
+define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
   'use strict';
 
   var TabSelector,
@@ -44,7 +44,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
       };
 
   /**
-   * Call MASModule constructor. Find options list.
+   * Call DoughBaseComponent constructor. Find options list.
    * @constructor
    */
   TabSelector = function () {
@@ -58,7 +58,7 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
   /**
    * Inherit from base module, for shared methods and interface
    */
-  MASModule.extend(TabSelector);
+  DoughBaseComponent.extend(TabSelector);
 
   /**
    * Init function

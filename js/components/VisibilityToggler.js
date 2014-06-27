@@ -12,11 +12,11 @@
 /**
  * Require from Config
  * @param  {[type]} $         [description]
- * @param  {[type]} MASModule [description]
+ * @param  {[type]} DoughBaseComponent [description]
  * @return {[type]}           [description]
  * @private
  */
-define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, eventsWithPromises) {
+define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, DoughBaseComponent, eventsWithPromises) {
   'use strict';
 
   // Class variables
@@ -34,7 +34,7 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    */
   function Toggler($el) {
     this.selectors = selectors;
-    MASModule.apply(this, arguments);
+    DoughBaseComponent.apply(this, arguments);
     this.attrs = ['toggler'];
     return this;
   }
@@ -44,7 +44,7 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    * @type {[type]}
    * @private
    */
-  MASModule.extend(Toggler);
+  DoughBaseComponent.extend(Toggler);
   TogglerProto = Toggler.prototype;
 
   /**

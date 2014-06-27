@@ -5,7 +5,7 @@
  * @return {[type]}           [description]
  * @private
  */
-define(['jquery', 'MASModule', 'featureDetect', 'eventsWithPromises'], function ($, MASModule, featureDetect, eventsWithPromises) {
+define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], function ($, DoughBaseComponent, featureDetect, eventsWithPromises) {
   'use strict';
 
   var defaultConfig = {
@@ -25,7 +25,7 @@ define(['jquery', 'MASModule', 'featureDetect', 'eventsWithPromises'], function 
     }
   };
 
-  MASModule.extend(RangeInput);
+  DoughBaseComponent.extend(RangeInput);
 
   /**
    * Init - detect range type support and clone input / label
