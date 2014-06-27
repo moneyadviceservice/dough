@@ -10,8 +10,8 @@ describe('Visibility toggler', function () {
         ['jquery', 'VisibilityToggler'],
         function ($, VisibilityToggler) {
           self.$html = $(window.__html__['test/fixtures/VisibilityToggler.html']).appendTo('body');
-          self.$trigger = self.$html.filter('[data-mas-trigger]');
-          self.$target = self.$html.filter('[data-mas-target]');
+          self.$trigger = self.$html.filter('[data-dough-trigger]');
+          self.$target = self.$html.filter('[data-dough-target]');
           self.visibilityToggler = new VisibilityToggler(self.$trigger);
           self.visibilityToggler.init();
           done();

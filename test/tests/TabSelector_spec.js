@@ -3,10 +3,10 @@ describe('Tab selector', function () {
   'use strict';
 
   var activeClass = 'is-active',
-      trigger = '[data-mas-tabselector-trigger]',
+      trigger = '[data-dough-tabselector-trigger]',
       active = trigger + '.' + activeClass + ' a',
       triggers = trigger + ' a',
-      activeTarget = '[data-mas-tabselector-target].' + activeClass;
+      activeTarget = '[data-dough-tabselector-target].' + activeClass;
 
   beforeEach(function (done) {
     var self = this;
@@ -14,7 +14,7 @@ describe('Tab selector', function () {
         ['jquery', 'TabSelector'],
         function ($, TabSelector) {
           self.$html = $(window.__html__['test/fixtures/TabSelector.html']);
-          self.$menu = self.$html.find('[data-mas-tabselector-triggers]');
+          self.$menu = self.$html.find('[data-dough-tabselector-triggers]');
           self.tabSelector = new TabSelector(self.$html);
           self.tabSelector.init();
           done();
@@ -65,9 +65,9 @@ describe('Tab selector', function () {
   });
 
   it('updates other copies of the clicked trigger', function() {
-    var $trigger = this.$html.find('.panel [data-mas-tabselector-trigger="2"]');
+    var $trigger = this.$html.find('.panel [data-dough-tabselector-trigger="2"]');
     $trigger.find('a').click();
-    expect(this.$html.find('[data-mas-tabselector-trigger="2"].is-active').length).to.equal(2);
+    expect(this.$html.find('[data-dough-tabselector-trigger="2"].is-active').length).to.equal(2);
   });
 
   it('doesn\'t open the menu if a trigger outside the menu is clicked', function() {

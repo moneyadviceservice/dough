@@ -39,7 +39,7 @@ define(['jquery', 'MASModule', 'featureDetect', 'eventsWithPromises'], function 
     var $textInput,
         $rangeInput;
 
-    $textInput = this.$el.find('[data-mas-range-input]');
+    $textInput = this.$el.find('[data-dough-range-input]');
     $rangeInput = $textInput
         .clone()
         .removeClass('input--label')
@@ -49,7 +49,7 @@ define(['jquery', 'MASModule', 'featureDetect', 'eventsWithPromises'], function 
           'type': 'range',
           'aria-role': 'slider'
         })
-        .removeAttr('name data-mas-range-input')
+        .removeAttr('name data-dough-range-input')
         .on('input change', function () { // recapture focus on slider for iOS w/ Voiceover
           $(this).focus();
         })

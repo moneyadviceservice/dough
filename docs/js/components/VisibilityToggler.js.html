@@ -220,7 +220,7 @@ code {
 }
 </style><script srr="http://cdnjs.cloudflare.com/ajax/libs/foundation/4.1.6/js/vendor/custom.modernizr.js"></script></head><body><div class="row"><div class="small-12 columns"><h1 class="page-title">MAS Frontend Assets<small> js/components/VisibilityToggler.js</small></h1></div></div><div class="row"><div id="nav" class="large-3 columns"><div data-section="accordian" data-options="" class="section-container accordian"><div class="section active"><p data-section-title class="title"><a href="../../../docs/js/components/VisibilityToggler.js.html"><small>js/components/</small>VisibilityToggler.js</a></p><div data-section-content class="content"><ul class="side-nav"><li><a href="../../../docs/js/components/VisibilityToggler.js.html#init">init</a></li><li><a href="../../../docs/js/components/VisibilityToggler.js.html#setListeners">setListeners</a></li><li><a href="../../../docs/js/components/VisibilityToggler.js.html#toggle">toggle</a></li><li><a href="../../../docs/js/components/VisibilityToggler.js.html#destroy">destroy</a></li></ul></div></div></div></div><div class="small-12 large-9 columns"><article class="comment"><header></header><ul class="no-bullet tags"></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><h1>Element visibility toggler.</h1>
 
-<p>Requires an element to have a data-mas-toggler attribute. The application<br />file will spawn an instance of this class for each element it finds on the page.</p>
+<p>Requires an element to have a data-dough-toggler attribute. The application<br />file will spawn an instance of this class for each element it finds on the page.</p>
 
 <p>Events used: toggler:toggled(element, isShown) [Event for when the toggler is doing its work]</p>
 
@@ -228,12 +228,12 @@ code {
 
 <h3>Normal Toggler, specifies selector as target to show/hide on element click.</h3>
 
-<pre><code>&lt;div class="row" data-mas-toggler=".target"&gt;&lt;/div&gt;
+<pre><code>&lt;div class="row" data-dough-toggler=".target"&gt;&lt;/div&gt;
 </code></pre>
 
 <h3>Hide the trigger element after toggling visibility of the target.</h3>
 
-<pre><code>&lt;div class="row" data-mas-toggler=".target" data-toggler-hide-me&gt;&lt;/div&gt;
+<pre><code>&lt;div class="row" data-dough-toggler=".target" data-toggler-hide-me&gt;&lt;/div&gt;
 </code></pre></div></div></div></article><article class="comment"><header><h1 id="init">init</h1><h5 class="subheader"><div class="label radius ctx-type">method</div>TogglerProto.init()</h5></header><ul class="no-bullet tags"><li class="tag"><span class="type">@return: </span><span class="types">{Toggler}</span><span class="description"></span></li></ul><div data-section="accordian" data-options="one_up: false;" class="section-container code auto"><div class="section"><p data-section-title class="title"><a href="#">Description</a></p><div data-section-content class="content description"><p>Init function</p></div></div><div class="section"><p data-section-title class="title"><a href="#">Source</a></p><div data-section-content class="content"><pre><code class="language-javascript">TogglerProto.init = function () {
     this.$target = $(this.attr('toggler'));
     this.isShown = !!this.$target.hasClass('show'); // is the target element visible already

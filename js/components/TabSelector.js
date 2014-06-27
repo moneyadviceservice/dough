@@ -1,7 +1,7 @@
 /**
  * # Tab selector
  *
- * Requires an element to have a data-mas-component="TabSelector" attribute. The application
+ * Requires an element to have a data-dough-component="TabSelector" attribute. The application
  * file will spawn an instance of this class for each element it finds on the page.
  *
  * Events used: toggler:toggled(element, isShown) [Event for when the toggler is doing its work]
@@ -10,13 +10,13 @@
  *
  * ### Normal Toggler, specifies selector as target to show/hide on element click.
  *
- *     <div class="row" data-mas-toggler=".target"></div>
+ *     <div class="row" data-dough-toggler=".target"></div>
  *
  *
  *
  * ### Hide the trigger element after toggling visibility of the target.
  *
- *     <div class="row" data-mas-toggler=".target" data-toggler-hide-me></div>
+ *     <div class="row" data-dough-toggler=".target" data-toggler-hide-me></div>
  */
 
 
@@ -32,15 +32,15 @@ define(['jquery', 'MASModule'], function ($, MASModule) {
 
   var TabSelector,
       selectors = {
-        triggersWrapper: '[data-mas-tabselector-wrapper]',
-        triggers: '[data-mas-tabselector-triggers]',
-        trigger: 'data-mas-tabselector-trigger',
-        target: 'data-mas-tabselector-target',
+        triggersWrapper: '[data-dough-tabselector-wrapper]',
+        triggers: '[data-dough-tabselector-triggers]',
+        trigger: 'data-dough-tabselector-trigger',
+        target: 'data-dough-tabselector-target',
         activeClass: 'is-active',
         inactiveClass: 'is-inactive'
       },
       uiEvents = {
-        'click [data-mas-tabselector-trigger]': '_handleClickEvent'
+        'click [data-dough-tabselector-trigger]': '_handleClickEvent'
       };
 
   /**

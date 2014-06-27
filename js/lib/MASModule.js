@@ -21,7 +21,7 @@ define([], function () {
     this.setElement($el);
     /*
      Populate this array with the data attributes this module will use.
-     Exclude 'data-mas-' prefix, as this is automatically added.
+     Exclude 'data-dough-' prefix, as this is automatically added.
 
      For example: ['collapsible', 'only-first']
      */
@@ -73,7 +73,7 @@ define([], function () {
    * @return {[type]}      [description]
    */
   MASModuleProto.attr = function (attr) {
-    return this.getElement().attr('data-mas-' + attr);
+    return this.getElement().attr('data-dough-' + attr);
   };
 
   /**

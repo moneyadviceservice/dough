@@ -1,12 +1,12 @@
 /**
- * UI component loader. Scans the supplied DOM for 'data-mas-component' attributes and initialises
+ * UI component loader. Scans the supplied DOM for 'data-dough-component' attributes and initialises
  * components based on those attribute values
  * eg. the following markup will cause 2 components to be initialised, DropdownList and MultiToggler
  *
  <div class="container">
-   <div data-mas-component="DropdownList">
+   <div data-dough-component="DropdownList">
    </div>
-   <div data-mas-component="MultiToggler">
+   <div data-dough-component="MultiToggler">
    </div>
  </div>
 
@@ -43,7 +43,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
       this.components = {};
       // if no DOM fragment supplied, use the document
       this.$container = $container || $('body');
-      $components = this.$container.find('[data-mas-component]');
+      $components = this.$container.find('[data-dough-component]');
       instantiatedList = this._createPromises($components);
       initialisedList = this._createPromises($components);
       if ($components.length) {
@@ -89,7 +89,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
       var self = this;
       $components.each(function(idx) {
         var $el = $(this),
-            componentName = $el.attr('data-mas-component');
+            componentName = $el.attr('data-dough-component');
         self._instantiateComponent(componentName, $el, instantiatedList[idx]);
       });
     },
@@ -148,7 +148,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @private
      */
     _parseConfig: function($el) {
-      var config = $el.attr('data-mas-config');
+      var config = $el.attr('data-dough-config');
       try {
         config = JSON.parse(config);
       } catch (err) {

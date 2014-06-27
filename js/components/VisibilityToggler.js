@@ -1,7 +1,7 @@
 /**
  * # Element visibility toggler.
  *
- * Requires an element to have a data-mas-toggler attribute. The application
+ * Requires an element to have a data-dough-toggler attribute. The application
  * file will spawn an instance of this class for each element it finds on the page.
  *
  * Events used: toggler:toggled(element, isShown) [Event for when the toggler is doing its work]
@@ -53,7 +53,7 @@ define(['jquery', 'MASModule', 'eventsWithPromises'], function ($, MASModule, ev
    */
   TogglerProto.init = function (initialised) {
     this.$trigger = this.$el;
-    this.$target = $('[data-mas-target="' + this.$trigger.attr('data-mas-trigger') + '"]');
+    this.$target = $('[data-dough-target="' + this.$trigger.attr('data-dough-trigger') + '"]');
     // is the target element visible already
     this.isShown = !!this.$target.hasClass(this.selectors.activeClass);
     this.setListeners(true);
