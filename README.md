@@ -44,7 +44,7 @@ $ grunt watch:js
 Make sure you ran npm install.
 
 ```sh
-$ ./node_modules/karma/bin/karma start test/karma.conf.js
+$ ./node_modules/.bin/karma start test/karma.conf.js
 ```
 
 ## Contributing
