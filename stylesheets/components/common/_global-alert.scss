@@ -1,4 +1,8 @@
-// Global alerts display important information at the very top of the viewport
+// Global alerts display important information
+//
+// .global-alert - Default alert
+// .global-alert--error - Error alert
+// .global-alert--warning - Warning alert
 //
 // Styleguide Global Alert
 
@@ -45,14 +49,15 @@
   width: 100%;
 }
 
-.global-alert__message:first-child {
-  display: block;
-  width: 100%;
-}
-
-.global-alert__message-label {
+.global-alert__heading {
   display: table-cell;
   font-weight: 700;
   padding-right: 20px;
   width: 1%;
 }
+
+.global-alert__message:first-child {
+  display: block;
+  width: 100%;
+}
+
