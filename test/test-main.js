@@ -22,7 +22,7 @@ require.config({
   // we have to kickoff jasmine, as it is asynchronous
   callback: window.__karma__.start,
   paths: {
-    MASModule: 'js/lib/MASModule',
+    DoughBaseComponent: 'js/components/DoughBaseComponent',
     featureDetect: 'js/lib/featureDetect',
     mediaQueries: 'js/lib/mediaQueries',
     componentLoader: 'js/lib/componentLoader',

@@ -38,7 +38,7 @@ describe('Range input', function() {
     this.featureDetect.html5Inputs.range = true;
     this.rangeInput = new this.RangeInput(this.$html);
     this.rangeInput.init();
-    $inputText = this.$html.find('[data-mas-range-input]');
+    $inputText = this.$html.find('[data-dough-range-input]');
     $inputSlider = this.$html.find('.form__input-range');
     $inputText.val('2000').trigger('change');
     expect($inputSlider.val()).to.equal('2000');
@@ -48,7 +48,7 @@ describe('Range input', function() {
 
   it('publishes an event when the value changes', function() {
     var spy = sinon.spy(),
-        $input = this.$html.find('[data-mas-range-input]');
+        $input = this.$html.find('[data-dough-range-input]');
     this.featureDetect.html5Inputs.range = true;
     this.rangeInput = new this.RangeInput(this.$html);
     this.rangeInput.init();

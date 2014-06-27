@@ -61,7 +61,7 @@ describe('componentLoader', function() {
       var self = this;
       this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
       // make one of the components fail to init by removing some required elements
-      this.$html.find('[data-mas-component="TabSelector"]').last().empty();
+      this.$html.find('[data-dough-component="TabSelector"]').last().empty();
       this.componentLoader.init(this.$html)
           .then(function(results) {
             self.results = results;
