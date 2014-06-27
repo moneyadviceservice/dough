@@ -46,23 +46,15 @@
   background: $color-global-alert-warning;
 }
 
+.global-alert__heading {
+  display: block;
+  font-weight: 700;
+  margin-bottom: $baseline-unit;
+}
+
 .global-alert__message {
   @extend %type-small;
-  display: table-cell;
   margin: 0;
   padding-bottom: $baseline-unit*2;
-  width: 100%;
-}
-
-.global-alert__heading {
-  display: table-cell;
-  font-weight: 700;
-  padding-right: 20px;
-  width: 1%;
-}
-
-.global-alert__message:first-child {
-  display: block;
-  width: 100%;
 }
 
