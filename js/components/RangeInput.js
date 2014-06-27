@@ -5,41 +5,23 @@
  * @return {[type]}           [description]
  * @private
  */
-define(['jquery', 'MASModule', 'featureDetect'], function ($, MASModule, featureDetect) {
+define(['jquery', 'MASModule', 'featureDetect', 'eventsWithPromises'], function ($, MASModule, featureDetect, eventsWithPromises) {
   'use strict';
 
-  /**
+  var defaultConfig = {
+      keepSynced: true
+    },
+
+    /**
    * Call base constructor
    * @constructor
    */
-  var RangeInput = function () {
+  RangeInput = function ($el, config) {
     RangeInput.baseConstructor.apply(this, arguments);
-    var $baseEl,
-        $newEl;
+    this.config = $.extend(defaultConfig, this.config);
 
     if (featureDetect.html5Inputs.range) {
-      $baseEl = this.$el.find('[data-mas-range-input]');
-      $newEl = $baseEl
-          .clone()
-          .removeClass('input--label')
-          .addClass('form__input--range')
-          .attr({
-            'id': $baseEl.attr('id') + '_range',
-            'rv-range': $baseEl.attr('rv-inputchange'),
-            'type': 'range',
-            'aria-role': 'slider'
-          })
-          .removeAttr('rv-inputchange name data-mas-range-input')
-          .on('input change', function () { // recapture focus on slider for iOS w/ Voiceover
-            $(this).focus();
-          })
-          .appendTo(this.$el);
-
-      this.$el.find('label[for="' + $baseEl.attr('id') + '"]')
-          .clone()
-          .attr('for', $newEl.attr('id'))
-          .attr('class', 'visually-hidden')
-          .insertBefore($newEl);
+      this._cloneElements();
     }
   };
 
@@ -50,8 +32,52 @@ define(['jquery', 'MASModule', 'featureDetect'], function ($, MASModule, feature
    * @param initialised
    */
   RangeInput.prototype.init = function(initialised) {
-
     this._initialisedSuccess(initialised);
+  };
+
+  RangeInput.prototype._cloneElements = function() {
+    var $textInput,
+        $rangeInput;
+
+    $textInput = this.$el.find('[data-mas-range-input]');
+    $rangeInput = $textInput
+        .clone()
+        .removeClass('input--label')
+        .addClass('form__input-range')
+        .attr({
+          'id': $textInput.attr('id') + '_range',
+          'type': 'range',
+          'aria-role': 'slider'
+        })
+        .removeAttr('name data-mas-range-input')
+        .on('input change', function () { // recapture focus on slider for iOS w/ Voiceover
+          $(this).focus();
+        })
+        .appendTo(this.$el);
+
+    this.$el.find('label[for="' + $textInput.attr('id') + '"]')
+        .clone()
+        .attr('for', $rangeInput.attr('id'))
+        .attr('class', 'visually-hidden')
+        .insertBefore($rangeInput);
+
+    if (this.config.keepSynced === true) {
+      this._setupSyncInputs($textInput, $rangeInput);
+    }
+  };
+
+  RangeInput.prototype._setupSyncInputs = function($textInput, $rangeInput) {
+    $textInput.on('change keyup', function() {
+      var val = $textInput.val();
+      $rangeInput.val(val);
+      eventsWithPromises.publish('rangeInput:change', {
+        emitter: $textInput,
+        value: val
+      });
+    });
+    $rangeInput.on('change input', function() {
+      $textInput.val($rangeInput.val());
+    });
   };
 
   return RangeInput;

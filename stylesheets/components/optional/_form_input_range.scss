@@ -4,7 +4,7 @@
  http://codepen.io/aronwoost/pen/nlyrf
  http://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html
 **/
-.form__input--range {
+.form__input-range {
   -webkit-appearance: none;
   margin-bottom: $baseline-unit * 2;
   width: 100%;
@@ -21,30 +21,30 @@
   border: 1px solid $color-range-border;
 }
 
-.form__input--range::-webkit-slider-runnable-track {
+.form__input-range::-webkit-slider-runnable-track {
   @include range-track-colors;
   @include respond-to($mq-m) {
     height: 7px;
   }
 }
 
-.form__input--range::-moz-range-track {
+.form__input-range::-moz-range-track {
   @include range-track-colors;
   height: 7px;
 }
 
-.form__input--range::-ms-track {
+.form__input-range::-ms-track {
   @include range-track-colors;
   color: transparent;
   height: 20px;
 }
 
-.form__input--range::-ms-fill-lower,
-.form__input--range::-ms-fill-upper {
+.form__input-range::-ms-fill-lower,
+.form__input-range::-ms-fill-upper {
   background: transparent;
 }
 
-.form__input--range::-ms-tooltip {
+.form__input-range::-ms-tooltip {
   .js & {
     display: none;
   }
@@ -70,7 +70,7 @@
   }
 }
 
-.form__input--range::-webkit-slider-thumb {
+.form__input-range::-webkit-slider-thumb {
   -webkit-appearance: none;
   @include range-thumb-generic;
   @include range-thumb-large;
@@ -79,12 +79,12 @@
   }
 }
 
-.form__input--range::-moz-range-thumb {
+.form__input-range::-moz-range-thumb {
   @include range-thumb-generic;
   @include range-thumb-large;
 }
 
-.form__input--range::-ms-thumb {
+.form__input-range::-ms-thumb {
   @include range-thumb-generic;
   height: 20px;
 }
