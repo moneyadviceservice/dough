@@ -173,3 +173,9 @@ $color-tab-selector-text: $color-text-default;
 // Borders
 $default-border-thin: 1px solid $color-grey-paleo !default;
 $default-border-thick: 3px solid $color-grey-paleo !default;
+
+// Global alerts
+$color-global-alert-message-bg: $color-grey-ten;
+$color-global-alert-default: $color-green-one;
+$color-global-alert-warning: $color-yellow-light;
+$color-global-alert-error: $color-red-medium;
