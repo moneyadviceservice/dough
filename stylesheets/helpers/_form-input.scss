@@ -6,8 +6,8 @@
   border-radius: 0;
   color: $color-input-text-color;
   display: inline-block;
-  height: $baseline-unit*5;
-  line-height: $baseline-unit*5;
-  padding: 0 $baseline-unit;
+  height: px(30);
+  line-height: px(30);
+  padding: 0 px(6);
   width: 100%;
 }

@@ -3,10 +3,10 @@
 // Styleguide validation-summary
 
 .validation-summary {
-  margin: $baseline-unit*2 0 $baseline-unit*3 0;
+  margin: px(12) 0 px(18) 0;
 
   @include respond-to($mq-s) {
-    margin: $baseline-unit*2 0 $baseline-unit*5 0;
+    margin: px(12) 0 px(30) 0;
   }
 }
 
@@ -14,7 +14,7 @@
   @extend .is-errored;
   @include inline-block;
   background: $color-validation-summary-background;
-  padding-right: $baseline-unit*3;
+  padding-right: px(18);
 }
 
 .validation-summary__title {
@@ -23,7 +23,7 @@
 }
 
 .validation-summary__list {
-  margin: $baseline-unit*2 0;
+  margin: px(12) 0;
 
   a {
      color:$color-validation-text;

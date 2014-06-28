@@ -5,11 +5,11 @@
 .panel {
   border-radius: 5px;
   background-color: $color-panel-background;
-  padding: $baseline-unit*3;
-  margin: $baseline-unit*4 0;
+  padding: px(18);
+  margin: px(24) 0;
 }
 
 .panel__heading {
   @extend %heading-extra-small;
-  margin: 0 0 $baseline-unit 0;
+  margin: 0 0 px(6) 0;
 }

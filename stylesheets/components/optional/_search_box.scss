@@ -13,8 +13,8 @@
     .search-box__input {
       @extend %font-heading-medium;
       width: 100%;
-      height: $baseline-unit*7;
-      padding-left: $baseline-unit*2;
+      height: px(42);
+      padding-left: px(12);
       border: 0;
       background-color: $color-off-white;
 
@@ -30,15 +30,15 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    width: $baseline-unit*7;
-    height: $baseline-unit*7;
+    width: px(42);
+    height: px(42);
     font-size: 24px;
     color: $color-search-text;
 
     .icon--search {
       position: absolute;
-      top: $baseline-unit*2;
-      left: $baseline-unit*2;
+      top: px(12);
+      left: px(12);
     }
 
     &:focus {

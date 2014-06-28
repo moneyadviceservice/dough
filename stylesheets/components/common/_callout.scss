@@ -9,20 +9,20 @@
   // Note: extending clearfix instead of including it does not work.
   @include clearfix();
 
-  padding: $baseline-unit*3 0 0 0;
-  margin: $baseline-unit*4 0;
+  padding: px(18) 0 0 0;
+  margin: px(24) 0;
   border-radius: 5px;
   background-color: $color-callout-background;
 
   h3 {
     @extend %heading-extra-small;
-    margin: 0 $baseline-unit*3 $baseline-unit;
+    margin: 0 px(18) px(6);
     text-transform: capitalize;
   }
 
   p {
     @extend %type-callout;
-    margin: 0 $baseline-unit*3 $baseline-unit*3 $baseline-unit*3;
+    margin: 0 px(18) px(18) px(18);
   }
 
   .editorial & {
@@ -30,7 +30,7 @@
     @include respond-to($mq-l) {
       @include column(3.5, 7);
       float: right;
-      margin-bottom: $baseline-unit*2;
+      margin-bottom: px(12);
     }
   }
 }

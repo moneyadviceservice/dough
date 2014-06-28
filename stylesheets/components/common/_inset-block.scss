@@ -3,10 +3,10 @@
 // Styleguide inset-block
 
 .inset-block {
-  margin: $baseline-unit*2 0 $baseline-unit*3 0;
+  margin: px(12) 0 px(18) 0;
 
   @include respond-to($mq-s) {
-    margin: $baseline-unit*2 0 $baseline-unit*5 0;
+    margin: px(12) 0 px(30) 0;
   }
 }
 
@@ -14,7 +14,7 @@
   border-left: 10px solid $color-inset-block-border;
   padding-left:10px;
   @include inline-block;
-  padding-right: $baseline-unit*3;
+  padding-right: px(18);
 }
 
 .inset-block__text {
