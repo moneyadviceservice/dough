@@ -2,12 +2,20 @@
 //
 // Styleguide intro
 
-.intro {
-  @extend %clearfix;
-  @extend %paragraph-intro;
-  clear: both;
+.intro,
+.standfirst {
+  @include font-size($apollo);
+  @include line-height(24, $apollo);
+  @include font-weight(medium);
+  color: $color-grey-primary;
+
+  @include respond-to($mq-l) {
+    @include font-size($typhon);
+    @include line-height(30, $typhon);
+  }
 }
 
-.intro--constrained {
-  max-width: 700px;
+.intro--constrained,
+.standfirst--constrained {
+  max-width: px(700);
 }
