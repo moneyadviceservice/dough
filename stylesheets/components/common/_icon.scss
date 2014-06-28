@@ -38,7 +38,7 @@
   } @else if ($search-icon-colour == white) {
     background-position: -271px -73px;
     @include device-pixel-ratio() {
-      background-position: -272px -8px;
+      background-position: -271px -7px;
     }
   }
 }
