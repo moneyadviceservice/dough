@@ -1,20 +1,16 @@
-// Typeplate
-//
-// settings for site wide global typography
+$thanatos:  46 !default;
+$demeter:   42 !default;
+$talos:     40 !default;
+$hestia:    36 !default;
+$cronus:    32 !default;
+$zeus:      30 !default;
+$poseidon:  24 !default;
+$typhon:    22 !default;
+$hades:     20 !default;
 
-$brand-font-family: museo_sans !default;
-$base-font-stack: $brand-font-family, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-$base-font-size: 16 !default;
-$base-line-height: 24 !default;
-$base-text-colour: $color-black !default;
-$base-heading-colour: $color-green-secondary !default;
-
-$baseline-unit: 6px !default;
-
-// Utility function for converting px to em for responsive paddings and margins
-@function px($px) {
-  @return ($px / $base-font-size) + em
-}
+$apollo:    18 !default;
+$artemis:   16 !default;
+$hera:      14 !default;
 
 @mixin font-size($font-size) {
   @if $responsive == true {
@@ -23,10 +19,6 @@ $baseline-unit: 6px !default;
     font-size: $font-size + px;
   }
 }
-
-//@mixin line-height($line-height, $font-size) {
-//  line-height: ($line-height / $font-size);
-//}
 
 @mixin font-weight($font-weight) {
   @if $font-weight == bold {
@@ -38,136 +30,69 @@ $baseline-unit: 6px !default;
   }
 }
 
+@mixin line-height($line-height, $font-size) {
+  line-height: ($line-height / $font-size);
+}
+
+
+%font-smoothing {
+  -webkit-font-smoothing: antialiased; // doesn't work as well with italics as with regular text
+  text-shadow: 1px 1px transparent; // improves antialiasing in Chrome and Windows
+}
+
 %base-heading-style {
   text-rendering: optimizeLegibility; // helps to enable ligatures and kerning
   line-height: 1; // prevent excess whitespace when a heading wraps onto two lines
   margin-top: 0; // abide by single-direction margins for type
 }
 
-// Display font sizing
+%base-font-style {
+  @include font-size($base-font-size);
 
-$peta: 48 !default;
-// 1,000,000,000,000,000
-$tera: 42 !default;
-// 1,000,000,000,000
-$giga: 36 !default;
-// 1,000,000,000
-
-// Heading font sizes
-
-$mega: 30 !default;
-// 100000
-$kilo: 24 !default;
-// 1000
-$hecto: 18 !default;
-// 100
-$deca: 16 !default;
-// 10
-$deci: 12 !default;
-// 0.1
-$centi: 10 !default;
-// 0.01
-
-// Small print sizes
-
-$milli: 8 !default;
-// 0.001
-$micro: 8 !default;
-// 0.000 001
-$nano: 8 !default;
-// 0.000 000 001
-
-.extra-large,
-%extra-large {
-  @include font-size(32, 36);
-
-  @include respond-to($mq-m) {
-    @include font-size(40, 42);
+  @include respond-to($mq-l) {
+    @include font-size($apollo);
   }
 }
 
-.large {
-  @include font-size(32, 36);
-
-  @include respond-to($mq-m) {
-    @include font-size(40, 48);
-  }
-}
-
-.medium {
-  @include font-size(24, 30);
-
-  @include respond-to($mq-m) {
-    @include font-size(28, 36);
-  }
-}
-
-.small {
-  @include font-size(20, 30);
-
-  @include respond-to($mq-m) {
-    @include font-size(20, 30);
-  }
-}
-
-.extra-small {
-  @include font-size(16, 24);
-}
-
-// Usage
-
-body {
-  @include font-size(16, 24);
+%base-button-style {
+  @include font-size($apollo);
+  @include line-height($base-line-height, $apollo);
   @include font-weight(light);
-  font-family: $base-font-stack;
-  color: $base-text-colour;
+  @extend %font-smoothing;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @extend %base-heading-style;
-  @include font-weight(bold);
-  color: $base-heading-colour;
-}
+.heading-extra-large {
+  @include font-size($cronus);
 
-h1 {
-  @extend .font-size-large;
-}
-
-h2 {
-  @extend .font-size-medium;
-}
-
-h3 {
-  @extend .font-size-small;
-}
-
-h4 {
-  @extend .font-size-extra-small;
-}
-
-p {
-  margin-bottom: px(16);
-}
-
-ol {
-  padding: 0;
-  margin: 0;
-
-  li {
-    margin-bottom: px(16);
+  @include respond-to($mq-m) {
+    @include font-size($talos);
   }
 }
 
-ul {
-  padding: 0;
-  margin: 0;
+.heading-large {
+  @include font-size($cronus);
 
-  li {
-    margin-bottom: px(16);
+  @include respond-to($mq-m) {
+    @include font-size($talos);
   }
+}
+
+.heading-medium {
+  @include font-size($poseidon);
+  color: $color-green-dark;
+
+  @include respond-to($mq-m) {
+    @include font-size($zeus);
+  }
+}
+
+.heading-small {
+  @include font-size($typhon);
+  @include line-height(30, $typhon);
+}
+
+.heading-extra-small {
+  @include font-size($artemis);
+  @include line-height(24, $artemis);
+  color: $color-heading-black;
 }
