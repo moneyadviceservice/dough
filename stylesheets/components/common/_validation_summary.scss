@@ -18,7 +18,7 @@
 }
 
 .validation-summary__title {
-  @extend %font-heading-heavy;
+  @include font-weight(bold);
   margin: 0.75em 0;
 }
 

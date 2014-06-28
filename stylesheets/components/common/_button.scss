@@ -13,7 +13,7 @@
 // Styleguide buttons
 
 .button {
-  @extend %type-button;
+  @extend %base-button-style;
   @include inline-block;
   padding: $padding-vertical-button $padding-horizontal-button;
   margin-bottom: 0;

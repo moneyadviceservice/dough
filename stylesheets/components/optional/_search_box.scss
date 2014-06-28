@@ -11,7 +11,6 @@
 
     // nesting the input to be more specific than base style which uses attribute selector
     .search-box__input {
-      @extend %font-heading-medium;
       width: 100%;
       height: $baseline-unit*7;
       padding-left: $baseline-unit*2;
