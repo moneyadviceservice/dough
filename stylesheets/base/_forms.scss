@@ -19,7 +19,6 @@ input[type="search"] {
   box-sizing: border-box;
 }
 
-/* @lintingIgnoreBegin */
 input[type="text"],
 input[type="number"],
 input[type="email"],
@@ -30,9 +29,9 @@ input[type="radio"],
 textarea {
   &:focus {
     @extend %form-input-focus;
+    @extend %form-input-focus-outline;
   }
 }
-/* @lintingIgnoreEnd */
 
 input[type="search"] {
   &:focus {
@@ -40,9 +39,12 @@ input[type="search"] {
   }
 }
 
+input[type="reset"],
+input[type="submit"],
+button,
 select {
   &:focus {
-    @extend %form-input-outline-focus;
+    @extend %form-input-focus-outline;
   }
 }
 
