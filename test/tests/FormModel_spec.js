@@ -8,9 +8,9 @@ describe('Form model', function() {
     requirejs(
         ['jquery', 'FormModel'],
         function($, FormModel) {
-          self.$html = $(window.__html__['test/fixtures/FormModel.html']);
+          self.$form = $(window.__html__['test/fixtures/FormModel.html']);
           self.FormModel = FormModel;
-          self.formModel = new FormModel(self.$html);
+          self.formModel = new FormModel(self.$form);
           self.formModel.init();
           done();
         }, done);
@@ -25,7 +25,7 @@ describe('Form model', function() {
 
   it('sends the model to the server when the form is submitted', function() {
     var query;
-    this.$html.submit();
+    this.$form.submit();
     query = this.server.requests[0].url.split('?')[1];
     expect(query).to.eq($.param(this.formModel.model));
   });
@@ -37,20 +37,22 @@ describe('Form model', function() {
           JSON.stringify(
               { 'property2': 'new value' }
           )]);
-    this.$html.submit();
+    this.$form.submit();
     this.server.respond();
     expect(this.formModel.model.property2).to.eq('new value');
   });
 
   it('updates the model when an input value changes', function() {
-    this.$html.find('.input1').val('blah').trigger('change');
+    this.$form.find('.input1').val('blah').trigger('change');
     expect(this.formModel.model.property1).to.eq('blah');
   });
 
   it('only sends model properties to the server, excluding methods', function() {
     var query;
+    // add a method to the model
     this.formModel.model.myFunc = function(){};
-    this.$html.submit();
+    this.$form.submit();
+    // the method should have been stripped from the serialized model sent to the server
     query = this.server.requests[0].url.split('?')[1];
     expect(query.indexOf('myFunc')).to.eq(-1);
   });
