@@ -47,4 +47,11 @@ describe('Form model', function() {
     expect(this.formModel.model.property1).to.eq('blah');
   });
 
+  it('only sends model properties to the server, excluding methods', function() {
+    var query;
+    this.formModel.model.myFunc = function(){};
+    this.$html.submit();
+    query = this.server.requests[0].url.split('?')[1];
+    expect(query.indexOf('myFunc')).to.eq(-1);
+  });
 });

@@ -40,13 +40,24 @@ define(['jquery', 'DoughBaseComponent', 'dataBinding'], function($, DoughBaseCom
       $.ajax({
         url: self.$el.attr('action'),
         dataType: 'json',
-        data: $.param(self.model)
+        data: $.param(self._getModelProperties())
       })
           .done(function(data) {
             $.extend(self.model, data);
           });
       e.preventDefault();
     });
+  };
+
+  FormModel.prototype._getModelProperties = function() {
+    var model = $.extend({}, this.model);
+
+    $.each(this.model, function(key, val) {
+      if (typeof val === 'function') {
+        delete model[key];
+      }
+    });
+    return model;
   };
 
   return FormModel;
