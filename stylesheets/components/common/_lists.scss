@@ -48,18 +48,18 @@
   }
 }
 
-.list-benefits--sm {
+.list-benefits--s {
   margin-bottom: $baseline-unit*2;
 
   li {
     @include body(16,24);
     margin-bottom: 0;
     padding-left: 18px;
-  }
 
-  li:before {
-    @extend .icon--tick-sm;
-    top: 7px;
+    &:before {
+      @extend .icon--tick-s;
+      top: 7px;
+    }
   }
 }
 
