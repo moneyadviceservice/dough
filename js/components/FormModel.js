@@ -49,6 +49,11 @@ define(['jquery', 'DoughBaseComponent', 'dataBinding'], function($, DoughBaseCom
     });
   };
 
+  /**
+   * Make a copy of the model, with any methods stripped out
+   * @returns {Object}
+   * @private
+   */
   FormModel.prototype._getModelProperties = function() {
     var model = $.extend({}, this.model);
 
