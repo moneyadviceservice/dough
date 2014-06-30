@@ -34,7 +34,8 @@
   input[type="email"],
   input[type="search"],
   input[type="password"],
-  .form__input-container {
+  .form__input-container,
+  .form__input-outline {
     border-color: $color-validation-border;
     color: $color-validation-text;
   }
