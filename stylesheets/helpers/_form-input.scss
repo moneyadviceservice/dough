@@ -6,6 +6,8 @@
   border-radius: 0;
   color: $color-input-text-color;
   display: inline-block;
+  height: $input-height;
+  line-height: $input-height;
   padding: 0 $baseline-unit;
   width: 100%;
 }
