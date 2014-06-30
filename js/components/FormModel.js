@@ -36,11 +36,12 @@ define(['jquery', 'DoughBaseComponent', 'dataBinding'], function($, DoughBaseCom
    */
   FormModel.prototype._bindFormSubmit = function() {
     var self = this;
+
     this.$el.on('submit', function(e) {
       $.ajax({
         url: self.$el.attr('action'),
         dataType: 'json',
-        data: $.param(self.model)
+        data: self.$el.serialize()
       })
           .done(function(data) {
             $.extend(self.model, data);
