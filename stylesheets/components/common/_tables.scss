@@ -20,15 +20,15 @@
 }
 
 table {
-  @extend %type-table;
-  text-align: left;
+  @include font-size($hera);
+  @include line-height(18, $hera);
   margin: $baseline-unit*4 0;
+  text-align: left;
 
-  > p {
-    // NOTE that this is here to override sloppy formatting in the tables where p tags force a large font size.
-    @extend %type-table;
+  @include respond-to($mq-m) {
+    @include font-size($artemis);
+    @include line-height(22, $artemis);
   }
-
 }
 
 .table--full-width {

@@ -21,12 +21,15 @@
   }
 
   p {
-    @extend %type-callout;
+    @include font-weight(medium);
     margin: 0 $baseline-unit*3 $baseline-unit*3 $baseline-unit*3;
+
+    @include respond-to($mq-xs, $mq-m) {
+      @include font-size($hera);
+    }
   }
 
   .editorial & {
-
     @include respond-to($mq-l) {
       @include column(3.5, 7);
       float: right;

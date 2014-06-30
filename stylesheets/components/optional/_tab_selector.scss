@@ -45,7 +45,7 @@
     bottom: -1px;
     margin: 0;
     &.is-active {
-      @extend %font-heading-heavy;
+      @include font-weight(bold);
       background-color: $color-tab-selector-background-active;
       border-width: 1px;
       border-radius: 5px;
@@ -124,7 +124,7 @@
   }
 }
 
-.tab-selector__items-inner.is-active .tab-selector__item-info{
+.tab-selector__items-inner.is-active .tab-selector__item-info {
   .js & {
     clip: auto;
     float: right;

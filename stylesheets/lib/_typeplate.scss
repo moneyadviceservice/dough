@@ -1,0 +1,98 @@
+$thanatos:  46 !default;
+$demeter:   42 !default;
+$talos:     40 !default;
+$hestia:    36 !default;
+$cronus:    32 !default;
+$zeus:      30 !default;
+$poseidon:  24 !default;
+$typhon:    22 !default;
+$hades:     20 !default;
+
+$apollo:    18 !default;
+$artemis:   16 !default;
+$hera:      14 !default;
+
+@mixin font-size($font-size) {
+  @if $responsive == true {
+    font-size: ($font-size / $base-font-size) + rem;
+  } @else {
+    font-size: $font-size + px;
+  }
+}
+
+@mixin font-weight($font-weight) {
+  @if $font-weight == bold {
+    font-weight: 700;
+  } @else if $font-weight == medium {
+    font-weight: 500;
+  } @else if $font-weight == light {
+    font-weight: 300;
+  }
+}
+
+@mixin line-height($line-height, $font-size) {
+  line-height: ($line-height / $font-size);
+}
+
+
+%font-smoothing {
+  -webkit-font-smoothing: antialiased; // doesn't work as well with italics as with regular text
+  text-shadow: 1px 1px transparent; // improves antialiasing in Chrome and Windows
+}
+
+%base-heading-style {
+  text-rendering: optimizeLegibility; // helps to enable ligatures and kerning
+  line-height: 1; // prevent excess whitespace when a heading wraps onto two lines
+  margin-top: 0; // abide by single-direction margins for type
+}
+
+%base-font-style {
+  @include font-size($base-font-size);
+
+  @include respond-to($mq-l) {
+    @include font-size($apollo);
+  }
+}
+
+%base-button-style {
+  @include font-size($apollo);
+  @include line-height($base-line-height, $apollo);
+  @include font-weight(light);
+  @extend %font-smoothing;
+}
+
+.heading-extra-large {
+  @include font-size($cronus);
+
+  @include respond-to($mq-m) {
+    @include font-size($talos);
+  }
+}
+
+.heading-large {
+  @include font-size($cronus);
+
+  @include respond-to($mq-m) {
+    @include font-size($talos);
+  }
+}
+
+.heading-medium {
+  @include font-size($poseidon);
+  color: $color-green-dark;
+
+  @include respond-to($mq-m) {
+    @include font-size($zeus);
+  }
+}
+
+.heading-small {
+  @include font-size($typhon);
+  @include line-height(30, $typhon);
+}
+
+.heading-extra-small {
+  @include font-size($artemis);
+  @include line-height(24, $artemis);
+  color: $color-heading-black;
+}

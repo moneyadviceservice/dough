@@ -1,5 +1,5 @@
 %form-input {
-  @extend %font-body;
+  @include font-weight(light);
   -webkit-appearance: none;
   background-color: $color-input-background;
   border: 1px solid $color-input-border-color;

@@ -41,7 +41,7 @@ fieldset {
   & > legend {
     color: $color-fieldset-legend-fg;
     display: block;
-    font-weight: 500;
+    @include font-weight(medium);
     margin-bottom: $baseline-unit*4;
   }
 }

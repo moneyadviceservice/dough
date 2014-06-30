@@ -3,5 +3,5 @@
 // Styleguide smallprint
 
 .smallprint {
-  @include body(14, 18);
+  @include font-size($hera);
 }
