@@ -8,6 +8,7 @@ input[type="email"],
 input[type="search"],
 input[type="password"] {
   @extend %form-input;
+  @extend %form-input-text;
 
   &[disabled] {
     background-color: $color-input-disabled-background;
@@ -49,7 +50,7 @@ select {
 }
 
 textarea {
-  width: 100%;
+  @extend %form-input;
 }
 
 fieldset {
