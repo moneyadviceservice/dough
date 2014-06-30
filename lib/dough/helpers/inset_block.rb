@@ -3,10 +3,11 @@ module Dough
     class InsetBlock
       include ActionView::Helpers::RenderingHelper
 
-      attr_reader :text
+      attr_reader :text, :renderer
 
       def initialize(options = {})
         @text = options[:text]
+        @renderer = options[:renderer]
       end
 
       def render
@@ -15,12 +16,10 @@ module Dough
 
       private
 
-      def renderer
-        ActionView::Renderer.new(lookup_context)
-      end
-
       def lookup_context
-        ActionView::LookupContext.new(ActionController::Base.view_paths + [Dough::Engine.root.join('app/views/dough/helpers/inset_block')])
+        # OBJECT MUTATED? May need to dupe
+        renderer.lookup_context.view_paths << Dough::Engine.root.join('app/views/dough/helpers/inset_block')
+        renderer.lookup_context
       end
     end
   end
