@@ -8,9 +8,7 @@ input[type="email"],
 input[type="search"],
 input[type="password"] {
   @extend %form-input;
-  &:focus {
-    @extend %form-input-focus;
-  }
+  @extend %form-input-text;
 
   &[disabled] {
     background-color: $color-input-disabled-background;
@@ -22,15 +20,37 @@ input[type="search"] {
   box-sizing: border-box;
 }
 
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="search"],
+input[type="password"],
 input[type="checkbox"],
-input[type="radio"] {
+input[type="radio"],
+textarea {
   &:focus {
     @extend %form-input-focus;
+    @extend %form-input-focus-outline;
+  }
+}
+
+input[type="search"] {
+  &:focus {
+    outline-offset: -1px;
+  }
+}
+
+input[type="reset"],
+input[type="submit"],
+button,
+select {
+  &:focus {
+    @extend %form-input-focus-outline;
   }
 }
 
 textarea {
-  width: 100%;
+  @extend %form-input;
 }
 
 fieldset {
