@@ -18,7 +18,7 @@ module.exports = function(config) {
       'test/test-main.js',
       'test/fixtures/*.html',
       {pattern: 'js/**/*.js', included: false},
-      {pattern: 'vendor/assets/bower_components/**/*.js', included: false},
+      {pattern: 'vendor/assets/**/*.js', included: false},
       {pattern: 'test/tests/*_spec.js', included: false}
     ],
 
