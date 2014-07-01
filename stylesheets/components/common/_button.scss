@@ -34,9 +34,7 @@
   }
 
   &:focus {
-    outline: thin dotted;
-    outline: 3px auto -webkit-focus-ring-color;
-    outline-offset: -1px;
+    @extend %form-input-focus-outline;
   }
 
   &:focus,
