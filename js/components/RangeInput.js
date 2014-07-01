@@ -20,7 +20,7 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], 
     RangeInput.baseConstructor.apply(this, arguments);
     this.config = $.extend(defaultConfig, this.config);
 
-    if (featureDetect.html5Inputs.range) {
+    if (featureDetect.inputtypes.range) {
       this._cloneElements();
     }
   };

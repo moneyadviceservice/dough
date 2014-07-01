@@ -1,4 +1,4 @@
-define([], function() {
+define(['modernizr'], function(Modernizr) {
   'use strict';
 
   var support = {};
@@ -18,13 +18,7 @@ define([], function() {
     return !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect;
   })();
 
-  support.html5Inputs = {
-    range: function(){
-      var i = document.createElement('input');
-      i.setAttribute('type', 'range');
-      return i.type !== 'text';
-    }()
-  };
+  support.inputtypes = Modernizr.inputtypes;
 
   support.mediaQueries =
       (typeof window.matchMedia !== 'undefined') ||

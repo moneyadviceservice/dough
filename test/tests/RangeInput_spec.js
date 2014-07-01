@@ -16,7 +16,7 @@ describe('Range input', function() {
   });
 
   it('creates a copy of the input and label if the range slider type is supported', function() {
-    this.featureDetect.html5Inputs.range = true;
+    this.featureDetect.inputtypes.range = true;
     this.rangeInput = new this.RangeInput(this.$html);
     this.rangeInput.init();
     expect(this.$html.find('input').length).to.equal(2);
@@ -24,7 +24,7 @@ describe('Range input', function() {
   });
 
   it('doesn\'t create an extra input if the range slider type isn\'t supported', function() {
-    this.featureDetect.html5Inputs.range = false;
+    this.featureDetect.inputtypes.range = false;
     this.rangeInput = new this.RangeInput(this.$html);
     this.rangeInput.init();
     expect(this.$html.find('input').length).to.equal(1);
@@ -35,7 +35,7 @@ describe('Range input', function() {
     var $inputText,
         $inputSlider;
 
-    this.featureDetect.html5Inputs.range = true;
+    this.featureDetect.inputtypes.range = true;
     this.rangeInput = new this.RangeInput(this.$html);
     this.rangeInput.init();
     $inputText = this.$html.find('[data-dough-range-input]');
@@ -49,7 +49,7 @@ describe('Range input', function() {
   it('publishes an event when the value changes', function() {
     var spy = sinon.spy(),
         $input = this.$html.find('[data-dough-range-input]');
-    this.featureDetect.html5Inputs.range = true;
+    this.featureDetect.inputtypes.range = true;
     this.rangeInput = new this.RangeInput(this.$html);
     this.rangeInput.init();
     this.eventsWithPromises.subscribe('rangeInput:change', spy);
