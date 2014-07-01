@@ -1,4 +1,6 @@
 Dummy::Application.routes.draw do
+  root to: "home#index"
+
   resources :forms, only: [:index]
 end
 
