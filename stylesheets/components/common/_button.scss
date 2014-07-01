@@ -115,6 +115,10 @@
   }
 }
 
+// Sits alongside a text input. Button height matches text input height.
+//
+// Styleguide buttons
+
 .button--inline-input {
   @extend %type-button-inline-input;
   height: $input-height;
