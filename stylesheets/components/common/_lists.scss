@@ -19,25 +19,47 @@
 
 // A list that has ticks and crosses for bullet points
 //
-// Styleguide list--benefits
+// Styleguide list-benefits
 
-.list--benefits {
+// TODO Look to removing the .list--benefits class in the near future once other repos have switched over to .list-benefits
+.list--benefits,
+.list-benefits {
   list-style: none;
+  padding-left: 0;
+
+  li {
+    padding-left: 30px;
+    position: relative;
+  }
 
   li:before {
     @extend .icon;
     @extend .icon--tick;
     content: '';
     color: $color-list-yes;
-    position: relative;
     left: 0;
-    top: 0;
-    margin-right: 6px ;
+    position: absolute;
+    top: 5px;
   }
 
   .no:before {
     @extend .icon;
     @extend .icon--cross;
+  }
+}
+
+.list-benefits--s {
+  margin-bottom: $baseline-unit*2;
+
+  li {
+    @include body(16,24);
+    margin-bottom: 0;
+    padding-left: 18px;
+
+    &:before {
+      @extend .icon--tick-s;
+      top: 7px;
+    }
   }
 }
 
