@@ -11,3 +11,7 @@
  *= require basic
  *= require_self
  */
+$responsive: true;
+@import 'lib';
+@import 'common';
+@import 'optional';
