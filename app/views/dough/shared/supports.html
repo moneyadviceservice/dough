@@ -1,5 +1,6 @@
+<script>
 /* Modernizr 2.8.2 (Custom Build) | MIT & BSD
-* Build: http://modernizr.com/download/#-flexbox-history-inputtypes-localstorage-svg-touch-shiv-mq-cssclasses-teststyles-testprop-testallprops-prefixes-domprefixes-cssclassprefix:mzr
+* Build: http://modernizr.com/download/#-flexbox-history-inputtypes-localstorage-svg-touch-shiv-mq-cssclasses-teststyles-testprop-testallprops-prefixes-domprefixes-cssclassprefix:supports!
 */
 ;
 
@@ -320,7 +321,7 @@ return Modernizr;
 test = typeof test == 'function' ? test() : test;
 
 if (typeof enableClasses !== "undefined" && enableClasses) {
-docElement.className+=" mzr" + (test ? '' : 'no-') + feature;
+docElement.className+=" supports-" + (test ? '' : 'no-') + feature;
 }
 Modernizr[feature] = test;
 
@@ -531,9 +532,10 @@ Modernizr.testAllProps  = testPropsAll;
 
 Modernizr.testStyles    = injectElementWithStyles;    docElement.className = docElement.className.replace(/(^|\s)no-js(\s|$)/, '$1$2') +
 
-(enableClasses ? " mzrjs mzr"+classes.join(" mzr") : '');
+(enableClasses ? " supports-js supports-"+classes.join(" supports-") : '');
 
 return Modernizr;
 
 })(this, this.document);
 ;
+</script>
