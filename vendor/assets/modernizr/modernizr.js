@@ -1,4 +1,3 @@
-<script>
 /* Modernizr 2.8.2 (Custom Build) | MIT & BSD
 * Build: http://modernizr.com/download/#-flexbox-history-inputtypes-localstorage-svg-touch-shiv-mq-cssclasses-teststyles-testprop-testallprops-prefixes-domprefixes-cssclassprefix:supports!
 */
@@ -538,4 +537,3 @@ return Modernizr;
 
 })(this, this.document);
 ;
-</script>
