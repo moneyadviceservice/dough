@@ -114,3 +114,15 @@
     @include visually-hidden;
   }
 }
+
+// Sits alongside a text input. Button height matches text input height.
+//
+// Styleguide buttons
+
+.button--inline-input {
+  @extend %type-button-inline-input;
+  height: $input-height;
+  line-height: 0;
+  padding: 8px 10px;
+  vertical-align: top;
+}
