@@ -166,7 +166,7 @@
   @include body(18, 24);
 }
 
-%type-button-input {
+%type-button-inline-input {
   @extend %font-body;
   @extend %font-smoothing;
   @include body(16, 16);

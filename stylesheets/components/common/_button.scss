@@ -115,8 +115,8 @@
   }
 }
 
-.button--input {
-  @extend %type-button-input;
+.button--inline-input {
+  @extend %type-button-inline-input;
   height: $input-height;
   line-height: 0;
   padding: 8px 10px;
