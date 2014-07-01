@@ -24,6 +24,7 @@ require.config({
   paths: {
     DoughBaseComponent: 'js/components/DoughBaseComponent',
     featureDetect: 'js/lib/featureDetect',
+    modernizr: 'vendor/assets/modernizr/modernizr',
     mediaQueries: 'js/lib/mediaQueries',
     componentLoader: 'js/lib/componentLoader',
     dataBinding: 'js/lib/dataBinding',
@@ -37,6 +38,11 @@ require.config({
     rsvp: 'vendor/assets/bower_components/rsvp/rsvp.amd',
     jqueryThrottleDebounce: 'vendor/assets/bower_components/jqueryThrottleDebounce/jquery.ba-throttle-debounce',
     utilities: 'js/lib/utilities'
+  },
+  shim: {
+    modernizr: {
+      exports: 'Modernizr'
+    }
   }
 
 });
