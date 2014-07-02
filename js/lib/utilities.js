@@ -57,6 +57,17 @@ define([], function() {
     numberToCurrency: function(num) {
       var re = '\\d(?=(\\d{3})+$)';
       return '£' + Math.round(num).toFixed(0).replace(new RegExp(re, 'g'), '$&,');
+    },
+
+    /**
+     * Unescape HTML entities in a string
+     * @param {string} input
+     * @returns {string}
+     */
+    decodeHtml: function(input){
+      var e = document.createElement('div');
+      e.innerHTML = input;
+      return e.childNodes.length === 0 ? '' : e.childNodes[0].nodeValue;
     }
 
   };
