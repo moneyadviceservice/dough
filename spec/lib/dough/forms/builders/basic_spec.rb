@@ -8,8 +8,8 @@ module Dough
 
 
         let(:resource)    { User.new }
-        let(:helper)      { TestHelper.new }
-        let(:builder)     { Dough::Forms::Builders::Basic.new(:user, resource, helper, {}, nil) }
+        let(:template)      { TestHelper.new }
+        let(:builder)     { Dough::Forms::Builders::Basic.new(:user, resource, template, {}, nil) }
         let(:normal_input) { builder.text_field :name }
 
         context 'inputs' do
