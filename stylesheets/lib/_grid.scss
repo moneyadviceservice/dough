@@ -1,3 +1,21 @@
+@function px-to-em($value) {
+  @return ($value / $base-font-size) * 1em
+}
+
+@function px-to-rem($value) {
+  @if $responsive {
+    @return ($value / $base-font-size) * 1rem
+  } @else {
+    @return $value + px
+  }
+}
+
+$base-grid-unit: px-to-rem(6) !default;
+
+@function baseline-unit($multiplier: 1) {
+  @return $base-grid-unit * $multiplier;
+}
+
 $column-width: 60px !default;
 $gutter-width: 40px !default;
 $columns:      12   !default;
