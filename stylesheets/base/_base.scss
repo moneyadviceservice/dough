@@ -43,7 +43,7 @@ p {
   @extend %paragraph;
 
   .editorial & {
-    margin-bottom: px(24);
+    margin-bottom: px-to-em(24);
   }
 }
 

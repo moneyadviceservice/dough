@@ -1,15 +1,33 @@
 $base-font-size: 16 !default;
 
-// Baseline Grid Unit
+@function px-to-em($value) {
+  @return ($value / $base-font-size) * 1em
+}
+
+@function px-to-rem($value) {
+  @if $responsive {
+    @return ($value / $base-font-size) * 1rem
+  } @else {
+    @return $value + px
+  }
+}
+
 $baseline-unit: if($responsive, 0.375rem, 6px);
 
-// Buttons
-$border-radius-button: 4px;       // deprecated
-$border-width-button: 3px;        // deprecated
-$lighten-button: 10%;             // deprecated
-$padding-vertical-button: 12px;   // deprecated
-$padding-horizontal-button: 22px; // deprecated
-$padding-button-small-square: 8px; // deprecated
+$base-grid-unit: px-to-rem(6) !default;
+
+@function baseline-unit($multiplier: 1) {
+  @return $base-grid-unit * $multiplier;
+}
+
+// Depreciated variables START
+$border-radius-button: 4px;
+$border-width-button: 3px;
+$lighten-button: 10%;
+$padding-vertical-button: 12px;
+$padding-horizontal-button: 22px;
+$padding-button-small-square: 8px;
+// Depreciated variables END
 
 $button-border-radius: 4px;
 $button-border-width: 3px;
@@ -17,9 +35,6 @@ $button-lighten: 10%;
 $button-padding-vertical: 12px;
 $button-padding-horizontal: 22px;
 $button-padding-small-square: 8px;
-
-// VERTICAL RHYTHEM
-$baseline-unit: if($responsive, 0.375rem, 6px);
 
 // COLOURS
 $color-white: #fff !default;
@@ -89,7 +104,6 @@ $color-orange-dark: #c95d2d !default;
 $color-yellow-light: #ebd520 !default;
 $color-yellow-dark: #ddae1f !default;
 
-
 $color-horizontal-rule: $color-grey-paleo !default;
 
 // Typography
@@ -143,7 +157,7 @@ $color-validation-text: $color-red-medium !default;
 $color-validation-summary-background: $color-pink-light !default;
 
 // Forms
-$input-height: $baseline-unit*5;
+$input-height: $baseline-unit (5);
 $color-input-text-color: $color-black !default;
 $color-input-background: $color-white !default;
 $color-input-border-color: $color-grey-primary !default;
