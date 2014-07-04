@@ -166,6 +166,15 @@
   @include body(18, 24);
 }
 
+%type-button-small {
+  @extend %font-body;
+  @extend %font-smoothing;
+  @include body(14, 16);
+  @include respond-to($mq-m) {
+    @include body(16, 20);
+  }
+}
+
 %type-button-inline-input {
   @extend %font-body;
   @extend %font-smoothing;

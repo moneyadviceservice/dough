@@ -126,3 +126,15 @@
   padding: 8px 10px;
   vertical-align: top;
 }
+
+// Smaller font / padding
+//
+// .button--small
+//
+// Styleguide Small buttons
+
+.button--small {
+  @extend %type-button-small;
+  line-height: 1;
+  padding: 14px 16px;
+}
