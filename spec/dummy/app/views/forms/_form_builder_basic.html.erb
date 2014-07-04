@@ -4,4 +4,5 @@
 <%= form_for @user, url: forms_path, builder: Dough::Forms::Builders::Basic do |f| %>
 
   <%= f.text_field :name %>
+  <%= f.text_field :email, type: 'email' %>
 <% end %>
