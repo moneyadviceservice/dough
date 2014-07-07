@@ -36,18 +36,19 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      */
     init: function($container) {
       var $components,
+          componentsToCreate,
           instantiatedList,
           initialisedList,
           self = this;
 
       this.components = {};
       // if no DOM fragment supplied, use the document
-      this.$container = $container || $('body');
-      $components = this.$container.find('[data-dough-component]');
-      instantiatedList = this._createPromises($components);
-      initialisedList = this._createPromises($components);
-      if ($components.length) {
-        this._instantiateComponents($components, instantiatedList.deferreds);
+      $container = $container || $('body');
+      componentsToCreate = this._listComponentsToCreate($container);
+      instantiatedList = this._createPromises(componentsToCreate);
+      initialisedList = this._createPromises(componentsToCreate);
+      if (componentsToCreate.length) {
+        this._instantiateComponents(componentsToCreate, instantiatedList.deferreds);
         // Wait until all components are instantiated before initialising them in a second pass
         RSVP.allSettled(instantiatedList.promises).then(function() {
           self._initialiseComponents(self.components, initialisedList.deferreds);
@@ -57,40 +58,62 @@ define(['jquery', 'rsvp'], function($, RSVP) {
     },
 
     /**
+     * Make an array of objects, each containing pointers to a component container and name
+     * @param $container
+     * @returns {Array}
+     * @private
+     */
+    _listComponentsToCreate: function($container) {
+      var componentsToCreate = [],
+          $els,
+          $el,
+          attrs;
+
+      $els = $container.find('[data-dough-component]');
+      $els.each(function() {
+        $el = $(this);
+        attrs = $el.attr('data-dough-component').split(' ');
+        $.each(attrs, function(idx, val) {
+          componentsToCreate.push({
+            $el: $el,
+            componentName: val
+          });
+        });
+      });
+      return componentsToCreate;
+    },
+
+    /**
      * Create a hash of deferreds and their associated promise properties (useful for passing to a
      * 'master' deferred for resolution)
-     * @param {jQuery} $components
+     * @param {Array} componentsToCreate
      * @returns {{deferreds: Array, promises: Array}}
      * @private
      */
-    _createPromises: function($components) {
+    _createPromises: function(componentsToCreate) {
       var obj = {
         deferreds: [],
         promises: []
-      },
-      i,
-      j;
+      };
 
-      for (i = 0, j = $components.length; i < j; i++) {
+      $.each(componentsToCreate, function(idx) {
         obj.deferreds.push(RSVP.defer());
-        obj.promises.push(obj.deferreds[i].promise);
-      }
+        obj.promises.push(obj.deferreds[idx].promise);
+      });
       return obj;
     },
 
     /**
      * Instantiate all components
-     * @param {jquery} $components
-     * @param {array} instantiatedList - array of deferreds, one to be assigned to each new
+     * @param {Array} componentsToCreate
+     * @param {Array} instantiatedList - array of deferreds, one to be assigned to each new
      * component
      * @private
      */
-    _instantiateComponents: function($components, instantiatedList) {
+    _instantiateComponents: function(componentsToCreate, instantiatedList) {
       var self = this;
-      $components.each(function(idx) {
-        var $el = $(this),
-            componentName = $el.attr('data-dough-component');
-        self._instantiateComponent(componentName, $el, instantiatedList[idx]);
+      $.each(componentsToCreate, function(idx, componentData) {
+        self._instantiateComponent(componentData.componentName, componentData.$el, instantiatedList[idx]);
       });
     },
 
