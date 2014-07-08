@@ -48,6 +48,10 @@ define(['rivets', 'utilities'], function (rivets, utilities) {
     }
   };
 
+  rivets.binders.html = function(el, value) {
+    el.innerHTML = (value != null) ? utilities.decodeHtml(value) : '';
+  };
+
   rivets.formatters.percentageOut = function (value) {
     return value.toFixed(1) + '%';
   };
