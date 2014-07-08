@@ -23,7 +23,7 @@ describe('componentLoader', function() {
     it('should initialize components specified in the DOM', function() {
       var self = this;
       expect(this.componentLoader.components.TabSelector.length).to.equal(2);
-      expect(this.componentLoader.components.RangeInput.length).to.equal(1);
+      expect(this.componentLoader.components.RangeInput.length).to.equal(2);
       $.each(this.componentLoader.components, function(componentName, list) {
         expect(self.$html.find(list[0].$el).length).to.equal(1);
       });
@@ -37,20 +37,9 @@ describe('componentLoader', function() {
       expect(this.componentLoader.components.TabSelector[0].config.model.key).to.equal('value');
     });
 
-  });
-
-  describe('no DOM fragment supplied', function() {
-
-    beforeEach(function(done) {
-      this.$html = '';
-      this.componentLoader.init(this.$html)
-          .then(function() {
-            done();
-          });
-    });
-
-    it('should scan the whole document if not passed a DOM fragment', function() {
-      expect(this.componentLoader.$container.selector).to.equal('body');
+    it('should allow multiple components to be initialised on the same element', function() {
+      expect(this.componentLoader.components.RangeInput.length).to.eq(2);
+      expect(this.componentLoader.components.FormModel.length).to.eq(1);
     });
 
   });
@@ -109,8 +98,8 @@ describe('componentLoader', function() {
       succeeded = $.map(this.results, function(o) {
         return (o.state === 'fulfilled') ? o : null;
       });
-      expect(failed.length).to.equal(1);
-      expect(succeeded.length).to.equal(2);
+      expect(failed.length).to.equal(2);
+      expect(succeeded.length).to.equal(3);
     });
 
   });
