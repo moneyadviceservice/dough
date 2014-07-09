@@ -35,8 +35,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * initialise successfully
      */
     init: function($container) {
-      var $components,
-          componentsToCreate,
+      var componentsToCreate,
           instantiatedList,
           initialisedList,
           self = this;
@@ -127,7 +126,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      */
     _instantiateComponent: function(componentName, $el, instantiated) {
       var self = this,
-          config = this._parseConfig($el);
+          config = this._parseConfig($el, componentName);
 
       require([componentName], function(Constr) {
         config.componentName = componentName;
@@ -167,11 +166,12 @@ define(['jquery', 'rsvp'], function($, RSVP) {
     /**
      * Extract any config from the DOM for a given component
      * @param {jQuery} $el - component container
+     * @param {string} componentName
      * @returns {object} - parsed JSON config or empty object
      * @private
      */
-    _parseConfig: function($el) {
-      var config = $el.attr('data-dough-config');
+    _parseConfig: function($el, componentName) {
+      var config = $el.attr('data-dough-' + componentName + '-config');
       try {
         config = JSON.parse(config);
       } catch (err) {
