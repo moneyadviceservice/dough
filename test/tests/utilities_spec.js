@@ -33,20 +33,4 @@ describe('utilities', function () {
 
   });
 
-  describe('getURLParam', function() {
-    beforeEach(function(){
-      this.query = '?utf8=✓&dob_year=1961&dob_month=8&dob_day=5&salary=£24%2C000&salary_frequency=yearly&gender=male';
-    });
-
-    it('should extract a named param', function() {
-      var val = this.mod.getUrlParam(this.query, 'gender');
-      expect(val).to.equal('male');
-    });
-
-    it('should decode a named param', function() {
-      var val = this.mod.getUrlParam(this.query, 'salary');
-      expect(val).to.equal('£24,000');
-    });
-  });
-
 });
