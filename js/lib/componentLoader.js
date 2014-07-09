@@ -171,13 +171,26 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @private
      */
     _parseConfig: function($el, componentName) {
-      var config = $el.attr('data-dough-' + componentName + '-config');
+      var config = $el.attr('data-dough-' + this._convertComponentNameToDashed(componentName) + '-config');
       try {
         config = JSON.parse(config);
       } catch (err) {
         config = {};
       }
       return config;
+    },
+
+    /**
+     * Converts camelcase component name to dashed
+     * @param {string} componentName eg. TabSelector
+     * @private
+     * @returns {string} eg. tab-selector
+     */
+    _convertComponentNameToDashed: function(componentName) {
+      var val =  componentName.replace(/([A-Z])/g, function($1) {
+        return '-' + $1.toLowerCase();
+      });
+      return val.substr(1);
     }
 
   };
