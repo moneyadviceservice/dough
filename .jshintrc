@@ -57,5 +57,5 @@
 
   "expr": true,
 
-  "predef": ["define", "requirejs", "before", "beforeEach", "it", "expect", "describe", "sinon", "CSSRule", "assert"]
+  "predef": ["define", "requirejs", "require", "before", "beforeEach", "it", "expect", "describe", "sinon", "CSSRule", "assert"]
 }
