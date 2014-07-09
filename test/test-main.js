@@ -31,7 +31,6 @@ require.config({
     VisibilityToggler: 'js/components/VisibilityToggler',
     TabSelector: 'js/components/TabSelector',
     RangeInput: 'js/components/RangeInput',
-    FormModel: 'js/components/FormModel',
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
     rivets: 'vendor/assets/bower_components/rivets/dist/rivets',
     eventsWithPromises: 'vendor/assets/bower_components/eventsWithPromises/src/eventsWithPromises',
