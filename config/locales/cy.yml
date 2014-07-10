@@ -1,0 +1,7 @@
+cy:
+  dough:
+    forms:
+      builders:
+        validation:
+          summary:
+            title: 'Welsh Please double-check for the following errors:'
