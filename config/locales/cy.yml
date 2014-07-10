@@ -4,4 +4,4 @@ cy:
       builders:
         validation:
           summary:
-            title: 'Welsh Please double-check for the following errors:'
+            title: 'Gwiriwch yn ofalus iawn am y gwallau canlynol:'
