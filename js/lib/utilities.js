@@ -2,43 +2,7 @@ define([], function() {
 
   'use strict';
 
-  var urlParams;
-
-  /**
-   * Converts a querystring into key / value pairs
-   * @param {string} query - a querystring eg. key1=val1&key2=val2
-   * @returns {{object}} - a hash of key / value pairs. Values are decoded
-   */
-  function decodeUrlParams (query){
-    var match,
-        pl     = /\+/g,  // Regex for replacing addition symbol with a space
-        search = /([^&=]+)=?([^&]*)/g,
-        decode = function (s) { return decodeURIComponent(s.replace(pl, ' ')); };
-
-    if (query[0] === '?') {
-      query = query.substring(1);
-    }
-
-    urlParams =  {};
-    while (match = search.exec(query)) {
-      urlParams[decode(match[1])] = decode(match[2]);
-    }
-    return urlParams;
-  }
-
   return {
-
-    /**
-     * Extracts a value from a querystring using the supplied key
-     * @param {String} key
-     * @returns {{String}} - value
-     */
-    getUrlParam: function(querystring, key) {
-      if (!urlParams) {
-        urlParams = decodeUrlParams(querystring);
-      }
-      return urlParams[key];
-    },
 
     /**
      * Convert a currency string into an integer

@@ -24,7 +24,7 @@ module Dough
           model
         end
 
-        subject(:form_builder) { described_class.new(:model, model, nil, {}, {}) }
+        subject(:form_builder) { described_class.new(:model, model, {}, {}) }
 
         describe '#error_count' do
           it 'returns number of errors' do
