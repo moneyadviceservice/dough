@@ -46,9 +46,9 @@ module Dough
 
           context 'when welsh' do
             it 'renders the welsh title' do
-              I18n.locale = :cy
-              expect(tidy_markup(form_builder.validation_summary)).to include(I18n.t('dough.forms.validation.summary.title', locale: :cy))
-              I18n.locale = :en
+              I18n.with_locale :cy do
+                expect(tidy_markup(form_builder.validation_summary)).to include(I18n.t('dough.forms.validation.summary.title', locale: :cy))
+              end
             end
           end
 
