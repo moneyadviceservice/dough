@@ -68,6 +68,34 @@ describe('componentLoader', function() {
 
   });
 
+  describe('init receives summary of successful init of components', function() {
+
+    beforeEach(function(done) {
+      var self = this;
+      this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
+      this.componentLoader.init(this.$html)
+          .then(function(results) {
+            self.results = results;
+            done();
+          });
+    });
+
+    it('should receive array of init results with the successful components indicating their state', function() {
+      expect(this.results.constructor).to.equal(Array);
+      var succeeded = $.map(this.results, function(o) {
+        return (o.state === 'fulfilled') ? o : null;
+      });
+      expect(succeeded.length).to.equal(5);
+    });
+
+    it('should be able to see that components stamp an initialised flag on their containers', function() {
+      var componentCount = this.$html.find('[data-dough-component]').length,
+          initialisedCount = this.$html.find('[data-dough-initialised="yes"]').length;
+      expect(componentCount).to.equal(initialisedCount);
+    });
+
+  });
+
   describe('errors during initialisation are trapped', function() {
 
     beforeEach(function(done) {

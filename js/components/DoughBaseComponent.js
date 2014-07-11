@@ -152,7 +152,7 @@ define([], function () {
    * @private
    */
   DoughBaseComponentProto._initialisedSuccess = function(initialised) {
-    this.$el.attr('data-initialised', 'yes');
+    this.$el.attr('data-dough-initialised', 'yes');
     initialised && initialised.resolve(this.componentName);
   };
 
