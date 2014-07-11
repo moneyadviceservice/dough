@@ -35,8 +35,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * initialise successfully
      */
     init: function($container) {
-      var $components,
-          componentsToCreate,
+      var componentsToCreate,
           instantiatedList,
           initialisedList,
           self = this;
@@ -127,7 +126,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      */
     _instantiateComponent: function(componentName, $el, instantiated) {
       var self = this,
-          config = this._parseConfig($el);
+          config = this._parseConfig($el, componentName);
 
       require([componentName], function(Constr) {
         config.componentName = componentName;
@@ -167,17 +166,31 @@ define(['jquery', 'rsvp'], function($, RSVP) {
     /**
      * Extract any config from the DOM for a given component
      * @param {jQuery} $el - component container
+     * @param {string} componentName
      * @returns {object} - parsed JSON config or empty object
      * @private
      */
-    _parseConfig: function($el) {
-      var config = $el.attr('data-dough-config');
+    _parseConfig: function($el, componentName) {
+      var config = $el.attr('data-dough-' + this._convertComponentNameToDashed(componentName) + '-config');
       try {
         config = JSON.parse(config);
       } catch (err) {
         config = {};
       }
       return config;
+    },
+
+    /**
+     * Converts camelcase component name to dashed
+     * @param {string} componentName eg. TabSelector
+     * @private
+     * @returns {string} eg. tab-selector
+     */
+    _convertComponentNameToDashed: function(componentName) {
+      var val =  componentName.replace(/([A-Z])/g, function($1) {
+        return '-' + $1.toLowerCase();
+      });
+      return val.substr(1);
     }
 
   };

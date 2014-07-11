@@ -39,7 +39,7 @@ describe('componentLoader', function() {
 
     it('should allow multiple components to be initialised on the same element', function() {
       expect(this.componentLoader.components.RangeInput.length).to.eq(2);
-      expect(this.componentLoader.components.FormModel.length).to.eq(1);
+      expect(this.componentLoader.components.VisibilityToggler.length).to.eq(1);
     });
 
   });
