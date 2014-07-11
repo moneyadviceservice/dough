@@ -20,12 +20,23 @@ describe('componentLoader', function() {
           });
     });
 
-    it('should initialize components specified in the DOM', function() {
+    it('should initialize all components in the DOM', function() {
+      // NOTE: components add a "data-dough-initialised='yes'" attribute to themselves once
+      // they have successfully initialised
+      var componentCount = this.$html.find('[data-dough-component]').length,
+          initialisedCount = this.$html.find('[data-dough-initialised="yes"]').length;
+      expect(componentCount).to.equal(initialisedCount);
+    });
+
+    it('should keep track of all initialized components', function() {
       var self = this;
       expect(this.componentLoader.components.TabSelector.length).to.equal(2);
       expect(this.componentLoader.components.RangeInput.length).to.equal(2);
+      expect(this.componentLoader.components.VisibilityToggler.length).to.equal(1);
       $.each(this.componentLoader.components, function(componentName, list) {
-        expect(self.$html.find(list[0].$el).length).to.equal(1);
+        $.each(list, function(i, component) {
+          expect(self.$html.find(component.$el).length).to.equal(1);
+        })
       });
     });
 
@@ -86,12 +97,6 @@ describe('componentLoader', function() {
         return (o.state === 'fulfilled') ? o : null;
       });
       expect(succeeded.length).to.equal(5);
-    });
-
-    it('should be able to see that components stamp an initialised flag on their containers', function() {
-      var componentCount = this.$html.find('[data-dough-component]').length,
-          initialisedCount = this.$html.find('[data-dough-initialised="yes"]').length;
-      expect(componentCount).to.equal(initialisedCount);
     });
 
   });
