@@ -1,7 +1,6 @@
 en:
   dough:
     forms:
-      builders:
-        validation:
-          summary:
-            title: 'Please double-check for the following errors:'
+      validation:
+        summary:
+          title: 'Please double-check for the following errors:'

@@ -1,7 +1,6 @@
 cy:
   dough:
     forms:
-      builders:
-        validation:
-          summary:
-            title: 'Gwiriwch yn ofalus iawn am y gwallau canlynol:'
+      validation:
+        summary:
+          title: 'Gwiriwch yn ofalus iawn am y gwallau canlynol:'
