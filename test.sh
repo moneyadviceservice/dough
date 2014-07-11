@@ -4,3 +4,5 @@ set -e -x
 
 time bundle install
 time bundle exec rspec
+
+./node_modules/karma/bin/karma start test/karma.conf.js --single-run
