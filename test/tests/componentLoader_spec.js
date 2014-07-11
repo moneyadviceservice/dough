@@ -20,12 +20,23 @@ describe('componentLoader', function() {
           });
     });
 
-    it('should initialize components specified in the DOM', function() {
+    it('should initialize all components in the DOM', function() {
+      // NOTE: components add a "data-dough-initialised='yes'" attribute to themselves once
+      // they have successfully initialised
+      var componentCount = this.$html.find('[data-dough-component]').length,
+          initialisedCount = this.$html.find('[data-dough-initialised="yes"]').length;
+      expect(componentCount).to.equal(initialisedCount);
+    });
+
+    it('should keep track of all initialized components', function() {
       var self = this;
       expect(this.componentLoader.components.TabSelector.length).to.equal(2);
       expect(this.componentLoader.components.RangeInput.length).to.equal(2);
+      expect(this.componentLoader.components.VisibilityToggler.length).to.equal(1);
       $.each(this.componentLoader.components, function(componentName, list) {
-        expect(self.$html.find(list[0].$el).length).to.equal(1);
+        $.each(list, function(i, component) {
+          expect(self.$html.find(component.$el).length).to.equal(1);
+        })
       });
     });
 
@@ -64,6 +75,28 @@ describe('componentLoader', function() {
         return (o.state === 'rejected') ? o : null;
       });
       expect(failed[0].reason).to.equal('TabSelector');
+    });
+
+  });
+
+  describe('init receives summary of successful init of components', function() {
+
+    beforeEach(function(done) {
+      var self = this;
+      this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
+      this.componentLoader.init(this.$html)
+          .then(function(results) {
+            self.results = results;
+            done();
+          });
+    });
+
+    it('should receive array of init results with the successful components indicating their state', function() {
+      expect(this.results.constructor).to.equal(Array);
+      var succeeded = $.map(this.results, function(o) {
+        return (o.state === 'fulfilled') ? o : null;
+      });
+      expect(succeeded.length).to.equal(5);
     });
 
   });
