@@ -40,6 +40,18 @@ module Dough
             end
           end
 
+          it 'renders the title' do
+            expect(tidy_markup(form_builder.validation_summary)).to include(I18n.t('dough.forms.validation.summary.title', locale: :en))
+          end
+
+          context 'when welsh' do
+            it 'renders the welsh title' do
+              I18n.with_locale :cy do
+                expect(tidy_markup(form_builder.validation_summary)).to include(I18n.t('dough.forms.validation.summary.title', locale: :cy))
+              end
+            end
+          end
+
           it 'lists all errors for the object' do
             model.errors.each do |field, error|
               expect(tidy_markup(form_builder.validation_summary)).to include(error)

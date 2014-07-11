@@ -1,0 +1,6 @@
+en:
+  dough:
+    forms:
+      validation:
+        summary:
+          title: 'Please double-check for the following errors:'

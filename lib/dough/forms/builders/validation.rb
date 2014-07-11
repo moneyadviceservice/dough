@@ -4,6 +4,7 @@ module Dough
       module ValidationModule
         include ActionView::Helpers::UrlHelper
         include ActionView::Helpers::RenderingHelper
+        include ActionView::Helpers::TranslationHelper
 
         def validation_summary
           render 'summary_for_errors', errors: errors unless errors.empty?
