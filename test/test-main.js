@@ -27,7 +27,6 @@ require.config({
     modernizr: 'vendor/assets/modernizr/modernizr',
     mediaQueries: 'js/lib/mediaQueries',
     componentLoader: 'js/lib/componentLoader',
-    dataBinding: 'js/lib/dataBinding',
     VisibilityToggler: 'js/components/VisibilityToggler',
     TabSelector: 'js/components/TabSelector',
     RangeInput: 'js/components/RangeInput',

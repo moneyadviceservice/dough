@@ -24,7 +24,6 @@
     "eventsWithPromises": "https://github.com/jonnywyatt/eventsWithPromises.git#master",
     "requirejs": "latest",
     "jquery": "latest",
-    "jqueryThrottleDebounce": "https://github.com/cowboy/jquery-throttle-debounce.git",
-    "rivets": "latest"
+    "jqueryThrottleDebounce": "https://github.com/cowboy/jquery-throttle-debounce.git"
   }
 }
