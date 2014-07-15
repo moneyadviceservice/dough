@@ -8,6 +8,8 @@ module Dough
       it 'renders text' do
         expect(subject.render).to include('hello')
       end
+
+      it 'can be called via dough helper'
     end
   end
 end
