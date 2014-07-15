@@ -5,8 +5,9 @@
 <%= form_for @user, url: forms_path, builder: Dough::Forms::Builders::Validation do |f| %>
   <%= f.validation_summary %>
 
-  <%= f.errors_for @user, :name %>
-
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.form_row do %>
+    <%= f.errors_for @user, :name %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  <% end %>
 <% end %>
