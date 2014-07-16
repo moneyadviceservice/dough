@@ -5,6 +5,7 @@ module Dough
     class TestFormRowController < AbstractController::Base
       include AbstractController::Helpers
       include AbstractController::Rendering
+      include ActionView::Rendering
 
       helper Dough::Helpers
 
@@ -15,7 +16,7 @@ module Dough
 
       def index
         render inline: "<%= form_for User.new, url: '/' do |f| %>" \
-                       "  <%= f.form_row do |row| %>" \
+                       "  <%= f.form_row do %>" \
                        "    <%= 'hello world' %>" \
                        "  <% end %>" \
                        "<% end %>"

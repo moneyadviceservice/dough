@@ -1,10 +1,8 @@
 module ActionView
   module Helpers
     class FormBuilder
-      def form_row
-        @template.content_tag :div, class: 'form__row' do
-          yield
-        end
+      def form_row(&block)
+        @template.render layout: 'dough/helpers/form_row/form_row', &block
       end
     end
   end
