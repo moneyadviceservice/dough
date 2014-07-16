@@ -13,6 +13,8 @@ module Dough
         renderer.render lookup_context, partial: 'inset_block', locals: { text: text }
       end
 
+      private
+
       def renderer
         ActionView::Renderer.new(lookup_context)
       end
