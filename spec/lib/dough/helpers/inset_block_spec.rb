@@ -5,6 +5,7 @@ module Dough
     class TestInsetBlockController < AbstractController::Base
       include AbstractController::Helpers
       include AbstractController::Rendering
+      include ActionView::Rendering
 
       helper Dough::Helpers
 
