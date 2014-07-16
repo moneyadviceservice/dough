@@ -7,17 +7,14 @@ module Dough
     end
 
     def lookup_context
-      ActionView::LookupContext.new(ActionController::Base.view_paths + [Dough::Engine.root.join('app/views/dough/helpers/inset_block')])
+      # May want use whatever is in the controller instead
+      ActionView::LookupContext.new(ActionController::Base.view_paths)
     end
   end
 
-  class Renderer < ActionView::AbstractRenderer
-    def initialize(*)
-      super
-    end
-
+  class Renderer < ActionView::Renderer
     def inset_block(text)
-      Helpers::InsetBlock.new(text: text).render
+      Helpers::InsetBlock.new(renderer: self, text: text).render
     end
   end
 end
