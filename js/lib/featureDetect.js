@@ -1,4 +1,4 @@
-define(['modernizr'], function(Modernizr) {
+define([], function() {
   'use strict';
 
   var support = {};
