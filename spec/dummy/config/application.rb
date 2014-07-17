@@ -58,6 +58,7 @@ module Dummy
     config.assets.version = '1.0'
 
     config.assets.paths << Dough::Engine.root.join('stylesheets')
+    config.assets.paths << Dough::Engine.root
   end
 end
 

@@ -20,4 +20,5 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "mas-development_dependencies"
   s.add_development_dependency "sass-rails"
+  s.add_development_dependency "sass-globbing"
 end
