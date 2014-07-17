@@ -2,9 +2,10 @@
 
 set -e -x
 
+bower install
+npm install
+
 time bundle install
 time bundle exec rspec
 
-bower install
-npm install
 ./node_modules/karma/bin/karma start test/karma.conf.js --single-run
