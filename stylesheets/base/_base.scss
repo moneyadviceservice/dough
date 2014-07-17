@@ -44,7 +44,7 @@ p {
   @extend %paragraph;
 
   .editorial & {
-    margin-bottom: px(24);
+    margin-bottom: $baseline-unit*4;
   }
 }
 
