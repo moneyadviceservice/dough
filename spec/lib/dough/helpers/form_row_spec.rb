@@ -18,7 +18,7 @@ module ActionView
 
         def index_with_class
           render inline: "<%= form_for @user = User.new, url: '/' do |f| %>" \
-                         "  <%= f.form_row(@user, :name, html_options: {class: 'my-new-class'}) do |row| %>" \
+                         "  <%= f.form_row(:name, html_options: {class: 'my-new-class'}) do |row| %>" \
                          "    <%= 'hello world' %>" \
                          "  <% end %>" \
                          "<% end %>"
@@ -28,7 +28,7 @@ module ActionView
           @user = User.new
           @user.errors[:name] << 'fail'
           render inline: "<%= form_for @user, url: '/' do |f| %>" \
-                         "  <%= f.form_row(@user, :name) do |row| %>" \
+                         "  <%= f.form_row(:name) do |row| %>" \
                          "    <%= 'hello world' %>" \
                          "  <% end %>" \
                          "<% end %>"

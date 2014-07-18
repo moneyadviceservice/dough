@@ -1,7 +1,7 @@
 module ActionView
   module Helpers
     class FormBuilder
-      def form_row(object = nil, attribute = nil, options = {}, &block)
+      def form_row(attribute = nil, options = {}, &block)
         @form_row = FormRow.new(object: object, attribute: attribute, options: options)
         @template.render({layout: 'dough/helpers/form_row/form_row', locals: @form_row.locals}, &block)
       end
