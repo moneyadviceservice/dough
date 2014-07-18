@@ -18,7 +18,7 @@ module Dough
         @object = options[:object]
         @attribute = options[:attribute]
         @options = options[:options]
-        @html_options = HtmlOptions.new(options[:options][:html_options])
+        @html_options = Dough::HtmlOptions.new(options[:options][:html_options])
         process_html_options
       end
 
@@ -43,17 +43,6 @@ module Dough
 
       def present?
         object && attribute
-      end
-    end
-
-    class HtmlOptions < OpenStruct
-      # magic
-      def method_missing(m, *args, &block)
-        unless respond_to?(m)
-          self[m] = ''
-        end
-
-        super
       end
     end
   end
