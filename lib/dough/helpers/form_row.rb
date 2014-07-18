@@ -9,27 +9,24 @@ module ActionView
       private
 
       class FormRow
-        attr_reader :object, :attribute, :options
+        attr_reader :object, :attribute, :options, :html_options
 
         def initialize(options = {})
           @object = options[:object]
           @attribute = options[:attribute]
           @options = options[:options]
+          @html_options = HtmlOptions.new(options[:options][:html_options])
+          process_html_options
         end
 
         def locals
-          hash = {html_options: {}}
-          hash[:html_options][:class] = html_options_class
-          hash
+          {html_options: html_options}
         end
 
         private
 
-        def html_options_class
-          string = options[:html_options][:class] if options[:html_options]
-          string ||= ""
-          string << ' is-errored' if errored?
-          string
+        def process_html_options
+          html_options.classes << ' is-errored' if errored?
         end
 
         def errored?
@@ -42,6 +39,17 @@ module ActionView
 
         def present?
           object && attribute
+        end
+      end
+
+      class HtmlOptions < OpenStruct
+        # magic
+        def method_missing(m, *args, &block)
+          unless respond_to?(m)
+            self[m] = ''
+          end
+
+          super
         end
       end
     end
