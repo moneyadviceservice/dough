@@ -4,6 +4,11 @@ describe('componentLoader', function() {
 
   beforeEach(function(done) {
     var self = this;
+    window.Modernizr = {
+      inputtypes: {
+        range: true
+      }
+    };
     requirejs(['componentLoader'], function(componentLoader) {
       self.componentLoader = componentLoader;
       done();
