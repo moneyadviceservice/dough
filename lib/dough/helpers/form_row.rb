@@ -26,6 +26,7 @@ module ActionView
         private
 
         def process_html_options
+          html_options.classes << ' form__row'
           html_options.classes << ' is-errored' if errored?
         end
 
