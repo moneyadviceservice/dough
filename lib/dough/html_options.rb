@@ -8,5 +8,11 @@ module Dough
 
       super
     end
+
+    def to_s
+      hash = to_h
+      hash[:class] = hash.delete(:classes)
+      hash.map{|k,v| "#{k}=\"#{v}\""}.join(' ')
+    end
   end
 end
