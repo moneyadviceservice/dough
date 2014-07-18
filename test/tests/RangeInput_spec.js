@@ -4,6 +4,11 @@ describe('Range input', function() {
 
   beforeEach(function(done) {
     var self = this;
+    window.Modernizr = {
+      inputtypes: {
+        range: true
+      }
+    };
     requirejs(
         ['jquery', 'RangeInput', 'featureDetect', 'eventsWithPromises'],
         function($, RangeInput, featureDetect, eventsWithPromises) {
