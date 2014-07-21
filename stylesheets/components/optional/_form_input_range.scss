@@ -88,3 +88,32 @@
   @include range-thumb-generic;
   height: 20px;
 }
+
+.l-form__range {
+  width: 50%;
+}
+%input--range {
+  display: inline-block;
+  vertical-align: middle;
+  width: 45%;
+  white-space: nowrap;
+}
+
+.form__range-output-l {
+  @extend %input--range;
+  text-align: right;
+  input {
+    text-align: right;
+  }
+}
+
+.form__range-output-center {
+  @extend %input--range;
+  text-align: center;
+  width: 5%;
+}
+
+.form__range-output-r {
+  @extend %input--range;
+  text-align: left;
+}
