@@ -1,4 +1,5 @@
 require "dough/helpers/inset_block"
+require "dough/helpers/form_row"
 
 module Dough
   module Helpers
