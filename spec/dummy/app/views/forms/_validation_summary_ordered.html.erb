@@ -8,11 +8,15 @@
 <%= form_for @user, url: forms_path, builder: Dough::Forms::Builders::Validation do |f| %>
   <%= f.validation_summary %>
 
-  <%= f.errors_for @user, :email %>
-  <%= f.label :email %>
-  <%= f.text_field :email %>
+  <%= f.form_row do %>
+    <%= f.errors_for @user, :email %>
+    <%= f.label :email %>
+    <%= f.text_field :email %>
+  <% end %>
 
-  <%= f.errors_for @user, :name %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.form_row do %>
+    <%= f.errors_for @user, :name %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  <% end %>
 <% end %>
