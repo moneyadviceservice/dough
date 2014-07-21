@@ -16,6 +16,20 @@
 
 <%= render 'form_row' %>
 
+<h3>Form Row - with options</h3>
+
+<p>
+  You can pass arbitrary HTML attributes to the form_row and they will be rendered.
+</p>
+
+<code>
+  <pre>
+<%= File.open(Rails.root.join("app/views/forms/_form_row_with_options.html.erb")).read %>
+  </pre>
+</code>
+
+<%= render 'form_row_with_options' %>
+
 <h2>Builders</h2>
 
 <h3>Validation - Basic example</h3>
