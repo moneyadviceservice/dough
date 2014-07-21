@@ -34,11 +34,7 @@ module Dough
       end
 
       def errored?
-        if present?
-          object.errors[attribute].any?
-        else
-          false
-        end
+        object.errors[attribute].any? if present?
       end
 
       def present?
