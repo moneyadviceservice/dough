@@ -96,7 +96,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
   TabSelector.prototype._convertLinksToButtons = function() {
     this.$el.find('[' + this.selectors.trigger + '] a').each(function(){
       var content = $(this).html();
-      $(this).replaceWith('<button class="unstyled-button">' + content + '</button>');
+      $(this).replaceWith('<button class="unstyled-button" type="button">' + content + '</button>');
     });
   };
 
