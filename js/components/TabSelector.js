@@ -77,6 +77,10 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
     return this;
   };
 
+  /**
+   * Any one-off actions to make the component more accessible
+   * @private
+   */
   TabSelector.prototype._setupAccessibility = function() {
     this.$el.find('[' + selectors.target + ']').attr({
       'aria-hidden' : 'true',
@@ -85,6 +89,10 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
     this._convertLinksToButtons();
   };
 
+  /**
+   * Change all links in tabs to button elements
+   * @private
+   */
   TabSelector.prototype._convertLinksToButtons = function() {
     this.$el.find('[' + this.selectors.trigger + '] a').each(function(){
       var content = $(this).html();
