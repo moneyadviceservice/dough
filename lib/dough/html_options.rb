@@ -16,7 +16,7 @@ module Dough
     end
 
     def to_s
-      hash = to_h
+      hash = table.dup
       hash[:class] = hash.delete(:classes)
       hash.map{|k,v| "#{k}=\"#{v}\""}.join(' ')
     end
