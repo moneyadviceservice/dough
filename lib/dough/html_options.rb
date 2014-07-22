@@ -3,8 +3,11 @@ module Dough
     # We want developers to be able to use any HTML attribute they want
     # If the attibute is not present we set this to an empty string first
     def method_missing(m, *args, &block)
-      unless respond_to?(m)
-        self[m] = ''
+      name = m.to_sym
+
+      unless respond_to?(name)
+        new_ostruct_member(name)
+        public_send("#{name.to_sym}=", '')
       end
 
       super
