@@ -53,6 +53,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
     this.selectors = $.extend(this.selectors || {}, selectors);
     this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
     this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.height());
+    this._setupAccessibility();
   };
 
   /**
@@ -74,6 +75,21 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
       this._initialisedFailure(initialised);
     }
     return this;
+  };
+
+  TabSelector.prototype._setupAccessibility = function() {
+    this.$el.find('[' + selectors.target + ']').attr({
+      'aria-hidden' : 'true',
+      'tabindex' : '-1'
+    });
+    this._convertLinksToButtons();
+  };
+
+  TabSelector.prototype._convertLinksToButtons = function() {
+    this.$el.find('[' + this.selectors.trigger + '] a').each(function(){
+      var content = $(this).html();
+      $(this).replaceWith('<button class="unstyled-button">' + content + '</button>');
+    });
   };
 
   /**
@@ -100,7 +116,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    */
   TabSelector.prototype._selectItem = function ($el) {
     this.$selected = $el.addClass(this.selectors.activeClass).removeClass(this.selectors.inactiveClass).attr('aria-selected', true);
-    this._positionMenu();
+    this._positionMenu(this.$selected);
     return this;
   };
 
@@ -125,18 +141,22 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
       return;
     }
     this.$triggersContainer.toggleClass(this.selectors.activeClass).toggleClass(this.selectors.inactiveClass);
-    this._positionMenu(this.$triggersContainer.hasClass(this.selectors.activeClass));
+    this._positionMenu(this.$selected);
     return this;
   };
 
   /**
    * Position the menu when it's open
-   * @param {boolean} open - is the menu open
+   * @param {jQuery} $selected - selected trigger
    * @private
    */
-  TabSelector.prototype._positionMenu = function () {
-    var pos = this.$triggersContainer.hasClass(this.selectors.activeClass) ? -1 * this.$selected.position().top : 0;
-    this.$selected.length && this.$triggersContainer.css('top', pos);
+  TabSelector.prototype._positionMenu = function ($selected) {
+    var pos;
+    if ($selected) {
+      pos = this.$triggersContainer.hasClass(this.selectors.activeClass) ? -1 * $selected.position().top : 0;
+      $selected.length && this.$triggersContainer.css('top', pos);
+    }
+
     return this;
   };
 
@@ -153,8 +173,33 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
         $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
         $unselectedTargets = this.$el.find('[' + selectors.target + ']').not('[' + selectors.target + '="' + targetAttr + '"]');
 
-    $selectedTarget.add($selectedTriggers).removeClass(this.selectors.inactiveClass).addClass(this.selectors.activeClass);
-    $unselectedTargets.add($unselectedTriggers).removeClass(this.selectors.activeClass).addClass(this.selectors.inactiveClass);
+    $selectedTarget
+        .removeClass(this.selectors.inactiveClass)
+        .addClass(this.selectors.activeClass)
+        .attr('aria-hidden', 'false')
+        .focus();
+
+    $unselectedTargets
+        .removeClass(this.selectors.activeClass)
+        .addClass(this.selectors.inactiveClass)
+        .attr({
+          'aria-hidden' : 'true',
+          'tabindex' : -1
+        });
+
+    $selectedTriggers
+        .removeClass(this.selectors.inactiveClass)
+        .addClass(this.selectors.activeClass)
+        .find('button')
+          .attr('aria-selected', 'true')
+          .attr('tabindex', 0);
+
+    $unselectedTriggers
+        .removeClass(this.selectors.activeClass)
+        .addClass(this.selectors.inactiveClass)
+        .find('button')
+          .attr('aria-selected', 'false');
+
     return this;
   };
 
