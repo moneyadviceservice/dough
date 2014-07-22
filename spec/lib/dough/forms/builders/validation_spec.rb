@@ -60,7 +60,7 @@ module Dough
 
           context "when model implements field order" do
             it 'lists errors in order' do
-              model.stub(:field_order){ [:field_two, :field_one] }
+              allow(model).to receive(:field_order).and_return([:field_two, :field_one])
 
               expected_match = ".*"
               model.field_order.each do |field|

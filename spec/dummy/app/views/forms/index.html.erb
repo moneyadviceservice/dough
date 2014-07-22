@@ -1,6 +1,42 @@
 <h1>Forms</h1>
 
-<h2>Validation - Basic example</h2>
+<h2>Helpers<h2>
+
+<h3>Form Row</h3>
+
+<p>
+  This is used for presentational purposes. It can be used for a label and field pair or grouping multiple form elements.
+</p>
+
+<code>
+  <pre>
+<%= File.open(Rails.root.join("app/views/forms/_form_row.html.erb")).read %>
+  </pre>
+</code>
+
+<%= render 'form_row' %>
+
+<h3>Form Row - with options</h3>
+
+<p>
+  You can pass arbitrary HTML attributes to the form_row and they will be rendered.
+</p>
+
+<code>
+  <pre>
+<%= File.open(Rails.root.join("app/views/forms/_form_row_with_options.html.erb")).read %>
+  </pre>
+</code>
+
+<%= render 'form_row_with_options' %>
+
+<h2>Builders</h2>
+
+<h3>Validation - Basic example</h3>
+
+<p>
+  IMPORTANT: At this moment in time <code>form_row</code> is mandatory otherwise correct styling will not be applied.
+</p>
 
 <code>
   <pre>
@@ -10,7 +46,7 @@
 
 <%= render 'validation_summary' %>
 
-<h2>Validation - With ordered fields</h2>
+<h3>Validation - With ordered fields</h3>
 
 <ul>
   <li>Your model must implement #field_order on your model instance to return an array of symbols representing each field.</li>

@@ -8,13 +8,13 @@
 <%= form_for @user, url: forms_path, builder: Dough::Forms::Builders::Validation do |f| %>
   <%= f.validation_summary %>
 
-  <%= f.form_row do %>
+  <%= f.form_row(:email) do %>
     <%= f.errors_for @user, :email %>
     <%= f.label :email %>
     <%= f.text_field :email %>
   <% end %>
 
-  <%= f.form_row do %>
+  <%= f.form_row(:name) do %>
     <%= f.errors_for @user, :name %>
     <%= f.label :name %>
     <%= f.text_field :name %>

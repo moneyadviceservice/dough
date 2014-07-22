@@ -1,0 +1,8 @@
+<% @user = User.new %>
+
+<%= form_for @user, url: forms_path do |f| %>
+  <%= f.form_row do %>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  <% end %>
+<% end %>
