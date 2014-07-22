@@ -1,3 +1,5 @@
+require 'ostruct'
+
 module Dough
   class HtmlOptions < OpenStruct
     # We want developers to be able to use any HTML attribute they want
