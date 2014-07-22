@@ -33,6 +33,14 @@ module ActionView
                          "  <% end %>" \
                          "<% end %>"
         end
+
+        def index_with_options
+          render inline: "<%= form_for @user = User.new, url: '/' do |f| %>" \
+                         "  <%= f.form_row(html_options: {classes: 'my-new-class'}) do |row| %>" \
+                         "    <%= 'hello world' %>" \
+                         "  <% end %>" \
+                         "<% end %>"
+        end
       end
 
       before :each do
@@ -40,6 +48,7 @@ module ActionView
           get '/anonymous/index'
           get '/anonymous/index_with_class'
           get '/anonymous/index_with_error'
+          get '/anonymous/index_with_options'
         end
       end
 
@@ -61,6 +70,11 @@ module ActionView
       it 'can add classes to the form row when there is an error' do
         get :index_with_error
         expect(response.body).to include('is-errored')
+      end
+
+      it 'can use options when there are no attributes' do
+        get :index_with_options
+        expect(response.body).to include('my-new-class')
       end
     end
   end
