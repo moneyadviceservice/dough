@@ -176,23 +176,19 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
         .removeClass(this.selectors.inactiveClass)
         .addClass(this.selectors.activeClass)
         .find('button')
-        .each(function() {
-          // webkit clips / hides the button content unless a re-render is forced
-          $(this)
-            .width('auto');
-          // accessibility
-          $(this)
-            .attr({
-              'aria-selected': 'true'
-            });
-        });
-
+        .width('auto') // webkit clips / hides the button content unless a re-render is forced
+        .attr({
+          'aria-selected': 'true'
+        })
+        .append('<span class="visually-hidden"> (Selected)</span>');
 
     $unselectedTriggers
         .removeClass(this.selectors.activeClass)
         .addClass(this.selectors.inactiveClass)
         .find('button')
-        .attr('aria-selected', 'false');
+        .attr('aria-selected', 'false')
+        .find('.visually-hidden')
+        .remove();
 
     return this;
   };
