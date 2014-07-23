@@ -1,7 +1,13 @@
 module ActionView
   module Helpers
     class FormBuilder
-      def form_row(attribute = nil, options = {}, &block)
+      def form_row(*args, &block)
+        attribute = args[0] if args[0].is_a?(Symbol) || nil
+
+        options = args[0] if args[0].is_a?(Hash)
+        options = args[1] if args[1].is_a?(Hash)
+        options ||= {}
+
         @form_row = Dough::Helpers::FormRow.new(object: object, attribute: attribute, options: options)
         @template.render({layout: 'dough/helpers/form_row/form_row', locals: @form_row.locals}, &block)
       end
@@ -15,7 +21,7 @@ module Dough
       attr_reader :object, :attribute, :options, :html_options
 
       def initialize(options = {})
-        @object = options[:object]
+        @object = options[:options][:object] || options[:object]
         @attribute = options[:attribute]
         @options = options[:options]
         @html_options = Dough::HtmlOptions.new(options[:options][:html_options])
