@@ -21,7 +21,7 @@ module Dough
       attr_reader :object, :attribute, :options, :html_options
 
       def initialize(options = {})
-        @object = options[:object]
+        @object = options[:options][:object] || options[:object]
         @attribute = options[:attribute]
         @options = options[:options]
         @html_options = Dough::HtmlOptions.new(options[:options][:html_options])

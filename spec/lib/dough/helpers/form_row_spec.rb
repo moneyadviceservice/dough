@@ -1,5 +1,19 @@
 require 'spec_helper'
 
+module Dough
+  module Helpers
+    describe FormRow do
+      describe 'custom object' do
+        subject{ described_class.new(object: :a, options: {object: :b}) }
+
+        it 'can be overriden' do
+          expect(subject.object).to eql(:b)
+        end
+      end
+    end
+  end
+end
+
 module ActionView
   module Helpers
     describe FormBuilder, type: :controller do
