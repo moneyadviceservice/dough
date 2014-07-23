@@ -4,8 +4,8 @@ describe('Tab selector', function () {
 
   var activeClass = 'is-active',
       trigger = '[data-dough-tabselector-trigger]',
-      active = trigger + '.' + activeClass + ' a',
-      triggers = trigger + ' a';
+      active = trigger + '.' + activeClass + ' button',
+      triggers = trigger + ' button';
 
   beforeEach(function (done) {
     var self = this;
@@ -30,7 +30,7 @@ describe('Tab selector', function () {
   }
 
   function activeTargetText($root) {
-    return $root.find('[data-dough-tabselector-target]').not('.visually-hidden').text().trim();
+    return $root.find('[data-dough-tabselector-target].' + activeClass).text().trim();
   }
 
   it('selects the first item in the list', function() {
@@ -66,12 +66,12 @@ describe('Tab selector', function () {
 
   it('updates other copies of the clicked trigger', function() {
     var $trigger = this.$html.find('.tab-selector__target [data-dough-tabselector-trigger="2"]');
-    $trigger.find('a').click();
-    expect(this.$html.find('[data-dough-tabselector-trigger="2"].is-active a[aria-selected="true"]').length).to.equal(2);
+    $trigger.find('button').click();
+    expect(this.$html.find('[data-dough-tabselector-trigger="2"].is-active button[aria-selected="true"]').length).to.equal(2);
   });
 
   it('doesn\'t open the menu if a trigger outside the menu is clicked', function() {
-    this.$html.find('.tab-selector__target a:eq(2)').click();
+    this.$html.find('.tab-selector__target button:eq(2)').click();
     expect(isOpen(this.$menu)).to.equal(false);
   });
 });

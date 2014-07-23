@@ -86,7 +86,19 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
       'aria-hidden' : 'true',
       'tabindex' : '-1'
     });
+    this._convertLinksToButtons();
     this._updateTriggers(this.$el.find('[' + selectors.trigger + '].is-active'));
+  };
+
+  /**
+   * Change all links in tabs to button elements
+   * @private
+   */
+  TabSelector.prototype._convertLinksToButtons = function() {
+    this.$el.find('[' + this.selectors.trigger + '] a').each(function(){
+      var content = $(this).html();
+      $(this).replaceWith('<button class="unstyled-button" type="button">' + content + '</button>');
+    });
   };
 
   /**
@@ -163,20 +175,24 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
     $selectedTriggers
         .removeClass(this.selectors.inactiveClass)
         .addClass(this.selectors.activeClass)
-        .find('a')
-        .append('<span class="visually-hidden"> (Selected)</span>')
-        .attr({
-          'aria-selected': 'true',
-          'tabindex': 0
+        .find('button')
+        .each(function() {
+          // webkit clips / hides the button content unless a re-render is forced
+          $(this)
+            .width('auto');
+          // accessibility
+          $(this)
+            .attr({
+              'aria-selected': 'true'
+            });
         });
+
 
     $unselectedTriggers
         .removeClass(this.selectors.activeClass)
         .addClass(this.selectors.inactiveClass)
-        .find('a')
-        .attr('aria-selected', 'false')
-        .find('.visually-hidden')
-        .remove();
+        .find('button')
+        .attr('aria-selected', 'false');
 
     return this;
   };
@@ -192,11 +208,17 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
         $unselectedTargets = this.$el.find('[' + selectors.target + ']').not('[' + selectors.target + '="' + targetAttr + '"]');
 
     $selectedTarget
-        .removeClass('visually-hidden')
-        .attr('aria-hidden', 'false');
+        .removeClass(this.selectors.inactiveClass)
+        .addClass(this.selectors.activeClass)
+        .attr({
+          'aria-hidden' : 'false',
+          'tabindex' : 0
+        })
+        .focus();
 
     $unselectedTargets
-        .addClass('visually-hidden')
+        .removeClass(this.selectors.activeClass)
+        .addClass(this.selectors.inactiveClass)
         .attr({
           'aria-hidden' : 'true',
           'tabindex' : -1
@@ -206,5 +228,6 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
   };
 
   return TabSelector;
+
 
 });
