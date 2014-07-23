@@ -52,7 +52,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
     TabSelector.baseConstructor.apply(this, arguments);
     this.selectors = $.extend(this.selectors || {}, selectors);
     this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
-    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.height());
+    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
     this._setupAccessibility();
   };
 
