@@ -47,12 +47,16 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    * Call DoughBaseComponent constructor. Find options list.
    * @constructor
    */
-  TabSelector = function () {
+  TabSelector = function ($el, config) {
     this.uiEvents = uiEvents;
     TabSelector.baseConstructor.apply(this, arguments);
+    this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : {
+      selected: 'selected'
+    };
     this.selectors = $.extend(this.selectors || {}, selectors);
     this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
-    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.height());
+    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
+    this._setupAccessibility();
   };
 
   /**
@@ -68,7 +72,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
     var $first;
     $first = this.$triggersContainer.find('[' + selectors.trigger + ']').first();
     if ($first.length) {
-      this._selectItem($first);
+      this._updateTriggers($first.attr(selectors.trigger));
       this._initialisedSuccess(initialised);
     } else {
       this._initialisedFailure(initialised);
@@ -77,30 +81,47 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
   };
 
   /**
+   * Any one-off actions to make the component more accessible
+   * @private
+   */
+  TabSelector.prototype._setupAccessibility = function() {
+    this.$el.find('[' + selectors.target + ']').attr({
+      'aria-hidden' : 'true',
+      'tabindex' : '-1'
+    });
+    this._convertLinksToButtons();
+    this._updateTriggers(this.$el.find('[' + selectors.trigger + '].is-active'));
+  };
+
+  /**
+   * Change all links in tabs to button elements
+   * @private
+   */
+  TabSelector.prototype._convertLinksToButtons = function() {
+    this.$el.find('[' + this.selectors.trigger + '] a').each(function(){
+      var content = $(this).html();
+      $(this).replaceWith('<button class="unstyled-button" type="button">' + content + '</button>');
+    });
+  };
+
+  /**
    * Handle a click on a trigger
    * @returns {TabSelector}
    * @private
    */
   TabSelector.prototype._handleClickEvent = function (e) {
-    var $trigger = $(e.currentTarget);
+    var $trigger = $(e.currentTarget),
+        targetAttr;
+
     if (!$trigger.hasClass(this.selectors.activeClass)) {
       this._deSelectItem(this.$el.find('[' + selectors.trigger + '].is-active'));
-      this._selectItem($trigger);
-      this._updateTargets($trigger);
+      targetAttr = $trigger.attr(selectors.trigger);
+      this._updateTriggers(targetAttr);
+      this._positionMenu($trigger);
+      this._updateTargets(targetAttr);
     }
     this._toggleMenu($trigger);
     e.preventDefault();
-    return this;
-  };
-
-  /**
-   * Select a trigger
-   * @param {jQuery} $el
-   * @private
-   */
-  TabSelector.prototype._selectItem = function ($el) {
-    this.$selected = $el.addClass(this.selectors.activeClass).removeClass(this.selectors.inactiveClass).attr('aria-selected', true);
-    this._positionMenu();
     return this;
   };
 
@@ -125,39 +146,87 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
       return;
     }
     this.$triggersContainer.toggleClass(this.selectors.activeClass).toggleClass(this.selectors.inactiveClass);
-    this._positionMenu(this.$triggersContainer.hasClass(this.selectors.activeClass));
+    this._positionMenu($trigger);
     return this;
   };
 
   /**
    * Position the menu when it's open
-   * @param {boolean} open - is the menu open
+   * @param {jQuery} $selected - selected trigger
    * @private
    */
-  TabSelector.prototype._positionMenu = function () {
-    var pos = this.$triggersContainer.hasClass(this.selectors.activeClass) ? -1 * this.$selected.position().top : 0;
-    this.$selected.length && this.$triggersContainer.css('top', pos);
+  TabSelector.prototype._positionMenu = function ($selected) {
+    var pos;
+    if ($selected) {
+      pos = this.$triggersContainer.hasClass(this.selectors.activeClass) ? -1 * $selected.position().top : 0;
+      $selected.length && this.$triggersContainer.css('top', pos);
+    }
+
+    return this;
+  };
+
+  /**
+   * Activate / deactivate trigger
+   * @param {string} targetAttr - the value of the clicked trigger
+   * @returns {TabSelector}
+   * @private
+   */
+  TabSelector.prototype._updateTriggers = function (targetAttr) {
+    var $selectedTriggers = this.$el.find('[' + selectors.trigger + '="' + targetAttr + '"]'),
+        $unselectedTriggers = this.$el.find('[' + selectors.trigger + ']').not($selectedTriggers);
+
+    $selectedTriggers
+        .removeClass(this.selectors.inactiveClass)
+        .addClass(this.selectors.activeClass)
+        .find('button')
+        .width('auto') // webkit clips / hides the button content unless a re-render is forced
+        .attr({
+          'aria-selected': 'true'
+        })
+        .append('<span class="visually-hidden"> (' + this.i18nStrings.selected + ')</span>');
+
+    $unselectedTriggers
+        .removeClass(this.selectors.activeClass)
+        .addClass(this.selectors.inactiveClass)
+        .find('button')
+        .attr('aria-selected', 'false')
+        .find('.visually-hidden')
+        .remove();
+
     return this;
   };
 
   /**
    * Activate / deactivate any targets based on the trigger clicked
-   * @param {jQuery} $clicked
+   * @param {string} targetAttr - the value of the clicked trigger
    * @returns {TabSelector}
    * @private
    */
-  TabSelector.prototype._updateTargets = function ($clicked) {
-    var targetAttr = $clicked.attr(selectors.trigger),
-        $selectedTriggers = this.$el.find('[' + selectors.trigger + '="' + targetAttr + '"]'),
-        $unselectedTriggers = this.$el.find('[' + selectors.trigger + ']').not($selectedTriggers),
-        $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
+  TabSelector.prototype._updateTargets = function (targetAttr) {
+    var $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
         $unselectedTargets = this.$el.find('[' + selectors.target + ']').not('[' + selectors.target + '="' + targetAttr + '"]');
 
-    $selectedTarget.add($selectedTriggers).removeClass(this.selectors.inactiveClass).addClass(this.selectors.activeClass);
-    $unselectedTargets.add($unselectedTriggers).removeClass(this.selectors.activeClass).addClass(this.selectors.inactiveClass);
+    $selectedTarget
+        .removeClass(this.selectors.inactiveClass)
+        .addClass(this.selectors.activeClass)
+        .attr({
+          'aria-hidden' : 'false',
+          'tabindex' : 0
+        })
+        .focus();
+
+    $unselectedTargets
+        .removeClass(this.selectors.activeClass)
+        .addClass(this.selectors.inactiveClass)
+        .attr({
+          'aria-hidden' : 'true',
+          'tabindex' : -1
+        });
+
     return this;
   };
 
   return TabSelector;
+
 
 });
