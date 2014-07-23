@@ -47,9 +47,12 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    * Call DoughBaseComponent constructor. Find options list.
    * @constructor
    */
-  TabSelector = function () {
+  TabSelector = function ($el, config) {
     this.uiEvents = uiEvents;
     TabSelector.baseConstructor.apply(this, arguments);
+    this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : {
+      selected: 'selected'
+    };
     this.selectors = $.extend(this.selectors || {}, selectors);
     this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
     this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
@@ -180,7 +183,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
         .attr({
           'aria-selected': 'true'
         })
-        .append('<span class="visually-hidden"> (Selected)</span>');
+        .append('<span class="visually-hidden"> (' + this.i18nStrings.selected + ')</span>');
 
     $unselectedTriggers
         .removeClass(this.selectors.activeClass)

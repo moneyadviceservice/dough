@@ -34,13 +34,13 @@ describe('Tab selector', function () {
   }
 
   it('selects the first item in the list', function() {
-    expect(this.$menu.find(active).text()).to.equal('Show panel 1 (Selected)');
+    expect(this.$menu.find(active).text()).to.equal('Show panel 1 (selected)');
   });
 
   it('replaces the currently selected item', function() {
     this.$triggers.last().click();
     this.$triggers.eq(1).click();
-    expect(activeTrigger(this.$menu).text()).to.equal('Show panel 2 (Selected)');
+    expect(activeTrigger(this.$menu).text()).to.equal('Show panel 2 (selected)');
     expect(this.$html.find(active).length).to.equal(2);
   });
 
