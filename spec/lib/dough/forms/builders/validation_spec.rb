@@ -6,6 +6,8 @@ module Dough
       describe Validation do
         class ValidationBuilderModel
           include ActiveModel::Validations
+
+          attr_accessor :field_one, :field_two
         end
 
         def tidy_markup(markup)
@@ -17,6 +19,10 @@ module Dough
 
         let(:model) do
           model = ValidationBuilderModel.new
+          model.class_eval do
+            validates :field_one, numericality: true
+          end
+          model.valid?
           model.errors[:base] << "base error A"
           model.errors[:field_one] << "field_one error 1"
           model.errors[:field_one] << "field_one error 2"
@@ -28,7 +34,7 @@ module Dough
 
         describe '#error_count' do
           it 'returns number of errors' do
-            expect(form_builder.error_count).to eql(4)
+            expect(form_builder.error_count).to eql(5)
           end
         end
 
@@ -52,10 +58,21 @@ module Dough
             end
           end
 
+          context 'with a custom i18n message' do
+            it 'returns custom message' do
+              I18n.with_locale :test_custom_error do
+                expect(tidy_markup(form_builder.validation_summary)).to_not include('is not a number')
+                expect(tidy_markup(form_builder.validation_summary)).to_not include('Field one custom not a number error')
+                expect(tidy_markup(form_builder.validation_summary)).to include('custom not a number error')
+              end
+            end
+          end
+
           it 'lists all errors for the object' do
             model.errors.each do |field, error|
               expect(tidy_markup(form_builder.validation_summary)).to include(error)
             end
+            expect(tidy_markup(form_builder.validation_summary)).to include('Field one is not a number')
           end
 
           context "when model implements field order" do

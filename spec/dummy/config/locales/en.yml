@@ -3,3 +3,12 @@
 
 en:
   hello: "Hello world"
+
+test_custom_error:
+  activemodel:
+    errors:
+      models:
+        dough/forms/builders/validation_builder_model:
+          attributes:
+            field_one:
+              not_a_number: 'custom not a number error'
