@@ -5,7 +5,8 @@ describe('Tab selector', function () {
   var activeClass = 'is-active',
       trigger = '[data-dough-tabselector-trigger]',
       active = trigger + '.' + activeClass + ' button',
-      triggers = trigger + ' button';
+      triggers = trigger + ' button',
+      activeTarget = '[data-dough-tabselector-target].' + activeClass + ' .tab-selector__target-heading';
 
   beforeEach(function (done) {
     var self = this;
@@ -30,7 +31,7 @@ describe('Tab selector', function () {
   }
 
   function activeTargetText($root) {
-    return $root.find('[data-dough-tabselector-target].' + activeClass).text().trim();
+    return $root.find(activeTarget).text();
   }
 
   it('selects the first item in the list', function() {
