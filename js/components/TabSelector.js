@@ -41,6 +41,9 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
       },
       uiEvents = {
         'click [data-dough-tabselector-trigger]': '_handleClickEvent'
+      },
+      i18nStrings = {
+        selected: 'selected'
       };
 
   /**
@@ -50,9 +53,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
   TabSelector = function ($el, config) {
     this.uiEvents = uiEvents;
     TabSelector.baseConstructor.apply(this, arguments);
-    this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : {
-      selected: 'selected'
-    };
+    this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this.selectors = $.extend(this.selectors || {}, selectors);
     this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
     this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
