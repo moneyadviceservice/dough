@@ -7,13 +7,13 @@ describe('Visibility toggler', function () {
   beforeEach(function (done) {
     var self = this;
     requirejs(
-        ['jquery', 'VisibilityToggler'],
-        function ($, VisibilityToggler) {
-          self.$html = $(window.__html__['test/fixtures/VisibilityToggler.html']).appendTo('body');
-          self.$trigger = self.$html.filter('[data-dough-trigger]');
-          self.$target = self.$html.filter('[data-dough-target]');
-          self.visibilityToggler = new VisibilityToggler(self.$trigger);
-          self.visibilityToggler.init();
+        ['jquery', 'Collapsable'],
+        function ($, Collapsable) {
+          self.$html = $(window.__html__['test/fixtures/Collapsable.html']).appendTo('body');
+          self.collapsable = new Collapsable(self.$html.filter('[data-dough-collapsable-trigger]'));
+          self.collapsable.init();
+          self.$trigger = self.$html.find('button');
+          self.$target = self.$html.filter('[data-dough-collapsable-target]');
           done();
         }, done);
   });
@@ -25,6 +25,14 @@ describe('Visibility toggler', function () {
   function isActive($target){
     return $target.hasClass(activeClass);
   }
+
+  it('must wrap a button around the trigger text', function() {
+    expect(this.$trigger[0].tagName).to.equal('BUTTON');
+  });
+
+  it('must add visually hidden text to indicate the state of the button i.e open or closed', function() {
+    expect(this.$trigger.find('.visually-hidden')).to.have.text('Open');
+  });
 
   it('activates the trigger and target panel when the trigger is clicked', function() {
     this.$trigger.click();

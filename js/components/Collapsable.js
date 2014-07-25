@@ -20,7 +20,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
   'use strict';
 
   // Class variables
-  var TogglerProto,
+  var CollapsableProto,
       selectors = {
         activeClass: 'is-active',
         inactiveClass: 'is-inactive'
@@ -29,31 +29,38 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
   /**
    *
    * @param {jQuery} $el - mandatory - the trigger
-   * @returns {Toggler}
+   * @returns {Collapsable}
    * @constructor
    */
-  function Toggler($el) {
+  function Collapsable($el) {
     this.selectors = selectors;
     DoughBaseComponent.apply(this, arguments);
     this.attrs = ['toggler'];
+    this.$trigger = this.$el;
+    this.$target = $('[data-dough-collapsable-target="' + this.$trigger.attr('data-dough-collapsable-trigger') + '"]');
+    this._setupAccessibility();
+    this.$trigger = this.$trigger.find('button');
     return this;
   }
-
   /**
    * Inherit from base module, for shared methods and interface
    * @type {[type]}
    * @private
    */
-  DoughBaseComponent.extend(Toggler);
-  TogglerProto = Toggler.prototype;
+  DoughBaseComponent.extend(Collapsable);
+  CollapsableProto = Collapsable.prototype;
+
+  CollapsableProto._setupAccessibility = function () {
+
+    this.$trigger.wrapInner('<button class="unstyled-button" type="button"/>');
+    this.$trigger.find('button').prepend('<span class="visually-hidden">Open</span>');
+  };
 
   /**
    * Init function
-   * @return {Toggler}
+   * @return {Collapsable}
    */
-  TogglerProto.init = function (initialised) {
-    this.$trigger = this.$el;
-    this.$target = $('[data-dough-target="' + this.$trigger.attr('data-dough-trigger') + '"]');
+  CollapsableProto.init = function (initialised) {
     // is the target element visible already
     this.isShown = !!this.$target.hasClass(this.selectors.activeClass);
     this.setListeners(true);
@@ -65,7 +72,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
    * Bind or unbind relevant DOM events
    * @param {Boolean} isActive Set to 'true' to bind to events, 'false' to unbind.
    */
-  TogglerProto.setListeners = function (isActive) {
+  CollapsableProto.setListeners = function (isActive) {
     this.$trigger[isActive ? 'on' : ' off']('click', $.proxy(function (e) {
       this.toggle();
       e.preventDefault();
@@ -80,7 +87,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
    * explicitly set, otherwise will automatically toggle
    * @return {[type]}         [description]
    */
-  TogglerProto.toggle = function (forceTo) {
+  CollapsableProto.toggle = function (forceTo) {
     var func;
 
     // is there an override parameter?
@@ -96,7 +103,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
     // toggle the class on the trigger element (active = shown / nothing = not shown)
     this.$trigger[func](selectors.activeClass);
 
-    // can bind to this by eventsWithPromises.subscribe('toggler:toggled', function(Toggler) { });
+    // can bind to this by eventsWithPromises.subscribe('toggler:toggled', function(Collapsable) { });
     if (typeof forceTo === 'undefined') {
       eventsWithPromises.publish('toggler:toggled', {
         emitter: this
@@ -110,9 +117,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
    * Public method to unbind all events this instance bound.
    * @return {[type]}
    */
-  TogglerProto.destroy = function () {
+  CollapsableProto.destroy = function () {
     return this.setListeners(false);
   };
 
-  return Toggler;
+  return Collapsable;
 });

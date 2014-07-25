@@ -37,7 +37,7 @@ describe('componentLoader', function() {
       var self = this;
       expect(this.componentLoader.components.TabSelector.length).to.equal(2);
       expect(this.componentLoader.components.RangeInput.length).to.equal(2);
-      expect(this.componentLoader.components.VisibilityToggler.length).to.equal(1);
+      expect(this.componentLoader.components.Collapsable.length).to.equal(1);
       $.each(this.componentLoader.components, function(componentName, list) {
         $.each(list, function(i, component) {
           expect(self.$html.find(component.$el).length).to.equal(1);
@@ -55,7 +55,7 @@ describe('componentLoader', function() {
 
     it('should allow multiple components to be initialised on the same element', function() {
       expect(this.componentLoader.components.RangeInput.length).to.eq(2);
-      expect(this.componentLoader.components.VisibilityToggler.length).to.eq(1);
+      expect(this.componentLoader.components.Collapsable.length).to.eq(1);
     });
 
   });
