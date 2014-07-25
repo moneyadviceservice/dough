@@ -24,6 +24,10 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
       selectors = {
         activeClass: 'is-active',
         inactiveClass: 'is-inactive'
+      },
+      i18nStrings = {
+        open: 'Open',
+        close: 'Close'
       };
 
   /**
@@ -32,12 +36,13 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
    * @returns {Collapsable}
    * @constructor
    */
-  function Collapsable($el) {
+  function Collapsable($el, config) {
     this.selectors = selectors;
     DoughBaseComponent.apply(this, arguments);
     this.attrs = ['toggler'];
     this.$trigger = this.$el;
     this.$target = $('[data-dough-collapsable-target="' + this.$trigger.attr('data-dough-collapsable-trigger') + '"]');
+    this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this._setupAccessibility();
     this.$trigger = this.$trigger.find('button');
     return this;
@@ -51,9 +56,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
   CollapsableProto = Collapsable.prototype;
 
   CollapsableProto._setupAccessibility = function () {
-
     this.$trigger.wrapInner('<button class="unstyled-button" type="button"/>');
-    this.$trigger.find('button').prepend('<span class="visually-hidden">Open</span>');
+    this.$trigger.find('button').prepend('<span class="visually-hidden">' + this.i18nStrings.open + '</span>');
   };
 
   /**
