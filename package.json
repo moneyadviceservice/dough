@@ -34,6 +34,9 @@
     "karma-sinon": "^1.0.3",
     "karma-html2js-preprocessor": "^0.1.0",
     "sinon-chai": "^2.5.0",
-    "karma-coverage": "^0.2.4"
+    "karma-coverage": "^0.2.4",
+    "chai-jquery": "^1.2.3",
+    "karma-chai-jquery": "^1.0.0",
+    "karma-jquery": "^0.1.0"
   }
 }
