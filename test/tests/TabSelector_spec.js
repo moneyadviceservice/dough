@@ -38,6 +38,10 @@ describe('Tab selector', function () {
     expect(this.$menu.find(active).text()).to.equal('Show panel 1 (selected)');
   });
 
+  it('converts all anchor links to buttons', function() {
+    expect(this.$html.find(triggers).length).to.equal(6);
+  });
+
   it('replaces the currently selected item', function() {
     this.$triggers.last().click();
     this.$triggers.eq(1).click();

@@ -27,7 +27,7 @@ require.config({
     modernizr: 'vendor/assets/modernizr/modernizr',
     mediaQueries: 'js/lib/mediaQueries',
     componentLoader: 'js/lib/componentLoader',
-    VisibilityToggler: 'js/components/VisibilityToggler',
+    Collapsable: 'js/components/Collapsable',
     TabSelector: 'js/components/TabSelector',
     RangeInput: 'js/components/RangeInput',
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
