@@ -23,7 +23,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   var CollapsableProto,
       selectors = {
         activeClass: 'is-active',
-        inactiveClass: 'is-inactive'
+        inactiveClass: 'is-inactive',
+        iconClassOpen: 'icon--down-chevron-blue',
+        iconClassClose: 'icon--up-chevron-blue'
       },
       i18nStrings = {
         open: 'Open',
@@ -60,7 +62,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
 
     this.$trigger.wrapInner('<button class="unstyled-button" type="button"/>');
     this.$trigger.find('button')
-      .prepend('<span class="visually-hidden" data-dough-collapsable-label>' + this.i18nStrings.open + '</span>')
+      .prepend('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' + selectors.iconClassOpen + '"></span> <span class="visually-hidden" data-dough-collapsable-label>' + this.i18nStrings.open + '</span>')
       .attr('aria-controls', id)
       .attr('aria-expanded', 'false');
     this.$target.attr('id', id);
@@ -100,7 +102,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   CollapsableProto.toggle = function(forceTo) {
     var func,
         label,
-        expandedLabel;
+        expandedLabel,
+        iconClass;
 
     // is there an override parameter?
     if (typeof forceTo !== 'undefined') {
@@ -115,11 +118,19 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     // toggle the class on the trigger element (active = shown / nothing = not shown)
     this.$trigger[func](selectors.activeClass);
 
-    label = this.isShown ? this.i18nStrings.close : this.i18nStrings.open;
-    this.$trigger.find('[data-dough-collapsable-label]').text(label);
+    if (this.isShown === true) {
+      label = this.i18nStrings.close;
+      expandedLabel = 'true';
+      iconClass = selectors.iconClassClose;
+    } else {
+      label = this.i18nStrings.open;
+      expandedLabel = 'false';
+      iconClass = selectors.iconClassOpen;
+    }
 
-    expandedLabel = this.isShown ? 'true' : 'false';
+    this.$trigger.find('[data-dough-collapsable-label]').text(label);
     this.$trigger.attr('aria-expanded', expandedLabel);
+    this.$trigger.find('[data-dough-collapsable-icon]').removeClass(selectors.iconClassOpen + ' ' + selectors.iconClassClose).addClass(iconClass);
 
     // can bind to this by eventsWithPromises.subscribe('toggler:toggled', function(Collapsable) { });
     if (typeof forceTo === 'undefined') {
