@@ -5,13 +5,24 @@ describe('Field input tooltip', function() {
   beforeEach(function(done) {
     var self = this;
     requirejs(
-        ['jquery', 'FieldTooltip', 'eventsWithPromises'],
-        function($, FieldTooltip, eventsWithPromises) {
-          self.$html = $(window.__html__['test/fixtures/FieldTooltip.html']);
+        ['jquery', 'FieldTooltip'],
+        function($, FieldTooltip) {
+          self.$html = $(window.__html__['test/fixtures/FieldTooltip.html']).appendTo('body');
+          self.component = self.$html.find('[data-dough-component="FieldTooltip"]');
           self.FieldTooltip = FieldTooltip;
-          self.eventsWithPromises = eventsWithPromises;
           done();
         }, done);
+  });
+
+  afterEach(function () {
+    this.$html.remove();
+  });
+
+  it('picks up the correct input element', function() {
+    this.fieldTooltip = new this.FieldTooltip(this.component);
+    this.fieldTooltip.init();
+
+    expect(this.fieldTooltip.$inputTarget.attr('id')).to.equal('my_input');
   });
 
 });
