@@ -1,8 +1,8 @@
 class User
   extend ActiveModel::Naming
   extend ActiveModel::Translation
+  include ActiveModel::Validations
 
-  attr_reader   :errors
   attr_accessor :name
   attr_accessor :email
 

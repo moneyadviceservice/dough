@@ -4,3 +4,38 @@ cy:
       validation:
         summary:
           title: 'Gwiriwch yn ofalus iawn am y gwallau canlynol:'
+  activerecord:
+    errors:
+      messages: &activerecord_errors_messages
+        inclusion: "%{attribute} wedi ei gynnwys ar y rhestr"
+        exclusion: "%{attribute} ar gadw"
+        invalid: "%{attribute} yn annilys"
+        confirmation: "%{attribute} yn cyd-fynd â’r %{attribute}"
+        accepted: "%{attribute} gael ei dderbyn"
+        empty: "%{attribute} fod yn wag"
+        blank: "%{attribute} fod yn wag"
+        present: "%{attribute} fod yn wag"
+        too_long:
+          one: "%{attribute} yn rhy hir (uchafswm yw 1 nod)"
+          other: "%{attribute} yn rhy hir (uchafswm yw %{count} o nodau)"
+        too_short:
+          one: "%{attribute} yn rhy fyr (isafswm yw 1 nod)"
+          other: "%{attribute} yn rhy fyr (isafswm yw %{count} o nodau)"
+        wrong_length:
+          one: "%{attribute} yr hyd cywir (dylai fod yn 1 nod)"
+          other: "%{attribute} yr hyd cywir (dylai fod yn %{count} o nodau)"
+        not_a_number: "%{attribute} yn rhif"
+        not_an_integer: "%{attribute} fod yn gyfanrif"
+        greater_than: "%{attribute} fod yn fwy na%{count}"
+        greater_than_or_equal_to: "%{attribute} fod yn fwy na neu’n gyfartal â %{count}"
+        equal_to: "%{attribute} fod yn gyfartal â %{count}"
+        less_than: "%{attribute} fod yn llai na %{count}"
+        less_than_or_equal_to: "%{attribute} fod yn llai na neu’n gyfartal â %{count}"
+        other_than: "%{attribute}fod yn rhywbeth ond %{count}"
+        odd: "%{attribute} fod yn odrif"
+        even: "%{attribute} fod yn odrif"
+  activemodel:
+    errors:
+      messages:
+        <<: *activerecord_errors_messages
+
