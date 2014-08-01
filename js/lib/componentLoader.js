@@ -73,10 +73,12 @@ define(['jquery', 'rsvp'], function($, RSVP) {
         $el = $(this);
         attrs = $el.attr('data-dough-component').split(' ');
         $.each(attrs, function(idx, val) {
-          componentsToCreate.push({
-            $el: $el,
-            componentName: val
-          });
+          if (!$el.is('[data-dough-' + val + '-initialised="yes"]')) {
+            componentsToCreate.push({
+              $el: $el,
+              componentName: val
+            });
+          }
         });
       });
       return componentsToCreate;
