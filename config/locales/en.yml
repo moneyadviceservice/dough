@@ -4,9 +4,9 @@ en:
       validation:
         summary:
           title: 'Please double-check for the following errors:'
-  activemodel:
+  activerecord:
     errors:
-      messages:
+      messages: &activerecord_errors_messages
         inclusion: "%{attribute} is not included in the list"
         exclusion: "%{attribute} is reserved"
         invalid: "%{attribute} is invalid"
@@ -34,3 +34,8 @@ en:
         other_than: "%{attribute} must be other than %{count}"
         odd: "%{attribute} must be odd"
         even: "%{attribute} must be even"
+  activemodel:
+    errors:
+      messages:
+        <<: *activerecord_errors_messages
+
