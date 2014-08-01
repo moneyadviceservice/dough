@@ -63,4 +63,4 @@ $ ./node_modules/karma/bin/karma start test/karma.conf.js --single-run
 [grunt]: http://gruntjs.com/getting-started
 
 ## Releases
-31/7/14 - v0.2.0 - breaking change - VisibilityToggler component renamed to Collapsable
+31/7/14 - v1.0.0 - breaking change - VisibilityToggler component renamed to Collapsable
