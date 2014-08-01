@@ -4,7 +4,7 @@
  * @return {[type]}           [description]
  * @private
  */
-define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, DoughBaseComponent, eventsWithPromises) {
+define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
   'use strict';
 
   var defaultConfig = {
@@ -41,10 +41,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
 
   FieldTooltip.prototype.showTooltip = function() {
     this.$el.removeClass(this.config.hiddenClass);
-    eventsWithPromises.publish('FieldTooltip:change', {
-      emitter: this,
-      visible: true
-    });
 
     return this;
   };
@@ -52,10 +48,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
   FieldTooltip.prototype.hideTooltip = function() {
     if (!this.$inputTarget.is(':focus')) {
       this.$el.addClass(this.config.hiddenClass);
-      eventsWithPromises.publish('FieldTooltip:change', {
-        emitter: this,
-        visible: false
-      });
     }
 
     return this;

@@ -5,11 +5,10 @@ describe('Field input tooltip', function() {
   beforeEach(function(done) {
     var self = this;
     requirejs(
-        ['jquery', 'FieldTooltip', 'eventsWithPromises'],
-        function($, FieldTooltip, eventsWithPromises) {
+        ['jquery', 'FieldTooltip'],
+        function($, FieldTooltip) {
           self.$html = $(window.__html__['test/fixtures/FieldTooltip.html']).appendTo('body');
           self.component = self.$html.find('[data-dough-component="FieldTooltip"]');
-          self.eventsWithPromises = eventsWithPromises;
           self.FieldTooltip = FieldTooltip;
           done();
         }, done);
