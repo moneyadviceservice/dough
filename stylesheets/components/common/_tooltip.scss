@@ -1,0 +1,15 @@
+.tooltip {
+  margin-top: -20px;
+  margin-bottom: $baseline-unit*6;
+
+  .js & {
+    @include respond-to($mq-m) {
+      position: absolute;
+      margin-top: $baseline-unit*4;
+
+      &.tooltip--hidden {
+        @include visually-hidden;
+      }
+    }
+  }
+}
