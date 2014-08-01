@@ -60,23 +60,6 @@ define([], function () {
   };
 
   /**
-   * Fetch the parent element
-   * @return {Array} jQuery object or empty array (for safe jQuery ops)
-   */
-  DoughBaseComponentProto.getElement = function () {
-    return this.$el || [];
-  };
-
-  /**
-   * Get attribute from data attributes on element.
-   * @param  {[type]} attr [description]
-   * @return {[type]}      [description]
-   */
-  DoughBaseComponentProto.attr = function (attr) {
-    return this.getElement().attr('data-dough-' + attr);
-  };
-
-  /**
    * All DoughBaseComponents (if applicable) should have this method,
    * which will unbind all events it attached when initialising itself.
    *
@@ -85,6 +68,7 @@ define([], function () {
    * @return {[type]}
    */
   DoughBaseComponentProto.destroy = function () {
+    this._unbindUiEvents();
     return this;
   };
 
@@ -117,10 +101,7 @@ define([], function () {
     if (!events) return this;
     this._unbindUiEvents();
     for (var key in events) {
-      var method = events[key];
-      if (typeof method !== 'function') {
-        method = this[events[key]];
-      }
+      var method = this[events[key]];
       if (!method) continue;
 
       var match = key.match(delegateEventSplitter);
