@@ -13,3 +13,7 @@
     }
   }
 }
+
+.js .field-tooltip--jshide {
+  @include visually-hidden;
+}

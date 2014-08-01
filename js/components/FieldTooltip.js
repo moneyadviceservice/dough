@@ -8,7 +8,11 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
   'use strict';
 
   var defaultConfig = {
-    hiddenClass: 'tooltip--hidden'
+    // Used to show/hide tooltip with focus
+    hiddenClass: 'tooltip--hidden',
+
+    // Initially set for page load, so js-enabled users don't see the tooltips flashing on page load
+    preInitHiddenClass: 'field-tooltip--jshide'
   },
 
     /**
@@ -28,6 +32,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, Doug
     var tooltipID = this.$el.attr('id');
 
     this.$inputTarget = $('input[aria-describedby="' + tooltipID + '"]');
+    this.$el.removeClass(this.config.preInitHiddenClass);
     this.hideTooltip();
     this._addListeners();
 

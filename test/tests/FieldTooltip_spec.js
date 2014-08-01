@@ -49,4 +49,11 @@ describe('Field input tooltip', function() {
     expect(fieldTooltip.$el.hasClass(fieldTooltip.config.hiddenClass)).to.equal(true);
   });
 
+  it('removes the pre-init js hidden class after init', function() {
+    var fieldTooltip = new this.FieldTooltip(this.component);
+    fieldTooltip.init();
+
+    expect(fieldTooltip.$el.hasClass(fieldTooltip.config.preInitHiddenClass)).to.equal(false);
+  })
+
 });
