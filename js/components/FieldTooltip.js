@@ -4,7 +4,7 @@
  * @return {[type]}           [description]
  * @private
  */
-define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
+define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function ($, DoughBaseComponent, eventsWithPromises) {
   'use strict';
 
   var defaultConfig = {
@@ -36,12 +36,21 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
 
   FieldTooltip.prototype.showTooltip = function() {
     this.$el.removeClass(this.config.hiddenClass);
+    eventsWithPromises.publish('FieldTooltip:change', {
+      emitter: this,
+      visible: true
+    });
+
     return this;
   };
 
   FieldTooltip.prototype.hideTooltip = function() {
     if (!this.$inputTarget.is(':focus')) {
       this.$el.addClass(this.config.hiddenClass);
+      eventsWithPromises.publish('FieldTooltip:change', {
+        emitter: this,
+        visible: false
+      });
     }
 
     return this;
@@ -49,8 +58,8 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
 
   FieldTooltip.prototype._addListeners = function() {
     this.$inputTarget.
-          on('focusin', this.showTooltip).
-          on('focusout', this._onBlur);
+          on('focusin', $.proxy(this.showTooltip, this)).
+          on('focusout', $.proxy(this._onBlur, this));
 
     return this;
   };

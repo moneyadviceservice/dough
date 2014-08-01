@@ -5,24 +5,48 @@ describe('Field input tooltip', function() {
   beforeEach(function(done) {
     var self = this;
     requirejs(
-        ['jquery', 'FieldTooltip'],
-        function($, FieldTooltip) {
+        ['jquery', 'FieldTooltip', 'eventsWithPromises'],
+        function($, FieldTooltip, eventsWithPromises) {
           self.$html = $(window.__html__['test/fixtures/FieldTooltip.html']).appendTo('body');
           self.component = self.$html.find('[data-dough-component="FieldTooltip"]');
+          self.eventsWithPromises = eventsWithPromises;
           self.FieldTooltip = FieldTooltip;
           done();
         }, done);
   });
 
-  afterEach(function () {
+  afterEach(function() {
     this.$html.remove();
   });
 
   it('picks up the correct input element', function() {
-    this.fieldTooltip = new this.FieldTooltip(this.component);
-    this.fieldTooltip.init();
+    var fieldTooltip = new this.FieldTooltip(this.component);
+    fieldTooltip.init();
 
-    expect(this.fieldTooltip.$inputTarget.attr('id')).to.equal('my_input');
+    expect(fieldTooltip.$inputTarget.attr('id')).to.equal('my_input');
+  });
+
+  it('ensures the tooltip is hidden on page load', function() {
+    var fieldTooltip = new this.FieldTooltip(this.component);
+    fieldTooltip.init();
+
+    expect(fieldTooltip.$el.hasClass(fieldTooltip.config.hiddenClass)).to.equal(true);
+  });
+
+  it('removes the hidden class when the input has focus', function() {
+    var fieldTooltip = new this.FieldTooltip(this.component);
+    fieldTooltip.init();
+    fieldTooltip.$inputTarget.focus();
+
+    expect(fieldTooltip.$el.hasClass(fieldTooltip.config.hiddenClass)).to.equal(false);
+  });
+
+  it('adds the hidden class when the input has focus', function() {
+    var fieldTooltip = new this.FieldTooltip(this.component);
+    fieldTooltip.init();
+    fieldTooltip.$inputTarget.blur();
+
+    expect(fieldTooltip.$el.hasClass(fieldTooltip.config.hiddenClass)).to.equal(true);
   });
 
 });
