@@ -46,6 +46,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this._setupAccessibility();
     this.$trigger = this.$trigger.find('button');
+    config && config.forceTo && this.toggle(config.forceTo);
     return this;
   }
 
@@ -141,14 +142,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     }
 
     return this;
-  };
-
-  /**
-   * Public method to unbind all events this instance bound.
-   * @return {[type]}
-   */
-  CollapsableProto.destroy = function() {
-    return this.setListeners(false);
   };
 
   return Collapsable;
