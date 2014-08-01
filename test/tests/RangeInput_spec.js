@@ -1,8 +1,8 @@
-describe('Range input', function() {
+describe('Range input', function () {
 
   'use strict';
 
-  beforeEach(function(done) {
+  before(function (done) {
     var self = this;
     window.Modernizr = {
       inputtypes: {
@@ -11,57 +11,96 @@ describe('Range input', function() {
     };
     requirejs(
         ['jquery', 'RangeInput', 'featureDetect', 'eventsWithPromises'],
-        function($, RangeInput, featureDetect, eventsWithPromises) {
+        function ($, RangeInput, featureDetect, eventsWithPromises) {
           self.featureDetect = featureDetect;
-          self.$html = $(window.__html__['test/fixtures/RangeInput.html']);
           self.RangeInput = RangeInput;
           self.eventsWithPromises = eventsWithPromises;
           done();
         }, done);
   });
 
-  it('creates a copy of the input and label if the range slider type is supported', function() {
-    this.featureDetect.inputtypes.range = true;
-    this.rangeInput = new this.RangeInput(this.$html);
-    this.rangeInput.init();
-    expect(this.$html.find('input').length).to.equal(2);
-    expect(this.$html.find('label').length).to.equal(2);
+  beforeEach(function(){
+    this.$html = $(window.__html__['test/fixtures/RangeInput.html']);
   });
 
-  it('doesn\'t create an extra input if the range slider type isn\'t supported', function() {
-    this.featureDetect.inputtypes.range = false;
-    this.rangeInput = new this.RangeInput(this.$html);
-    this.rangeInput.init();
-    expect(this.$html.find('input').length).to.equal(1);
-    expect(this.$html.find('label').length).to.equal(1);
+  afterEach(function() {
+    this.$html.remove();
   });
 
-  it('keeps both input values in sync', function() {
-    var $inputText,
-        $inputSlider;
+  describe('Range inputs supported', function () {
 
-    this.featureDetect.inputtypes.range = true;
-    this.rangeInput = new this.RangeInput(this.$html);
-    this.rangeInput.init();
-    $inputText = this.$html.find('[data-dough-range-input]');
-    $inputSlider = this.$html.find('.form__input-range');
-    $inputText.val('2000').trigger('change');
-    expect($inputSlider.val()).to.equal('2000');
-    $inputText.val('50000').trigger('change');
-    expect($inputSlider.val()).to.equal('5000');
+    beforeEach(function () {
+      this.featureDetect.inputtypes.range = true;
+      this.rangeInput = new this.RangeInput(this.$html);
+      this.rangeInput.init();
+      this.$inputText = this.$html.find('[data-dough-range-input]');
+      this.$inputSlider = this.$html.find('.form__input-range');
+
+    });
+
+    it('creates a copy of the input and label if the range slider type is supported', function () {
+      expect(this.$html.find('input').length).to.equal(2);
+      expect(this.$html.find('label').length).to.equal(2);
+    });
+
+
+    it('keeps the slider in sync if the text input changes', function () {
+      this.$inputText.val('2000').trigger('change');
+      expect(this.$inputSlider.val()).to.equal('2000');
+      this.$inputText.val('50000').trigger('change');
+      expect(this.$inputSlider.val()).to.equal('5000'); // because range input has a max of 5000
+    });
+
+    it('keeps the text input in sync if the slider changes', function () {
+      this.$inputSlider.val('2000').trigger('change');
+      expect(this.$inputText.val()).to.equal('2000');
+    });
+
+    it('publishes an event when the value changes', function () {
+      var spy = sinon.spy();
+      this.eventsWithPromises.subscribe('rangeInput:change', spy);
+      this.$inputText.val('3000').trigger('change');
+      sinon.assert.calledWith(spy, {
+        emitter: this.$inputText,
+        value: '3000'
+      });
+    });
+
   });
 
-  it('publishes an event when the value changes', function() {
-    var spy = sinon.spy(),
-        $input = this.$html.find('[data-dough-range-input]');
-    this.featureDetect.inputtypes.range = true;
-    this.rangeInput = new this.RangeInput(this.$html);
-    this.rangeInput.init();
-    this.eventsWithPromises.subscribe('rangeInput:change', spy);
-    $input.val('3000').trigger('change');
-    sinon.assert.calledWith(spy, {
-      emitter: $input,
-      value: '3000'
+
+  describe('Range inputs supported but don\'t keep inputs in sync', function () {
+
+    beforeEach(function () {
+      this.featureDetect.inputtypes.range = true;
+      this.rangeInput = new this.RangeInput(this.$html, {
+        keepSynced: false
+      });
+      this.rangeInput.init();
+      this.$inputText = this.$html.find('[data-dough-range-input]');
+      this.$inputSlider = this.$html.find('.form__input-range');
+
+    });
+
+    it('creates a copy of the input and label if the range slider type is supported', function () {
+      expect(this.$html.find('input').length).to.equal(2);
+      expect(this.$html.find('label').length).to.equal(2);
+    });
+  });
+
+  describe('Range inputs not supported', function () {
+
+    beforeEach(function () {
+      this.featureDetect.inputtypes.range = false;
+      this.rangeInput = new this.RangeInput(this.$html);
+      this.rangeInput.init();
+      this.$inputText = this.$html.find('[data-dough-range-input]');
+      this.$inputSlider = this.$html.find('.form__input-range');
+    });
+
+    it('keeps the text input in sync if the slider changes', function () {
+      this.$inputSlider.val('2000').trigger('change');
+      expect(this.$inputText.val()).to.equal('1500');
     });
   });
 
