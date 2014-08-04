@@ -101,7 +101,7 @@ describe('Field input tooltip', function() {
 
     fieldHelpText.$inputTarget.blur();
     fieldHelpText.hideTooltip();
-    expect(fieldHelpText.$el).to.have.class(fieldHelpText.config.hiddenClass);
+    expect(fieldHelpText.$el).to.have.class(customHiddenClass);
   });
 
 });
