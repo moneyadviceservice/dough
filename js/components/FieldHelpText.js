@@ -9,10 +9,10 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
 
   var defaultConfig = {
     // Used to show/hide tooltip with focus
-    hiddenClass: 'tooltip--hidden',
+    hiddenClass: 'field-help-text--hidden',
 
     // Initially set for page load, so js-enabled users don't see the tooltips flashing on page load
-    preInitHiddenClass: 'field-tooltip--jshide'
+    preInitHiddenClass: 'field-help-text--jshide'
   },
 
     /**

@@ -1,4 +1,4 @@
-.field-tooltip {
+.field-help-text {
   margin-top: -20px;
   margin-bottom: $baseline-unit*6;
 
@@ -7,13 +7,13 @@
       position: absolute;
       margin-top: $baseline-unit*4;
 
-      &.tooltip--hidden {
+      &.help-text--hidden {
         @include visually-hidden;
       }
     }
   }
 }
 
-.js .field-tooltip--jshide {
+.js .field-help-text--jshide {
   @include visually-hidden;
 }
