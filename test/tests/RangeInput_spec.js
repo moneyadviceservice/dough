@@ -46,14 +46,14 @@ describe('Range input', function() {
 
     it('keeps the slider in sync if the text input changes', function() {
       this.$inputText.val('2000').trigger('change');
-      expect(this.$inputSlider.val()).to.equal('2000');
+      this.$inputSlider.should.have.value('2000');
       this.$inputText.val('50000').trigger('change');
-      expect(this.$inputSlider.val()).to.equal('5000'); // because range input has a max of 5000
+      this.$inputSlider.should.have.value('5000'); // because range input has a max of 5000
     });
 
     it('keeps the text input in sync if the slider changes', function() {
       this.$inputSlider.val('2000').trigger('change');
-      expect(this.$inputText.val()).to.equal('2000');
+      this.$inputText.should.have.value('2000');
     });
 
     it('publishes an event when the value changes', function() {
@@ -100,7 +100,7 @@ describe('Range input', function() {
 
     it('keeps the text input in sync if the slider changes', function() {
       this.$inputSlider.val('2000').trigger('change');
-      expect(this.$inputText.val()).to.equal('1500');
+      this.$inputText.should.have.value('1500');
     });
   });
 
