@@ -7,7 +7,7 @@
       position: absolute;
       margin-top: $baseline-unit*4;
 
-      &.help-text--hidden {
+      &.field-help-text--hidden {
         @include visually-hidden;
       }
     }
