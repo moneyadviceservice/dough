@@ -1,9 +1,10 @@
 /**
  * Clone a range input / slider from an existing text / number input, when the range type is supported by the browser
- * @param  {[type]} $         [description]
- * @param  {[type]} VisibilityToggler [description]
- * @return {[type]}           [description]
- * @private
+ * @param  {jQuery} $                  [description]
+ * @param  {object} DoughBaseComponent [description]
+ * @param  {object} featureDetect      [description]
+ * @param  {object} eventsWithPromises [description]
+ * @return {object}                    [description]
  */
 define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], function($, DoughBaseComponent, featureDetect, eventsWithPromises) {
   'use strict';
@@ -29,7 +30,7 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], 
 
   /**
    * Init - detect range type support and clone input / label
-   * @param initialised
+   * @param {boolean} initialised
    */
   RangeInput.prototype.init = function(initialised) {
     this._initialisedSuccess(initialised);

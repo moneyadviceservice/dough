@@ -4,7 +4,7 @@
  * @return {[type]}           [description]
  * @private
  */
-define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
+define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';
 
   var defaultConfig = {
@@ -19,7 +19,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    * Call base constructor
    * @constructor
    */
-  FieldHelpText = function ($el, config) {
+  FieldHelpText = function($el, config) {
     FieldHelpText.baseConstructor.apply(this, arguments);
     this.config = $.extend(defaultConfig, this.config);
     this.debounceTimer = null;

@@ -55,7 +55,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
         });
       }
       promises = RSVP.allSettled(initialisedList.promises);
-      promises.then(function(){
+      promises.then(function() {
         $('body').attr('data-dough-component-loader-all-loaded', 'yes');
       });
       return promises;
@@ -63,7 +63,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
 
     /**
      * Make an array of objects, each containing pointers to a component container and name
-     * @param $container
+     * @param {object} $container
      * @returns {Array}
      * @private
      */
@@ -125,8 +125,8 @@ define(['jquery', 'rsvp'], function($, RSVP) {
 
     /**
      * Instantiate an individual component
-     * @param componentName
-     * @param $el
+     * @param {string} componentName
+     * @param {object} $el
      * @param {object} instantiated - a deferred, to be resolved after each component is required /
      * instantiated, which may be async, hence the use of a deferred
      * @private

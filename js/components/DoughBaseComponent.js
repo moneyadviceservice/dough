@@ -99,11 +99,16 @@ define([], function() {
   DoughBaseComponentProto._bindUiEvents = function(events) {
     var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
-    if (!events) return this;
+    if (!events) {
+      return this;
+    }
+
     this._unbindUiEvents();
     for (var key in events) {
       var method = this[events[key]];
-      if (!method) continue;
+      if (!method) {
+        continue;
+      }
 
       var match = key.match(delegateEventSplitter);
       var eventName = match[1], selector = match[2];
