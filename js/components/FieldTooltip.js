@@ -62,16 +62,13 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
   };
 
   FieldTooltip.prototype._onBlur = function() {
-    clearTimeout(this.debounceTimer);
-    this.debounceTimer = setTimeout($.proxy(function() {
-      var $activeElement = $(document.activeElement),
-          $activeParents = $activeElement.parents();
+    var $activeElement = $(document.activeElement),
+        $activeParents = $activeElement.parents();
 
-      if (!($activeElement.is(this.$el) || $activeElement.is(this.$inputTarget) ||
-        $activeParents.filter(this.$el).length || $activeParents.filter(this.$inputTarget).length)) {
-        this.hideTooltip();
-      }
-    }, this));
+    if (!($activeElement.is(this.$el) || $activeElement.is(this.$inputTarget) ||
+      $activeParents.filter(this.$el).length || $activeParents.filter(this.$inputTarget).length)) {
+      this.hideTooltip();
+    }
   };
 
   return FieldTooltip;
