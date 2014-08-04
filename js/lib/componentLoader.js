@@ -38,7 +38,8 @@ define(['jquery', 'rsvp'], function($, RSVP) {
       var componentsToCreate,
           instantiatedList,
           initialisedList,
-          self = this;
+          self = this,
+          promises;
 
       this.components = {};
       // if no DOM fragment supplied, use the document
@@ -53,7 +54,11 @@ define(['jquery', 'rsvp'], function($, RSVP) {
           self._initialiseComponents(self.components, initialisedList.deferreds);
         });
       }
-      return RSVP.allSettled(initialisedList.promises);
+      promises = RSVP.allSettled(initialisedList.promises);
+      promises.then(function(){
+        $('body').attr('data-dough-component-loader-all-loaded', 'yes');
+      });
+      return promises;
     },
 
     /**

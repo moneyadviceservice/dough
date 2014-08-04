@@ -18,7 +18,7 @@ describe('componentLoader', function() {
   describe('init method', function() {
 
     beforeEach(function(done) {
-      this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
+      this.$html = $(window.__html__['test/fixtures/componentLoader.html']).appendTo('body');
       this.componentLoader.init(this.$html)
           .then(function() {
             done();
@@ -42,6 +42,10 @@ describe('componentLoader', function() {
         });
       });
       expect(allInitialised).to.equal(true);
+    });
+
+    it('should set a flag to indicate all components have been initialised', function() {
+      expect($('body').is('[data-dough-component-loader-all-loaded="yes"]')).to.equal(true);
     });
 
     it('should keep track of all initialized components', function() {
