@@ -22,9 +22,9 @@
 
 /**
  * Require from Config
- * @param  {[type]} $         [description]
- * @param  {[type]} VisibilityToggler [description]
- * @return {[type]}           [description]
+ * @param  {object} $         [description]
+ * @param  {object} DoughBaseComponent [description]
+ * @return {object}
  * @private
  */
 define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
