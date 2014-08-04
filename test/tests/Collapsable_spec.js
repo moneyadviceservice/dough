@@ -30,7 +30,7 @@ describe('Visibility toggler', function() {
     });
 
     it('collapses the target panel by default', function() {
-      this.$target.should.not.have.class(activeClass);
+      expect(this.$target).to.not.have.class(activeClass);
     });
 
     it('wraps a button around the trigger text', function() {
@@ -38,34 +38,34 @@ describe('Visibility toggler', function() {
     });
 
     it('adds visually hidden text to indicate the state of the button i.e open or closed', function() {
-      this.$triggerLabel.should.have.text('Open');
+      expect(this.$triggerLabel).to.have.text('Open');
       this.$trigger.click();
-      this.$triggerLabel.should.have.text('Close');
+      expect(this.$triggerLabel).to.have.text('Close');
     });
 
     it('adds an accessibility attribute linking the trigger to the target', function() {
-      this.$trigger.should.have.attr('aria-controls', this.$target.attr('id'));
+      expect(this.$trigger).to.have.attr('aria-controls', this.$target.attr('id'));
     });
 
     it('adds an accessibility attribute indicating the expanded state of the target', function() {
-      this.$trigger.should.have.attr('aria-expanded', 'false');
+      expect(this.$trigger).to.have.attr('aria-expanded', 'false');
       this.$trigger.click();
-      this.$trigger.should.have.attr('aria-expanded', 'true');
+      expect(this.$trigger).to.have.attr('aria-expanded', 'true');
       this.$trigger.click();
-      this.$trigger.should.have.attr('aria-expanded', 'false');
+      expect(this.$trigger).to.have.attr('aria-expanded', 'false');
     });
 
     it('activates the trigger and target panel when the trigger is clicked', function() {
       this.$trigger.click();
-      this.$trigger.should.have.class(activeClass);
-      this.$target.should.have.class(activeClass);
+      expect(this.$trigger).to.have.class(activeClass);
+      expect(this.$target).to.have.class(activeClass);
     });
 
     it('deactivates an active trigger and target panel when the trigger is clicked a second time', function() {
       this.$trigger.click();
       this.$trigger.click();
-      this.$trigger.should.not.have.class(activeClass);
-      this.$target.should.not.have.class(activeClass);
+      expect(this.$trigger).to.not.have.class(activeClass);
+      expect(this.$target).to.not.have.class(activeClass);
     });
 
   });
@@ -81,7 +81,7 @@ describe('Visibility toggler', function() {
           }
       );
       this.collapsable.init();
-      this.$target.should.have.class(activeClass);
+      expect(this.$target).to.have.class(activeClass);
     });
 
   });
