@@ -18,7 +18,7 @@ describe('componentLoader', function() {
   describe('init method', function() {
 
     beforeEach(function(done) {
-      this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
+      this.$html = $(window.__html__['test/fixtures/componentLoader.html']).appendTo('body');
       this.componentLoader.init(this.$html)
           .then(function() {
             done();
@@ -26,11 +26,26 @@ describe('componentLoader', function() {
     });
 
     it('should initialize all components in the DOM', function() {
-      // NOTE: components add a "data-dough-initialised='yes'" attribute to themselves once
+      var allInitialised = true,
+          $component,
+          componentNames;
+
+      // NOTE: components add a "data-dough-<componentName>-initialised='yes'" attribute to themselves once
       // they have successfully initialised
-      var componentCount = this.$html.find('[data-dough-component]').length,
-          initialisedCount = this.$html.find('[data-dough-initialised="yes"]').length;
-      expect(componentCount).to.equal(initialisedCount);
+      this.$html.find('[data-dough-component]').each(function(){
+        $component = $(this);
+        componentNames = $component.attr('data-dough-component').split(' ');
+        $.each(componentNames, function(idx, componentName) {
+          if (!$component.is('[data-dough-' + componentName + '-initialised="yes"]')) {
+            allInitialised = false;
+          }
+        });
+      });
+      expect(allInitialised).to.equal(true);
+    });
+
+    it('should set a flag to indicate all components have been initialised', function() {
+      expect($('body').is('[data-dough-component-loader-all-loaded="yes"]')).to.equal(true);
     });
 
     it('should keep track of all initialized components', function() {
@@ -41,7 +56,7 @@ describe('componentLoader', function() {
       $.each(this.componentLoader.components, function(componentName, list) {
         $.each(list, function(i, component) {
           expect(self.$html.find(component.$el).length).to.equal(1);
-        })
+        });
       });
     });
 
