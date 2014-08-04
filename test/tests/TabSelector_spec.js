@@ -1,4 +1,4 @@
-describe('Tab selector', function () {
+describe('Tab selector', function() {
 
   'use strict';
 
@@ -8,11 +8,11 @@ describe('Tab selector', function () {
       triggers = trigger + ' button',
       activeTarget = '[data-dough-tabselector-target].' + activeClass + ' .tab-selector__target-heading';
 
-  beforeEach(function (done) {
+  beforeEach(function(done) {
     var self = this;
     requirejs(
         ['jquery', 'TabSelector'],
-        function ($, TabSelector) {
+        function($, TabSelector) {
           self.$html = $(window.__html__['test/fixtures/TabSelector.html']);
           self.$menu = self.$html.find('[data-dough-tabselector-triggers]');
           self.tabSelector = new TabSelector(self.$html);
@@ -22,7 +22,7 @@ describe('Tab selector', function () {
         }, done);
   });
 
-  function isOpen($menu){
+  function isOpen($menu) {
     return $menu.hasClass(activeClass);
   }
 

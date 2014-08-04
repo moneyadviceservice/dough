@@ -63,9 +63,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
 
     this.$trigger.wrapInner('<button class="unstyled-button" type="button"/>');
     this.$trigger.find('button')
-      .prepend('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' + selectors.iconClassOpen + '"></span> <span class="visually-hidden" data-dough-collapsable-label>' + this.i18nStrings.open + '</span>')
-      .attr('aria-controls', id)
-      .attr('aria-expanded', 'false');
+        .prepend('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' + selectors.iconClassOpen + '"></span> <span class="visually-hidden" data-dough-collapsable-label>' + this.i18nStrings.open + '</span>')
+        .attr('aria-controls', id)
+        .attr('aria-expanded', 'false');
     this.$target.attr('id', id);
   };
 

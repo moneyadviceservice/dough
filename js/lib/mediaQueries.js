@@ -1,4 +1,4 @@
-define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce'], function ($, eventsWithPromises, featureDetect) {
+define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce'], function($, eventsWithPromises, featureDetect) {
 
   'use strict';
 
@@ -20,7 +20,7 @@ define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce
   }
 
   return {
-    init: function ($el) {
+    init: function($el) {
 
       if (!featureDetect.mediaQueries) {
         return;
