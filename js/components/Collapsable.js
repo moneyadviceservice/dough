@@ -46,6 +46,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this._setupAccessibility();
     this.$trigger = this.$trigger.find('button');
+    config && config.forceTo && this.toggle(config.forceTo);
     return this;
   }
 
@@ -62,9 +63,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
 
     this.$trigger.wrapInner('<button class="unstyled-button" type="button"/>');
     this.$trigger.find('button')
-      .prepend('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' + selectors.iconClassOpen + '"></span> <span class="visually-hidden" data-dough-collapsable-label>' + this.i18nStrings.open + '</span>')
-      .attr('aria-controls', id)
-      .attr('aria-expanded', 'false');
+        .prepend('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' + selectors.iconClassOpen + '"></span> <span class="visually-hidden" data-dough-collapsable-label>' + this.i18nStrings.open + '</span>')
+        .attr('aria-controls', id)
+        .attr('aria-expanded', 'false');
     this.$target.attr('id', id);
   };
 
@@ -141,14 +142,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     }
 
     return this;
-  };
-
-  /**
-   * Public method to unbind all events this instance bound.
-   * @return {[type]}
-   */
-  CollapsableProto.destroy = function() {
-    return this.setListeners(false);
   };
 
   return Collapsable;

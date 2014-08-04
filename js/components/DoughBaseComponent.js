@@ -1,4 +1,4 @@
-define([], function () {
+define([], function() {
   'use strict';
 
 
@@ -36,8 +36,9 @@ define([], function () {
    * @param {function} Subclass
    * @param {function} [Superclass] - if not supplied, defaults to DoughBaseComponent
    */
-  DoughBaseComponent.extend = function (Subclass, Superclass) {
+  DoughBaseComponent.extend = function(Subclass, Superclass) {
     var Super = Superclass || DoughBaseComponent;
+
     function TempConstructor() {
     }
 
@@ -54,26 +55,9 @@ define([], function () {
    * Set the parent element for this context.
    * @param {[type]} $el [description]
    */
-  DoughBaseComponentProto.setElement = function ($el) {
+  DoughBaseComponentProto.setElement = function($el) {
     this.$el = $el;
     return this;
-  };
-
-  /**
-   * Fetch the parent element
-   * @return {Array} jQuery object or empty array (for safe jQuery ops)
-   */
-  DoughBaseComponentProto.getElement = function () {
-    return this.$el || [];
-  };
-
-  /**
-   * Get attribute from data attributes on element.
-   * @param  {[type]} attr [description]
-   * @return {[type]}      [description]
-   */
-  DoughBaseComponentProto.attr = function (attr) {
-    return this.getElement().attr('data-dough-' + attr);
   };
 
   /**
@@ -84,7 +68,8 @@ define([], function () {
    *
    * @return {[type]}
    */
-  DoughBaseComponentProto.destroy = function () {
+  DoughBaseComponentProto.destroy = function() {
+    this._unbindUiEvents();
     return this;
   };
 
@@ -111,16 +96,13 @@ define([], function () {
    * @returns {DoughBaseComponent}
    */
 
-  DoughBaseComponentProto._bindUiEvents = function (events) {
+  DoughBaseComponentProto._bindUiEvents = function(events) {
     var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
     if (!events) return this;
     this._unbindUiEvents();
     for (var key in events) {
-      var method = events[key];
-      if (typeof method !== 'function') {
-        method = this[events[key]];
-      }
+      var method = this[events[key]];
       if (!method) continue;
 
       var match = key.match(delegateEventSplitter);
@@ -141,7 +123,7 @@ define([], function () {
    * @returns {DoughBaseComponent}
    */
 
-  DoughBaseComponentProto._unbindUiEvents = function () {
+  DoughBaseComponentProto._unbindUiEvents = function() {
     this.$el.off('.boundUiEvents');
     return this;
   };

@@ -4,10 +4,10 @@
  * eg. the following markup will cause 2 components to be initialised, DropdownList and MultiToggler
  *
  <div class="container">
-   <div data-dough-component="DropdownList">
-   </div>
-   <div data-dough-component="MultiToggler">
-   </div>
+ <div data-dough-component="DropdownList">
+ </div>
+ <div data-dough-component="MultiToggler">
+ </div>
  </div>
 
  * Components are created in 2 separate passes. The reason for this is so that all components can
@@ -194,7 +194,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @returns {string} eg. tab-selector
      */
     _convertComponentNameToDashed: function(componentName) {
-      var val =  componentName.replace(/([A-Z])/g, function($1) {
+      var val = componentName.replace(/([A-Z])/g, function($1) {
         return '-' + $1.toLowerCase();
       });
       return val.substr(1);

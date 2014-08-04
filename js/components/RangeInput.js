@@ -5,25 +5,25 @@
  * @return {[type]}           [description]
  * @private
  */
-define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], function ($, DoughBaseComponent, featureDetect, eventsWithPromises) {
+define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], function($, DoughBaseComponent, featureDetect, eventsWithPromises) {
   'use strict';
 
   var defaultConfig = {
-      keepSynced: true
-    },
+        keepSynced: true
+      },
 
-    /**
-   * Call base constructor
-   * @constructor
-   */
-  RangeInput = function ($el, config) {
-    RangeInput.baseConstructor.apply(this, arguments);
-    this.config = $.extend(defaultConfig, this.config);
+      /**
+       * Call base constructor
+       * @constructor
+       */
+      RangeInput = function($el, config) {
+        RangeInput.baseConstructor.apply(this, arguments);
+        this.config = $.extend(defaultConfig, this.config);
 
-    if (featureDetect.inputtypes.range) {
-      this._cloneElements();
-    }
-  };
+        if (featureDetect.inputtypes.range) {
+          this._cloneElements();
+        }
+      };
 
   DoughBaseComponent.extend(RangeInput);
 
@@ -50,7 +50,7 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], 
           'aria-role': 'slider'
         })
         .removeAttr('name data-dough-range-input')
-        .on('input change', function () { // recapture focus on slider for iOS w/ Voiceover
+        .on('input change', function() { // recapture focus on slider for iOS w/ Voiceover
           $(this).focus();
         })
         .appendTo(this.$el);

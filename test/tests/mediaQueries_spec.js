@@ -3,11 +3,11 @@ describe('mediaQueries - fires JS events when breakpoints are crossed', function
   'use strict';
 
 
-  beforeEach(function (done) {
+  beforeEach(function(done) {
     var self = this;
     requirejs(
         ['jquery', 'mediaQueries', 'eventsWithPromises'],
-        function ($, mediaQueries, eventsWithPromises) {
+        function($, mediaQueries, eventsWithPromises) {
           self.mediaQueries = mediaQueries;
           self.eventsWithPromises = eventsWithPromises;
           self.$html = $('<div />');
@@ -15,7 +15,7 @@ describe('mediaQueries - fires JS events when breakpoints are crossed', function
         }, done);
   });
 
-  afterEach(function(){
+  afterEach(function() {
     this.$html.empty();
   });
 

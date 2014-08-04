@@ -1,12 +1,12 @@
-describe('utilities', function () {
+describe('utilities', function() {
 
   'use strict';
 
-  before(function (done) {
+  before(function(done) {
     var self = this;
     requirejs(
         ['utilities'],
-        function (utilities) {
+        function(utilities) {
           self.mod = utilities;
           done();
         }, done);

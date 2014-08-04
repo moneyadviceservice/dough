@@ -27,7 +27,7 @@
  * @return {[type]}           [description]
  * @private
  */
-define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
+define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';
 
   var TabSelector,
@@ -50,7 +50,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    * Call DoughBaseComponent constructor. Find options list.
    * @constructor
    */
-  TabSelector = function ($el, config) {
+  TabSelector = function($el, config) {
     this.uiEvents = uiEvents;
     TabSelector.baseConstructor.apply(this, arguments);
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
@@ -87,8 +87,8 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    */
   TabSelector.prototype._setupAccessibility = function() {
     this.$el.find('[' + selectors.target + ']').attr({
-      'aria-hidden' : 'true',
-      'tabindex' : '-1'
+      'aria-hidden': 'true',
+      'tabindex': '-1'
     });
     this._convertLinksToButtons();
     this._updateTriggers(this.$el.find('[' + selectors.trigger + '].is-active'));
@@ -99,7 +99,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    * @private
    */
   TabSelector.prototype._convertLinksToButtons = function() {
-    this.$el.find('[' + this.selectors.trigger + '] a').each(function(){
+    this.$el.find('[' + this.selectors.trigger + '] a').each(function() {
       var content = $(this).html();
       $(this).replaceWith('<button class="unstyled-button" type="button">' + content + '</button>');
     });
@@ -110,7 +110,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    * @returns {TabSelector}
    * @private
    */
-  TabSelector.prototype._handleClickEvent = function (e) {
+  TabSelector.prototype._handleClickEvent = function(e) {
     var $trigger = $(e.currentTarget),
         targetAttr;
 
@@ -131,7 +131,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    * @param {jQuery} $el
    * @private
    */
-  TabSelector.prototype._deSelectItem = function ($el) {
+  TabSelector.prototype._deSelectItem = function($el) {
     $el.removeClass(this.selectors.activeClass).addClass(this.selectors.inactiveClass).attr('aria-selected', false);
     return this;
   };
@@ -141,7 +141,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    * @returns {TabSelector}
    * @private
    */
-  TabSelector.prototype._toggleMenu = function ($trigger) {
+  TabSelector.prototype._toggleMenu = function($trigger) {
     // if the clicked item is outside the menu, and the menu is closed, do nothing
     if (!$trigger.closest(this.$triggersContainer).length && !this.$triggersContainer.hasClass(this.selectors.activeClass)) {
       return;
@@ -156,7 +156,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    * @param {jQuery} $selected - selected trigger
    * @private
    */
-  TabSelector.prototype._positionMenu = function ($selected) {
+  TabSelector.prototype._positionMenu = function($selected) {
     var pos;
     if ($selected) {
       pos = this.$triggersContainer.hasClass(this.selectors.activeClass) ? -1 * $selected.position().top : 0;
@@ -172,7 +172,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    * @returns {TabSelector}
    * @private
    */
-  TabSelector.prototype._updateTriggers = function (targetAttr) {
+  TabSelector.prototype._updateTriggers = function(targetAttr) {
     var $selectedTriggers = this.$el.find('[' + selectors.trigger + '="' + targetAttr + '"]'),
         $unselectedTriggers = this.$el.find('[' + selectors.trigger + ']').not($selectedTriggers);
 
@@ -203,7 +203,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    * @returns {TabSelector}
    * @private
    */
-  TabSelector.prototype._updateTargets = function (targetAttr) {
+  TabSelector.prototype._updateTargets = function(targetAttr) {
     var $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
         $unselectedTargets = this.$el.find('[' + selectors.target + ']').not('[' + selectors.target + '="' + targetAttr + '"]');
 
@@ -211,8 +211,8 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
         .removeClass(this.selectors.inactiveClass)
         .addClass(this.selectors.activeClass)
         .attr({
-          'aria-hidden' : 'false',
-          'tabindex' : 0
+          'aria-hidden': 'false',
+          'tabindex': 0
         })
         .focus();
 
@@ -220,8 +220,8 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
         .removeClass(this.selectors.activeClass)
         .addClass(this.selectors.inactiveClass)
         .attr({
-          'aria-hidden' : 'true',
-          'tabindex' : -1
+          'aria-hidden': 'true',
+          'tabindex': -1
         });
 
     return this;
