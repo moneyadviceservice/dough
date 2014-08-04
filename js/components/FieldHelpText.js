@@ -34,6 +34,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
     this.$inputTarget = $('input[aria-describedby="' + tooltipID + '"]');
     this.$el.removeClass(this.config.preInitHiddenClass);
     this.hideTooltip();
+    this._addAccessibility();
     this._addListeners();
 
     return this;
@@ -50,6 +51,11 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
       this.$el.addClass(this.config.hiddenClass);
     }
 
+    return this;
+  };
+
+  FieldHelpText.prototype._addAccessibility = function() {
+    this.$el.attr('role', 'tooltip');
     return this;
   };
 

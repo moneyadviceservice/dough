@@ -25,6 +25,13 @@ describe('Field input tooltip', function() {
     expect(fieldHelpText.$inputTarget.attr('id')).to.equal('my_input');
   });
 
+  it('should have role=tooltip added by the component', function() {
+    var fieldHelpText = new this.FieldHelpText(this.component);
+    fieldHelpText.init();
+
+    expect(fieldHelpText.$el.attr('role')).to.equal('tooltip');
+  });
+
   it('ensures the tooltip is hidden on page load', function() {
     var fieldHelpText = new this.FieldHelpText(this.component);
     fieldHelpText.init();
