@@ -45,7 +45,7 @@ describe('Tab selector', function() {
   it('replaces the currently selected item', function() {
     this.$triggers.last().click();
     this.$triggers.eq(1).click();
-    activeTrigger(this.$menu).should.have.text('Show panel 2 (selected)');
+    expect(activeTrigger(this.$menu)).to.have.text('Show panel 2 (selected)');
     expect(this.$html.find(active).length).to.equal(2);
   });
 
@@ -64,9 +64,9 @@ describe('Tab selector', function() {
 
   it('shows the associated target panel when a trigger is clicked', function() {
     this.$triggers.last().click();
-    activeTarget(this.$html).should.have.text('Panel 3');
+    expect(activeTarget(this.$html)).to.have.text('Panel 3');
     this.$triggers.first().click();
-    activeTarget(this.$html).should.have.text('Panel 1');
+    expect(activeTarget(this.$html)).to.have.text('Panel 1');
   });
 
   it('updates other copies of the clicked trigger', function() {
