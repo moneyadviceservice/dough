@@ -22,21 +22,21 @@ describe('Field input tooltip', function() {
     var fieldHelpText = new this.FieldHelpText(this.component);
     fieldHelpText.init();
 
-    expect(fieldHelpText.$inputTarget.attr('id')).to.equal('my_input');
+    expect(fieldHelpText.$inputTarget).to.have.id('my_input');
   });
 
   it('should have role=tooltip added by the component', function() {
     var fieldHelpText = new this.FieldHelpText(this.component);
     fieldHelpText.init();
 
-    expect(fieldHelpText.$el.attr('role')).to.equal('tooltip');
+    expect(fieldHelpText.$el).to.have.attr('role', 'tooltip');
   });
 
   it('ensures the tooltip is hidden on page load', function() {
     var fieldHelpText = new this.FieldHelpText(this.component);
     fieldHelpText.init();
 
-    expect(fieldHelpText.$el.hasClass(fieldHelpText.config.hiddenClass)).to.equal(true);
+    expect(fieldHelpText.$el).to.have.class(fieldHelpText.config.hiddenClass);
   });
 
   it('removes the hidden class when the input has focus', function() {
@@ -44,22 +44,22 @@ describe('Field input tooltip', function() {
     fieldHelpText.init();
     fieldHelpText.$inputTarget.focus();
 
-    expect(fieldHelpText.$el.hasClass(fieldHelpText.config.hiddenClass)).to.equal(false);
+    expect(fieldHelpText.$el).to.not.have.class(fieldHelpText.config.hiddenClass);
   });
 
-  it('adds the hidden class when the input has focus', function() {
+  it('adds the hidden class when the input does not have focus', function() {
     var fieldHelpText = new this.FieldHelpText(this.component);
     fieldHelpText.init();
     fieldHelpText.$inputTarget.blur();
 
-    expect(fieldHelpText.$el.hasClass(fieldHelpText.config.hiddenClass)).to.equal(true);
+    expect(fieldHelpText.$el).to.have.class(fieldHelpText.config.hiddenClass);
   });
 
   it('removes the pre-init js hidden class after init', function() {
     var fieldHelpText = new this.FieldHelpText(this.component);
     fieldHelpText.init();
 
-    expect(fieldHelpText.$el.hasClass(fieldHelpText.config.preInitHiddenClass)).to.equal(false);
+    expect(fieldHelpText.$el).to.not.have.class(fieldHelpText.config.preInitHiddenClass);
   })
 
 });
