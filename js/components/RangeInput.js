@@ -38,9 +38,12 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], 
 
   RangeInput.prototype._cloneElements = function() {
     var $textInput,
-        $rangeInput;
+        $rangeInput,
+        $target;
 
     $textInput = this.$el.find('[data-dough-range-input]');
+    $target = this.$el.find('[data-dough-range-input-slider]');
+    $target = ($target.length) ? $target : this.$el;
     $rangeInput = $textInput
         .clone()
         .removeClass('input--label')
@@ -54,7 +57,7 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], 
         .on('input change', function() { // recapture focus on slider for iOS w/ Voiceover
           $(this).focus();
         })
-        .appendTo(this.$el);
+        .appendTo($target);
 
     this.$el.find('label[for="' + $textInput.attr('id') + '"]')
         .clone()
