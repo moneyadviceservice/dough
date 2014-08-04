@@ -90,4 +90,18 @@ describe('Field input tooltip', function() {
     expect(fieldHelpText.$el).to.have.class(fieldHelpText.config.hiddenClass);
   });
 
+  it('should work with a user supplied hidden class name', function() {
+    var customHiddenClass = 'test-hidden-class',
+        fieldHelpText = new this.FieldHelpText(this.component, {
+          hiddenClass: customHiddenClass
+        });
+
+    fieldHelpText.init();
+    expect(fieldHelpText.config.hiddenClass).to.equal(customHiddenClass);
+
+    fieldHelpText.$inputTarget.blur();
+    fieldHelpText.hideTooltip();
+    expect(fieldHelpText.$el).to.have.class(fieldHelpText.config.hiddenClass);
+  });
+
 });
