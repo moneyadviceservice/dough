@@ -8,5 +8,7 @@ npm install
 time bundle install
 time bundle exec rspec
 
-./node_modules/karma/bin/karma start test/karma.conf.js --single-run
-./node_modules/jscs/bin/jscs js
+export PATH=./node_modules/.bin:$PATH
+
+karma start test/karma.conf.js --single-run
+jscs js
