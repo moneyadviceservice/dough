@@ -19,16 +19,16 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
    * Call base constructor
    * @constructor
    */
-  FieldTooltip = function ($el, config) {
-    FieldTooltip.baseConstructor.apply(this, arguments);
+  FieldHelpText = function ($el, config) {
+    FieldHelpText.baseConstructor.apply(this, arguments);
     this.config = $.extend(defaultConfig, this.config);
     this.debounceTimer = null;
     this.init();
   };
 
-  DoughBaseComponent.extend(FieldTooltip);
+  DoughBaseComponent.extend(FieldHelpText);
 
-  FieldTooltip.prototype.init = function() {
+  FieldHelpText.prototype.init = function() {
     var tooltipID = this.$el.attr('id');
 
     this.$inputTarget = $('input[aria-describedby="' + tooltipID + '"]');
@@ -39,13 +39,13 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
     return this;
   };
 
-  FieldTooltip.prototype.showTooltip = function() {
+  FieldHelpText.prototype.showTooltip = function() {
     this.$el.removeClass(this.config.hiddenClass);
 
     return this;
   };
 
-  FieldTooltip.prototype.hideTooltip = function() {
+  FieldHelpText.prototype.hideTooltip = function() {
     if (!this.$inputTarget.is(':focus')) {
       this.$el.addClass(this.config.hiddenClass);
     }
@@ -53,7 +53,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
     return this;
   };
 
-  FieldTooltip.prototype._addListeners = function() {
+  FieldHelpText.prototype._addListeners = function() {
     this.$inputTarget.
           on('focusin', $.proxy(this.showTooltip, this)).
           on('focusout', $.proxy(this._onBlur, this));
@@ -61,7 +61,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
     return this;
   };
 
-  FieldTooltip.prototype._onBlur = function() {
+  FieldHelpText.prototype._onBlur = function() {
     var $activeElement = $(document.activeElement),
         $activeParents = $activeElement.parents();
 
@@ -71,6 +71,6 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
     }
   };
 
-  return FieldTooltip;
+  return FieldHelpText;
 
 });
