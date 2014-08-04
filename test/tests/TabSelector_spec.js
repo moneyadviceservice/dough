@@ -6,7 +6,7 @@ describe('Tab selector', function() {
       trigger = '[data-dough-tabselector-trigger]',
       active = trigger + '.' + activeClass + ' button',
       triggers = trigger + ' button',
-      activeTarget = '[data-dough-tabselector-target].' + activeClass + ' .tab-selector__target-heading';
+      target = '[data-dough-tabselector-target].' + activeClass + ' .tab-selector__target-heading';
 
   beforeEach(function(done) {
     var self = this;
@@ -30,8 +30,8 @@ describe('Tab selector', function() {
     return $menu.find(active);
   }
 
-  function activeTargetText($root) {
-    return $root.find(activeTarget).text();
+  function activeTarget($root) {
+    return $root.find(target);
   }
 
   it('selects the first item in the list', function() {
@@ -45,7 +45,7 @@ describe('Tab selector', function() {
   it('replaces the currently selected item', function() {
     this.$triggers.last().click();
     this.$triggers.eq(1).click();
-    expect(activeTrigger(this.$menu).text()).to.equal('Show panel 2 (selected)');
+    activeTrigger(this.$menu).should.have.text('Show panel 2 (selected)');
     expect(this.$html.find(active).length).to.equal(2);
   });
 
@@ -64,9 +64,9 @@ describe('Tab selector', function() {
 
   it('shows the associated target panel when a trigger is clicked', function() {
     this.$triggers.last().click();
-    expect(activeTargetText(this.$html)).to.equal('Panel 3');
+    activeTarget(this.$html).should.have.text('Panel 3');
     this.$triggers.first().click();
-    expect(activeTargetText(this.$html)).to.equal('Panel 1');
+    activeTarget(this.$html).should.have.text('Panel 1');
   });
 
   it('updates other copies of the clicked trigger', function() {

@@ -20,10 +20,6 @@ describe('Visibility toggler', function() {
     this.$html.remove();
   });
 
-  function isActive($target) {
-    return $target.hasClass(activeClass);
-  }
-
   describe('closed by default', function() {
 
     beforeEach(function() {
@@ -34,7 +30,7 @@ describe('Visibility toggler', function() {
     });
 
     it('collapses the target panel by default', function() {
-      expect(isActive(this.$target)).to.equal(false);
+      this.$target.should.not.have.class(activeClass);
     });
 
     it('wraps a button around the trigger text', function() {
@@ -42,34 +38,34 @@ describe('Visibility toggler', function() {
     });
 
     it('adds visually hidden text to indicate the state of the button i.e open or closed', function() {
-      expect(this.$triggerLabel).to.have.text('Open');
+      this.$triggerLabel.should.have.text('Open');
       this.$trigger.click();
-      expect(this.$triggerLabel).to.have.text('Close');
+      this.$triggerLabel.should.have.text('Close');
     });
 
     it('adds an accessibility attribute linking the trigger to the target', function() {
-      expect(this.$trigger.attr('aria-controls')).to.equal(this.$target.attr('id'));
+      this.$trigger.should.have.attr('aria-controls', this.$target.attr('id'));
     });
 
     it('adds an accessibility attribute indicating the expanded state of the target', function() {
-      expect(this.$trigger.attr('aria-expanded')).to.equal('false');
+      this.$trigger.should.have.attr('aria-expanded', 'false');
       this.$trigger.click();
-      expect(this.$trigger.attr('aria-expanded')).to.equal('true');
+      this.$trigger.should.have.attr('aria-expanded', 'true');
       this.$trigger.click();
-      expect(this.$trigger.attr('aria-expanded')).to.equal('false');
+      this.$trigger.should.have.attr('aria-expanded', 'false');
     });
 
     it('activates the trigger and target panel when the trigger is clicked', function() {
       this.$trigger.click();
-      expect(isActive(this.$trigger)).to.equal(true);
-      expect(isActive(this.$target)).to.equal(true);
+      this.$trigger.should.have.class(activeClass);
+      this.$target.should.have.class(activeClass);
     });
 
     it('deactivates an active trigger and target panel when the trigger is clicked a second time', function() {
       this.$trigger.click();
       this.$trigger.click();
-      expect(isActive(this.$trigger)).to.equal(false);
-      expect(isActive(this.$target)).to.equal(false);
+      this.$trigger.should.not.have.class(activeClass);
+      this.$target.should.not.have.class(activeClass);
     });
 
   });
@@ -85,7 +81,7 @@ describe('Visibility toggler', function() {
           }
       );
       this.collapsable.init();
-      expect(isActive(this.$target)).to.equal(true);
+      this.$target.should.have.class(activeClass);
     });
 
   });
