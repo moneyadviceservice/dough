@@ -60,6 +60,34 @@ describe('Field input tooltip', function() {
     fieldHelpText.init();
 
     expect(fieldHelpText.$el).to.not.have.class(fieldHelpText.config.preInitHiddenClass);
-  })
+  });
+
+  it('ensures the public show method works as expected', function() {
+    var fieldHelpText = new this.FieldHelpText(this.component);
+    fieldHelpText.init();
+
+    fieldHelpText.showTooltip();
+    expect(fieldHelpText.$el).to.not.have.class(fieldHelpText.config.hiddenClass);
+  });
+
+  it('ensures the public hide method does not hide when the field still has focus', function() {
+    var fieldHelpText = new this.FieldHelpText(this.component);
+    fieldHelpText.init();
+
+    fieldHelpText.$inputTarget.focus();
+    fieldHelpText.hideTooltip();
+
+    expect(fieldHelpText.$el).to.not.have.class(fieldHelpText.config.hiddenClass);
+  });
+
+  it('ensures the public hide method hides when the field does not have focus', function() {
+    var fieldHelpText = new this.FieldHelpText(this.component);
+    fieldHelpText.init();
+
+    fieldHelpText.$inputTarget.blur();
+    fieldHelpText.hideTooltip();
+
+    expect(fieldHelpText.$el).to.have.class(fieldHelpText.config.hiddenClass);
+  });
 
 });

@@ -47,7 +47,7 @@ define(['jquery', 'DoughBaseComponent'], function ($, DoughBaseComponent) {
   };
 
   FieldHelpText.prototype.hideTooltip = function() {
-    if (!this.$inputTarget.is(':focus')) {
+    if (this.$inputTarget.get(0) != document.activeElement) {
       this.$el.addClass(this.config.hiddenClass);
     }
 
