@@ -63,7 +63,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   Validation.prototype.addError = function($field, fieldValidity) {
     this.errors[$field.attr('id')] = fieldValidity;
-    this.refreshInlineErrors();
+    this.refreshInlineErrors().refreshValidationSummary();
 
     return this;
   };
@@ -75,7 +75,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   Validation.prototype.removeError = function($field) {
     delete this.errors[$field.attr('id')];
-    this.refreshInlineErrors();
+    this.refreshInlineErrors().refreshValidationSummary();
 
     return this;
   };
@@ -117,6 +117,34 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   /**
+   * Loop through the errors and build the summary markup
+   * @return {Validation} Class instance
+   */
+  Validation.prototype.refreshValidationSummary = function() {
+    var fieldID,
+        fieldValidity,
+        summaryHTML = '<ul id="validation-summary">',
+        errorCount = 0;
+
+    for (fieldID in this.errors) {
+      fieldValidity = this.errors[fieldID];
+
+      summaryHTML += '<li><a href="#' + fieldID + '">' + fieldValidity.message + '</a></li>';
+      errorCount++;
+    }
+
+    summaryHTML += '</ul>';
+
+    this.$el.find('.' + this.config.validationSummaryClass).html(summaryHTML);
+
+    if (errorCount < 1) {
+      this._hideValidationSummary();
+    }
+
+    return this;
+  };
+
+  /**
    * Check a field's validity and update the errors hash
    * @param  {jQuery} $field The field to validate
    * @return {Validation}        Class instance
@@ -150,24 +178,20 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   /**
-   * Loop through the errors and build the summary markup
-   * @return {Validation} Class instance
+   * Show the validation summary;
+   * @return {[type]} [description]
    */
-  Validation.prototype._refreshValidationSummary = function() {
-    var fieldID,
-        fieldValidity,
-        summaryHTML = '<ul id="validation-summary">';
+  Validation.prototype._showValidationSummary = function() {
+    this.$el.find('.' + this.config.validationSummaryClass).show();
+    return this;
+  };
 
-    for (fieldID in this.errors) {
-      fieldValidity = this.errors[fieldID];
-
-      summaryHTML += '<li><a href="#' + fieldID + '">' + fieldValidity.message + '</a></li>';
-    }
-
-    summaryHTML += '</ul>';
-
-    this.$el.find('.' + this.config.validationSummaryClass).html(summaryHTML).show();
-
+  /**
+   * Hide the validation summary;
+   * @return {[type]} [description]
+   */
+  Validation.prototype._hideValidationSummary = function() {
+    this.$el.find('.' + this.config.validationSummaryClass).show();
     return this;
   };
 
@@ -322,7 +346,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     if (this._countErrors()) {
       e.preventDefault();
-      this._refreshValidationSummary();
+      this.refreshValidationSummary()._showValidationSummary();
     }
   };
 
