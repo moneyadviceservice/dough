@@ -57,15 +57,11 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('should show an inline error if left empty on blur', function() {
+    it('should show an inline error if not enough chars on blur', function() {
 
     });
 
-    it('should show the validation summary if left empty on submit', function() {
-
-    });
-
-    it('should show the validation summary if not enough characters on submit', function() {
+    it('should show the validation summary if not enough chars on submit', function() {
 
     });
 
@@ -73,11 +69,7 @@ describe('Validation', function() {
 
     });
 
-    it('should show an inline error if the value is not enough characters', function() {
-
-    });
-
-    it('should allow the form to submit if the value is non-empty and enough characters', function() {
+    it('should allow the form to submit if the value has enough characters', function() {
 
     });
   });
