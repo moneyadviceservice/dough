@@ -16,7 +16,9 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   var defaultConfig = {
     invalidClass: 'is-invalid',
     validClass: 'is-valid',
-    rowInvalidClass: 'is-errored'
+    rowInvalidClass: 'is-errored',
+    validationSummaryClass: 'validation-summary',
+    inlineErrorClass: 'js-inline-error'
   },
 
   uiEvents = {
@@ -34,7 +36,6 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     this.uiEvents = uiEvents;
     Validation.baseConstructor.apply(this, arguments);
     this.config = $.extend(defaultConfig, this.config);
-    this.init();
   };
 
   DoughBaseComponent.extend(Validation);
@@ -49,6 +50,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     };
 
     this.errors = {};
+    this._prepareMarkup();
+
     return this;
   };
 
@@ -60,6 +63,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   Validation.prototype.addError = function($field, fieldValidity) {
     this.errors[$field.attr('id')] = fieldValidity;
+    this.refreshInlineErrors();
+
     return this;
   };
 
@@ -70,6 +75,24 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   Validation.prototype.removeError = function($field) {
     delete this.errors[$field.attr('id')];
+    this.refreshInlineErrors();
+
+    return this;
+  };
+
+  /**
+   * Refresh all the inline error messages
+   * @return {Validation} Class instance
+   */
+  Validation.prototype.refreshInlineErrors = function() {
+    var fieldID,
+        fieldValidity;
+
+    for (fieldID in this.errors) {
+      fieldValidity = this.errors[fieldID];
+
+    }
+
     return this;
   };
 
@@ -92,10 +115,25 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   /**
+   * Prepare the markup for both inline errors and the validation summary
+   * @return {[type]} [description]
+   */
+  Validation.prototype._prepareMarkup = function() {
+    this.$el.prepend($('<div class="' + this.config.validationSummaryClass + '" />').hide());
+
+    $('.form__row').each($.proxy(function(i, o) {
+      var $formRow = $(o);
+      $formRow.prepend($('<div class="' + this.config.inlineErrorClass + '" />').hide());
+    }, this));
+
+    return this;
+  };
+
+  /**
    * Loop through the errors and build the summary markup
    * @return {Validation} Class instance
    */
-  Validation.prototype._buildAndShowValidationSummary = function() {
+  Validation.prototype._refreshValidationSummary = function() {
     var fieldID,
         fieldValidity,
         summaryHTML = '<ul id="validation-summary">';
@@ -108,8 +146,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     summaryHTML += '</ul>';
 
-    this.$el.find('#validation-summary').remove();
-    this.$el.prepend(summaryHTML);
+    this.$el.find('.' + this.config.validationSummaryClass).html(summaryHTML).show();
 
     return this;
   };
@@ -243,13 +280,13 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   Validation.prototype._countErrors = function() {
-    var p;
+    var p, count = 0;
 
     for (p in this.errors) {
-      p++;
+      count++;
     }
 
-    return p;
+    return count;
   };
 
   /**
@@ -257,9 +294,15 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {void}
    */
   Validation.prototype._handleSubmit = function(e) {
+    e.preventDefault();
+
+    this.$el.find('input, textarea, select').each($.proxy(function(i, field) {
+      this.checkFieldValidity($(field));
+    }, this));
+
     if (this._countErrors()) {
       e.preventDefault();
-      this._buildAndShowValidationSummary();
+      this._refreshValidationSummary();
     }
   };
 
