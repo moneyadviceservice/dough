@@ -20,19 +20,19 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('should show an inline error if left empty on blur', function() {
+    it('shows an inline error if left empty on blur', function() {
 
     });
 
-    it('should show the validation summary if left empty on submit', function() {
+    it('shows the validation summary if left empty on submit', function() {
 
     });
 
-    it('should remove all relevant errors if corrected on key up', function() {
+    it('removes all relevant errors if corrected on key up', function() {
 
     });
 
-    it('should allow the form to submit if the value is non-empty', function() {
+    it('allows the form to submit if the value is non-empty', function() {
 
     });
   });
@@ -57,19 +57,19 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('should show an inline error if not enough chars on blur', function() {
+    it('shows an inline error if not enough chars on blur', function() {
 
     });
 
-    it('should show the validation summary if not enough chars on submit', function() {
+    it('shows the validation summary if not enough chars on submit', function() {
 
     });
 
-    it('should remove all relevant errors if corrected on key up', function() {
+    it('removes all relevant errors if corrected on key up', function() {
 
     });
 
-    it('should allow the form to submit if the value has enough characters', function() {
+    it('allows the form to submit if the value has enough characters', function() {
 
     });
   });
@@ -93,19 +93,19 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('should show an inline error if the regexp does not match on blur', function() {
+    it('shows an inline error if the regexp does not match on blur', function() {
 
     });
 
-    it('should show the validation summary if the regexp does not match on submit', function() {
+    it('shows the validation summary if the regexp does not match on submit', function() {
 
     });
 
-    it('should remove all relevant errors if corrected on key up', function() {
+    it('removes all relevant errors if corrected on key up', function() {
 
     });
 
-    it('should allow the form to submit if the value matches the regexp', function() {
+    it('allows the form to submit if the value matches the regexp', function() {
 
     });
   });
@@ -129,19 +129,19 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('should show an inline error if the value is out of range on blur', function() {
+    it('shows an inline error if the value is out of range on blur', function() {
 
     });
 
-    it('should show the validation summary if the value is out of range on submit', function() {
+    it('shows the validation summary if the value is out of range on submit', function() {
 
     });
 
-    it('should remove all relevant errors if corrected on key up', function() {
+    it('removes all relevant errors if corrected on key up', function() {
 
     });
 
-    it('should allow the form to submit if the value is in range', function() {
+    it('allows the form to submit if the value is in range', function() {
 
     });
   });
