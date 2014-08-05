@@ -31,6 +31,7 @@ require.config({
     TabSelector: 'js/components/TabSelector',
     RangeInput: 'js/components/RangeInput',
     FieldHelpText: 'js/components/FieldHelpText',
+    Validation: 'js/components/Validation',
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
     rivets: 'vendor/assets/bower_components/rivets/dist/rivets',
     eventsWithPromises: 'vendor/assets/bower_components/eventsWithPromises/src/eventsWithPromises',
