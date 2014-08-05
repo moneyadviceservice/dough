@@ -1,5 +1,12 @@
 /**
  * Client side validation. Mirrors HTML5 validation API as much as possible.
+ *
+ * Supported types are:
+ * - required
+ * - minlength
+ * - pattern
+ * - min/max number range checking
+ *
  * @param  {Object} $         [description]
  * @return {Class}           Validation
  */
