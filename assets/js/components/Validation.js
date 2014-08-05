@@ -17,7 +17,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     invalidClass: 'is-invalid',
     validClass: 'is-valid',
     rowInvalidClass: 'is-errored',
-    validationSummaryClass: 'validation-summary',
+    validationSummaryClass: 'js-validation-summary',
+    validationSummaryErrorClass: 'validation-summary__error',
     inlineErrorClass: 'js-inline-error'
   },
 
@@ -98,7 +99,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
         if (typeof this.errors[inputID] !== 'undefined') {
           rowHasErrors = true;
-          errorHTML += '<p>' + this.errors[inputID].message + '</p>';
+          errorHTML += '<p id="error-' + inputID + '" class="' + this.config.validationSummaryErrorClass + '">' + this.errors[inputID].message + '</p>';
         }
       }, this));
 
@@ -123,17 +124,17 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   Validation.prototype.refreshValidationSummary = function() {
     var fieldID,
         fieldValidity,
-        summaryHTML = '<ul id="validation-summary">',
+        summaryHTML = '<ol id="validation-summary" class="validation-summary__list">',
         errorCount = 0;
 
     for (fieldID in this.errors) {
       fieldValidity = this.errors[fieldID];
 
-      summaryHTML += '<li><a href="#' + fieldID + '">' + fieldValidity.message + '</a></li>';
+      summaryHTML += '<li class="validation-summary__error"><a href="#error-' + fieldID + '">' + fieldValidity.message + '</a></li>';
       errorCount++;
     }
 
-    summaryHTML += '</ul>';
+    summaryHTML += '</ol>';
 
     this.$el.find('.' + this.config.validationSummaryClass).html(summaryHTML);
 
@@ -167,7 +168,13 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {[type]} [description]
    */
   Validation.prototype._prepareMarkup = function() {
-    this.$el.prepend($('<div class="' + this.config.validationSummaryClass + '" />').hide());
+    this.$el.prepend($('\
+        <div class="validation-summary" role="alert">\
+          <div class="validation-summary__content-container">\
+            <p class="validation-summary__title">Please double-check for the following errors:</p>\
+            <div class="' + this.config.validationSummaryClass + '"></div>\
+          </div>\
+        </div>').hide());
 
     $('.form__row').each($.proxy(function(i, o) {
       var $formRow = $(o);
@@ -182,7 +189,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {[type]} [description]
    */
   Validation.prototype._showValidationSummary = function() {
-    this.$el.find('.' + this.config.validationSummaryClass).show();
+    this.$el.find('.validation-summary').show();
     return this;
   };
 
@@ -191,7 +198,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {[type]} [description]
    */
   Validation.prototype._hideValidationSummary = function() {
-    this.$el.find('.' + this.config.validationSummaryClass).show();
+    this.$el.find('.validation-summary').hide();
     return this;
   };
 
@@ -338,8 +345,6 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {void}
    */
   Validation.prototype._handleSubmit = function(e) {
-    e.preventDefault();
-
     this.$el.find('input, textarea, select').each($.proxy(function(i, field) {
       this.checkFieldValidity($(field));
     }, this));
