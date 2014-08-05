@@ -81,7 +81,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   Validation.prototype.checkFieldValidity = function($field) {
     var fieldValidity = this._getFieldValidity($field);
 
-    if (fieldValidity.hasError) {
+    if (fieldValidity.errors.length) {
       this.addError($field, fieldValidity);
     }
     else {
@@ -121,22 +121,33 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   Validation.prototype._getFieldValidity = function($field) {
     var fieldValidity = {
+      errors: [],
       isEmpty: false,
       isInvalid: false,
-      hasError: false,
       message: '',
       $field: $field
     };
 
+    // Populate the field validity with an array of results from the various validators
     $.each(this.ATTRIBUTE_VALIDATORS, $.proxy(function(attributeSelector, handler) {
       var attr = $field.attr(attributeSelector);
       if (attr) {
-        fieldValidity = this[handler]($field, $field.val(), attr, fieldValidity);
+        fieldValidity.errors.push(this[handler]($field, $field.val(), attr));
       }
     }, this));
 
-    fieldValidity.hasError = fieldValidity.isEmpty || fieldValidity.isInvalid;
+    // Hoist up to top level for ease of access
+    $.each(fieldValidity.errors, function(i, validatorResults) {
+      if (validatorResults.isEmpty) {
+        fieldValidity.isEmpty = true;
+      }
 
+      if (validatorResults.isInvalid) {
+        fieldValidity.isInvalid = true;
+      }
+    });
+
+    // Check which message to use
     if (fieldValidity.isEmpty) {
       fieldValidity.message = $field.attr('data-dough-validation-empty');
     }
@@ -144,6 +155,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     if (fieldValidity.isInvalid) {
       fieldValidity.message = $field.attr('data-dough-validation-invalid') || $field.attr('data-dough-validation-empty');
     }
+
+    console.log(fieldValidity);
 
     return fieldValidity;
   };
@@ -158,7 +171,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
 
-  Validation.prototype._validateRequired = function($field, value, required, validity) {
+  Validation.prototype._validateRequired = function($field, value, required) {
+    var validity = { name: 'required' };
     if (value == '') {
       validity.isEmpty = true;
     }
@@ -166,7 +180,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return validity;
   };
 
-  Validation.prototype._validatePattern = function($field, value, pattern, validity) {
+  Validation.prototype._validatePattern = function($field, value, pattern) {
+    var validity = { name: 'pattern' };
     if (!value.match(pattern)) {
       validity.isInvalid = true;
     }
@@ -174,7 +189,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return validity;
   };
 
-  Validation.prototype._validateMin = function($field, value, min, validity) {
+  Validation.prototype._validateMin = function($field, value, min) {
+    var validity = { name: 'min' };
     if (Number(value) < min) {
       validity.isInvalid = true;
     }
@@ -182,7 +198,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return validity;
   };
 
-  Validation.prototype._validateMax = function($field, value, max, validity) {
+  Validation.prototype._validateMax = function($field, value, max) {
+    var validity = { name: 'max' };
     if (Number(value) > min) {
       validity.isInvalid = true;
     }
@@ -190,8 +207,10 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return validity;
   };
 
-  Validation.prototype._validateMinLength = function($field, value, minlength, validity) {
-    if (value.length < minlength) {
+  Validation.prototype._validateMinLength = function($field, value, minlength) {
+    var validity = { name: 'minlength' };
+    // Check for more than 0 otherwise we clash with 'isEmpty'
+    if (value.length > 0 && value.length < minlength) {
       validity.isInvalid = true;
     }
 
