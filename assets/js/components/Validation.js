@@ -85,13 +85,33 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation} Class instance
    */
   Validation.prototype.refreshInlineErrors = function() {
-    var fieldID,
-        fieldValidity;
+    $('.form__row').each($.proxy(function(i, o) {
+      var $formRow = $(o),
+          $errorContainer = $formRow.find('.' + this.config.inlineErrorClass),
+          $inputs = $formRow.find('input, select, textarea'),
+          errorHTML = "",
+          rowHasErrors = false;
 
-    for (fieldID in this.errors) {
-      fieldValidity = this.errors[fieldID];
+      $inputs.each($.proxy(function(_i, _o) {
+        var $input = $(_o),
+            inputID = $input.attr('id');
 
-    }
+        if (typeof this.errors[inputID] !== 'undefined') {
+          rowHasErrors = true;
+          errorHTML += '<p>' + this.errors[inputID].message + '</p>';
+        }
+      }, this));
+
+      if (rowHasErrors) {
+        $formRow.addClass(this.config.rowInvalidClass);
+      }
+      else {
+        $formRow.removeClass(this.config.rowInvalidClass);
+      }
+
+      $errorContainer.html(errorHTML);
+
+    }, this));
 
     return this;
   };
@@ -123,7 +143,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     $('.form__row').each($.proxy(function(i, o) {
       var $formRow = $(o);
-      $formRow.prepend($('<div class="' + this.config.inlineErrorClass + '" />').hide());
+      $formRow.prepend($('<span class="' + this.config.inlineErrorClass + '" />'));
     }, this));
 
     return this;
