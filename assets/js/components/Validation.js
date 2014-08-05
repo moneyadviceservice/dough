@@ -81,7 +81,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   Validation.prototype.checkFieldValidity = function($field) {
     var fieldValidity = this._getFieldValidity($field);
 
-    if (fieldValidity.errors.length) {
+    if (fieldValidity.hasError) {
       this.addError($field, fieldValidity);
     }
     else {
@@ -124,6 +124,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       errors: [],
       isEmpty: false,
       isInvalid: false,
+      hasError: false,
       message: '',
       $field: $field
     };
@@ -147,6 +148,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       }
     });
 
+    fieldValidity.hasError = fieldValidity.isEmpty || fieldValidity.isInvalid;
+
     // Check which message to use
     if (fieldValidity.isEmpty) {
       fieldValidity.message = $field.attr('data-dough-validation-empty');
@@ -155,8 +158,6 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     if (fieldValidity.isInvalid) {
       fieldValidity.message = $field.attr('data-dough-validation-invalid') || $field.attr('data-dough-validation-empty');
     }
-
-    console.log(fieldValidity);
 
     return fieldValidity;
   };
