@@ -21,7 +21,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   uiEvents = {
     'blur input, select, textarea': '_handleBlurEvent',
-    'change input, select, textarea': '_handleChangeEvent',
+    'keyup input, textarea': '_handleChangeEvent',
+    'change select': '_handleChangeEvent',
     'submit': '_handleSubmit'
   },
 
@@ -58,7 +59,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation}        Class instance
    */
   Validation.prototype.addError = function($field, fieldValidity) {
-    this.errors[$field] = fieldValidity;
+    this.errors[$field.attr('id')] = fieldValidity;
     return this;
   };
 
@@ -68,7 +69,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation}        Class instance
    */
   Validation.prototype.removeError = function($field) {
-    delete this.errors[$field];
+    delete this.errors[$field.attr('id')];
     return this;
   };
 
@@ -80,12 +81,14 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   Validation.prototype.checkFieldValidity = function($field) {
     var fieldValidity = this._getFieldValidity($field);
 
-    if (!fieldValidity.hasError) {
+    if (fieldValidity.hasError) {
       this.addError($field, fieldValidity);
     }
     else {
       this.removeError($field);
     }
+
+    console.log(this.errors);
 
     return this;
   };
@@ -100,15 +103,26 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       isEmpty: false,
       isInvalid: false,
       hasError: false,
-      message: ''
+      message: '',
+      $field: $field
     };
 
-    $.each(this.ATTRIBUTE_VALIDATORS, function(attributeSelector, handler) {
+    $.each(this.ATTRIBUTE_VALIDATORS, $.proxy(function(attributeSelector, handler) {
       var attr = $field.attr(attributeSelector);
       if (attr) {
-        validity = handler($field, $field.val(), attr, validity);
+        validity = this[handler]($field, $field.val(), attr, validity);
       }
-    });
+    }, this));
+
+    validity.hasError = validity.isEmpty || validity.isInvalid;
+
+    if (validity.isEmpty) {
+      validity.message = $field.attr('data-dough-validation-empty');
+    }
+
+    if (validity.isInvalid) {
+      validity.message = $field.attr('data-dough-validation-invalid') || $field.attr('data-dough-validation-empty');
+    }
 
     return validity;
   };
@@ -166,12 +180,16 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   /**
-   * Error messages get corrected as the user types
+   * Error messages get corrected as the user types. Only do this if we can see an error exists.
    * @param  {Object} e ChangeEvent
    * @return {void}
    */
   Validation.prototype._handleChangeEvent = function(e) {
-    this.checkFieldValidity($(e.target));
+    var $field = $(e.target);
+
+    if (typeof this.errors[$field.attr('id')] === 'object') {
+      this.checkFieldValidity($field);
+    }
   };
 
   /**
