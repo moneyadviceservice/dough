@@ -88,7 +88,28 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       this.removeError($field);
     }
 
-    console.log(this.errors);
+    return this;
+  };
+
+  /**
+   * Loop through the errors and build the summary markup
+   * @return {Validation} Class instance
+   */
+  Validation.prototype._buildAndShowValidationSummary = function() {
+    var fieldID,
+        fieldValidity,
+        summaryHTML = '<ul id="validation-summary">';
+
+    for (fieldID in this.errors) {
+      fieldValidity = this.errors[fieldID];
+
+      summaryHTML += '<li><a href="#' + fieldID + '">' + fieldValidity.message + '</a></li>';
+    }
+
+    summaryHTML += '</ul>';
+
+    this.$el.find('#validation-summary').remove();
+    this.$el.prepend(summaryHTML);
 
     return this;
   };
@@ -99,7 +120,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Object}        A hash containing status and the appropriate error message
    */
   Validation.prototype._getFieldValidity = function($field) {
-    var validity = {
+    var fieldValidity = {
       isEmpty: false,
       isInvalid: false,
       hasError: false,
@@ -110,21 +131,30 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     $.each(this.ATTRIBUTE_VALIDATORS, $.proxy(function(attributeSelector, handler) {
       var attr = $field.attr(attributeSelector);
       if (attr) {
-        validity = this[handler]($field, $field.val(), attr, validity);
+        fieldValidity = this[handler]($field, $field.val(), attr, fieldValidity);
       }
     }, this));
 
-    validity.hasError = validity.isEmpty || validity.isInvalid;
+    fieldValidity.hasError = fieldValidity.isEmpty || fieldValidity.isInvalid;
 
-    if (validity.isEmpty) {
-      validity.message = $field.attr('data-dough-validation-empty');
+    if (fieldValidity.isEmpty) {
+      fieldValidity.message = $field.attr('data-dough-validation-empty');
     }
 
-    if (validity.isInvalid) {
-      validity.message = $field.attr('data-dough-validation-invalid') || $field.attr('data-dough-validation-empty');
+    if (fieldValidity.isInvalid) {
+      fieldValidity.message = $field.attr('data-dough-validation-invalid') || $field.attr('data-dough-validation-empty');
     }
 
-    return validity;
+    return fieldValidity;
+  };
+
+  /**
+   * Build the markup for an inline error message
+   * @param  {String} message The error message
+   * @return {jQuery}         jQuery object in memory
+   */
+  Validation.prototype._buildInlineError = function($field, message) {
+    return $('<p id="error-' + $field.attr('id') + '" class="error">' + message + '</p>');
   };
 
 
@@ -192,12 +222,25 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     }
   };
 
+  Validation.prototype._countErrors = function() {
+    var p;
+
+    for (p in this.errors) {
+      p++;
+    }
+
+    return p;
+  };
+
   /**
    * The validation summary is updated on form submit
    * @return {void}
    */
-  Validation.prototype._handleSubmit = function() {
-
+  Validation.prototype._handleSubmit = function(e) {
+    if (this._countErrors()) {
+      e.preventDefault();
+      this._buildAndShowValidationSummary();
+    }
   };
 
 
