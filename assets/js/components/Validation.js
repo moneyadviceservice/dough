@@ -250,16 +250,6 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return fieldValidity;
   };
 
-  /**
-   * Build the markup for an inline error message
-   * @param  {String} message The error message
-   * @return {jQuery}         jQuery object in memory
-   */
-  Validation.prototype._buildInlineError = function($field, message) {
-    return $('<p id="error-' + $field.attr('id') + '" class="error">' + message + '</p>');
-  };
-
-
   Validation.prototype._validateRequired = function($field, value, required) {
     var validity = { name: 'required' };
     if (value == '') {
