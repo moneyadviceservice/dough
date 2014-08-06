@@ -186,7 +186,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
           $existingInlineErrors = $formRow.find('.' + this.config.inlineErrorClass);
 
       if (!$existingInlineErrors.length) {
-        $formRow.prepend($('<span class="' + this.config.inlineErrorClass + '" />'));
+        $formRow.prepend($('<div class="' + this.config.inlineErrorClass + '" />'));
       }
     }, this));
 
