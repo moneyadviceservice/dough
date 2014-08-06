@@ -53,9 +53,20 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       'minlength': '_validateMinLength'
     };
 
+    // If there's server erros on the page, we back off completely
+    // There are a number of different types of errors that the server
+    // generates, and this file will grow in complexity trying to keep up.
+    if (this.$el.find('.' + this.config.validationSummaryListClass).find('li').length > 0) {
+      this._unbindUiEvents();
+      this.enabled = false;
+      return this;
+    }
+
     this.$allFieldsOnPage = this.$el.find(this.config.fieldSelector);
     this.errors = [];
     this._prepareMarkup();
+
+    this.enabled = true;
 
     return this;
   };

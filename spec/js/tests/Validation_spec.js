@@ -60,6 +60,11 @@ describe('Validation', function() {
       var validation = new this.Validation(this.component).init();
       expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
     });
+
+    it('bails out and lets the server take over', function() {
+      var validation = new this.Validation(this.component).init();
+      expect(validation.enabled).to.equal(false);
+    });
   });
 
 
