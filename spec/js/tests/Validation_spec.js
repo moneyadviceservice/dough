@@ -617,5 +617,26 @@ describe('Validation', function() {
       expect($inlineError1.filter(':contains("1. ")').length).to.equal(1);
       expect($inlineError3.filter(':contains("2. ")').length).to.equal(1);
     });
+
+    it('matches the inline error numbers with the validation summary order', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input1 = validation.$el.find('#input1'),
+          $input2 = validation.$el.find('#input2'),
+          $input3 = validation.$el.find('#input3'),
+          $inlineError1 = $input1.parent('.form__row').find('.' + validation.config.inlineErrorClass),
+          $inlineError2 = $input2.parent('.form__row').find('.' + validation.config.inlineErrorClass),
+          $inlineError3 = $input3.parent('.form__row').find('.' + validation.config.inlineErrorClass),
+          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+
+      focusInOut($input3);
+      focusInOut($input2);
+      focusInOut($input1);
+
+      validation.$el.submit();
+
+      expect($inlineError1.filter(':contains("' + $validationSummaryList.find('li:eq(0)').text() + '")').length).to.equal(1);
+      expect($inlineError2.filter(':contains("' + $validationSummaryList.find('li:eq(1)').text() + '")').length).to.equal(1);
+      expect($inlineError3.filter(':contains("' + $validationSummaryList.find('li:eq(2)').text() + '")').length).to.equal(1);
+    });
   });
 });
