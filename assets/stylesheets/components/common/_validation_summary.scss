@@ -8,6 +8,10 @@
   @include respond-to($mq-s) {
     margin: $baseline-unit*2 0 $baseline-unit*5 0;
   }
+
+  &.validation-summary--hidden {
+    display:none;
+  }
 }
 
 .validation-summary__content-container {

@@ -17,7 +17,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     invalidClass: 'is-invalid',
     validClass: 'is-valid',
     rowInvalidClass: 'is-errored',
-    validationSummaryClass: 'js-validation-summary',
+    validationSummaryClass: 'js-validation-summary-list',
+    validationSummaryHiddenClass: 'validation-summary--hidden',
     validationSummaryErrorClass: 'validation-summary__error',
     inlineErrorClass: 'js-inline-error'
   },
@@ -124,17 +125,15 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   Validation.prototype.refreshValidationSummary = function() {
     var fieldID,
         fieldValidity,
-        summaryHTML = '<ol id="validation-summary" class="validation-summary__list">',
+        summaryHTML = '',
         errorCount = 0;
 
     for (fieldID in this.errors) {
       fieldValidity = this.errors[fieldID];
 
-      summaryHTML += '<li class="validation-summary__error"><a href="#error-' + fieldID + '">' + fieldValidity.message + '</a></li>';
+      summaryHTML += '<li class="' + this.config.validationSummaryErrorClass + '"><a href="#error-' + fieldID + '">' + fieldValidity.message + '</a></li>';
       errorCount++;
     }
-
-    summaryHTML += '</ol>';
 
     this.$el.find('.' + this.config.validationSummaryClass).html(summaryHTML);
 
@@ -168,14 +167,6 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {[type]} [description]
    */
   Validation.prototype._prepareMarkup = function() {
-    this.$el.prepend($('\
-        <div class="validation-summary" role="alert">\
-          <div class="validation-summary__content-container">\
-            <p class="validation-summary__title">Please double-check for the following errors:</p>\
-            <div class="' + this.config.validationSummaryClass + '"></div>\
-          </div>\
-        </div>').hide());
-
     $('.form__row').each($.proxy(function(i, o) {
       var $formRow = $(o);
       $formRow.prepend($('<span class="' + this.config.inlineErrorClass + '" />'));
@@ -189,7 +180,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {[type]} [description]
    */
   Validation.prototype._showValidationSummary = function() {
-    this.$el.find('.validation-summary').show();
+    this.$el.find('.validation-summary').removeClass(this.config.validationSummaryHiddenClass);
     return this;
   };
 
@@ -198,7 +189,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {[type]} [description]
    */
   Validation.prototype._hideValidationSummary = function() {
-    this.$el.find('.validation-summary').hide();
+    this.$el.find('.validation-summary').addClass(this.config.validationSummaryHiddenClass);
     return this;
   };
 
