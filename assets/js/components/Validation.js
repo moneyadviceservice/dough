@@ -247,13 +247,13 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     fieldValidity.hasError = fieldValidity.isEmpty || fieldValidity.isInvalid;
 
-    // Check which message to use
-    if (fieldValidity.isEmpty) {
-      fieldValidity.message = $field.attr(this.config.attributeEmpty);
-    }
-
+    // Check which message to use, empty should take prescedence
     if (fieldValidity.isInvalid) {
       fieldValidity.message = $field.attr(this.config.attributeInvalid) || $field.attr(this.config.attributeEmpty);
+    }
+
+    if (fieldValidity.isEmpty) {
+      fieldValidity.message = $field.attr(this.config.attributeEmpty);
     }
 
     return fieldValidity;

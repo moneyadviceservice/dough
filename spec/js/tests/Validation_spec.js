@@ -177,7 +177,18 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('shows the correct inline error if not enough chars on blur', function() {
+    it('shows the "empty" inline error if empty on blur', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          errorLookingFor = $input.attr(validation.config.attributeEmpty);
+
+      $input.val('');
+      focusInOut($input);
+
+      expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(1);
+    });
+
+    it('shows the "invalid" inline error if not enough chars on blur', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid);
@@ -275,7 +286,18 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('shows the correct inline error if the regexp does not match', function() {
+    it('shows the "empty" inline error if empty on blur', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          errorLookingFor = $input.attr(validation.config.attributeEmpty);
+
+      $input.val('');
+      focusInOut($input);
+
+      expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(1);
+    });
+
+    it('shows the "invalid" inline error if the regexp does not match', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid);
@@ -373,7 +395,18 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('shows the correct inline error if the number is too low', function() {
+    it('shows the "empty" inline error if empty on blur', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          errorLookingFor = $input.attr(validation.config.attributeEmpty);
+
+      $input.val('');
+      focusInOut($input);
+
+      expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(1);
+    });
+
+    it('shows the "invalid" inline error if the number is too low', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid);
@@ -384,7 +417,7 @@ describe('Validation', function() {
       expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(1);
     });
 
-    it('shows the correct inline error if the number is too high', function() {
+    it('shows the "invalid" inline error if the number is too high', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid);
@@ -395,7 +428,7 @@ describe('Validation', function() {
       expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(1);
     });
 
-    it('shows the correct inline error if the value is not a number', function() {
+    it('shows the "invalid" inline error if the value is not a number', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid);
