@@ -93,7 +93,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   /**
    * Remove an error
-   * @param  {jQuery} $field jQuery object of the field
+   * @param  {Object} fieldValidity Field Validity Object
    * @return {Validation}        Class instance
    */
   Validation.prototype.removeError = function(fieldValidity) {
@@ -360,7 +360,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @private
    * @param  {jQuery} $field   the field being checked
    * @param  {String} value    the field value
-   * @param  {String} required Validation parameters
+   * @param  {String} pattern Validation parameters
    * @return {Object}          Validity object
    */
   Validation.prototype._validatePattern = function($field, value, pattern) {
@@ -378,7 +378,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @private
    * @param  {jQuery} $field   the field being checked
    * @param  {String} value    the field value
-   * @param  {String} required Validation parameters
+   * @param  {String} min Validation parameters
    * @return {Object}          Validity object
    */
   Validation.prototype._validateMin = function($field, value, min) {
@@ -398,7 +398,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @private
    * @param  {jQuery} $field   the field being checked
    * @param  {String} value    the field value
-   * @param  {String} required Validation parameters
+   * @param  {String} max Validation parameters
    * @return {Object}          Validity object
    */
   Validation.prototype._validateMax = function($field, value, max) {
@@ -418,7 +418,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @private
    * @param  {jQuery} $field   the field being checked
    * @param  {String} value    the field value
-   * @param  {String} required Validation parameters
+   * @param  {String} minlength Validation parameters
    * @return {Object}          Validity object
    */
   Validation.prototype._validateMinLength = function($field, value, minlength) {
