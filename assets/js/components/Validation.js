@@ -164,6 +164,10 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   /**
    * Prepare the markup for both inline errors and the validation summary
+   *
+   * This will check to see if there's an inline error block rendered by the server
+   * (in case it's picked up errors we don't support)
+   *
    * @return {[type]} [description]
    */
   Validation.prototype._prepareMarkup = function() {
