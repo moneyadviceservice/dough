@@ -168,8 +168,12 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   Validation.prototype._prepareMarkup = function() {
     $('.form__row').each($.proxy(function(i, o) {
-      var $formRow = $(o);
-      $formRow.prepend($('<span class="' + this.config.inlineErrorClass + '" />'));
+      var $formRow = $(o),
+          $existingInlineErrors = $formRow.find('.' + this.config.inlineErrorClass);
+
+      if (!$existingInlineErrors.length) {
+        $formRow.prepend($('<span class="' + this.config.inlineErrorClass + '" />'));
+      }
     }, this));
 
     return this;

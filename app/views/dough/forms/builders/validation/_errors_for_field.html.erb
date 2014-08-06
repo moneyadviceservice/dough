@@ -1,3 +1,5 @@
-<p class="validation-summary__error" id="error-<%= error[:number] %>">
-  <%= error[:number] %>. <%= error[:message].html_safe %>
-</p>
+<span class="js-inline-error">
+  <p class="validation-summary__error" id="error-<%= error[:number] %>">
+    <%= error[:number] %>. <%= error[:message].html_safe %>
+  </p>
+</span>
