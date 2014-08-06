@@ -16,8 +16,6 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   var defaultConfig = {
     attributeEmpty: 'data-dough-validation-empty',
     attributeInvalid: 'data-dough-validation-invalid',
-    invalidClass: 'is-invalid',
-    validClass: 'is-valid',
     rowInvalidClass: 'is-errored',
     validationSummaryClass: 'validation-summary',
     validationSummaryListClass: 'js-validation-summary-list',
