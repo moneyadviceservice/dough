@@ -373,20 +373,126 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('shows an inline error if the value is out of range on blur', function() {
+    it('shows the correct inline error if the number is too low', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          errorLookingFor = $input.attr(validation.config.attributeInvalid);
 
+      $input.val('0');
+      focusInOut($input);
+
+      expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(1);
     });
 
-    it('shows the validation summary if the value is out of range on submit', function() {
+    it('shows the correct inline error if the number is too high', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          errorLookingFor = $input.attr(validation.config.attributeInvalid);
 
+      $input.val('6');
+      focusInOut($input);
+
+      expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(1);
     });
 
-    it('removes all relevant errors if corrected on key up', function() {
+    it('shows the correct inline error if the value is not a number', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          errorLookingFor = $input.attr(validation.config.attributeInvalid);
 
+      $input.val('test');
+      focusInOut($input);
+
+      expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(1);
     });
 
-    it('allows the form to submit if the value is in range', function() {
+    it('adds the is-errored class to the parent form__row', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
 
+      $input.val('0');
+      focusInOut($input);
+
+      expect($input.parents('.form__row')).to.have.class(validation.config.rowInvalidClass);
+    });
+
+    it('shows the validation summary if the number is too low on submit', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
+
+      $input.val('0');
+      validation.$el.submit();
+
+      expect($validationSummary).to.not.have.class(validation.config.validationSummaryHiddenClass);
+    });
+
+    it('shows the validation summary if the number is too high on submit', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
+
+      $input.val('6');
+      validation.$el.submit();
+
+      expect($validationSummary).to.not.have.class(validation.config.validationSummaryHiddenClass);
+    });
+
+    it('shows the validation summary if the value is not a number on submit', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
+
+      $input.val('test');
+      validation.$el.submit();
+
+      expect($validationSummary).to.not.have.class(validation.config.validationSummaryHiddenClass);
+    });
+
+    it('does not show the validation summary if the form has not been submitted', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
+
+      expect($validationSummary).to.have.class(validation.config.validationSummaryHiddenClass);
+    });
+
+    it('adds the error to the validation summary list if invalid on submit', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          errorLookingFor = $input.attr(validation.config.attributeInvalid),
+          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+
+      $input.val('6');
+      validation.$el.submit();
+
+      expect($validationSummaryList.find('li')).to.have.text(errorLookingFor);
+    });
+
+    it('removes all relevant errors and error states if value corrected as the user types', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          errorLookingFor = $input.attr(validation.config.attributeInvalid),
+          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass),
+          $inlineError = validation.$el.find('.' + validation.config.inlineErrorClass);
+
+      validation.$el.submit();
+      $input.val('3').keyup();
+
+      expect($input.parents('.form__row')).not.to.have.class(validation.config.rowInvalidClass);
+      expect($validationSummaryList.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
+      expect($inlineError.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
+    });
+
+    it('allows the form to submit if the value is filled in', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+
+      $input.val('3');
+      validation.$el.submit();
+
+      expect($validationSummaryList.find('li').length).to.equal(0);
     });
   });
 

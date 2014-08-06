@@ -278,8 +278,10 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   Validation.prototype._validateMin = function($field, value, min) {
-    var validity = { name: 'min' };
-    if (Number(value) < min) {
+    var validity = { name: 'min' },
+        valueAsNumber = Number(value);
+
+    if (isNaN(valueAsNumber) || valueAsNumber < min) {
       validity.isInvalid = true;
     }
 
@@ -287,8 +289,10 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   Validation.prototype._validateMax = function($field, value, max) {
-    var validity = { name: 'max' };
-    if (Number(value) > min) {
+    var validity = { name: 'max' },
+        valueAsNumber = Number(value);
+
+    if (isNaN(valueAsNumber) || valueAsNumber > max) {
       validity.isInvalid = true;
     }
 
