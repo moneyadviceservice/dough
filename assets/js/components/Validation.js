@@ -74,6 +74,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       this.errors[existingErrorIndex] = fieldValidity;
     }
 
+    fieldValidity.$field.attr('aria-invalid', 'true');
+
     this._sortErrorsByFieldDisplayOrder().refreshInlineErrors().refreshValidationSummary();
 
     return this;
@@ -89,6 +91,9 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     if (existingErrorIndex !== -1) {
       this.errors.splice(existingErrorIndex, 1);
     }
+
+    fieldValidity.$field.removeAttr('aria-invalid');
+
     this._sortErrorsByFieldDisplayOrder().refreshInlineErrors().refreshValidationSummary();
 
     return this;

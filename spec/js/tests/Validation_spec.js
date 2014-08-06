@@ -101,6 +101,15 @@ describe('Validation', function() {
       expect($input.parents('.form__row')).to.have.class(validation.config.rowInvalidClass);
     });
 
+    it('adds the aria-invalid attribute to the input', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+
+      expect($input).to.have.attr('aria-invalid', 'true');
+    });
+
     it('shows the validation summary if left empty on submit', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
@@ -207,6 +216,15 @@ describe('Validation', function() {
       focusInOut($input);
 
       expect($input.parents('.form__row')).to.have.class(validation.config.rowInvalidClass);
+    });
+
+    it('adds the aria-invalid attribute to the input', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+
+      expect($input).to.have.attr('aria-invalid', 'true');
     });
 
     it('shows the validation summary if not enough chars on submit', function() {
@@ -316,6 +334,15 @@ describe('Validation', function() {
       focusInOut($input);
 
       expect($input.parents('.form__row')).to.have.class(validation.config.rowInvalidClass);
+    });
+
+    it('adds the aria-invalid attribute to the input', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+
+      expect($input).to.have.attr('aria-invalid', 'true');
     });
 
     it('shows the validation summary if the regexp does not match on submit', function() {
@@ -447,6 +474,15 @@ describe('Validation', function() {
       focusInOut($input);
 
       expect($input.parents('.form__row')).to.have.class(validation.config.rowInvalidClass);
+    });
+
+    it('adds the aria-invalid attribute to the input', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+
+      expect($input).to.have.attr('aria-invalid', 'true');
     });
 
     it('shows the validation summary if the number is too low on submit', function() {
