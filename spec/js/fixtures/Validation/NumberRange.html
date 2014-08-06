@@ -1,11 +1,13 @@
 <div>
-  <form data-dough-component="Validation" novalidate>
-    <input type="text" name="age" id="input" value="" pattern="\d*" min="1" max="5"
+  <form data-dough-component="Validation" class="form" novalidate>
+    <div class="form__row">
+      <input type="text" name="age" id="input" value="" pattern="\d*" min="1" max="5"
 
-    data-dough-validation-empty="Please provide your age"
-    data-dough-validation-invalid="Please provide an age between 1 and 5"
-    aria-required
-    required>
+      data-dough-validation-empty="Please provide your age"
+      data-dough-validation-invalid="Please provide an age between 1 and 5"
+      aria-required
+      required>
+    </div>
 
     <input type="submit" id="submit">
   </form>

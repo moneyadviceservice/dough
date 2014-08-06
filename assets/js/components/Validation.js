@@ -168,9 +168,16 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * This will check to see if there's an inline error block rendered by the server
    * (in case it's picked up errors we don't support)
    *
+   * It will also generate a fallback list if the server hasn't been configured.
+   *
    * @return {[type]} [description]
    */
   Validation.prototype._prepareMarkup = function() {
+    var $validationSummary = this.$el.find('.' + this.config.validationSummaryClass);
+    if (!$validationSummary.length) {
+      this.$el.prepend('<ol class="' + this.config.validationSummaryClass + '" />');
+    }
+
     $('.form__row').each($.proxy(function(i, o) {
       var $formRow = $(o),
           $existingInlineErrors = $formRow.find('.' + this.config.inlineErrorClass);

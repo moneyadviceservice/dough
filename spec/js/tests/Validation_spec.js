@@ -2,6 +2,62 @@ describe('Validation', function() {
 
   'use strict';
 
+  describe('Without Server Markup', function() {
+    beforeEach(function(done) {
+      var self = this;
+      requirejs(
+          ['jquery', 'Validation'],
+          function($, Validation) {
+            self.$html = $(window.__html__['test/fixtures/Validation/NoServerMarkup.html']).appendTo('body');
+            self.component = self.$html.find('[data-dough-component="Validation"]');
+            self.Validation = Validation;
+            done();
+          }, done);
+    });
+
+    afterEach(function() {
+      this.$html.remove();
+    });
+
+    it('generates a fallback validation-summary', function() {
+      var validation = new this.Validation(this.component).init();
+      expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
+    });
+
+    it('generates an inline message when does not exist', function() {
+      var validation = new this.Validation(this.component).init();
+      expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
+    });
+  });
+
+  describe('With existing Server Markup', function() {
+    beforeEach(function(done) {
+      var self = this;
+      requirejs(
+          ['jquery', 'Validation'],
+          function($, Validation) {
+            self.$html = $(window.__html__['test/fixtures/Validation/WithServerMarkup.html']).appendTo('body');
+            self.component = self.$html.find('[data-dough-component="Validation"]');
+            self.Validation = Validation;
+            done();
+          }, done);
+    });
+
+    afterEach(function() {
+      this.$html.remove();
+    });
+
+    it('does not generate a fallback validation-summary', function() {
+      var validation = new this.Validation(this.component).init();
+      expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
+    });
+
+    it('does not generate an inline message when exists already', function() {
+      var validation = new this.Validation(this.component).init();
+      expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
+    });
+  });
+
   // Basic required field
   describe('NonEmpty', function() {
     beforeEach(function(done) {
@@ -21,6 +77,7 @@ describe('Validation', function() {
     });
 
     it('shows an inline error if left empty on blur', function() {
+      var validation = new this.Validation(this.component);
 
     });
 
