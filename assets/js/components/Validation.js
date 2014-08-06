@@ -14,6 +14,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';
 
   var defaultConfig = {
+    fieldSelector: 'input, textarea, select',
     attributeEmpty: 'data-dough-validation-empty',
     attributeInvalid: 'data-dough-validation-invalid',
     rowInvalidClass: 'is-errored',
@@ -52,6 +53,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       'minlength': '_validateMinLength'
     };
 
+    this.$allFieldsOnPage = this.$el.find(this.config.fieldSelector);
     this.errors = [];
     this._prepareMarkup();
 
@@ -72,7 +74,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       this.errors[existingErrorIndex] = fieldValidity;
     }
 
-    this.refreshInlineErrors().refreshValidationSummary();
+    this._sortErrorsByFieldDisplayOrder().refreshInlineErrors().refreshValidationSummary();
 
     return this;
   };
@@ -87,27 +89,9 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     if (existingErrorIndex !== -1) {
       this.errors.splice(existingErrorIndex, 1);
     }
-    this.refreshInlineErrors().refreshValidationSummary();
+    this._sortErrorsByFieldDisplayOrder().refreshInlineErrors().refreshValidationSummary();
 
     return this;
-  };
-
-  /**
-   * Get the index in the error array according to the field ID
-   * @param  {String} fieldID Field ID
-   * @return {Integer}    Index in errors array
-   */
-  Validation.prototype._getErrorIndexByID = function(fieldID) {
-    var matchedErrorIndex = -1;
-    $.each(this.errors, $.proxy(function(index, fieldValidity) {
-      var _fieldID = fieldValidity.$field.attr('id');
-      if (_fieldID === fieldID) {
-        matchedErrorIndex = index;
-        return;
-      }
-    }, this));
-
-    return matchedErrorIndex;
   };
 
   /**
@@ -118,7 +102,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     $('.form__row').each($.proxy(function(i, o) {
       var $formRow = $(o),
           $errorContainer = $formRow.find('.' + this.config.inlineErrorClass),
-          $inputs = $formRow.find('input, select, textarea'),
+          $inputs = $formRow.find(this.config.fieldSelector),
           errorHTML = "",
           rowHasErrors = false;
 
@@ -332,7 +316,49 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return validity;
   };
 
+  /**
+   * Get the index in the error array according to the field ID
+   * @param  {String} fieldID Field ID
+   * @return {Integer}    Index in errors array
+   */
+  Validation.prototype._getErrorIndexByID = function(fieldID) {
+    var matchedErrorIndex = -1;
+    $.each(this.errors, $.proxy(function(index, fieldValidity) {
+      var _fieldID = fieldValidity.$field.attr('id');
+      if (_fieldID === fieldID) {
+        matchedErrorIndex = index;
+        return;
+      }
+    }, this));
 
+    return matchedErrorIndex;
+  };
+
+  /**
+   * Sort the errors so they are in line with the order the fields are displayed on the page
+   * regardless of the order they were 'created'
+   *
+   * If the user fills in the form bottom-to-top, then the first error will still be the
+   * first field on the page.
+   *
+   * @return {Validation} Class Instance
+   */
+  Validation.prototype._sortErrorsByFieldDisplayOrder = function() {
+    var sortedErrors = [];
+
+    this.$allFieldsOnPage.each($.proxy(function(i, o) {
+      var $field = $(o),
+          fieldID = $field.attr('id'),
+          fieldErrorIndex = this._getErrorIndexByID(fieldID);
+
+      if (fieldErrorIndex !== -1) {
+        sortedErrors.push(this.errors[fieldErrorIndex]);
+      }
+    }, this));
+
+    this.errors = sortedErrors;
+    return this;
+  };
 
   /**
    * Inline errors are shown on input blur
@@ -361,13 +387,13 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {void}
    */
   Validation.prototype._handleSubmit = function(e) {
-    this.$el.find('input, textarea, select').each($.proxy(function(i, field) {
+    this.$allFieldsOnPage.each($.proxy(function(i, field) {
       this.checkFieldValidity($(field));
     }, this));
 
     if (this.errors.length) {
       e.preventDefault();
-      this.refreshValidationSummary()._showValidationSummary();
+      this._sortErrorsByFieldDisplayOrder().refreshValidationSummary()._showValidationSummary();
     }
   };
 
