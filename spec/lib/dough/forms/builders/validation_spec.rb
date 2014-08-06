@@ -40,9 +40,9 @@ module Dough
 
         describe '#validation_summary' do
           context 'when there are no errors' do
-            it 'does not render an empty div' do
+            it 'renders a hidden summary' do
               model.errors.clear
-              expect(tidy_markup(form_builder.validation_summary)).to be_nil
+              expect(tidy_markup(form_builder.validation_summary)).to include('validation-summary--hidden')
             end
           end
 
