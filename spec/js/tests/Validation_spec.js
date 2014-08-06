@@ -135,7 +135,7 @@ describe('Validation', function() {
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeEmpty),
           $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass),
-          $inlineError = validation.$el.find('.' + validation.config.inlineErrorClass);
+          $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
 
       validation.$el.submit();
       $input.val('test').keyup();
@@ -245,7 +245,7 @@ describe('Validation', function() {
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid),
           $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass),
-          $inlineError = validation.$el.find('.' + validation.config.inlineErrorClass);
+          $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
 
       validation.$el.submit();
       $input.val('tested').keyup();
@@ -354,7 +354,7 @@ describe('Validation', function() {
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid),
           $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass),
-          $inlineError = validation.$el.find('.' + validation.config.inlineErrorClass);
+          $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
 
       validation.$el.submit();
       $input.val('test@tested.com').keyup();
@@ -507,7 +507,7 @@ describe('Validation', function() {
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid),
           $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass),
-          $inlineError = validation.$el.find('.' + validation.config.inlineErrorClass);
+          $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
 
       validation.$el.submit();
       $input.val('3').keyup();
@@ -530,7 +530,7 @@ describe('Validation', function() {
   });
 
 
-  // Regular expression check
+  // Error ordering/numbering check
   describe('Numbering', function() {
     beforeEach(function(done) {
       var self = this;
