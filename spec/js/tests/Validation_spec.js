@@ -110,6 +110,25 @@ describe('Validation', function() {
       expect($input).to.have.attr('aria-invalid', 'true');
     });
 
+    it('references the inline error with the aria-describedby attribute on the input when invalid', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).not.to.equal(-1);
+    });
+
+    it('removes references to the inline error from aria-describedby when valid', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+      $input.val('test').keyup();
+
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).to.equal(-1);
+    });
+
     it('shows the validation summary if left empty on submit', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
@@ -225,6 +244,25 @@ describe('Validation', function() {
       focusInOut($input);
 
       expect($input).to.have.attr('aria-invalid', 'true');
+    });
+
+    it('references the inline error with the aria-describedby attribute on the input when invalid', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).not.to.equal(-1);
+    });
+
+    it('removes references to the inline error from aria-describedby when valid', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+      $input.val('tested').keyup();
+
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).to.equal(-1);
     });
 
     it('shows the validation summary if not enough chars on submit', function() {
@@ -343,6 +381,25 @@ describe('Validation', function() {
       focusInOut($input);
 
       expect($input).to.have.attr('aria-invalid', 'true');
+    });
+
+    it('references the inline error with the aria-describedby attribute on the input when invalid', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).not.to.equal(-1);
+    });
+
+    it('removes references to the inline error from aria-describedby when valid', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+      $input.val('test@tested.com').keyup();
+
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).to.equal(-1);
     });
 
     it('shows the validation summary if the regexp does not match on submit', function() {
@@ -483,6 +540,25 @@ describe('Validation', function() {
       focusInOut($input);
 
       expect($input).to.have.attr('aria-invalid', 'true');
+    });
+
+    it('references the inline error with the aria-describedby attribute on the input when invalid', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).not.to.equal(-1);
+    });
+
+    it('removes references to the inline error from aria-describedby when valid', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+      $input.val('3').keyup();
+
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).to.equal(-1);
     });
 
     it('shows the validation summary if the number is too low on submit', function() {

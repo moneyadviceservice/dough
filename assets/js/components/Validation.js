@@ -74,8 +74,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       this.errors[existingErrorIndex] = fieldValidity;
     }
 
-    fieldValidity.$field.attr('aria-invalid', 'true');
-
+    this._addAccessibility(fieldValidity.$field);
     this._sortErrorsByFieldDisplayOrder().refreshInlineErrors().refreshValidationSummary();
 
     return this;
@@ -92,8 +91,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       this.errors.splice(existingErrorIndex, 1);
     }
 
-    fieldValidity.$field.removeAttr('aria-invalid');
-
+    this._removeAccessibility(fieldValidity.$field);
     this._sortErrorsByFieldDisplayOrder().refreshInlineErrors().refreshValidationSummary();
 
     return this;
@@ -118,7 +116,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
         if (errorIndex > -1) {
           rowHasErrors = true;
-          errorHTML += '<p id="error-' + inputID + '" class="' + this.config.validationSummaryErrorClass + '">' + (errorIndex + 1) + '. ' + this.errors[errorIndex].message + '</p>';
+          errorHTML += '<p id="' + this._getInlineErrorID(inputID) + '" class="' + this.config.validationSummaryErrorClass + '">' + (errorIndex + 1) + '. ' + this.errors[errorIndex].message + '</p>';
         }
       }, this));
 
@@ -185,12 +183,15 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    *
    * It will also generate a fallback list if the server hasn't been configured.
    *
+   * @private
    * @return {[type]} [description]
    */
   Validation.prototype._prepareMarkup = function() {
     var $validationSummary = this.$el.find('.' + this.config.validationSummaryClass);
     if (!$validationSummary.length) {
-      this.$el.prepend('<div class="' + this.config.validationSummaryClass + ' ' + this.config.validationSummaryHiddenClass + '"><ol class="' + this.config.validationSummaryListClass + '"></ol></div>');
+      this.$el.prepend('<div class="' + this.config.validationSummaryClass + ' ' + this.config.validationSummaryHiddenClass + '">\
+          <ol class="' + this.config.validationSummaryListClass + '"></ol>\
+        </div>');
     }
 
     $('.form__row').each($.proxy(function(i, o) {
@@ -206,7 +207,56 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   /**
+   * Generate the ID to be used with the inline error blocks
+   * These are used for the validation summary deeplinks, and
+   * for the aria-describedby property on the field.
+   *
+   * @private
+   * @param  {String} fieldID The field ID
+   * @return {String}         The inline error ID
+   */
+  Validation.prototype._getInlineErrorID = function(fieldID) {
+    return 'error-' + fieldID;
+  };
+
+  /**
+   * Add the accessibility attributes to an invalid field
+   * @private
+   * @param {jQuery} $field jQuery field
+   * @return {Validation}  Class instance
+   */
+  Validation.prototype._addAccessibility = function($field) {
+    var existingDescribedBy = $field.attr('aria-describedby') || '',
+        inlineErrorID = this._getInlineErrorID($field.attr('id'));
+
+    $field.attr('aria-invalid', 'true');
+
+    if (existingDescribedBy.indexOf(inlineErrorID) === -1) {
+      $field.attr('aria-describedby', existingDescribedBy + ' ' + inlineErrorID);
+    }
+
+    return this;
+  };
+
+  /**
+   * Remove aria attributes for a valid field
+   * @param  {[type]} $field [description]
+   * @return {[type]}               [description]
+   */
+  Validation.prototype._removeAccessibility = function($field) {
+    var existingDescribedBy = $field.attr('aria-describedby') || '',
+        inlineErrorID = this._getInlineErrorID($field.attr('id'));
+
+    $field.removeAttr('aria-invalid');
+    $field.attr('aria-describedby', existingDescribedBy.replace(inlineErrorID, ''));
+
+    return this;
+  };
+
+  /**
    * Show the validation summary;
+   *
+   * @private
    * @return {[type]} [description]
    */
   Validation.prototype._showValidationSummary = function() {
@@ -216,6 +266,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   /**
    * Hide the validation summary;
+   *
+   * @private
    * @return {[type]} [description]
    */
   Validation.prototype._hideValidationSummary = function() {
@@ -225,6 +277,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   /**
    * Check a field's validity
+   *
+   * @private
    * @param  {jQuery} $field The field to validate
    * @return {Object}        A hash containing status and the appropriate error message
    */
@@ -271,6 +325,15 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return fieldValidity;
   };
 
+  /**
+   * Basic required field validator, for non-empty
+   *
+   * @private
+   * @param  {jQuery} $field   the field being checked
+   * @param  {String} value    the field value
+   * @param  {String} required Validation parameters
+   * @return {Object}          Validity object
+   */
   Validation.prototype._validateRequired = function($field, value, required) {
     var validity = { name: 'required' };
     if (value == '') {
@@ -280,6 +343,15 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return validity;
   };
 
+  /**
+   * Regular expression validator
+   *
+   * @private
+   * @param  {jQuery} $field   the field being checked
+   * @param  {String} value    the field value
+   * @param  {String} required Validation parameters
+   * @return {Object}          Validity object
+   */
   Validation.prototype._validatePattern = function($field, value, pattern) {
     var validity = { name: 'pattern' };
     if (!value.match(pattern)) {
@@ -289,6 +361,15 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return validity;
   };
 
+  /**
+   * Check a number is above the minimum
+   *
+   * @private
+   * @param  {jQuery} $field   the field being checked
+   * @param  {String} value    the field value
+   * @param  {String} required Validation parameters
+   * @return {Object}          Validity object
+   */
   Validation.prototype._validateMin = function($field, value, min) {
     var validity = { name: 'min' },
         valueAsNumber = Number(value);
@@ -300,6 +381,15 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return validity;
   };
 
+  /**
+   * Check a number is below the maximum
+   *
+   * @private
+   * @param  {jQuery} $field   the field being checked
+   * @param  {String} value    the field value
+   * @param  {String} required Validation parameters
+   * @return {Object}          Validity object
+   */
   Validation.prototype._validateMax = function($field, value, max) {
     var validity = { name: 'max' },
         valueAsNumber = Number(value);
@@ -311,6 +401,15 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return validity;
   };
 
+  /**
+   * Ensure a minimum number of characters
+   *
+   * @private
+   * @param  {jQuery} $field   the field being checked
+   * @param  {String} value    the field value
+   * @param  {String} required Validation parameters
+   * @return {Object}          Validity object
+   */
   Validation.prototype._validateMinLength = function($field, value, minlength) {
     var validity = { name: 'minlength' };
     // Check for more than 0 otherwise we clash with 'isEmpty'
@@ -323,6 +422,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   /**
    * Get the index in the error array according to the field ID
+   *
+   * @private
    * @param  {String} fieldID Field ID
    * @return {Integer}    Index in errors array
    */
@@ -346,6 +447,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * If the user fills in the form bottom-to-top, then the first error will still be the
    * first field on the page.
    *
+   * @private
    * @return {Validation} Class Instance
    */
   Validation.prototype._sortErrorsByFieldDisplayOrder = function() {
@@ -367,6 +469,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   /**
    * Inline errors are shown on input blur
+   *
+   * @private
    * @param  {Event} e BlurEvent
    * @return {void}
    */
@@ -376,6 +480,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   /**
    * Error messages get corrected as the user types. Only do this if we can see an error exists.
+   *
+   * @private
    * @param  {Object} e ChangeEvent
    * @return {void}
    */
@@ -389,6 +495,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   /**
    * The validation summary is updated on form submit
+   *
+   * @private
    * @return {void}
    */
   Validation.prototype._handleSubmit = function(e) {
