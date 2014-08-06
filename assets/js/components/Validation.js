@@ -93,7 +93,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
           $errorContainer = $formRow.find('.' + this.config.inlineErrorClass),
           $inputs = $formRow.find('input, select, textarea'),
           errorHTML = "",
-          rowHasErrors = false;
+          rowHasErrors = false,
+          errorIndex = 1;
 
       $inputs.each($.proxy(function(_i, _o) {
         var $input = $(_o),
@@ -101,7 +102,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
         if (typeof this.errors[inputID] !== 'undefined') {
           rowHasErrors = true;
-          errorHTML += '<p id="error-' + inputID + '" class="' + this.config.validationSummaryErrorClass + '">' + this.errors[inputID].message + '</p>';
+          errorHTML += '<p id="error-' + inputID + '" class="' + this.config.validationSummaryErrorClass + '">' + errorIndex + '. ' + this.errors[inputID].message + '</p>';
+          errorIndex++;
         }
       }, this));
 
