@@ -14,10 +14,13 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';
 
   var defaultConfig = {
+    attributeEmpty: 'data-dough-validation-empty',
+    attributeInvalid: 'data-dough-validation-invalid',
     invalidClass: 'is-invalid',
     validClass: 'is-valid',
     rowInvalidClass: 'is-errored',
-    validationSummaryClass: 'js-validation-summary-list',
+    validationSummaryClass: 'validation-summary',
+    validationSummaryListClass: 'js-validation-summary-list',
     validationSummaryHiddenClass: 'validation-summary--hidden',
     validationSummaryErrorClass: 'validation-summary__error',
     inlineErrorClass: 'js-inline-error'
@@ -135,7 +138,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       errorCount++;
     }
 
-    this.$el.find('.' + this.config.validationSummaryClass).html(summaryHTML);
+    this.$el.find('.' + this.config.validationSummaryListClass).html(summaryHTML);
 
     if (errorCount < 1) {
       this._hideValidationSummary();
@@ -175,7 +178,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   Validation.prototype._prepareMarkup = function() {
     var $validationSummary = this.$el.find('.' + this.config.validationSummaryClass);
     if (!$validationSummary.length) {
-      this.$el.prepend('<ol class="' + this.config.validationSummaryClass + '" />');
+      this.$el.prepend('<div class="' + this.config.validationSummaryClass + ' ' + this.config.validationSummaryHiddenClass + '"><ol class="' + this.config.validationSummaryListClass + '"></ol></div>');
     }
 
     $('.form__row').each($.proxy(function(i, o) {
@@ -195,7 +198,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {[type]} [description]
    */
   Validation.prototype._showValidationSummary = function() {
-    this.$el.find('.validation-summary').removeClass(this.config.validationSummaryHiddenClass);
+    this.$el.find('.' + this.config.validationSummaryClass).removeClass(this.config.validationSummaryHiddenClass);
     return this;
   };
 
@@ -204,7 +207,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {[type]} [description]
    */
   Validation.prototype._hideValidationSummary = function() {
-    this.$el.find('.validation-summary').addClass(this.config.validationSummaryHiddenClass);
+    this.$el.find('.' + this.config.validationSummaryClass).addClass(this.config.validationSummaryHiddenClass);
     return this;
   };
 
@@ -246,11 +249,11 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     // Check which message to use
     if (fieldValidity.isEmpty) {
-      fieldValidity.message = $field.attr('data-dough-validation-empty');
+      fieldValidity.message = $field.attr(this.config.attributeEmpty);
     }
 
     if (fieldValidity.isInvalid) {
-      fieldValidity.message = $field.attr('data-dough-validation-invalid') || $field.attr('data-dough-validation-empty');
+      fieldValidity.message = $field.attr(this.config.attributeInvalid) || $field.attr(this.config.attributeEmpty);
     }
 
     return fieldValidity;
