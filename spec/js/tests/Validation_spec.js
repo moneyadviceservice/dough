@@ -177,20 +177,82 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('shows an inline error if not enough chars on blur', function() {
+    it('shows the correct inline error if not enough chars on blur', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          errorLookingFor = $input.attr(validation.config.attributeInvalid);
 
+      $input.val('te');
+      focusInOut($input);
+
+      expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(1);
+    });
+
+    it('adds the is-errored class to the parent form__row', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      $input.val('te');
+      focusInOut($input);
+
+      expect($input.parents('.form__row')).to.have.class(validation.config.rowInvalidClass);
     });
 
     it('shows the validation summary if not enough chars on submit', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
 
+      $input.val('te');
+      validation.$el.submit();
+
+      expect($validationSummary).to.not.have.class(validation.config.validationSummaryHiddenClass);
     });
 
-    it('removes all relevant errors if corrected on key up', function() {
+    it('does not show the validation summary if the form has not been submitted', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
 
+      expect($validationSummary).to.have.class(validation.config.validationSummaryHiddenClass);
     });
 
-    it('allows the form to submit if the value has enough characters', function() {
+    it('adds the error to the validation summary list if not enough chars on submit', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          errorLookingFor = $input.attr(validation.config.attributeInvalid),
+          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
 
+      $input.val('te');
+      validation.$el.submit();
+
+      expect($validationSummaryList.find('li')).to.have.text(errorLookingFor);
+    });
+
+    it('removes all relevant errors and error states if value corrected as the user types', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          errorLookingFor = $input.attr(validation.config.attributeInvalid),
+          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass),
+          $inlineError = validation.$el.find('.' + validation.config.inlineErrorClass);
+
+      validation.$el.submit();
+      $input.val('tested').keyup();
+
+      expect($input.parents('.form__row')).not.to.have.class(validation.config.rowInvalidClass);
+      expect($validationSummaryList.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
+      expect($inlineError.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
+    });
+
+    it('allows the form to submit if the value is filled in', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input'),
+          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+
+      $input.val('tested');
+      validation.$el.submit();
+
+      expect($validationSummaryList.find('li').length).to.equal(0);
     });
   });
 
