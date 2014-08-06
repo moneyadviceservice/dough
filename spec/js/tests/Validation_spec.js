@@ -529,4 +529,93 @@ describe('Validation', function() {
     });
   });
 
+
+  // Regular expression check
+  describe('Numbering', function() {
+    beforeEach(function(done) {
+      var self = this;
+      requirejs(
+          ['jquery', 'Validation'],
+          function($, Validation) {
+            self.$html = $(window.__html__['test/fixtures/Validation/MultipleFields.html']).appendTo('body');
+            self.component = self.$html.find('[data-dough-component="Validation"]');
+            self.Validation = Validation;
+            done();
+          }, done);
+    });
+
+    afterEach(function() {
+      this.$html.remove();
+    });
+
+    it('adds a number "1" to the first inline error', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input1 = validation.$el.find('#input1'),
+          $inlineError = $input1.parent('.form__row').find('.' + validation.config.inlineErrorClass);
+
+      focusInOut($input1);
+      expect($inlineError.filter(':contains("1. ")').length).to.equal(1);
+    });
+
+    it('adds a number "2" to the second inline error', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input1 = validation.$el.find('#input1'),
+          $input2 = validation.$el.find('#input2'),
+          $inlineError = $input2.parent('.form__row').find('.' + validation.config.inlineErrorClass);
+
+      focusInOut($input1);
+      focusInOut($input2);
+
+      expect($inlineError.filter(':contains("2. ")').length).to.equal(1);
+    });
+
+    it('adds a number "1" to the second field when it is the first error', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input1 = validation.$el.find('#input1'),
+          $input2 = validation.$el.find('#input2'),
+          $inlineError = $input2.parent('.form__row').find('.' + validation.config.inlineErrorClass);
+
+      focusInOut($input2);
+
+      expect($inlineError.filter(':contains("1. ")').length).to.equal(1);
+    });
+
+    it('numbers the errors according to how they are displayed, regardless of the order they are filled in', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input1 = validation.$el.find('#input1'),
+          $input2 = validation.$el.find('#input2'),
+          $input3 = validation.$el.find('#input3'),
+          $inlineError1 = $input1.parent('.form__row').find('.' + validation.config.inlineErrorClass),
+          $inlineError2 = $input2.parent('.form__row').find('.' + validation.config.inlineErrorClass),
+          $inlineError3 = $input3.parent('.form__row').find('.' + validation.config.inlineErrorClass);
+
+
+      focusInOut($input3);
+      focusInOut($input2);
+      focusInOut($input1);
+
+      expect($inlineError1.filter(':contains("1. ")').length).to.equal(1);
+      expect($inlineError2.filter(':contains("2. ")').length).to.equal(1);
+      expect($inlineError3.filter(':contains("3. ")').length).to.equal(1);
+    });
+
+    it('numbers the errors according to how they are displayed, even when one is corrected', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input1 = validation.$el.find('#input1'),
+          $input2 = validation.$el.find('#input2'),
+          $input3 = validation.$el.find('#input3'),
+          $inlineError1 = $input1.parent('.form__row').find('.' + validation.config.inlineErrorClass),
+          $inlineError2 = $input2.parent('.form__row').find('.' + validation.config.inlineErrorClass),
+          $inlineError3 = $input3.parent('.form__row').find('.' + validation.config.inlineErrorClass);
+
+      focusInOut($input3);
+      focusInOut($input2);
+      focusInOut($input1);
+
+      $input2.val('test').keyup();
+
+      expect($inlineError1.filter(':contains("1. ")').length).to.equal(1);
+      expect($inlineError3.filter(':contains("2. ")').length).to.equal(1);
+    });
+  });
 });
