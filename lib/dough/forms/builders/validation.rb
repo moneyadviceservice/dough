@@ -7,7 +7,7 @@ module Dough
         include ActionView::Helpers::TranslationHelper
 
         def validation_summary
-          render 'summary_for_errors', errors: errors unless errors.empty?
+          render 'summary_for_errors', errors: errors
         end
 
         def errors_for(subject=nil, field)
