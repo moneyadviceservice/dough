@@ -13,7 +13,7 @@ describe('Tab selector', function() {
     requirejs(
         ['jquery', 'TabSelector'],
         function($, TabSelector) {
-          self.$html = $(window.__html__['test/fixtures/TabSelector.html']);
+          self.$html = $(window.__html__['test/fixtures/TabSelector.html']).appendTo('body');
           self.$menu = self.$html.find('[data-dough-tabselector-triggers]');
           self.tabSelector = new TabSelector(self.$html);
           self.tabSelector.init();
@@ -49,6 +49,7 @@ describe('Tab selector', function() {
     expect(this.$html.find(active).length).to.equal(2);
   });
 
+
   it('toggles the menu when the selected item is clicked', function() {
     activeTrigger(this.$menu).click();
     expect(isOpen(this.$menu)).to.equal(true);
@@ -80,3 +81,4 @@ describe('Tab selector', function() {
     expect(isOpen(this.$menu)).to.equal(false);
   });
 });
+
