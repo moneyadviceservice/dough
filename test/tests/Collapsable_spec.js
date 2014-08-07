@@ -38,9 +38,9 @@ describe('Visibility toggler', function() {
     });
 
     it('adds visually hidden text to indicate the state of the button i.e open or closed', function() {
-      expect(this.$triggerLabel).to.have.text('Open');
+      expect(this.$triggerLabel).to.have.text('Show');
       this.$trigger.click();
-      expect(this.$triggerLabel).to.have.text('Close');
+      expect(this.$triggerLabel).to.have.text('Hide');
     });
 
     it('adds an accessibility attribute linking the trigger to the target', function() {

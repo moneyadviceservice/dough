@@ -35,7 +35,7 @@ describe('Tab selector', function() {
   }
 
   it('selects the first item in the list', function() {
-    expect(this.$menu.find(active).text()).to.equal('Show panel 1 (selected)');
+    expect(this.$menu.find(active).text()).to.equal('Show panel 1 selected');
   });
 
   it('converts all anchor links to buttons', function() {
@@ -45,7 +45,7 @@ describe('Tab selector', function() {
   it('replaces the currently selected item', function() {
     this.$triggers.last().click();
     this.$triggers.eq(1).click();
-    expect(activeTrigger(this.$menu)).to.have.text('Show panel 2 (selected)');
+    expect(activeTrigger(this.$menu)).to.have.text('Show panel 2 selected');
     expect(this.$html.find(active).length).to.equal(2);
   });
 

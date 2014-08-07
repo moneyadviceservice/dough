@@ -184,7 +184,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
         .attr({
           'aria-selected': 'true'
         })
-        .append('<span class="visually-hidden"> (' + this.i18nStrings.selected + ')</span>');
+        .append('<span class="visually-hidden"> ' + this.i18nStrings.selected + '</span>');
 
     $unselectedTriggers
         .removeClass(this.selectors.activeClass)
