@@ -28,8 +28,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
         iconClassClose: 'icon--up-chevron-blue'
       },
       i18nStrings = {
-        open: 'Open',
-        close: 'Close'
+        open: 'Show',
+        close: 'Hide'
       };
 
   /**
@@ -123,6 +123,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
       label = this.i18nStrings.close;
       expandedLabel = 'true';
       iconClass = selectors.iconClassClose;
+      this.$target
+          .attr('tabindex', 0)
+          .focus();
     } else {
       label = this.i18nStrings.open;
       expandedLabel = 'false';
