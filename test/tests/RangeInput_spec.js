@@ -23,10 +23,6 @@ describe('Range input', function() {
     this.$html = $(window.__html__['test/fixtures/RangeInput.html']);
   });
 
-  afterEach(function() {
-    this.$html.remove();
-  });
-
   describe('Range inputs supported', function() {
 
     beforeEach(function() {
@@ -35,14 +31,16 @@ describe('Range input', function() {
       this.rangeInput.init();
       this.$inputText = this.$html.find('[data-dough-range-input]');
       this.$inputSlider = this.$html.find('.form__input-range');
-
     });
 
-    it('creates a copy of the input and label if the range slider type is supported', function() {
+    it('creates a copy of the input and label', function() {
       expect(this.$html.find('input').length).to.equal(2);
       expect(this.$html.find('label').length).to.equal(2);
     });
 
+    it('places the slider inside the specified container, if provided', function() {
+      expect(this.$html.find('[data-dough-range-input-slider] input.form__input-range')).to.be.of.length(1);
+    });
 
     it('keeps the slider in sync if the text input changes', function() {
       this.$inputText.val('2000').trigger('change');
@@ -67,7 +65,6 @@ describe('Range input', function() {
     });
 
   });
-
 
   describe('Range inputs supported but don\'t keep inputs in sync', function() {
 

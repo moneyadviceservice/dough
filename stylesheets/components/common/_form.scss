@@ -72,6 +72,25 @@
   margin-right: 15px;
 }
 
+.form__group--pri-sec {
+  font-size: 0;
+  > .form__group-item {
+    @extend %base-font-style;
+    display: inline-block;
+    margin-bottom: 0;
+    vertical-align: middle;
+  }
+}
+
+.form__group-item--secondary {
+  padding-right: 2%;
+  width: 25%;
+}
+
+.form__group-item--primary {
+  width: 75%;
+}
+
 .form__group-input {
   display: inline-block;
   margin-right: 5px;

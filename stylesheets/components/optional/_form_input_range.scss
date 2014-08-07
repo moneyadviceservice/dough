@@ -6,14 +6,13 @@
 **/
 .form__input-range {
   -webkit-appearance: none;
-  margin-bottom: $baseline-unit * 2;
   width: 100%;
   padding-left:1px;
   padding-right:1px;
-  margin-top: $baseline-unit * 4;
-  @include respond-to($mq-m) {
-    margin-top: $baseline-unit;
-  }
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 @mixin range-track-colors {
