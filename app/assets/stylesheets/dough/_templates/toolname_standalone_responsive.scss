@@ -3,10 +3,10 @@ $responsive = true;
 
 @import "settings";
 
-@import 'frontend-assets/stylesheets/font_base64'; // import until available as file on server
-@import 'frontend-assets/stylesheets/lib';
-@import 'frontend-assets/stylesheets/common';
-@import 'frontend-assets/stylesheets/optional';
+@import 'dough/font_base64'; // import until available as file on server
+@import 'dough/lib';
+@import 'dough/common';
+@import 'dough/optional';
 */
 
 // TOOL SPECIFIC FILES
