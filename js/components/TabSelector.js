@@ -58,6 +58,11 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
     this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
     this._setupAccessibility();
+    var $first;
+    $first = this.$triggersContainer.find('[' + selectors.trigger + ']').first();
+    if ($first.length) {
+      this._updateTriggers($first.attr(selectors.trigger));
+    }
   };
 
   /**
@@ -73,7 +78,6 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     var $first;
     $first = this.$triggersContainer.find('[' + selectors.trigger + ']').first();
     if ($first.length) {
-      this._updateTriggers($first.attr(selectors.trigger));
       this._initialisedSuccess(initialised);
     } else {
       this._initialisedFailure(initialised);
