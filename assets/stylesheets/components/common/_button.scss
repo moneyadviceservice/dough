@@ -47,7 +47,7 @@
   }
 
   &:active {
-    padding-top: $padding-vertical-button - $button-border-width;
+    padding-top: $button-padding-vertical - $button-border-width;
     border-bottom-color: $color-button-default-active;
     border-top: $button-border-width solid $color-button-default-border-active;
   }
