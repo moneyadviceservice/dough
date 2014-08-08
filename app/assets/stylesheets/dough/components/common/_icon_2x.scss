@@ -1,11 +1,11 @@
 @include device-pixel-ratio() {
   .icon {
-    background-size: 400px;
+    background-size: 600px;
   }
 
   %icon {
     // prevent HD screens from breaking when extending .icon
-    background-size: 400px;
+    background-size: 600px;
   }
 
   .icon--logo {
@@ -25,7 +25,7 @@
   }
 
   .icon--globe {
-    background-position: -106px -105px;
+    background-position: -106px -104px;
   }
 
   .icon--up-arrow {
@@ -54,6 +54,10 @@
 
   .icon--tick-s {
     background-position: -19px -135px;
+  }
+
+  .icon--accessibility {
+    background-position: -256px -126px;
   }
 
   .icon--cross {
@@ -129,5 +133,18 @@
     width: 18px;
     height: 16px;
   }
+
+  .icon--web-chat {
+    background-position: -495px -1px;
+  }
+
+  .icon--call-us {
+    background-position: -444px -2px;
+  }
+
+  .icon--sharing {
+    background-position: -433px -75px;
+  }
+
 
 } // end media query
