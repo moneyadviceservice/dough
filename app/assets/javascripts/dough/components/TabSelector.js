@@ -56,13 +56,13 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this.selectors = $.extend(this.selectors || {}, selectors);
     this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
-    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
     this._setupAccessibility();
     var $first;
     $first = this.$triggersContainer.find('[' + selectors.trigger + ']').first();
     if ($first.length) {
       this._updateTriggers($first.attr(selectors.trigger));
     }
+    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
   };
 
   /**
@@ -95,7 +95,6 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       'tabindex': '-1'
     });
     this._convertLinksToButtons();
-    this._updateTriggers(this.$el.find('[' + selectors.trigger + '].is-active'));
   };
 
   /**
@@ -118,13 +117,11 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     var $trigger = $(e.currentTarget),
         targetAttr;
 
-    if (!$trigger.hasClass(this.selectors.activeClass)) {
-      this._deSelectItem(this.$el.find('[' + selectors.trigger + '].is-active'));
-      targetAttr = $trigger.attr(selectors.trigger);
-      this._updateTriggers(targetAttr);
-      this._positionMenu($trigger);
-      this._updateTargets(targetAttr);
-    }
+    this._deSelectItem(this.$el.find('[' + selectors.trigger + '].is-active'));
+    targetAttr = $trigger.attr(selectors.trigger);
+    this._updateTriggers(targetAttr);
+    this._positionMenu($trigger);
+    this._updateTargets(targetAttr);
     this._toggleMenu($trigger);
     e.preventDefault();
     return this;
@@ -218,6 +215,9 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
           'aria-hidden': 'false',
           'tabindex': 0
         })
+
+    //TODO - only focus if tabs not collapsed into a dropdown
+    $selectedTarget
         .focus();
 
     $unselectedTargets
