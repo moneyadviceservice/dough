@@ -68,6 +68,9 @@ $color-grey-medium-dark: #6a6d6d !default;
 $color-grey-medium: #526675 !default;
 $color-grey-dark: #394752 !default;
 
+$color-grey-corduroy: #686C6C !default;
+$color-grey-concrete: #F3F3F3 !default;
+
 $color-bluegrey-dark: #96b4c0 !default;
 $color-bluegrey-medium: #cbdae0 !default;
 $color-bluegrey-light: #dae1df !default;
@@ -147,8 +150,8 @@ $color-input-border-color: $color-grey-primary !default;
 $color-input-focus-background: $color-off-white !default;
 $color-input-focus-border-color: $color-green-one !default;
 
-$color-input-disabled-background: $color-grey-normal !default;
-$color-input-disabled-text-color: $color-grey-medium !default;
+$color-input-disabled-background: $color-grey-concrete !default;
+$color-input-disabled-text-color: $color-grey-corduroy !default;
 
 $color-fieldset-legend-fg: $color-green-secondary;
 
