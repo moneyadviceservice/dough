@@ -9,14 +9,14 @@ $lighten-button: 10%;
 $padding-vertical-button: 12px;
 $padding-horizontal-button: 22px;
 $padding-button-small-square: 8px;
+// Depreciated Buttons END
 
 $button-border-radius: 4px;
 $button-border-width: 3px;
-$button-lighten: 10%;
 $button-padding-vertical: 12px;
 $button-padding-horizontal: 22px;
 $button-padding-small-square: 8px;
-// Depreciated Buttons END
+
 
 // COLOURS
 $color-white: #fff !default;
@@ -86,8 +86,8 @@ $color-red-dark: #af2745 !default;
 $color-orange-medium: #f06431 !default;
 $color-orange-dark: #c95d2d !default;
 
-$color-yellow-light: #ebd520 !default;
-$color-yellow-dark: #ddae1f !default;
+$color-yellow-light: #ead548 !default;
+$color-yellow-dark: #daaf2d !default;
 
 $color-horizontal-rule: $color-grey-paleo !default;
 
@@ -119,11 +119,24 @@ $color-list-yes: $color-green-secondary !default;
 $color-list-no: $color-red-dark !default;
 
 // Buttons
+$color-button-text: $color-black !default;
+$color-button-text-disabled: #666969 !default;
+
 $color-button-default: $color-grey-normal !default;
+$color-button-default-active: #dce0e0 !default;
+$color-button-default-disabled: #e8ebeb !default;
+
 $color-button-default-border: $color-grey-seven !default;
-$color-button-default-text: $color-black !default;
+$color-button-default-border-active: #b5b7b7 !default;
+$color-button-default-border-disabled: #cfd1d1 !default;
+
 $color-button-primary: $color-yellow-light !default;
+$color-button-primary-active: #edde74 !default;
+$color-button-primary-disabled: #f2ebb2 !default;
+
 $color-button-primary-border: $color-yellow-dark !default;
+$color-button-primary-border-active: #e1c260 !default;
+$color-button-primary-border-disabled: #eddfb2 !default;
 
 // Panels
 $color-panel-background: $color-grey-pale;
