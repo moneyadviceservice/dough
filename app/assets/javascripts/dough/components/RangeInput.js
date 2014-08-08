@@ -56,12 +56,6 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], 
         })
         .appendTo(this.$el);
 
-    this.$el.find('label[for="' + $textInput.attr('id') + '"]')
-        .clone()
-        .attr('for', $rangeInput.attr('id'))
-        .attr('class', 'visually-hidden')
-        .insertBefore($rangeInput);
-
     if (this.config.keepSynced === true) {
       this._setupSyncInputs($textInput, $rangeInput);
     }

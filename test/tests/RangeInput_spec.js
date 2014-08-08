@@ -32,15 +32,12 @@ describe('Range input', function() {
     beforeEach(function() {
       this.featureDetect.inputtypes.range = true;
       this.rangeInput = new this.RangeInput(this.$html);
-      this.rangeInput.init();
       this.$inputText = this.$html.find('[data-dough-range-input]');
       this.$inputSlider = this.$html.find('.form__input-range');
-
     });
 
-    it('creates a copy of the input and label if the range slider type is supported', function() {
+    it('creates a copy of the input if the range slider type is supported', function() {
       expect(this.$html.find('input').length).to.equal(2);
-      expect(this.$html.find('label').length).to.equal(2);
     });
 
 
@@ -76,15 +73,12 @@ describe('Range input', function() {
       this.rangeInput = new this.RangeInput(this.$html, {
         keepSynced: false
       });
-      this.rangeInput.init();
       this.$inputText = this.$html.find('[data-dough-range-input]');
       this.$inputSlider = this.$html.find('.form__input-range');
-
     });
 
-    it('creates a copy of the input and label if the range slider type is supported', function() {
+    it('creates a copy of the input if the range slider type is supported', function() {
       expect(this.$html.find('input').length).to.equal(2);
-      expect(this.$html.find('label').length).to.equal(2);
     });
   });
 
@@ -93,7 +87,6 @@ describe('Range input', function() {
     beforeEach(function() {
       this.featureDetect.inputtypes.range = false;
       this.rangeInput = new this.RangeInput(this.$html);
-      this.rangeInput.init();
       this.$inputText = this.$html.find('[data-dough-range-input]');
       this.$inputSlider = this.$html.find('.form__input-range');
     });
@@ -105,3 +98,4 @@ describe('Range input', function() {
   });
 
 });
+
