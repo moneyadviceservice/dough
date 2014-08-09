@@ -11,13 +11,14 @@ describe('Tab selector', function() {
   beforeEach(function(done) {
     var self = this;
     requirejs(
-        ['jquery', 'TabSelector'],
-        function($, TabSelector) {
+        ['jquery', 'TabSelector', 'eventsWithPromises'],
+        function($, TabSelector, eventsWithPromises) {
           self.$html = $(window.__html__['test/fixtures/TabSelector.html']).appendTo('body');
           self.$menu = self.$html.find('[data-dough-tabselector-triggers]');
           self.tabSelector = new TabSelector(self.$html);
           self.tabSelector.init();
           self.$triggers = self.$menu.find(triggers);
+          self.eventsWithPromises = eventsWithPromises;
           done();
         }, done);
   });
@@ -80,5 +81,14 @@ describe('Tab selector', function() {
     this.$html.find('.tab-selector__target button:eq(2)').click();
     expect(isOpen(this.$menu)).to.equal(false);
   });
+
+  it('closes the menu if the viewport is resized to small', function() {
+    this.$triggers.last().click();
+    this.eventsWithPromises.publish('mediaquery:resize', {
+      newSize: 'mq-s'
+    });
+    expect(isOpen(this.$menu)).to.equal(false);
+  });
+
 });
 

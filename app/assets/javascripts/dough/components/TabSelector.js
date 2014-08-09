@@ -51,6 +51,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @constructor
    */
   TabSelector = function($el, config) {
+    var self = this;
+
     this.uiEvents = uiEvents;
     TabSelector.baseConstructor.apply(this, arguments);
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
@@ -63,6 +65,11 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       this._updateTriggers($first.attr(selectors.trigger));
     }
     this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
+    eventsWithPromises.subscribe('mediaquery:resize', function(data) {
+      if ($.inArray(data.newSize, ['mq-xs', 'mq-s']) !== -1) {
+        self.$triggersContainer.removeClass(self.selectors.activeClass).addClass(self.selectors.inactiveClass);
+      }
+    });
   };
 
   /**
