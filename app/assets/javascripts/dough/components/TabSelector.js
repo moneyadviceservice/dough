@@ -27,7 +27,7 @@
  * @return {object}
  * @private
  */
-define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
+define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], function($, DoughBaseComponent, eventsWithPromises, mediaQueries) {
   'use strict';
 
   var TabSelector,
@@ -221,11 +221,13 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
         .attr({
           'aria-hidden': 'false',
           'tabindex': 0
-        })
+        });
 
-    //TODO - only focus if tabs not collapsed into a dropdown
-    $selectedTarget
-        .focus();
+    //only focus if tabs not collapsed into a dropdown
+    if (!mediaQueries.atSmallViewport()) {
+      $selectedTarget.focus();
+    }
+
 
     $unselectedTargets
         .removeClass(this.selectors.activeClass)
