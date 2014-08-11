@@ -151,7 +151,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
    */
   TabSelector.prototype._toggleMenu = function($trigger) {
     // if the clicked item is outside the menu, and the menu is closed, do nothing
-    if (!$trigger.closest(this.$triggersContainer).length && !this.$triggersContainer.hasClass(this.selectors.activeClass)) {
+    if (!$trigger.closest(this.$triggersContainer).length &&
+        !this.$triggersContainer.hasClass(this.selectors.activeClass)) {
       return;
     }
     this.$triggersContainer.toggleClass(this.selectors.activeClass).toggleClass(this.selectors.inactiveClass);
@@ -213,7 +214,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
    */
   TabSelector.prototype._updateTargets = function(targetAttr) {
     var $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
-        $unselectedTargets = this.$el.find('[' + selectors.target + ']').not('[' + selectors.target + '="' + targetAttr + '"]');
+        $unselectedTargets = this.$el.find('[' + selectors.target + ']')
+            .not('[' + selectors.target + '="' + targetAttr + '"]');
 
     $selectedTarget
         .removeClass(this.selectors.inactiveClass)

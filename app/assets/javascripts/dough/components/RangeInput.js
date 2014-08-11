@@ -18,7 +18,7 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], 
        * @constructor
        */
       RangeInput = function($el, config) {
-        RangeInput.baseConstructor.apply(this, arguments);
+        RangeInput.baseConstructor.call(this, $el, config);
         this.config = $.extend(defaultConfig, this.config);
 
         if (featureDetect.inputtypes.range) {
