@@ -51,7 +51,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
    * @constructor
    */
   TabSelector = function($el, config) {
-    var self = this;
+    var _this = this,
+        $first;
 
     this.uiEvents = uiEvents;
     TabSelector.baseConstructor.apply(this, arguments);
@@ -59,15 +60,14 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
     this.selectors = $.extend(this.selectors || {}, selectors);
     this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
     this._setupAccessibility();
-    var $first;
+    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
     $first = this.$triggersContainer.find('[' + selectors.trigger + ']').first();
     if ($first.length) {
       this._updateTriggers($first.attr(selectors.trigger));
     }
-    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
     eventsWithPromises.subscribe('mediaquery:resize', function(data) {
       if ($.inArray(data.newSize, ['mq-xs', 'mq-s']) !== -1) {
-        self.$triggersContainer.removeClass(self.selectors.activeClass).addClass(self.selectors.inactiveClass);
+        _this.$triggersContainer.removeClass(_this.selectors.activeClass).addClass(_this.selectors.inactiveClass);
       }
     });
   };
