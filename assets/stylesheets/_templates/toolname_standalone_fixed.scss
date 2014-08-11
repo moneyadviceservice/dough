@@ -1,11 +1,12 @@
 /*
-$responsive = true;
+$responsive = false;
 
 @import "settings";
 
-@import 'frontend-assets/stylesheets/font_base64'; // import until available as file on server
-@import 'frontend-assets/stylesheets/lib';
-@import 'frontend-assets/stylesheets/optional';
+@import 'dough/assets/stylesheets/font_files'; // import until available as file on server
+@import 'dough/assets/stylesheets/lib';
+@import 'dough/assets/stylesheets/common';
+@import 'dough/assets/stylesheets/optional';
 */
 
 // TOOL SPECIFIC FILES

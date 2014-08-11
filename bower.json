@@ -1,22 +1,14 @@
 {
-  "name": "frontend-assets",
+  "name": "dough",
   "private": true,
   "ignore": [
-    "README.md",
-    ".rspec",
-    ".ruby-gemset",
-    ".ruby-version",
-    "Gemfile",
-    "LICENSE",
-    "README.rdoc",
-    "Rakefile",
-    "app/**/*",
-    "build.sh",
-    "dough.gemspec",
-    "lib/**/*",
-    "script/**/*",
-    "spec/**/*",
-    "test.sh"
+    "**/*",
+    "!assets/**/*",
+    "!bower.json",
+    "!.jscsrc",
+    "!.jshintrc",
+    "!LICENSE",
+    "!README.md"
   ],
   "dependencies": {
     "normalize-css": "~3.0.0",
