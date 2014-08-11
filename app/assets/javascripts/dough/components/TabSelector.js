@@ -27,7 +27,7 @@
  * @return {object}
  * @private
  */
-define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
+define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], function($, DoughBaseComponent, eventsWithPromises, mediaQueries) {
   'use strict';
 
   var TabSelector,
@@ -51,18 +51,25 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @constructor
    */
   TabSelector = function($el, config) {
+    var _this = this,
+        $first;
+
     this.uiEvents = uiEvents;
     TabSelector.baseConstructor.apply(this, arguments);
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this.selectors = $.extend(this.selectors || {}, selectors);
     this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
-    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
     this._setupAccessibility();
-    var $first;
+    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
     $first = this.$triggersContainer.find('[' + selectors.trigger + ']').first();
     if ($first.length) {
       this._updateTriggers($first.attr(selectors.trigger));
     }
+    eventsWithPromises.subscribe('mediaquery:resize', function(data) {
+      if ($.inArray(data.newSize, ['mq-xs', 'mq-s']) !== -1) {
+        _this.$triggersContainer.removeClass(_this.selectors.activeClass).addClass(_this.selectors.inactiveClass);
+      }
+    });
   };
 
   /**
@@ -95,7 +102,6 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       'tabindex': '-1'
     });
     this._convertLinksToButtons();
-    this._updateTriggers(this.$el.find('[' + selectors.trigger + '].is-active'));
   };
 
   /**
@@ -118,13 +124,11 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     var $trigger = $(e.currentTarget),
         targetAttr;
 
-    if (!$trigger.hasClass(this.selectors.activeClass)) {
-      this._deSelectItem(this.$el.find('[' + selectors.trigger + '].is-active'));
-      targetAttr = $trigger.attr(selectors.trigger);
-      this._updateTriggers(targetAttr);
-      this._positionMenu($trigger);
-      this._updateTargets(targetAttr);
-    }
+    this._deSelectItem(this.$el.find('[' + selectors.trigger + '].is-active'));
+    targetAttr = $trigger.attr(selectors.trigger);
+    this._updateTriggers(targetAttr);
+    this._positionMenu($trigger);
+    this._updateTargets(targetAttr);
     this._toggleMenu($trigger);
     e.preventDefault();
     return this;
@@ -147,7 +151,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   TabSelector.prototype._toggleMenu = function($trigger) {
     // if the clicked item is outside the menu, and the menu is closed, do nothing
-    if (!$trigger.closest(this.$triggersContainer).length && !this.$triggersContainer.hasClass(this.selectors.activeClass)) {
+    if (!$trigger.closest(this.$triggersContainer).length &&
+        !this.$triggersContainer.hasClass(this.selectors.activeClass)) {
       return;
     }
     this.$triggersContainer.toggleClass(this.selectors.activeClass).toggleClass(this.selectors.inactiveClass);
@@ -209,7 +214,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   TabSelector.prototype._updateTargets = function(targetAttr) {
     var $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
-        $unselectedTargets = this.$el.find('[' + selectors.target + ']').not('[' + selectors.target + '="' + targetAttr + '"]');
+        $unselectedTargets = this.$el.find('[' + selectors.target + ']')
+            .not('[' + selectors.target + '="' + targetAttr + '"]');
 
     $selectedTarget
         .removeClass(this.selectors.inactiveClass)
@@ -217,8 +223,13 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
         .attr({
           'aria-hidden': 'false',
           'tabindex': 0
-        })
-        .focus();
+        });
+
+    //only focus if tabs not collapsed into a dropdown
+    if (!mediaQueries.atSmallViewport()) {
+      $selectedTarget.focus();
+    }
+
 
     $unselectedTargets
         .removeClass(this.selectors.activeClass)

@@ -42,7 +42,12 @@ define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce
       }
 
 
+    },
+
+    atSmallViewport: function() {
+      return ($.inArray(getSize(), ['mq-xs', 'mq-s']) > -1);
     }
+
   };
 
 });

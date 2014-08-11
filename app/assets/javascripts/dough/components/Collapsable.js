@@ -35,12 +35,13 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   /**
    *
    * @param {jQuery} $el - mandatory - the trigger
+   * @param {object} config
    * @returns {Collapsable}
    * @constructor
    */
   function Collapsable($el, config) {
     this.selectors = selectors;
-    DoughBaseComponent.apply(this, arguments);
+    DoughBaseComponent.call(this, $el, config);
     this.$trigger = this.$el;
     this.$target = $('[data-dough-collapsable-target="' + this.$trigger.attr('data-dough-collapsable-trigger') + '"]');
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
@@ -63,7 +64,10 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
 
     this.$trigger.wrapInner('<button class="unstyled-button" type="button"/>');
     this.$trigger.find('button')
-        .prepend('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' + selectors.iconClassOpen + '"></span> <span class="visually-hidden" data-dough-collapsable-label>' + this.i18nStrings.open + '</span>')
+        .prepend('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' +
+            selectors.iconClassOpen +
+            '"></span> <span class="visually-hidden" data-dough-collapsable-label>' +
+            this.i18nStrings.open + '</span>')
         .attr('aria-controls', id)
         .attr('aria-expanded', 'false');
     this.$target.attr('id', id);
@@ -134,7 +138,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
 
     this.$trigger.find('[data-dough-collapsable-label]').text(label);
     this.$trigger.attr('aria-expanded', expandedLabel);
-    this.$trigger.find('[data-dough-collapsable-icon]').removeClass(selectors.iconClassOpen + ' ' + selectors.iconClassClose).addClass(iconClass);
+    this.$trigger
+        .find('[data-dough-collapsable-icon]')
+        .removeClass(selectors.iconClassOpen + ' ' + selectors.iconClassClose).addClass(iconClass);
 
     // can bind to this by eventsWithPromises.subscribe('toggler:toggled', function(Collapsable) { });
     if (typeof forceTo === 'undefined') {

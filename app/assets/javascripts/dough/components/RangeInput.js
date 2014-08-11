@@ -18,7 +18,7 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], 
        * @constructor
        */
       RangeInput = function($el, config) {
-        RangeInput.baseConstructor.apply(this, arguments);
+        RangeInput.baseConstructor.call(this, $el, config);
         this.config = $.extend(defaultConfig, this.config);
 
         if (featureDetect.inputtypes.range) {
@@ -55,12 +55,6 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], 
           $(this).focus();
         })
         .appendTo(this.$el);
-
-    this.$el.find('label[for="' + $textInput.attr('id') + '"]')
-        .clone()
-        .attr('for', $rangeInput.attr('id'))
-        .attr('class', 'visually-hidden')
-        .insertBefore($rangeInput);
 
     if (this.config.keepSynced === true) {
       this._setupSyncInputs($textInput, $rangeInput);

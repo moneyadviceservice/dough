@@ -57,5 +57,8 @@
 
   "expr": true,
 
-  "predef": ["define", "requirejs", "require", "before", "beforeEach", "afterEach", "it", "expect", "describe", "sinon", "CSSRule", "assert"]
+  // allow object keys to be referenced by model['key'] as well as model.key
+  "sub": true,
+
+  "predef": ["define", "requirejs", "require", "before", "after", "beforeEach", "afterEach", "it", "expect", "describe", "sinon", "CSSRule", "assert"]
 }
