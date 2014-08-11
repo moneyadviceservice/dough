@@ -11,4 +11,4 @@ time bundle exec rspec
 export PATH=./node_modules/.bin:$PATH
 
 karma start test/karma.conf.js --single-run
-jscs app/assets/javascripts/dough
+jscs js

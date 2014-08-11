@@ -3,9 +3,9 @@ $responsive = true;
 
 @import "settings";
 
-@import 'dough/font_base64'; // import until available as file on server
-@import 'dough/lib';
-@import 'dough/optional';
+@import 'frontend-assets/stylesheets/font_base64'; // import until available as file on server
+@import 'frontend-assets/stylesheets/lib';
+@import 'frontend-assets/stylesheets/optional';
 */
 
 // TOOL SPECIFIC FILES

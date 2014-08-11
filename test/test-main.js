@@ -22,22 +22,22 @@ require.config({
   // we have to kickoff jasmine, as it is asynchronous
   callback: window.__karma__.start,
   paths: {
-    DoughBaseComponent: 'app/assets/javascripts/dough/components/DoughBaseComponent',
-    featureDetect: 'app/assets/javascripts/dough/lib/featureDetect',
+    DoughBaseComponent: 'js/components/DoughBaseComponent',
+    featureDetect: 'js/lib/featureDetect',
     modernizr: 'vendor/assets/modernizr/modernizr',
-    mediaQueries: 'app/assets/javascripts/dough/lib/mediaQueries',
-    componentLoader: 'app/assets/javascripts/dough/lib/componentLoader',
-    Collapsable: 'app/assets/javascripts/dough/components/Collapsable',
-    TabSelector: 'app/assets/javascripts/dough/components/TabSelector',
-    RangeInput: 'app/assets/javascripts/dough/components/RangeInput',
-    FieldHelpText: 'app/assets/javascripts/dough/components/FieldHelpText',
-    Validation: 'app/assets/javascripts/dough/components/Validation',
+    mediaQueries: 'js/lib/mediaQueries',
+    componentLoader: 'js/lib/componentLoader',
+    Collapsable: 'js/components/Collapsable',
+    TabSelector: 'js/components/TabSelector',
+    RangeInput: 'js/components/RangeInput',
+    FieldHelpText: 'js/components/FieldHelpText',
+    Validation: 'js/components/Validation',
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
     rivets: 'vendor/assets/bower_components/rivets/dist/rivets',
     eventsWithPromises: 'vendor/assets/bower_components/eventsWithPromises/src/eventsWithPromises',
     rsvp: 'vendor/assets/bower_components/rsvp/rsvp.amd',
     jqueryThrottleDebounce: 'vendor/assets/bower_components/jqueryThrottleDebounce/jquery.ba-throttle-debounce',
-    utilities: 'app/assets/javascripts/dough/lib/utilities'
+    utilities: 'js/lib/utilities'
   },
   shim: {
     modernizr: {

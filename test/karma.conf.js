@@ -17,7 +17,7 @@ module.exports = function(config) {
     files: [
       'test/test-main.js',
       'test/fixtures/*.html',
-      {pattern: 'app/assets/javascripts/dough/**/*.js', included: false},
+      {pattern: 'js/**/*.js', included: false},
       {pattern: 'vendor/assets/**/*.js', included: false},
       {pattern: 'test/tests/*_spec.js', included: false}
     ],
@@ -33,7 +33,7 @@ module.exports = function(config) {
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
       '**/*.html': ['html2js'],
-      'app/assets/javascripts/dough/**/*.js': ['coverage']
+      'js/**/*.js': ['coverage']
     },
 
 

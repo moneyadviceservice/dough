@@ -6,3 +6,7 @@ Dummy::Application.routes.draw do
 
   get "/integrated_dough_helper", to: "integrated_dough_helper#index"
 end
+
+Rails.application.routes.draw do
+  mount Dough::Engine => "/dough"
+end

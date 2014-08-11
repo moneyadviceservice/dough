@@ -33,7 +33,7 @@ Ensure all dependencies are installed, and simply run:
 $ grunt
 ```
 
-To run Grunt's 'watch' task, which will watch for any file changes in the Javascript components directory (```./app/assets/javascripts/dough/components/```) and rebuild the documentation automatically, use the following:
+To run Grunt's 'watch' task, which will watch for any file changes in the Javascript components directory (```./js/components/```) and rebuild the documentation automatically, use the following:
 
 ```sh
 $ grunt watch:js
@@ -50,7 +50,7 @@ $ ./node_modules/karma/bin/karma start test/karma.conf.js --single-run
 ## Javascript style checking
 
 ```
-./node_modules/jscs/bin/jscs app/assets/javascripts/dough
+./node_modules/jscs/bin/jscs js
 ```
 
 ## Contributing

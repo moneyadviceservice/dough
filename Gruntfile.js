@@ -9,7 +9,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     watch: {
       components: {
-        files: ['app/assets/javascripts/dough/components/*.js'],
+        files: ['js/components/*.js'],
         tasks: ['dox']
       }
     },
@@ -18,7 +18,7 @@ module.exports = function(grunt) {
         title: 'MAS Frontend Assets'
       },
       files: {
-        src: ['app/assets/javascripts/dough/components/'],
+        src: ['js/components/'],
         dest: 'docs'
       }
     }
