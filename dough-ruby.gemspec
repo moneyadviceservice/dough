@@ -13,7 +13,8 @@ Gem::Specification.new do |s|
   s.summary     = "Dough"
   s.description = "Dough"
 
-  s.files = Dir["{app,config,db,lib,vendor/assets/non_bower_components}/**/*"] + ["LICENSE", "Rakefile", "README.md", "bower.json"]
+  s.files = Dir["{app,config,db,lib,assets,vendor/assets/non_bower_components}/**/*"] +
+    ["LICENSE", "Rakefile", "README.md", "bower.json", ".jscsrc", ".jshintrc"]
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", ">= 3.2"

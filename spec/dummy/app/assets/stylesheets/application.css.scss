@@ -11,6 +11,6 @@
  *= require_self
  */
 $responsive: true;
-@import 'lib';
-@import 'common';
-@import 'optional';
+@import 'dough/assets/stylesheets/lib';
+@import 'dough/assets/stylesheets/common';
+@import 'dough/assets/stylesheets/optional';
