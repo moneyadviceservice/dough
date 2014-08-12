@@ -10,5 +10,5 @@ time bundle exec rspec
 
 export PATH=./node_modules/.bin:$PATH
 
-karma start test/karma.conf.js --single-run
+karma start spec/js/karma.conf.js --single-run
 jscs assets/js
