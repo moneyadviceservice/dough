@@ -22,22 +22,22 @@ require.config({
   // we have to kickoff jasmine, as it is asynchronous
   callback: window.__karma__.start,
   paths: {
-    DoughBaseComponent: 'js/components/DoughBaseComponent',
-    featureDetect: 'js/lib/featureDetect',
+    DoughBaseComponent: 'assets/js/components/DoughBaseComponent',
+    featureDetect: 'assets/js/lib/featureDetect',
     modernizr: 'vendor/assets/modernizr/modernizr',
-    mediaQueries: 'js/lib/mediaQueries',
-    componentLoader: 'js/lib/componentLoader',
-    Collapsable: 'js/components/Collapsable',
-    TabSelector: 'js/components/TabSelector',
-    RangeInput: 'js/components/RangeInput',
-    FieldHelpText: 'js/components/FieldHelpText',
-    Validation: 'js/components/Validation',
+    mediaQueries: 'assets/js/lib/mediaQueries',
+    componentLoader: 'assets/js/lib/componentLoader',
+    Collapsable: 'assets/js/components/Collapsable',
+    TabSelector: 'assets/js/components/TabSelector',
+    RangeInput: 'assets/js/components/RangeInput',
+    FieldHelpText: 'assets/js/components/FieldHelpText',
+    Validation: 'assets/js/components/Validation',
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
     rivets: 'vendor/assets/bower_components/rivets/dist/rivets',
     eventsWithPromises: 'vendor/assets/bower_components/eventsWithPromises/src/eventsWithPromises',
     rsvp: 'vendor/assets/bower_components/rsvp/rsvp.amd',
     jqueryThrottleDebounce: 'vendor/assets/bower_components/jqueryThrottleDebounce/jquery.ba-throttle-debounce',
-    utilities: 'js/lib/utilities'
+    utilities: 'assets/js/lib/utilities'
   },
   shim: {
     modernizr: {

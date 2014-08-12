@@ -17,8 +17,9 @@ module.exports = function(config) {
     files: [
       'test/test-main.js',
       'test/fixtures/*.html',
-      {pattern: 'js/**/*.js', included: false},
-      {pattern: 'vendor/assets/**/*.js', included: false},
+      {pattern: 'assets/js/**/*.js', included: false},
+      {pattern: 'vendor/assets/bower_components/**/*.js', included: false},
+      {pattern: 'vendor/assets/non_bower_components/**/*.js', included: false},
       {pattern: 'test/tests/*_spec.js', included: false}
     ],
 
@@ -32,8 +33,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '**/*.html': ['html2js'],
-      'js/**/*.js': ['coverage']
+      'test/**/*.html': ['html2js'],
+      'assets/js/**/*.js': ['coverage']
     },
 
 
