@@ -17,9 +17,9 @@ module.exports = function(config) {
     files: [
       'spec/js/test-main.js',
       'spec/js/fixtures/*.html',
+      'vendor/assets/non_bower_components/modernizr/modernizr.js',
       {pattern: 'assets/js/**/*.js', included: false},
       {pattern: 'vendor/assets/bower_components/**/*.js', included: false},
-      {pattern: 'vendor/assets/non_bower_components/**/*.js', included: false},
       {pattern: 'spec/js/tests/*_spec.js', included: false}
     ],
 
