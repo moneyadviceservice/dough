@@ -20,7 +20,7 @@ describe('Range input', function() {
   });
 
   beforeEach(function() {
-    this.$html = $(window.__html__['test/fixtures/RangeInput.html']);
+    this.$html = $(window.__html__['spec/js/fixtures/RangeInput.html']);
   });
 
   afterEach(function() {

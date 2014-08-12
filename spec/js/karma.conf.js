@@ -5,7 +5,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '../',
+    basePath: '../../',
 
 
     // frameworks to use
@@ -15,12 +15,12 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/test-main.js',
-      'test/fixtures/*.html',
+      'spec/js/test-main.js',
+      'spec/js/fixtures/*.html',
       {pattern: 'assets/js/**/*.js', included: false},
       {pattern: 'vendor/assets/bower_components/**/*.js', included: false},
       {pattern: 'vendor/assets/non_bower_components/**/*.js', included: false},
-      {pattern: 'test/tests/*_spec.js', included: false}
+      {pattern: 'spec/js/tests/*_spec.js', included: false}
     ],
 
 
@@ -33,7 +33,7 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'test/**/*.html': ['html2js'],
+      '**/*.html': ['html2js'],
       'assets/js/**/*.js': ['coverage']
     },
 

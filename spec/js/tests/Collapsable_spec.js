@@ -10,7 +10,7 @@ describe('Visibility toggler', function() {
         ['jquery', 'Collapsable'],
         function($, Collapsable) {
           self.Collapsable = Collapsable;
-          self.$html = $(window.__html__['test/fixtures/Collapsable.html']).appendTo('body');
+          self.$html = $(window.__html__['spec/js/fixtures/Collapsable.html']).appendTo('body');
           self.$target = self.$html.filter('[data-dough-collapsable-target]');
           done();
         }, done);

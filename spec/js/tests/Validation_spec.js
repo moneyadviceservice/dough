@@ -9,7 +9,7 @@ describe('Validation', function() {
       requirejs(
           ['jquery', 'Validation'],
           function($, Validation) {
-            self.$html = $(window.__html__['test/fixtures/Validation/NonEmpty.html']).appendTo('body');
+            self.$html = $(window.__html__['spec/js/fixtures/Validation/NonEmpty.html']).appendTo('body');
             self.component = self.$html.find('[data-dough-component="Validation"]');
             self.Validation = Validation;
             done();
@@ -46,7 +46,7 @@ describe('Validation', function() {
       requirejs(
           ['jquery', 'Validation'],
           function($, Validation) {
-            self.$html = $(window.__html__['test/fixtures/Validation/MinLength.html']).appendTo('body');
+            self.$html = $(window.__html__['spec/js/fixtures/Validation/MinLength.html']).appendTo('body');
             self.component = self.$html.find('[data-dough-component="Validation"]');
             self.Validation = Validation;
             done();
@@ -82,7 +82,7 @@ describe('Validation', function() {
       requirejs(
           ['jquery', 'Validation'],
           function($, Validation) {
-            self.$html = $(window.__html__['test/fixtures/Validation/RegExp.html']).appendTo('body');
+            self.$html = $(window.__html__['spec/js/fixtures/Validation/RegExp.html']).appendTo('body');
             self.component = self.$html.find('[data-dough-component="Validation"]');
             self.Validation = Validation;
             done();
@@ -118,7 +118,7 @@ describe('Validation', function() {
       requirejs(
           ['jquery', 'Validation'],
           function($, Validation) {
-            self.$html = $(window.__html__['test/fixtures/Validation/NumberRange.html']).appendTo('body');
+            self.$html = $(window.__html__['spec/js/fixtures/Validation/NumberRange.html']).appendTo('body');
             self.component = self.$html.find('[data-dough-component="Validation"]');
             self.Validation = Validation;
             done();

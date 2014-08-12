@@ -7,7 +7,7 @@ describe('Field input tooltip', function() {
     requirejs(
         ['jquery', 'FieldHelpText'],
         function($, FieldHelpText) {
-          self.$html = $(window.__html__['test/fixtures/FieldHelpText.html']).appendTo('body');
+          self.$html = $(window.__html__['spec/js/fixtures/FieldHelpText.html']).appendTo('body');
           self.component = self.$html.find('[data-dough-component="FieldHelpText"]');
           self.FieldHelpText = FieldHelpText;
           done();

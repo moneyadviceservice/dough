@@ -18,7 +18,7 @@ describe('componentLoader', function() {
   describe('init method', function() {
 
     beforeEach(function(done) {
-      this.$html = $(window.__html__['test/fixtures/componentLoader.html']).appendTo('body');
+      this.$html = $(window.__html__['spec/js/fixtures/componentLoader.html']).appendTo('body');
       this.componentLoader.init(this.$html)
           .then(function() {
             done();
@@ -79,7 +79,7 @@ describe('componentLoader', function() {
 
     beforeEach(function(done) {
       var self = this;
-      this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
+      this.$html = $(window.__html__['spec/js/fixtures/componentLoader.html']);
       // make one of the components fail to init by removing some required elements
       this.$html.find('[data-dough-component="TabSelector"]').last().empty();
       this.componentLoader.init(this.$html)
@@ -103,7 +103,7 @@ describe('componentLoader', function() {
 
     beforeEach(function(done) {
       var self = this;
-      this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
+      this.$html = $(window.__html__['spec/js/fixtures/componentLoader.html']);
       this.componentLoader.init(this.$html)
           .then(function(results) {
             self.results = results;
@@ -125,7 +125,7 @@ describe('componentLoader', function() {
 
     beforeEach(function(done) {
       var self = this;
-      this.$html = $(window.__html__['test/fixtures/componentLoader.html']);
+      this.$html = $(window.__html__['spec/js/fixtures/componentLoader.html']);
       requirejs(['RangeInput', 'TabSelector'], function(RangeInput, TabSelector) {
         RangeInput.prototype.init = function() {
           throw 'Test error';

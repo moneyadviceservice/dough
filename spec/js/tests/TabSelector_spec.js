@@ -13,7 +13,7 @@ describe('Tab selector', function() {
     requirejs(
         ['jquery', 'TabSelector', 'eventsWithPromises'],
         function($, TabSelector, eventsWithPromises) {
-          self.$html = $(window.__html__['test/fixtures/TabSelector.html']).appendTo('body');
+          self.$html = $(window.__html__['spec/js/fixtures/TabSelector.html']).appendTo('body');
           self.$menu = self.$html.find('[data-dough-tabselector-triggers]');
           self.tabSelector = new TabSelector(self.$html);
           self.tabSelector.init();
