@@ -14,7 +14,7 @@ define([], function() {
 
   function DoughBaseComponent($el, config) {
     if (!$el || !$el.length) {
-      throw 'Element not supplied to DoughBaseComponent constructor';
+      throw new Error('Element not supplied to DoughBaseComponent constructor');
     }
     this.config = config || {};
     this.componentName = this.config.componentName;
