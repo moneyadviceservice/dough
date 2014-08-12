@@ -34,6 +34,7 @@ en:
         other_than: "%{attribute} must be other than %{count}"
         odd: "%{attribute} must be odd"
         even: "%{attribute} must be even"
+        taken: "%{attribute} has already been taken"
   activemodel:
     errors:
       messages:
