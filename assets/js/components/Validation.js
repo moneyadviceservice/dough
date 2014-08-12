@@ -113,7 +113,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation} Class instance
    */
   Validation.prototype.refreshInlineErrors = function() {
-    $('.form__row').each($.proxy(function(i, o) {
+    this.$el.find('.form__row').each($.proxy(function(i, o) {
       var $formRow = $(o),
           $errorContainer = $formRow.find('.' + this.config.inlineErrorClass),
           $inputs = $formRow.find(this.config.fieldSelector),
@@ -205,7 +205,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
         </div>');
     }
 
-    $('.form__row').each($.proxy(function(i, o) {
+    this.$el.find('.form__row').each($.proxy(function(i, o) {
       var $formRow = $(o),
           $existingInlineErrors = $formRow.find('.' + this.config.inlineErrorClass);
 
