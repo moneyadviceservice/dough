@@ -5,7 +5,7 @@
   .js & {
     @include respond-to($mq-m) {
       position: absolute;
-      margin-top: $baseline-unit*4;
+      margin-top: $baseline-unit*5;
 
       &.field-help-text--hidden {
         @include visually-hidden;
