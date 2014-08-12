@@ -103,9 +103,11 @@ a {
     text-decoration: underline;
   }
 
-  // Removes active link colour that is applied in Mobile Safari
+  // Removes active link colour that is applied in Mobile Safari and adds kerning
   &[href^=tel] {
     color: inherit;
+    letter-spacing: -1px;
+    text-decoration: none;
   }
 }
 
