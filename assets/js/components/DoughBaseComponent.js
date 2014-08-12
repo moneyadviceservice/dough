@@ -113,7 +113,7 @@ define([], function() {
       var match = key.match(delegateEventSplitter);
       var eventName = match[1], selector = match[2];
       method = $.proxy(method, this);
-      eventName += '.boundUiEvents';
+      eventName += '.' + this.componentName + '-boundUiEvents';
       if (selector === '') {
         this.$el.on(eventName, method);
       } else {
@@ -129,7 +129,7 @@ define([], function() {
    */
 
   DoughBaseComponentProto._unbindUiEvents = function() {
-    this.$el.off('.boundUiEvents');
+    this.$el.off('.' + this.componentName + '-boundUiEvents');
     return this;
   };
 
