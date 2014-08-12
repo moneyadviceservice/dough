@@ -19,7 +19,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     attributeInvalid: 'data-dough-validation-invalid',
     rowInvalidClass: 'is-errored',
     validationSummaryClass: 'validation-summary',
-    validationSummaryListClass: 'js-validation-summary-list',
+    validationSummaryListAttribute: 'data-dough-validation-summary-list',
     validationSummaryHiddenClass: 'validation-summary--hidden',
     validationSummaryErrorClass: 'validation-summary__error',
     inlineErrorClass: 'js-inline-error'
@@ -56,7 +56,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     // If there's server erros on the page, we back off completely
     // There are a number of different types of errors that the server
     // generates, and this file will grow in complexity trying to keep up.
-    if (this.$el.find('.' + this.config.validationSummaryListClass).find('li').length > 0) {
+    if (this.$el.find('[' + this.config.validationSummaryListAttribute + ']').find('li').length > 0) {
       this._unbindUiEvents();
       this.enabled = false;
       return this;
@@ -159,7 +159,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       summaryHTML += '<li class="' + this.config.validationSummaryErrorClass + '"><a href="#error-' + fieldID + '">' + fieldValidity.message + '</a></li>';
     }, this));
 
-    this.$el.find('.' + this.config.validationSummaryListClass).html(summaryHTML);
+    this.$el.find('[' + this.config.validationSummaryListAttribute + ']').html(summaryHTML);
 
     if (this.errors.length < 1) {
       this._hideValidationSummary();
@@ -201,7 +201,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     var $validationSummary = this.$el.find('.' + this.config.validationSummaryClass);
     if (!$validationSummary.length) {
       this.$el.prepend('<div class="' + this.config.validationSummaryClass + ' ' + this.config.validationSummaryHiddenClass + '">\
-          <ol class="' + this.config.validationSummaryListClass + '"></ol>\
+          <ol ' + this.config.validationSummaryListAttribute + '></ol>\
         </div>');
     }
 

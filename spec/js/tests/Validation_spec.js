@@ -156,7 +156,7 @@ describe('Validation', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeEmpty),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
 
       validation.$el.submit();
 
@@ -167,7 +167,7 @@ describe('Validation', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeEmpty),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass),
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']'),
           $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
 
       validation.$el.submit();
@@ -181,7 +181,7 @@ describe('Validation', function() {
     it('allows the form to submit if the value is filled in', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
 
       $input.val('test');
       validation.$el.submit();
@@ -293,7 +293,7 @@ describe('Validation', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
 
       $input.val('te');
       validation.$el.submit();
@@ -305,7 +305,7 @@ describe('Validation', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass),
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']'),
           $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
 
       validation.$el.submit();
@@ -319,7 +319,7 @@ describe('Validation', function() {
     it('allows the form to submit if the value is filled in', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
 
       $input.val('tested');
       validation.$el.submit();
@@ -430,7 +430,7 @@ describe('Validation', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
 
       $input.val('test');
       validation.$el.submit();
@@ -442,7 +442,7 @@ describe('Validation', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass),
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']'),
           $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
 
       validation.$el.submit();
@@ -456,7 +456,7 @@ describe('Validation', function() {
     it('allows the form to submit if the value is filled in', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
 
       $input.val('test@tested.com');
       validation.$el.submit();
@@ -611,7 +611,7 @@ describe('Validation', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
 
       $input.val('6');
       validation.$el.submit();
@@ -623,7 +623,7 @@ describe('Validation', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
           errorLookingFor = $input.attr(validation.config.attributeInvalid),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass),
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']'),
           $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
 
       validation.$el.submit();
@@ -637,7 +637,7 @@ describe('Validation', function() {
     it('allows the form to submit if the value is filled in', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
 
       $input.val('3');
       validation.$el.submit();
@@ -743,7 +743,7 @@ describe('Validation', function() {
           $inlineError1 = $input1.parent('.form__row').find('.' + validation.config.inlineErrorClass),
           $inlineError2 = $input2.parent('.form__row').find('.' + validation.config.inlineErrorClass),
           $inlineError3 = $input3.parent('.form__row').find('.' + validation.config.inlineErrorClass),
-          $validationSummaryList = validation.$el.find('.' + validation.config.validationSummaryListClass);
+          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
 
       focusInOut($input3);
       focusInOut($input2);
