@@ -121,7 +121,7 @@ describe('Validation', function() {
 
       focusInOut($input);
 
-      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).not.to.equal(-1);
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).not.to.equal(-1);
     });
 
     it('removes references to the inline error from aria-describedby when valid', function() {
@@ -131,7 +131,7 @@ describe('Validation', function() {
       focusInOut($input);
       $input.val('test').keyup();
 
-      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).to.equal(-1);
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).to.equal(-1);
     });
 
     it('shows the validation summary if left empty on submit', function() {
@@ -255,8 +255,8 @@ describe('Validation', function() {
 
       focusInOut($input1);
 
-      expect($input1.attr('aria-describedby').indexOf(validation._getInlineErrorID('input1'))).not.to.equal(-1);
-      expect($input2.attr('aria-describedby').indexOf(validation._getInlineErrorID('input2'))).not.to.equal(-1);
+      expect($input1.attr('aria-describedby').indexOf(validation._getInlineErrorID($input1.attr('name')))).not.to.equal(-1);
+      expect($input2.attr('aria-describedby').indexOf(validation._getInlineErrorID($input2.attr('name')))).not.to.equal(-1);
     });
 
     it('removes references to the inline error from aria-describedby when valid on both inputs', function() {
@@ -267,8 +267,8 @@ describe('Validation', function() {
       focusInOut($input1);
       $input1.prop('checked', true).change();
 
-      expect($input1.attr('aria-describedby').indexOf(validation._getInlineErrorID('input1'))).to.equal(-1);
-      expect($input2.attr('aria-describedby').indexOf(validation._getInlineErrorID('input2'))).to.equal(-1);
+      expect($input1.attr('aria-describedby').indexOf(validation._getInlineErrorID($input1.attr('name')))).to.equal(-1);
+      expect($input2.attr('aria-describedby').indexOf(validation._getInlineErrorID($input2.attr('name')))).to.equal(-1);
     });
 
     it('shows the validation summary if left empty on submit', function() {
@@ -392,7 +392,7 @@ describe('Validation', function() {
 
       focusInOut($input);
 
-      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).not.to.equal(-1);
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).not.to.equal(-1);
     });
 
     it('removes references to the inline error from aria-describedby when valid', function() {
@@ -402,7 +402,7 @@ describe('Validation', function() {
       focusInOut($input);
       $input.val('tested').keyup();
 
-      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).to.equal(-1);
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).to.equal(-1);
     });
 
     it('shows the validation summary if not enough chars on submit', function() {
@@ -529,7 +529,7 @@ describe('Validation', function() {
 
       focusInOut($input);
 
-      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).not.to.equal(-1);
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).not.to.equal(-1);
     });
 
     it('removes references to the inline error from aria-describedby when valid', function() {
@@ -539,7 +539,7 @@ describe('Validation', function() {
       focusInOut($input);
       $input.val('test@tested.com').keyup();
 
-      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).to.equal(-1);
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).to.equal(-1);
     });
 
     it('shows the validation summary if the regexp does not match on submit', function() {
@@ -688,7 +688,7 @@ describe('Validation', function() {
 
       focusInOut($input);
 
-      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).not.to.equal(-1);
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).not.to.equal(-1);
     });
 
     it('removes references to the inline error from aria-describedby when valid', function() {
@@ -698,7 +698,7 @@ describe('Validation', function() {
       focusInOut($input);
       $input.val('3').keyup();
 
-      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID('input'))).to.equal(-1);
+      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).to.equal(-1);
     });
 
     it('shows the validation summary if the number is too low on submit', function() {

@@ -28,7 +28,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   uiEvents = {
     'blur input, select, textarea': '_handleBlurEvent',
     'keyup input, textarea': '_handleChangeEvent',
-    'change select': '_handleChangeEvent',
+    'change input, select': '_handleChangeEvent',
     'submit': '_handleSubmit'
   },
 
@@ -264,7 +264,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     $fieldGroup.each($.proxy(function(i, field) {
       var $field = $(field),
           existingDescribedBy = $field.attr('aria-describedby') || '',
-          inlineErrorID = this._getInlineErrorID($field.attr('id'));
+          inlineErrorID = this._getInlineErrorID($field.attr('name'));
 
       $field.removeAttr('aria-invalid');
       $field.attr('aria-describedby', existingDescribedBy.replace(inlineErrorID, ''));
@@ -308,7 +308,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
         fieldGroupValidity = {
           errors: [],
           isEmpty: true,
-          isInvalid: true,
+          isInvalid: false,
           hasError: false,
           message: '',
           name: $primaryField.attr('name'),
@@ -329,12 +329,12 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     // Hoist up to top level for ease of access
     $.each(fieldGroupValidity.errors, function(i, validatorResults) {
-      if (validatorResults.isEmpty !== true) {
+      if (validatorResults.name == "required" && validatorResults.isEmpty !== true) {
         fieldGroupValidity.isEmpty = false;
       }
 
-      if (validatorResults.isInvalid !== true) {
-        fieldGroupValidity.isInvalid = false;
+      if (validatorResults.isInvalid) {
+        fieldGroupValidity.isInvalid = true;
       }
     });
 
