@@ -7,11 +7,11 @@ describe('Visibility toggler', function() {
   beforeEach(function(done) {
     var self = this;
     requirejs(
-        ['jquery', 'Collapsable'],
-        function($, Collapsable) {
+        ['jquery', 'Collapsable', 'componentLoader'],
+        function($, Collapsable, componentLoader) {
           self.Collapsable = Collapsable;
+          self.componentLoader = componentLoader;
           self.$html = $(window.__html__['spec/js/fixtures/Collapsable.html']).appendTo('body');
-          self.$target = self.$html.filter('[data-dough-collapsable-target]');
           done();
         }, done);
   });
@@ -22,11 +22,15 @@ describe('Visibility toggler', function() {
 
   describe('closed by default', function() {
 
-    beforeEach(function() {
-      this.collapsable = new this.Collapsable(this.$html.filter('[data-dough-collapsable-trigger]'));
-      this.collapsable.init();
-      this.$trigger = this.$html.find('button');
-      this.$triggerLabel = this.$html.find('[data-dough-collapsable-label]');
+    beforeEach(function(done) {
+      var self = this;
+      this.componentLoader.init(this.$html).then(function(){
+        self.$trigger = self.$html.find('button').first();
+        self.$triggerLabel = self.$trigger.find('[data-dough-collapsable-label]');
+        self.$target = self.$html.find('[data-dough-collapsable-target]').first();
+        done();
+      });
+
     });
 
     it('collapses the target panel by default', function() {
@@ -70,20 +74,44 @@ describe('Visibility toggler', function() {
 
   });
 
-
   describe('expanded by default', function() {
 
+    beforeEach(function(done) {
+      this.$html.find('[data-dough-collapsable-trigger]').first().attr('data-dough-collapsable-config','{"forceTo": "show"}');
+      this.componentLoader.init(this.$html).then(function() {
+        done();
+      });
+    });
+
     it('wraps a button around the trigger text', function() {
-      this.collapsable = new this.Collapsable(
-          this.$html.filter('[data-dough-collapsable-trigger]'),
-          {
-            forceTo: 'show'
-          }
-      );
-      this.collapsable.init();
+      this.$target = this.$html.find('[data-dough-collapsable-target]').first();
       expect(this.$target).to.have.class(activeClass);
     });
 
+  });
+
+  describe('linked to other collapsables', function() {
+
+    beforeEach(function(done) {
+      this.componentLoader.init(this.$html).then(function() {
+        done();
+      });
+    });
+
+    it('closes linked collapsables when opened', function() {
+      this.$trigger1 = this.$html.find('[data-dough-collapsable-trigger] button').first();
+      this.$trigger2 = this.$html.find('[data-dough-collapsable-trigger] button').last();
+      this.$target1 = this.$html.find('[data-dough-collapsable-target]').first();
+      this.$target2 = this.$html.find('[data-dough-collapsable-target]').last();
+      this.$trigger1.click();
+      expect(this.$target1).to.have.class(activeClass);
+      this.$trigger2.click();
+      expect(this.$target2).to.have.class(activeClass);
+      expect(this.$target1).to.not.have.class(activeClass);
+      this.$trigger1.click();
+      expect(this.$target1).to.have.class(activeClass);
+      expect(this.$target2).to.not.have.class(activeClass);
+    });
   });
 
 });

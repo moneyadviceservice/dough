@@ -43,11 +43,12 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     this.selectors = selectors;
     DoughBaseComponent.call(this, $el, config);
     this.$trigger = this.$el;
-    this.$target = $('[data-dough-collapsable-target="' + this.$trigger.attr('data-dough-collapsable-trigger') + '"]');
+    this.targetId = this.$trigger.attr('data-dough-collapsable-trigger');
+    this.$target = $('[data-dough-collapsable-target="' + this.targetId + '"]');
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
-    this._setupAccessibility();
+    this._setupAccessibility(this.targetId);
     this.$trigger = this.$trigger.find('button');
-    config && config.forceTo && this.toggle(config.forceTo);
+    this._eventHubSubscriptions();
     return this;
   }
 
@@ -59,8 +60,20 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   DoughBaseComponent.extend(Collapsable);
   CollapsableProto = Collapsable.prototype;
 
-  CollapsableProto._setupAccessibility = function() {
-    var id = 'data-dough-collapsable-target-' + this.$target.attr('data-dough-collapsable-target');
+  CollapsableProto._eventHubSubscriptions = function() {
+    var _this = this;
+    this.linkedIds = this.config.linkedIds;
+    if (this.linkedIds && this.linkedIds.length) {
+      eventsWithPromises.subscribe('Collapsable:toggled', function(data) {
+        if ((data.visible === true) && ($.inArray(data.targetId, _this.linkedIds) > -1)) {
+          _this.toggle('hide');
+        }
+      });
+    }
+  };
+
+  CollapsableProto._setupAccessibility = function(targetId) {
+    var id = 'data-dough-collapsable-target-' + targetId;
 
     this.$trigger.wrapInner('<button class="unstyled-button" type="button"/>');
     this.$trigger.find('button')
@@ -78,6 +91,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    * @return {Collapsable}
    */
   CollapsableProto.init = function(initialised) {
+    this.config && this.config.forceTo && this.toggle(this.config.forceTo);
     // is the target element visible already
     this.isShown = !!this.$target.hasClass(this.selectors.activeClass);
     this.setListeners(true);
@@ -144,9 +158,10 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
 
     // can bind to this by eventsWithPromises.subscribe('toggler:toggled', function(Collapsable) { });
     if (typeof forceTo === 'undefined') {
-      eventsWithPromises.publish('toggler:toggled', {
+      eventsWithPromises.publish('Collapsable:toggled', {
         emitter: this,
-        visible: this.isShown
+        visible: this.isShown,
+        targetId: this.targetId
       });
     }
 
