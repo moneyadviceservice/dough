@@ -126,7 +126,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
             inputName = $input.attr('name'),
             errorIndex = this._getErrorIndexByName(inputName);
 
-        if (errorIndex > -1 && groupsDealtWith.indexOf(inputName) === -1) {
+        if (errorIndex > -1 && $.inArray(inputName, groupsDealtWith) === -1) {
           rowHasErrors = true;
           groupsDealtWith.push(inputName);
           errorHTML += '<p id="' + this._getInlineErrorID(inputName) + '" class="' + this.config.validationSummaryErrorClass + '">' + (errorIndex + 1) + '. ' + this.errors[errorIndex].message + '</p>';
@@ -247,7 +247,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
       $field.attr('aria-invalid', 'true');
 
-      if (existingDescribedBy.indexOf(inlineErrorID) === -1) {
+      if ($.inArray(inlineErrorID, existingDescribedBy) === -1) {
         $field.attr('aria-describedby', existingDescribedBy + ' ' + inlineErrorID);
       }
     }, this));
@@ -492,7 +492,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
           fieldName = $field.attr('name'),
           fieldErrorIndex = this._getErrorIndexByName(fieldName);
 
-      if (fieldErrorIndex !== -1 && groupsDealtWith.indexOf(fieldName) === -1) {
+      if (fieldErrorIndex !== -1 && $.inArray(fieldName, groupsDealtWith) === -1) {
         sortedErrors.push(this.errors[fieldErrorIndex]);
         groupsDealtWith.push(fieldName);
       }
