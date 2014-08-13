@@ -77,7 +77,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation}        Class instance
    */
   Validation.prototype.addError = function(fieldValidity) {
-    var existingErrorIndex = this._getErrorIndexByID(fieldValidity.$field.attr('id'));
+    var existingErrorIndex = this._getErrorIndexByName(fieldValidity.name);
     if (existingErrorIndex === -1) {
       this.errors.push(fieldValidity);
     }
@@ -85,7 +85,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       this.errors[existingErrorIndex] = fieldValidity;
     }
 
-    this._addAccessibility(fieldValidity.$field);
+    this._addAccessibility(fieldValidity.$fieldGroup);
     this._sortErrorsByFieldDisplayOrder().refreshInlineErrors().refreshValidationSummary();
 
     return this;
@@ -97,12 +97,12 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation}        Class instance
    */
   Validation.prototype.removeError = function(fieldValidity) {
-    var existingErrorIndex = this._getErrorIndexByID(fieldValidity.$field.attr('id'));
+    var existingErrorIndex = this._getErrorIndexByName(fieldValidity.name);
     if (existingErrorIndex !== -1) {
       this.errors.splice(existingErrorIndex, 1);
     }
 
-    this._removeAccessibility(fieldValidity.$field);
+    this._removeAccessibility(fieldValidity.$fieldGroup);
     this._sortErrorsByFieldDisplayOrder().refreshInlineErrors().refreshValidationSummary();
 
     return this;
@@ -122,12 +122,12 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
       $inputs.each($.proxy(function(_i, _o) {
         var $input = $(_o),
-            inputID = $input.attr('id'),
-            errorIndex = this._getErrorIndexByID(inputID);
+            inputName = $input.attr('name'),
+            errorIndex = this._getErrorIndexByName(inputName);
 
         if (errorIndex > -1) {
           rowHasErrors = true;
-          errorHTML += '<p id="' + this._getInlineErrorID(inputID) + '" class="' + this.config.validationSummaryErrorClass + '">' + (errorIndex + 1) + '. ' + this.errors[errorIndex].message + '</p>';
+          errorHTML += '<p id="' + this._getInlineErrorID(inputName) + '" class="' + this.config.validationSummaryErrorClass + '">' + (errorIndex + 1) + '. ' + this.errors[errorIndex].message + '</p>';
         }
       }, this));
 
@@ -150,13 +150,13 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation} Class instance
    */
   Validation.prototype.refreshValidationSummary = function() {
-    var fieldID,
+    var fieldName,
         fieldValidity,
         summaryHTML = '';
 
     $.each(this.errors, $.proxy(function(errorIndex, fieldValidity) {
-      fieldID = fieldValidity.$field.attr('id');
-      summaryHTML += '<li class="' + this.config.validationSummaryErrorClass + '"><a href="#error-' + fieldID + '">' + fieldValidity.message + '</a></li>';
+      fieldName = fieldValidity.name;
+      summaryHTML += '<li class="' + this.config.validationSummaryErrorClass + '"><a href="#error-' + fieldName + '">' + fieldValidity.message + '</a></li>';
     }, this));
 
     this.$el.find('[' + this.config.validationSummaryListAttribute + ']').html(summaryHTML);
@@ -174,7 +174,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation}        Class instance
    */
   Validation.prototype.checkFieldValidity = function($field) {
-    var fieldValidity = this._getFieldValidity($field);
+    var $fieldGroup = this._getFieldGroup($field),
+        fieldValidity = this._getFieldGroupValidity($fieldGroup);
 
     if (fieldValidity.hasError) {
       this.addError(fieldValidity);
@@ -223,43 +224,49 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * for the aria-describedby property on the field.
    *
    * @private
-   * @param  {String} fieldID The field ID
+   * @param  {String} fieldName The field name
    * @return {String}         The inline error ID
    */
-  Validation.prototype._getInlineErrorID = function(fieldID) {
-    return 'error-' + fieldID;
+  Validation.prototype._getInlineErrorID = function(fieldName) {
+    return 'error-' + fieldName;
   };
 
   /**
    * Add the accessibility attributes to an invalid field
    * @private
-   * @param {jQuery} $field jQuery field
+   * @param {jQuery} $fieldGroup jQuery field
    * @return {Validation}  Class instance
    */
-  Validation.prototype._addAccessibility = function($field) {
-    var existingDescribedBy = $field.attr('aria-describedby') || '',
-        inlineErrorID = this._getInlineErrorID($field.attr('id'));
+  Validation.prototype._addAccessibility = function($fieldGroup) {
+    $fieldGroup.each($.proxy(function(i, field) {
+      var $field = $(field),
+          existingDescribedBy = $field.attr('aria-describedby') || '',
+          inlineErrorID = this._getInlineErrorID($field.attr('name'));
 
-    $field.attr('aria-invalid', 'true');
+      $field.attr('aria-invalid', 'true');
 
-    if (existingDescribedBy.indexOf(inlineErrorID) === -1) {
-      $field.attr('aria-describedby', existingDescribedBy + ' ' + inlineErrorID);
-    }
+      if (existingDescribedBy.indexOf(inlineErrorID) === -1) {
+        $field.attr('aria-describedby', existingDescribedBy + ' ' + inlineErrorID);
+      }
+    }, this));
 
     return this;
   };
 
   /**
    * Remove aria attributes for a valid field
-   * @param  {[type]} $field [description]
+   * @param  {[type]} $fieldGroup [description]
    * @return {[type]}               [description]
    */
-  Validation.prototype._removeAccessibility = function($field) {
-    var existingDescribedBy = $field.attr('aria-describedby') || '',
-        inlineErrorID = this._getInlineErrorID($field.attr('id'));
+  Validation.prototype._removeAccessibility = function($fieldGroup) {
+    $fieldGroup.each($.proxy(function(i, field) {
+      var $field = $(field),
+          existingDescribedBy = $field.attr('aria-describedby') || '',
+          inlineErrorID = this._getInlineErrorID($field.attr('id'));
 
-    $field.removeAttr('aria-invalid');
-    $field.attr('aria-describedby', existingDescribedBy.replace(inlineErrorID, ''));
+      $field.removeAttr('aria-invalid');
+      $field.attr('aria-describedby', existingDescribedBy.replace(inlineErrorID, ''));
+    }, this));
 
     return this;
   };
@@ -287,28 +294,34 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   /**
-   * Check a field's validity
+   * Check a field group's validity
    *
    * @private
-   * @param  {jQuery} $field The field to validate
+   * @param  {jQuery} $fieldGroup The field group to validate (grouped by 'name' attribute)
    * @return {Object}        A hash containing status and the appropriate error message
    */
-  Validation.prototype._getFieldValidity = function($field) {
-    var fieldValidity = {
-      errors: [],
-      isEmpty: false,
-      isInvalid: false,
-      hasError: false,
-      message: '',
-      $field: $field
-    };
+  Validation.prototype._getFieldGroupValidity = function($fieldGroup) {
+    var $primaryField = $fieldGroup.first(),
+        fieldValidity = {
+          errors: [],
+          isEmpty: false,
+          isInvalid: false,
+          hasError: false,
+          message: '',
+          name: $primaryField.attr('name'),
+          $fieldGroup: $fieldGroup
+        };
 
     // Populate the field validity with an array of results from the various validators
     $.each(this.ATTRIBUTE_VALIDATORS, $.proxy(function(attributeSelector, handler) {
-      var attr = $field.attr(attributeSelector);
-      if (attr) {
-        fieldValidity.errors.push(this[handler]($field, $field.val(), attr));
-      }
+      $fieldGroup.each($.proxy(function(_fieldIndex, field) {
+        var $field = $(field),
+            attr = $field.attr(attributeSelector);
+
+        if (attr) {
+          fieldValidity.errors.push(this[handler]($field, $field.val(), attr));
+        }
+      }, this));
     }, this));
 
     // Hoist up to top level for ease of access
@@ -326,11 +339,11 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     // Check which message to use, empty should take prescedence
     if (fieldValidity.isInvalid) {
-      fieldValidity.message = $field.attr(this.config.attributeInvalid) || $field.attr(this.config.attributeEmpty);
+      fieldValidity.message = $primaryField.attr(this.config.attributeInvalid) || $primaryField.attr(this.config.attributeEmpty);
     }
 
     if (fieldValidity.isEmpty) {
-      fieldValidity.message = $field.attr(this.config.attributeEmpty);
+      fieldValidity.message = $primaryField.attr(this.config.attributeEmpty);
     }
 
     return fieldValidity;
@@ -347,8 +360,14 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   Validation.prototype._validateRequired = function($field, value, required) {
     var validity = { name: 'required' };
-    if (value == '') {
+
+    if ($field.is('[type="radio"]') && !$field.prop('checked')) {
       validity.isEmpty = true;
+    }
+    else {
+      if (value == '') {
+        validity.isEmpty = true;
+      }
     }
 
     return validity;
@@ -432,17 +451,17 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   /**
-   * Get the index in the error array according to the field ID
+   * Get the index in the error array according to the field group name
    *
    * @private
-   * @param  {String} fieldID Field ID
+   * @param  {String} fieldName Field name
    * @return {Integer}    Index in errors array
    */
-  Validation.prototype._getErrorIndexByID = function(fieldID) {
+  Validation.prototype._getErrorIndexByName = function(fieldName) {
     var matchedErrorIndex = -1;
     $.each(this.errors, $.proxy(function(index, fieldValidity) {
-      var _fieldID = fieldValidity.$field.attr('id');
-      if (_fieldID === fieldID) {
+      var _fieldName = fieldValidity.name;
+      if (_fieldName === fieldName) {
         matchedErrorIndex = index;
         return;
       }
@@ -466,8 +485,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     this.$allFieldsOnPage.each($.proxy(function(i, o) {
       var $field = $(o),
-          fieldID = $field.attr('id'),
-          fieldErrorIndex = this._getErrorIndexByID(fieldID);
+          fieldName = $field.attr('name'),
+          fieldErrorIndex = this._getErrorIndexByName(fieldName);
 
       if (fieldErrorIndex !== -1) {
         sortedErrors.push(this.errors[fieldErrorIndex]);
@@ -476,6 +495,21 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     this.errors = sortedErrors;
     return this;
+  };
+
+  /**
+   * Look for all fields with the same name, and validate
+   * as a group.
+   * Typical use case for this is radio/checkboxes.
+   *
+   * @param  {jQuery} $field jQuery field
+   * @return {jQuery}        jQuery fieldgroup, array of fields with matching name
+   */
+  Validation.prototype._getFieldGroup = function($field) {
+    var $fieldGroup,
+        fieldName = $field.attr('name');
+
+    return this.$allFieldsOnPage.filter('[name="' + fieldName + '"]');
   };
 
   /**
@@ -499,7 +533,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   Validation.prototype._handleChangeEvent = function(e) {
     var $field = $(e.target);
 
-    if (this._getErrorIndexByID($field.attr('id')) > -1) {
+    if (this._getErrorIndexByName($field.attr('name')) > -1) {
       this.checkFieldValidity($field);
     }
   };

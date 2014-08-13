@@ -265,7 +265,7 @@ describe('Validation', function() {
           $input2 = validation.$el.find('#input2');
 
       focusInOut($input1);
-      $input1.prop("checked", true);
+      $input1.prop('checked', true).change();
 
       expect($input1.attr('aria-describedby').indexOf(validation._getInlineErrorID('input1'))).to.equal(-1);
       expect($input2.attr('aria-describedby').indexOf(validation._getInlineErrorID('input2'))).to.equal(-1);
@@ -306,7 +306,7 @@ describe('Validation', function() {
           $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
 
       validation.$el.submit();
-      $input.prop('checked', true);
+      $input.prop('checked', true).change();
 
       expect($input.parents('.form__row')).not.to.have.class(validation.config.rowInvalidClass);
       expect($validationSummaryList.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
@@ -318,7 +318,7 @@ describe('Validation', function() {
           $input = validation.$el.find('#input1'),
           $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
 
-      $input.prop('checked', true);
+      $input.prop('checked', true).change();
       validation.$el.submit();
 
       expect($validationSummaryList.find('li').length).to.equal(0);
