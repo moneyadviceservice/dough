@@ -327,6 +327,18 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       }, this));
     }, this));
 
+    return this._prepareFieldGroupValidity($primaryField, fieldGroupValidity);
+  };
+
+  /**
+   * Make the fieldValidity object useful by hoisting up
+   * various properties from the individual validators
+   *
+   * @param  {jQuery} $primaryField      The primary field of the group (usually the first)
+   * @param  {Object} fieldGroupValidity Validity object including results of the validators
+   * @return {Object}                    fieldGroupValidity with normalised states for display
+   */
+  Validation.prototype._prepareFieldGroupValidity = function($primaryField, fieldGroupValidity) {
     // Hoist up to top level for ease of access
     $.each(fieldGroupValidity.errors, function(i, validatorResults) {
       if (validatorResults.name == "required" && validatorResults.isEmpty !== true) {
@@ -351,6 +363,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     return fieldGroupValidity;
   };
+
 
   /**
    * Basic required field validator, for non-empty
