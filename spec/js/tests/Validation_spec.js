@@ -190,6 +190,25 @@ describe('Validation', function() {
     });
   });
 
+  // Radio buttons
+  describe('Required Radio Buttons', function() {
+    beforeEach(function(done) {
+      var self = this;
+      requirejs(
+          ['jquery', 'Validation'],
+          function($, Validation) {
+            self.$html = $(window.__html__['test/fixtures/Validation/RadioButtons.html']).appendTo('body');
+            self.component = self.$html.find('[data-dough-component="Validation"]');
+            self.Validation = Validation;
+            done();
+          }, done);
+    });
+
+    afterEach(function() {
+      this.$html.remove();
+    });
+  });
+
 
 
   // Minimum length check
