@@ -78,12 +78,9 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   Validation.prototype.addError = function(fieldGroupValidity) {
     var existingErrorIndex = this._getErrorIndexByName(fieldGroupValidity.name);
-    console.log('adding', existingErrorIndex, fieldGroupValidity.name);
 
     if (existingErrorIndex !== -1) {
-      console.log('dupe', this.errors);
       this.errors.splice(existingErrorIndex, 1);
-      console.log('afftedupe', this.errors);
     }
 
     this.errors.push(fieldGroupValidity);
@@ -300,6 +297,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   /**
    * Check a field group's validity
+   * For required fields, only ONE element in the group needs a value
    *
    * @private
    * @param  {jQuery} $fieldGroup The field group to validate (grouped by 'name' attribute)
@@ -309,8 +307,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     var $primaryField = $fieldGroup.first(),
         fieldGroupValidity = {
           errors: [],
-          isEmpty: false,
-          isInvalid: false,
+          isEmpty: true,
+          isInvalid: true,
           hasError: false,
           message: '',
           name: $primaryField.attr('name'),
@@ -331,16 +329,16 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     // Hoist up to top level for ease of access
     $.each(fieldGroupValidity.errors, function(i, validatorResults) {
-      if (validatorResults.isEmpty) {
-        fieldGroupValidity.isEmpty = true;
+      if (validatorResults.isEmpty !== true) {
+        fieldGroupValidity.isEmpty = false;
       }
 
-      if (validatorResults.isInvalid) {
-        fieldGroupValidity.isInvalid = true;
+      if (validatorResults.isInvalid !== true) {
+        fieldGroupValidity.isInvalid = false;
       }
     });
 
-    fieldGroupValidity.hasError = fieldGroupValidity.isEmpty || fieldGroupValidity.isInvalid;
+    fieldGroupValidity.hasError = fieldGroupValidity.errors.length && (fieldGroupValidity.isEmpty || fieldGroupValidity.isInvalid);
 
     // Check which message to use, empty should take prescedence
     if (fieldGroupValidity.isInvalid) {
@@ -555,8 +553,6 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     this.$allFieldsOnPage.each($.proxy(function(i, field) {
       this.checkfieldGroupValidity($(field));
     }, this));
-
-    console.log(this.errors);
 
     if (this.errors.length) {
       e.preventDefault();
