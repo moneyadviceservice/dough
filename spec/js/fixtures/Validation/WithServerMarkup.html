@@ -1,0 +1,28 @@
+<div>
+  <form data-dough-component="Validation" class="form" action="/test" novalidate>
+    <div class="validation-summary" role="alert">
+      <div class="validation-summary__content-container">
+        <p class="validation-summary__title">Please double-check for the following errors:</p>
+        <ol class="validation-summary__list" data-dough-validation-summary-list>
+          <li class="validation-summary__error"><a href="#error-1">Email is invalid</a></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="form__row is-errored">
+      <span class="js-inline-error">
+        <p class="validation-summary__error" id="error-1">
+          1. Email is invalid
+        </p>
+      </span>
+
+      <input type="text" name="name" id="input" value=""
+
+      data-dough-validation-empty="Please provide your name"
+      aria-required
+      required>
+    </div>
+
+    <input type="submit" id="submit">
+  </form>
+</div>

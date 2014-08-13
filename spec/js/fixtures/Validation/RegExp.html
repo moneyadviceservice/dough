@@ -1,10 +1,14 @@
 <div>
-  <form data-dough-component="Validation" novalidate>
-    <input type="text" name="email" id="input" value="" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}"
+  <form data-dough-component="Validation" class="form" action="/test" novalidate>
+    <div class="form__row">
+      <input type="text" name="email" id="input" value="" pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}"
 
-    data-dough-validation-empty="Please provide your email"
-    data-dough-validation-invalid="Please provide a valid email"
-    required>
+      data-dough-validation-empty="Please provide your email"
+      data-dough-validation-invalid="Please provide a valid email"
+      aria-required
+      required>
+
+    </div>
 
     <input type="submit" id="submit">
   </form>

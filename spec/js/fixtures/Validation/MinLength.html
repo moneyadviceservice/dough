@@ -1,11 +1,14 @@
 <div>
-  <form data-dough-component="Validation" novalidate>
-    <input type="text" name="id" id="input" value="" minlength="5"
+  <form data-dough-component="Validation" class="form" action="/test" novalidate>
+    <div class="form__row">
+      <input type="text" name="id" id="input" value="" minlength="5"
 
-    data-dough-validation-empty="Please provide your ID"
-    data-dough-validation-invalid="Please provide an ID of at least 5 characters"
-    required>
+      data-dough-validation-empty="Please provide your ID"
+      data-dough-validation-invalid="Please provide an ID of at least 5 characters"
+      aria-required
+      required>
 
+    </div>
     <input type="submit" id="submit">
   </form>
 </div>
