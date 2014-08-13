@@ -1,14 +1,18 @@
 <div>
   <form data-dough-component="Validation" class="form" action="/test" novalidate>
     <div class="form__row ">
-        <input aria-required="true"
-               class="input--radio input--radio-first"
-               data-dough-validation-empty="You must enter your gender to continue."
-               name="gender" required="required" type="radio" value="female">
-        <input aria-required="true"
-               class="input--radio" data-dough-bind-checked="gender"
-               data-dough-validation-empty="You must enter your gender to continue."
-               name="gender" required="required" type="radio" value="male">
+        <input
+              id="input1"
+              aria-required="true"
+              class="input--radio input--radio-first"
+              data-dough-validation-empty="You must enter your gender to continue."
+              name="gender" required="required" type="radio" value="female">
+        <input
+              id="input2"
+              aria-required="true"
+              class="input--radio" data-dough-bind-checked="gender"
+              data-dough-validation-empty="You must enter your gender to continue."
+              name="gender" required="required" type="radio" value="male">
     </div>
     <input type="submit" id="submit">
   </form>
