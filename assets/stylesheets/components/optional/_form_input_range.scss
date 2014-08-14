@@ -90,8 +90,11 @@
 }
 
 .l-form__range {
-  width: 50%;
+  @include respond-to($mq-m) {
+    width: 50%;
+  }
 }
+
 %input--range {
   display: inline-block;
   vertical-align: middle;
