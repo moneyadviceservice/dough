@@ -44,6 +44,8 @@ bundle install
 
 ### Link `dough-ruby` to your local copy, in _PROJECT_'s `Gemfile`
 
+***DO NOT COMMIT THIS!!!***
+
 ```sh
 # Add this to the top of the file if it doesn't exist already
 gem 'dough-ruby', path: '~/Sites/dough' # or whatever your local Dough is
