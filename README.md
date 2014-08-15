@@ -35,14 +35,14 @@ you want to use a local copy of Dough.
 
 For the purpose of this example, _PROJECT_ refers to _Pension Calculator_, or whatever you're working on.
 
-### Make sure you have the latest bundle in _PROJECT_
+#### Make sure you have the latest bundle in _PROJECT_
 
 ```sh
 cd PROJECT
 bundle install
 ```
 
-### Link `dough-ruby` to your local copy, in _PROJECT_'s `Gemfile`
+#### Link `dough-ruby` to your local copy, in _PROJECT_'s `Gemfile`
 
 ***DO NOT COMMIT THIS!!!***
 
@@ -51,14 +51,14 @@ bundle install
 gem 'dough-ruby', path: '~/Sites/dough' # or whatever your local Dough is
 ```
 
-### Set up `bower link` in Dough
+#### Set up `bower link` in Dough
 
 ```sh
 cd ~/Sites/dough # or whatever your local Dough is
 bower link
 ```
 
-### Connect the link above to _PROJECT_
+#### Connect the link above to _PROJECT_
 
 ```sh
 cd PROJECT
