@@ -25,6 +25,44 @@ $ bower install
 $ npm install
 ```
 
+## How to use a local copy of Dough
+
+**Dough is a bower module embedded inside a ruby gem.**
+
+Use these instructions when you're working on Dough and want to
+see the effects within another project. For example, if you're working on _Pension Calculator_,
+you want to use a local copy of Dough.
+
+For the purpose of this example, _PROJECT_ refers to _Pension Calculator_, or whatever you're working on.
+
+### Make sure you have the latest bundle in _PROJECT_
+
+```sh
+cd PROJECT
+bundle install
+```
+
+### Link `dough-ruby` to your local copy, in _PROJECT_'s `Gemfile`
+
+```sh
+# Add this to the top of the file if it doesn't exist already
+gem 'dough-ruby', path: '~/Sites/dough' # or whatever your local Dough is
+```
+
+### Set up `bower link` in Dough
+
+```sh
+cd ~/Sites/dough # or whatever your local Dough is
+bower link
+```
+
+### Connect the link above to _PROJECT_
+
+```sh
+cd PROJECT
+bower link dough
+```
+
 ## Generating Docs
 
 Ensure all dependencies are installed, and simply run:
