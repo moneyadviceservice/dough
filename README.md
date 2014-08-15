@@ -25,7 +25,7 @@ $ bower install
 $ npm install
 ```
 
-## How to use a local copy of Dough
+## How to use a local copy of Dough
 
 **Dough is a bower module embedded inside a ruby gem.**
 
