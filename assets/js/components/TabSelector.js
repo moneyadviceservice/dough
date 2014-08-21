@@ -27,7 +27,8 @@
  * @return {object}
  * @private
  */
-define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], function($, DoughBaseComponent, eventsWithPromises, mediaQueries) {
+define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
+    function($, DoughBaseComponent, eventsWithPromises, mediaQueries) {
   'use strict';
 
   var TabSelector,
@@ -51,25 +52,24 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
    * @constructor
    */
   TabSelector = function($el, config) {
-    var _this = this,
-        $first;
+    var $first;
 
     this.uiEvents = uiEvents;
     TabSelector.baseConstructor.apply(this, arguments);
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this.selectors = $.extend(this.selectors || {}, selectors);
+
     this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
     this._setupAccessibility();
-    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
     $first = this.$triggersContainer.find('[' + selectors.trigger + ']').first();
     if ($first.length) {
       this._updateTriggers($first.attr(selectors.trigger));
     }
-    eventsWithPromises.subscribe('mediaquery:resize', function(data) {
-      if ($.inArray(data.newSize, ['mq-xs', 'mq-s']) !== -1) {
-        _this.$triggersContainer.removeClass(_this.selectors.activeClass).addClass(_this.selectors.inactiveClass);
-      }
-    });
+
+    // set height after triggers updated, so active trigger is visible on small viewport
+    this._setTriggerContainerHeight();
+
+    this._subscribeHubEvents();
   };
 
   /**
@@ -102,6 +102,20 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
       'tabindex': '-1'
     });
     this._convertLinksToButtons();
+  };
+
+  TabSelector.prototype._setTriggerContainerHeight = function() {
+    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
+  };
+
+  TabSelector.prototype._subscribeHubEvents = function() {
+    var _this = this;
+
+    eventsWithPromises.subscribe('mediaquery:resize', function(data) {
+      if ($.inArray(data.newSize, ['mq-xs', 'mq-s']) !== -1) {
+        _this.$triggersContainer.removeClass(_this.selectors.activeClass).addClass(_this.selectors.inactiveClass);
+      }
+    });
   };
 
   /**
@@ -213,7 +227,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
    * @private
    */
   TabSelector.prototype._updateTargets = function(targetAttr) {
-    var $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
+    var scrollTop,
+        $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
         $unselectedTargets = this.$el.find('[' + selectors.target + ']')
             .not('[' + selectors.target + '="' + targetAttr + '"]');
 
@@ -225,11 +240,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
           'tabindex': 0
         });
 
-    //only focus if tabs not collapsed into a dropdown
-    if (!mediaQueries.atSmallViewport()) {
-      $selectedTarget.focus();
-    }
-
+    this._focusTarget($selectedTarget);
 
     $unselectedTargets
         .removeClass(this.selectors.activeClass)
@@ -240,6 +251,23 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
         });
 
     return this;
+  };
+
+  /**
+   * Focus the selected target panel
+   * @param {jQuery} $selectedTarget
+   * @private
+   */
+  TabSelector.prototype._focusTarget = function($selectedTarget) {
+    var scrollTop;
+
+    //only focus if tabs not collapsed into a dropdown
+    if (!mediaQueries.atSmallViewport()) {
+      scrollTop = $(window).scrollTop();
+      $selectedTarget.focus();
+      // stop the focus from scrolling the page
+      $('html,body').scrollTop(scrollTop);
+    }
   };
 
   return TabSelector;
