@@ -227,7 +227,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
    * @private
    */
   TabSelector.prototype._updateTargets = function(targetAttr) {
-    var $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
+    var scrollTop,
+        $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
         $unselectedTargets = this.$el.find('[' + selectors.target + ']')
             .not('[' + selectors.target + '="' + targetAttr + '"]');
 
@@ -241,7 +242,10 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
 
     //only focus if tabs not collapsed into a dropdown
     if (!mediaQueries.atSmallViewport()) {
+      scrollTop = $(window).scrollTop();
       $selectedTarget.focus();
+      // stop the focus from scrolling the page
+      $('html,body').scrollTop(scrollTop);
     }
 
 
