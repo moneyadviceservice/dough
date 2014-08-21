@@ -240,14 +240,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
           'tabindex': 0
         });
 
-    //only focus if tabs not collapsed into a dropdown
-    if (!mediaQueries.atSmallViewport()) {
-      scrollTop = $(window).scrollTop();
-      $selectedTarget.focus();
-      // stop the focus from scrolling the page
-      $('html,body').scrollTop(scrollTop);
-    }
-
+    this._focusTarget($selectedTarget);
 
     $unselectedTargets
         .removeClass(this.selectors.activeClass)
@@ -258,6 +251,23 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
         });
 
     return this;
+  };
+
+  /**
+   * Focus the selected target panel
+   * @param {jQuery} $selectedTarget
+   * @private
+   */
+  TabSelector.prototype._focusTarget = function($selectedTarget) {
+    var scrollTop;
+
+    //only focus if tabs not collapsed into a dropdown
+    if (!mediaQueries.atSmallViewport()) {
+      scrollTop = $(window).scrollTop();
+      $selectedTarget.focus();
+      // stop the focus from scrolling the page
+      $('html,body').scrollTop(scrollTop);
+    }
   };
 
   return TabSelector;
