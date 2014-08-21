@@ -27,7 +27,8 @@
  * @return {object}
  * @private
  */
-define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], function($, DoughBaseComponent, eventsWithPromises, mediaQueries) {
+define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
+    function($, DoughBaseComponent, eventsWithPromises, mediaQueries) {
   'use strict';
 
   var TabSelector,
@@ -51,26 +52,24 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
    * @constructor
    */
   TabSelector = function($el, config) {
-    var _this = this,
-        $first;
+    var $first;
 
     this.uiEvents = uiEvents;
     TabSelector.baseConstructor.apply(this, arguments);
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this.selectors = $.extend(this.selectors || {}, selectors);
+
     this.$triggersContainer = this.$el.find(selectors.triggers).addClass(this.selectors.inactiveClass);
     this._setupAccessibility();
     $first = this.$triggersContainer.find('[' + selectors.trigger + ']').first();
     if ($first.length) {
       this._updateTriggers($first.attr(selectors.trigger));
     }
+
     // set height after triggers updated, so active trigger is visible on small viewport
-    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
-    eventsWithPromises.subscribe('mediaquery:resize', function(data) {
-      if ($.inArray(data.newSize, ['mq-xs', 'mq-s']) !== -1) {
-        _this.$triggersContainer.removeClass(_this.selectors.activeClass).addClass(_this.selectors.inactiveClass);
-      }
-    });
+    this._setTriggerContainerHeight();
+
+    this._subscribeHubEvents();
   };
 
   /**
@@ -103,6 +102,20 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'], f
       'tabindex': '-1'
     });
     this._convertLinksToButtons();
+  };
+
+  TabSelector.prototype._setTriggerContainerHeight = function() {
+    this.$el.find(selectors.triggersWrapper).height(this.$triggersContainer.outerHeight());
+  };
+
+  TabSelector.prototype._subscribeHubEvents = function() {
+    var _this = this;
+
+    eventsWithPromises.subscribe('mediaquery:resize', function(data) {
+      if ($.inArray(data.newSize, ['mq-xs', 'mq-s']) !== -1) {
+        _this.$triggersContainer.removeClass(_this.selectors.activeClass).addClass(_this.selectors.inactiveClass);
+      }
+    });
   };
 
   /**
