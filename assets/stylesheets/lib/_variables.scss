@@ -18,7 +18,7 @@ $color-transparent: transparent !default;
 
 $color-black: #2e3030 !default;
 $color-black-two: #4e4f4f !default;
-$color-grey-primary: #6d6d6d !default;
+$color-grey-primary: #6a6d6d !default;
 
 $color-green-primary: #428513 !default;
 $color-green-secondary: #61a612 !default;
@@ -85,7 +85,7 @@ $color-horizontal-rule: $color-grey-paleo !default;
 // Typography
 $color-heading-default: $color-green-secondary !default;
 $color-heading-dark: $color-green-dark !default;
-$color-text-default: $color-black !default;
+$color-text-default: $color-grey-primary !default;
 $color-heading-black: $color-black-two !default;
 $color-text-icon: $color-white !default;
 
