@@ -2,7 +2,7 @@
   @include inline-block;
   background-image: image_url('dough/assets/images/icon-sprite.png');
   background-repeat: no-repeat;
-  width: 350px;
+  width: 330px;
   height: 60px;
 
   @include device-pixel-ratio() {
