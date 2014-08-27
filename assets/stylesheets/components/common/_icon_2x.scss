@@ -1,11 +1,11 @@
 @include device-pixel-ratio() {
   .icon {
-    background-size: 500px;
+    background-size: $sprite-background-size;
   }
 
   %icon {
     // prevent HD screens from breaking when extending .icon
-    background-size: 500px;
+    background-size: $sprite-background-size;
   }
 
   .icon--logo {
