@@ -129,8 +129,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
       expandedLabel = 'true';
       iconClass = selectors.iconClassClose;
       if (focusTarget === true) {
-      this.$target
-          .attr('tabindex', 0)
+        this.$target
+          .attr('tabindex', -1)
           .focus();
       }
     } else {
