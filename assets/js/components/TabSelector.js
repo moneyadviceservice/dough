@@ -44,7 +44,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
         'click [data-dough-tabselector-trigger]': '_handleClickEvent'
       },
       i18nStrings = {
-        selected: 'selected'
+        selected: 'selected',
+        show: 'click to show'
       };
 
   /**
@@ -123,9 +124,11 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
    * @private
    */
   TabSelector.prototype._convertLinksToButtons = function() {
+    var _this = this;
     this.$el.find('[' + this.selectors.trigger + '] a').each(function() {
       var content = $(this).html();
-      $(this).replaceWith('<button class="unstyled-button" type="button">' + content + '</button>');
+      $(this).replaceWith('<button class="unstyled-button" type="button">' + content +
+        ' <span class="visually-hidden" data-dough-tab-selector-show> ' + _this.i18nStrings.show + '</span></button>');
     });
   };
 
@@ -207,15 +210,16 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
         .attr({
           'aria-selected': 'true'
         })
-        .append('<span class="visually-hidden"> ' + this.i18nStrings.selected + '</span>');
+        .find('[data-dough-tab-selector-show]')
+        .text(this.i18nStrings.selected);
 
     $unselectedTriggers
         .removeClass(this.selectors.activeClass)
         .addClass(this.selectors.inactiveClass)
         .find('button')
         .attr('aria-selected', 'false')
-        .find('.visually-hidden')
-        .remove();
+        .find('[data-dough-tab-selector-show]')
+        .text(this.i18nStrings.show);
 
     return this;
   };
@@ -227,8 +231,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
    * @private
    */
   TabSelector.prototype._updateTargets = function(targetAttr) {
-    var scrollTop,
-        $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
+    var $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
         $unselectedTargets = this.$el.find('[' + selectors.target + ']')
             .not('[' + selectors.target + '="' + targetAttr + '"]');
 

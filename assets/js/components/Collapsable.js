@@ -47,7 +47,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this._setupAccessibility();
     this.$trigger = this.$trigger.find('button');
-    config && config.forceTo && this.toggle(config.forceTo);
+    config && config.forceTo && this.toggle(config.forceTo, false);
     return this;
   }
 
@@ -64,7 +64,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
 
     this.$trigger.wrapInner('<button class="unstyled-button" type="button"/>');
     this.$trigger.find('button')
-        .prepend('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' +
+        .append('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' +
             selectors.iconClassOpen +
             '"></span> <span class="visually-hidden" data-dough-collapsable-label>' +
             this.i18nStrings.open + '</span>')
@@ -102,9 +102,10 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    * Toggle the element
    * @param  {[type]} forceTo Supply 'show' or 'hide' to
    * explicitly set, otherwise will automatically toggle
+   * @param {boolean} [focusTarget] - whether to focus the panel
    * @return {[type]}         [description]
    */
-  CollapsableProto.toggle = function(forceTo) {
+  CollapsableProto.toggle = function(forceTo, focusTarget) {
     var func,
         label,
         expandedLabel,
@@ -127,9 +128,11 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
       label = this.i18nStrings.close;
       expandedLabel = 'true';
       iconClass = selectors.iconClassClose;
-      this.$target
-          .attr('tabindex', 0)
+      if (focusTarget === true) {
+        this.$target
+          .attr('tabindex', -1)
           .focus();
+      }
     } else {
       label = this.i18nStrings.open;
       expandedLabel = 'false';
