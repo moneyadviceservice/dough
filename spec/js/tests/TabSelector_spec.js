@@ -36,17 +36,22 @@ describe('Tab selector', function() {
   }
 
   it('selects the first item in the list', function() {
-    expect(this.$menu.find(active).text()).to.equal('Show panel 1 selected');
+    expect(this.$menu.find(active).text()).to.equal('panel 1 selected');
   });
 
   it('converts all anchor links to buttons', function() {
     expect(this.$html.find(triggers).length).to.equal(6);
   });
 
+
+  it('adds a hidden show label to unselected triggers', function() {
+    expect(this.$menu.not(active).text()).to.contain('show');
+  });
+
   it('replaces the currently selected item', function() {
     this.$triggers.last().click();
     this.$triggers.eq(1).click();
-    expect(activeTrigger(this.$menu)).to.have.text('Show panel 2 selected');
+    expect(activeTrigger(this.$menu)).to.have.text('panel 2 selected');
     expect(this.$html.find(active).length).to.equal(2);
   });
 
