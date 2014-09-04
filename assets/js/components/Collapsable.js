@@ -64,9 +64,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
 
     this.$trigger.wrapInner('<button class="unstyled-button" type="button"/>');
     this.$trigger.find('button')
-        .append('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' +
-            selectors.iconClassOpen +
-            '"></span> <span class="visually-hidden" data-dough-collapsable-label>' +
+        .prepend('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' +
+            selectors.iconClassOpen + '"></span>')
+        .append('<span class="visually-hidden" data-dough-collapsable-label>' +
             this.i18nStrings.open + '</span>')
         .attr('aria-controls', id)
         .attr('aria-expanded', 'false');
@@ -128,7 +128,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
       label = this.i18nStrings.close;
       expandedLabel = 'true';
       iconClass = selectors.iconClassClose;
-      if (focusTarget === true) {
+      if (focusTarget !== false) {
         this.$target
           .attr('tabindex', -1)
           .focus();
