@@ -240,7 +240,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
         .addClass(this.selectors.activeClass)
         .attr({
           'aria-hidden': 'false',
-          'tabindex': 0
+          'tabindex': -1
         });
 
     this._focusTarget($selectedTarget);
@@ -249,9 +249,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
         .removeClass(this.selectors.activeClass)
         .addClass(this.selectors.inactiveClass)
         .attr({
-          'aria-hidden': 'true',
-          'tabindex': -1
-        });
+          'aria-hidden': 'true'
+        })
+        .removeAttr('tabindex');
 
     return this;
   };
