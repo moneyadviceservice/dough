@@ -91,7 +91,8 @@
   font-weight: 700;
 }
 
-%heading-extra-large {
+%heading-extra-large,
+.heading-extra-large {
   @include heading(32, 36);
   @extend %font-heading-heavy;
 
@@ -100,7 +101,8 @@
   }
 }
 
-%heading-large {
+%heading-large,
+.heading-large {
   @include heading(32, 36);
   @extend %font-heading-heavy;
   color: $color-heading-default;
@@ -110,7 +112,8 @@
   }
 }
 
-%heading-medium {
+%heading-medium,
+.heading-medium {
   @include heading(24, 30);
   @extend %font-heading-heavy;
   color: $color-heading-medium;
