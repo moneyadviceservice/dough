@@ -16,7 +16,7 @@
       height: $baseline-unit*7;
       padding-left: $baseline-unit*2;
       border: 0;
-      background-color: $color-off-white;
+      background-color: $color-search-input-background;
 
       &::-webkit-input-placeholder {
         color: $color-search-text;
@@ -43,8 +43,8 @@
 
     &:focus {
       outline: 0;
-      background-color: $color-green-secondary;
-      color: $color-white;
+      background-color: $color-search-button-focus-background;
+      color: $color-search-button-focus-foreground;
 
       .icon--search {
         // changes the search icon to icon--search-white,cannot be extended or will not appear in the Styleguide.

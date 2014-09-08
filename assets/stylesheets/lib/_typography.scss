@@ -113,7 +113,7 @@
 %heading-medium {
   @include heading(24, 30);
   @extend %font-heading-heavy;
-  color: $color-green-dark;
+  color: $color-heading-medium;
 
   @include respond-to($mq-m) {
     @include heading(28, 36);
@@ -131,7 +131,7 @@
 .heading-extra-small {
   @extend %font-heading-heavy;
   @include heading(16, 24);
-  color: $color-heading-black;
+  color: $color-heading-extra-small;
 }
 
 %type {
@@ -200,7 +200,7 @@
 %paragraph-intro {
   @extend %font-heading-medium;
   @include paragraph(18, 24);
-  color: $color-grey-primary;
+  color: $color-paragraph-intro;
 
   @include respond-to($mq-l) {
     @include paragraph(22, 30);

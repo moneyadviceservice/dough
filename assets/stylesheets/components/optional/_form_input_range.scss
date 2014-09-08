@@ -55,7 +55,7 @@
 @mixin range-thumb-generic {
   width: 40px;
   border: 1px solid $color-range-border;
-  background-color: $color-white;
+  background-color: $color-range-thumb-background;
   @include respond-to($mq-m) {
     width: 24px;
   }

@@ -85,10 +85,11 @@ $color-horizontal-rule: $color-grey-paleo !default;
 
 // Typography
 $color-heading-default: $color-green-secondary !default;
-$color-heading-dark: $color-green-dark !default;
+$color-heading-medium: $color-green-dark !default;
 $color-text-default: $color-grey-primary !default;
-$color-heading-black: $color-black-two !default;
+$color-heading-extra-small: $color-black-two !default;
 $color-text-icon: $color-white !default;
+$color-paragraph-intro: $color-grey-primary !default;
 
 // Default Links
 $color-link-default: $color-blue-medium !default;
@@ -131,7 +132,8 @@ $color-button-primary-border-active: #e1c260 !default;
 $color-button-primary-border-disabled: #eddfb2 !default;
 
 // Panels
-$color-panel-background: $color-grey-pale;
+$color-panel-background: $color-grey-pale !default;
+$color-panel-footer-background: $color-white !default;
 
 // Callout
 $color-callout-background: $color-green-pale !default;
@@ -139,6 +141,9 @@ $color-callout-background: $color-green-pale !default;
 // Search
 $color-search-border: $color-grey-light !default;
 $color-search-text: $color-grey-medium-dark !default;
+$color-search-input-background: $color-off-white !default;
+$color-search-button-focus-background: $color-green-secondary !default;
+$color-search-button-focus-foreground: $color-white !default;
 $color-header-buttons: $color-green-two !default;
 
 // Form Validation
@@ -162,6 +167,7 @@ $color-fieldset-legend-fg: $color-green-secondary;
 
 $color-range-border: $color-grey-light !default;
 $color-range-background: $color-grey-palest !default;
+$color-range-thumb-background: $color-white !default;
 
 // Inset block
 $color-inset-block-border: $color-blue-medium;
