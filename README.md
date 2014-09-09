@@ -51,7 +51,25 @@ bundle install
 gem 'dough-ruby', path: '~/Sites/dough' # or whatever your local Dough is
 ```
 
-#### Set up `bower link` in Dough
+#### To use Dough in your project
+
+If you already have a `bower.json`, rename this to `bower.json.erb` and add the `dough`  reference to `dependencies`:
+
+```sh
+"dependencies": {
+  "dough": "<%= gem_path('dough-ruby') %>"
+}
+```
+
+Then run
+
+```sh
+bowndler install
+```
+
+This will create `bower.json`, pull in the latest Dough gem and also install any other Bower dependencies you have defined. From this point on you should edit `bower.json.erb` instead of `bower.json` when updating your Bower configuration.
+
+#### Alternatively, you can setup a `bower link` to Dough
 
 ```sh
 cd ~/Sites/dough # or whatever your local Dough is
@@ -64,6 +82,8 @@ bower link
 cd PROJECT
 bower link dough
 ```
+
+This will setup a symlink so you can live develop Dough and your project simultaneously.
 
 ## Running Javascript tests
 
