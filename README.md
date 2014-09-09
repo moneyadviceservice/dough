@@ -65,6 +65,14 @@ cd PROJECT
 bower link dough
 ```
 
+#### Troubleshooting
+
+If you don't see your local CSS after following the steps
+
+```sh
+rm -r tmp/cache
+```
+
 ## Running Javascript tests
 
 Make sure you ran npm install.
