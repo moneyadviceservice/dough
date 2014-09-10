@@ -15,10 +15,14 @@ describe('componentLoader', function() {
     });
   });
 
+  afterEach(function() {
+    this.$html && this.$html.remove();
+  });
+
   describe('init method', function() {
 
     beforeEach(function(done) {
-      this.$html = $(window.__html__['spec/js/fixtures/componentLoader.html']).appendTo('body');
+      this.$html = $(window.__html__['spec/js/fixtures/componentLoader.html']);
       this.componentLoader.init(this.$html)
           .then(function() {
             done();
