@@ -3,21 +3,21 @@ describe('Tab selector', function() {
   'use strict';
 
   var activeClass = 'is-active',
-      trigger = '[data-dough-tabselector-trigger]',
-      active = trigger + '.' + activeClass + ' button',
-      triggers = trigger + ' button',
-      target = '[data-dough-tabselector-target].' + activeClass + ' .tab-selector__target-heading';
+      triggersInner = '[data-dough-tab-selector-triggers-inner]',
+      triggerSelector = '[data-dough-tab-selector-trigger]',
+      activeTrigger = triggerSelector + '.' + activeClass,
+      target = '[data-dough-tab-selector-target].' + activeClass + ' .tab-selector__target-heading';
 
   beforeEach(function(done) {
     var self = this;
     requirejs(
         ['jquery', 'TabSelector', 'eventsWithPromises'],
         function($, TabSelector, eventsWithPromises) {
-          self.$html = $(window.__html__['spec/js/fixtures/TabSelector.html']).appendTo('body');
-          self.$menu = self.$html.find('[data-dough-tabselector-triggers]');
+          self.$html = $(window.__html__['spec/js/fixtures/TabSelector.html']);
+          self.$triggersInner = self.$html.find(triggersInner);
           self.tabSelector = new TabSelector(self.$html);
           self.tabSelector.init();
-          self.$triggers = self.$menu.find(triggers);
+          self.$triggers = self.$triggersInner.find(triggerSelector);
           self.eventsWithPromises = eventsWithPromises;
           done();
         }, done);
@@ -27,8 +27,8 @@ describe('Tab selector', function() {
     return $menu.hasClass(activeClass);
   }
 
-  function activeTrigger($menu) {
-    return $menu.find(active);
+  function findActiveTrigger($menu) {
+    return $menu.find(activeTrigger);
   }
 
   function activeTarget($root) {
@@ -36,37 +36,37 @@ describe('Tab selector', function() {
   }
 
   it('selects the first item in the list', function() {
-    expect(this.$menu.find(active).text()).to.equal('panel 1 selected');
+    this.$html.find(activeTrigger).each(function() {
+      expect($(this).text()).to.equal('panel 1 selected');
+    });
   });
 
   it('converts all anchor links to buttons', function() {
-    expect(this.$html.find(triggers).length).to.equal(6);
+    expect(this.$html.find(triggerSelector).length).to.equal(6);
   });
 
-
   it('adds a hidden show label to unselected triggers', function() {
-    expect(this.$menu.not(active).text()).to.contain('show');
+    expect(this.$triggersInner.not(activeTrigger).text()).to.contain('show');
   });
 
   it('replaces the currently selected item', function() {
     this.$triggers.last().click();
     this.$triggers.eq(1).click();
-    expect(activeTrigger(this.$menu)).to.have.text('panel 2 selected');
-    expect(this.$html.find(active).length).to.equal(2);
+    expect(findActiveTrigger(this.$triggersInner)).to.have.text('panel 2 selected');
+    expect(this.$html.find(activeTrigger).length).to.equal(2);
   });
 
-
   it('toggles the menu when the selected item is clicked', function() {
-    activeTrigger(this.$menu).click();
-    expect(isOpen(this.$menu)).to.equal(true);
-    activeTrigger(this.$menu).click();
-    expect(isOpen(this.$menu)).to.equal(false);
+    findActiveTrigger(this.$triggersInner).click();
+    expect(isOpen(this.$triggersInner)).to.equal(true);
+    findActiveTrigger(this.$triggersInner).click();
+    expect(isOpen(this.$triggersInner)).to.equal(false);
   });
 
   it('closes the menu when an item on it is clicked', function() {
-    activeTrigger(this.$menu).click();
+    findActiveTrigger(this.$triggersInner).click();
     this.$triggers.first().click();
-    expect(isOpen(this.$menu)).to.equal(false);
+    expect(isOpen(this.$triggersInner)).to.equal(false);
   });
 
   it('shows the associated target panel when a trigger is clicked', function() {
@@ -77,14 +77,14 @@ describe('Tab selector', function() {
   });
 
   it('updates other copies of the clicked trigger', function() {
-    var $trigger = this.$html.find('.tab-selector__target [data-dough-tabselector-trigger="2"]');
-    $trigger.find('button').click();
-    expect(this.$html.find('[data-dough-tabselector-trigger="2"].is-active button[aria-selected="true"]').length).to.equal(2);
+    var $trigger = this.$html.find('[data-dough-tab-selector-target] [data-dough-tab-selector-trigger="2"]');
+    $trigger.click();
+    expect(this.$html.find('[data-dough-tab-selector-trigger="2"].is-active[aria-selected="true"]').length).to.equal(2);
   });
 
   it('doesn\'t open the menu if a trigger outside the menu is clicked', function() {
     this.$html.find('.tab-selector__target button:eq(2)').click();
-    expect(isOpen(this.$menu)).to.equal(false);
+    expect(isOpen(this.$triggersInner)).to.equal(false);
   });
 
   it('closes the menu if the viewport is resized to small', function() {
@@ -92,7 +92,7 @@ describe('Tab selector', function() {
     this.eventsWithPromises.publish('mediaquery:resize', {
       newSize: 'mq-s'
     });
-    expect(isOpen(this.$menu)).to.equal(false);
+    expect(isOpen(this.$triggersInner)).to.equal(false);
   });
 
 });

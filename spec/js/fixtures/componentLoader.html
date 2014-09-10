@@ -1,19 +1,33 @@
 <div class="container">
   <div data-dough-component="TabSelector" data-dough-tab-selector-config='{"model": {"key": "value"}}'>
-    <ul data-dough-tabselector-triggers>
-      <li class="is-active" data-dough-tabselector-trigger="1">
-        <a href="#panel-1">Show panel 1</a>
-      </li>
-    </ul>
+    <div data-dough-tab-selector-triggers-outer class="tab-selector__triggers-outer">
+      <div data-dough-tab-selector-triggers-inner class="tab-selector__triggers-inner">
+        <div class="is-active" data-dough-tab-selector-trigger-container>
+          <a href="#panel-1" data-dough-tab-selector-trigger="1">panel 1</a>
+        </div>
+        <div class="is-inactive" data-dough-tab-selector-trigger-container>
+          <a href="#panel-2" data-dough-tab-selector-trigger="2">panel 2</a>
+        </div>
+      </div>
+    </div>
+    <div class="tab-selector__target is-active" id="panel-1" data-dough-tab-selector-target="1"></div>
+    <div class="tab-selector__target is-inactive" id="panel-2" data-dough-tab-selector-target="2"></div>
   </div>
   <div data-dough-component="RangeInput">
   </div>
   <div data-dough-component="TabSelector">
-    <ul data-dough-tabselector-triggers>
-      <li class="is-active" data-dough-tabselector-trigger="1">
-        <a href="#panel-1">Show panel 1</a>
-      </li>
-    </ul>
+    <div data-dough-tab-selector-triggers-outer class="tab-selector__triggers-outer">
+      <div data-dough-tab-selector-triggers-inner class="tab-selector__triggers-inner">
+        <div class="is-active" data-dough-tab-selector-trigger-container>
+          <a href="#panel-1" data-dough-tab-selector-trigger="1">panel 1</a>
+        </div>
+        <div class="is-inactive" data-dough-tab-selector-trigger-container>
+          <a href="#panel-2" data-dough-tab-selector-trigger="2">panel 2</a>
+        </div>
+      </div>
+    </div>
+    <div class="tab-selector__target is-active" id="panel-1" data-dough-tab-selector-target="1"></div>
+    <div class="tab-selector__target is-inactive" id="panel-2" data-dough-tab-selector-target="2"></div>
   </div>
   <form data-dough-component="RangeInput Collapsable"></form>
 </div>

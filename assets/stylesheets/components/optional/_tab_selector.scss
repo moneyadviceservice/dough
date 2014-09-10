@@ -1,11 +1,11 @@
 // Tab selector, collapsing to dropdown below medium breakpoint
 //
 // Styleguide Tab selector
-.tab-selector__items {
+.tab-selector__triggers-outer {
   position: relative;
 }
 
-.tab-selector__items-inner {
+.tab-selector__triggers-inner {
   .js & {
     background-color: $color-tab-selector-background-active;
     font-size: 0;
@@ -33,30 +33,53 @@
 
 .tab-selector__item {
   .js & {
+    list-style: none;
+    display: none;
+    margin-bottom: 0;
+    &.is-active {
+      display: block;
+    }
+    .tab-selector__triggers-inner & {
+      display: block;
+    }
+    @include respond-to($mq-m) {
+      display: inline-block;
+      &.is-active {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.tab-selector__trigger {
+    @extend %type;
     border-color: $color-tab-selector-border;
     border-style: solid;
     border-width: 0;
+    bottom: -1px;
+    color: $color-tab-selector-text;
     cursor: pointer;
-    @extend %type;
-    list-style: none;
-    display: none;
     padding: $baseline-unit 35px $baseline-unit 12px;
     position: relative;
-    bottom: -1px;
     margin: 0;
-    &.is-active {
+    display: block;
+    text-align: left;
+    width: 100%;
+    .js .tab-selector__item.is-active & {
       @extend %font-heading-heavy;
       background-color: $color-tab-selector-background-active;
       border-width: 1px;
       border-radius: 5px;
-      display: block;
     }
-    &:hover {
+    &:hover,
+    &:visited {
+      color: $color-tab-selector-text;
+      text-decoration: none;
       background-color: $color-tab-selector-background-active;
     }
     @include respond-to($mq-m) {
-      border-width: 0;
       display: inline-block;
+      border-width: 0;
       padding-right: 12px;
       padding-left: 12px;
       position: relative;
@@ -70,8 +93,7 @@
         border-bottom: 1px solid $color-tab-selector-border;
         width: 100%;
       }
-      &.is-active {
-        display: inline-block;
+      .js .tab-selector__item.is-active & {
         border-width: 1px 1px 0 1px;
         border-radius: 5px 5px 0 0;
         padding-left: 10px;
@@ -81,18 +103,7 @@
         }
       }
     }
-  }
-}
 
-.tab-selector__trigger {
-  & .js {
-    color: $color-tab-selector-text;
-    &:hover,
-    &:visited {
-      color: $color-tab-selector-text;
-      text-decoration: none;
-    }
-  }
 }
 
 .tab-selector__icon {
@@ -110,7 +121,7 @@
   }
 }
 
-.tab-selector__items-inner.is-active .tab-selector__item {
+.tab-selector__triggers-inner.is-active .tab-selector__item {
   .js & {
     display: block;
     @include respond-to($mq-m) {
@@ -126,7 +137,7 @@
   }
 }
 
-.tab-selector__items-inner.is-active .tab-selector__item-info{
+.tab-selector__triggers-inner.is-active .tab-selector__item-info{
   .js & {
     clip: auto;
     float: right;
