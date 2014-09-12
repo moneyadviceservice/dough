@@ -24,6 +24,9 @@
       .tab-selector__icon {
         display: none;
       }
+      @include respond-to(0, $mq-m) {
+        z-index: 4;
+      }
       @include respond-to($mq-m) {
         background-color: transparent;
       }
