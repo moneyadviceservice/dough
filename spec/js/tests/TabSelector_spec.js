@@ -37,7 +37,8 @@ describe('Tab selector', function() {
 
   it('selects the first item in the list', function() {
     this.$html.find(activeTrigger).each(function() {
-      expect($(this).text()).to.equal('panel 1 selected');
+      expect($(this).text()).to.contain('panel 1');
+      expect($(this).text()).to.contain('selected');
     });
   });
 
@@ -52,7 +53,7 @@ describe('Tab selector', function() {
   it('replaces the currently selected item', function() {
     this.$triggers.last().click();
     this.$triggers.eq(1).click();
-    expect(findActiveTrigger(this.$triggersInner)).to.have.text('panel 2 selected');
+    expect(findActiveTrigger(this.$triggersInner).text()).to.contain('panel 2');
     expect(this.$html.find(activeTrigger).length).to.equal(2);
   });
 

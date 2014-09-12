@@ -31,7 +31,15 @@
   }
 }
 
-.tab-selector__item {
+.tab-selector__icon {
+  @extend .icon--down-chevron-blue;
+  display: none;
+  .tab-selector__triggers-inner.is-active & {
+    @extend .icon--up-chevron-blue;
+  }
+}
+
+.tab-selector__trigger-container {
   .js & {
     list-style: none;
     display: none;
@@ -49,9 +57,8 @@
       }
     }
   }
-}
 
-.tab-selector__trigger {
+  .tab-selector__trigger {
     @extend %type;
     border-color: $color-tab-selector-border;
     border-style: solid;
@@ -65,11 +72,20 @@
     display: block;
     text-align: left;
     width: 100%;
-    .js .tab-selector__item.is-active & {
-      @extend %font-heading-heavy;
-      background-color: $color-tab-selector-background-active;
-      border-width: 1px;
-      border-radius: 5px;
+    .js & {
+      &.is-active {
+        @extend %font-heading-heavy;
+        background-color: $color-tab-selector-background-active;
+        border-width: 1px;
+        border-radius: 5px;
+        .tab-selector__icon {
+          display: block;
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          margin-top: -6px;
+        }
+      }
     }
     &:hover,
     &:visited {
@@ -93,35 +109,27 @@
         border-bottom: 1px solid $color-tab-selector-border;
         width: 100%;
       }
-      .js .tab-selector__item.is-active & {
-        border-width: 1px 1px 0 1px;
-        border-radius: 5px 5px 0 0;
-        padding-left: 10px;
-        padding-right: 10px;
-        &:after {
-          display: none;
+      .js & {
+        &.is-active {
+          border-width: 1px 1px 0 1px;
+          border-radius: 5px 5px 0 0;
+          padding-left: 10px;
+          padding-right: 10px;
+          &:after {
+            display: none;
+          }
+          .tab-selector__icon {
+            display: none;
+          }
         }
       }
     }
 
-}
-
-.tab-selector__icon {
-  display: none;
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  margin-top: -6px;
-}
-
-.is-active .tab-selector__icon {
-  display: block;
-  @include respond-to($mq-m) {
-    display: none;
   }
 }
 
-.tab-selector__triggers-inner.is-active .tab-selector__item {
+
+.tab-selector__triggers-inner.is-active .tab-selector__trigger-container {
   .js & {
     display: block;
     @include respond-to($mq-m) {
