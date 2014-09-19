@@ -2,8 +2,24 @@
 <html>
 <head>
   <title>MadeWithDough</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'dough/assets/stylesheets/basic' %>
+  <%= stylesheet_link_tag 'dough/assets/stylesheets/font_files' %>
+
+  <!--[if ( gte IE 7 ) & ( lte IE 8 ) & (!IEMobile) ]>
+    <%= stylesheet_link_tag 'dough/assets/stylesheets/font_files' %>
+    <%= stylesheet_link_tag 'enhanced_fixed', media: 'all' %>
+    <%= javascript_include_tag 'html5shiv/dist/html5shiv.js' %>
+    <script>var responsiveStyle = false;</script>
+  <![endif]-->
+
+  <%# Responsive styles for all modern devices, excluded from older IE version %>
+  <!--[if ( !IE ) | ( gte IE 9 ) ]><!-->
+  <%= stylesheet_link_tag 'enhanced_responsive', media: 'only all' %>
+  <script>var responsiveStyle = true;</script>
+  <!--<![endif]-->
+
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
