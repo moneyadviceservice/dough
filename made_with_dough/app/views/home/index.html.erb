@@ -1,0 +1,8 @@
+<% @components.each do |c| %>
+  <%= c.doc_html.html_safe %>
+  <br><br>
+  <%= c.code_raw_html %>
+  <br><br>
+  <%== c.code_processed_html.result(binding) %>
+  <br><br>
+<% end %>
