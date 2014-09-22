@@ -1,8 +1,8 @@
 # Tabs
 
-Not explicitly used to indicate progress, but can help user understand the breadth of content on the page.
+* Tabs should not wrap, but when they do they will turn into a mobile friendly dropdown
+* Tabs should not be be used to indicate progress, but can help users understand the breadth of content on the page
+* Tabs should not contain the end or final result, these should be outside of any tabs. For example a form's inputs can be contained within tabs with the summary or results shown outside of these as a separate component
+* One tab should not rely on another tab to make sense
 
-Tabs should not show results, so summary of results should be outside the tab component. For example a form's inputs can be broken down into tabs, with the summary/results of the form shown outside as a separate component.
-One tab should not rely on another tab to make sense
 
-Tabs will not wrap, but when they do they will turn into a dropdown or equivalent mobile friendly layout.
