@@ -6,7 +6,8 @@
  * @param  {object} eventsWithPromises [description]
  * @return {object}                    [description]
  */
-define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], function($, DoughBaseComponent, featureDetect, eventsWithPromises) {
+define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'],
+    function($, DoughBaseComponent, featureDetect, eventsWithPromises) {
   'use strict';
 
   var defaultConfig = {
@@ -18,8 +19,7 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'], 
        * @constructor
        */
       RangeInput = function($el, config) {
-        RangeInput.baseConstructor.call(this, $el, config);
-        this.config = $.extend(defaultConfig, this.config);
+        RangeInput.baseConstructor.call(this, $el, config, defaultConfig);
 
         if (featureDetect.inputtypes.range) {
           this._cloneElements();

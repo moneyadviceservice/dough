@@ -16,6 +16,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       'use strict';
 
       var TabSelector,
+          defaultConfig = {
+            collapseInSmallViewport: false
+          },
           selectors = {
             triggersOuter: '[data-dough-tab-selector-triggers-outer]',
             triggersInner: '[data-dough-tab-selector-triggers-inner]',
@@ -41,7 +44,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
         var triggerId;
 
         this.uiEvents = uiEvents;
-        TabSelector.baseConstructor.apply(this, arguments);
+        TabSelector.baseConstructor.call(this, $el, config, defaultConfig);
         this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
         this.selectors = $.extend(this.selectors || {}, selectors);
 

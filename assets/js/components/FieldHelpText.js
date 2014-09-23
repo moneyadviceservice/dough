@@ -20,8 +20,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @constructor
    */
   FieldHelpText = function($el, config) {
-    FieldHelpText.baseConstructor.apply(this, arguments);
-    this.config = $.extend(defaultConfig, this.config);
+    FieldHelpText.baseConstructor.call(this, $el, config, defaultConfig);
     this.debounceTimer = null;
     this.init();
   };

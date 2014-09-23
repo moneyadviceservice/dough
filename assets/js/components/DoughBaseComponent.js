@@ -12,11 +12,11 @@ define([], function() {
    *  i18n library
    */
 
-  function DoughBaseComponent($el, config) {
+  function DoughBaseComponent($el, config, defaultConfig) {
     if (!$el || !$el.length) {
       throw new Error('Element not supplied to DoughBaseComponent constructor');
     }
-    this.config = config || {};
+    this.config = $.extend({}, defaultConfig || {}, config || {});
     this.componentName = this.config.componentName;
     this.setElement($el);
     /*
