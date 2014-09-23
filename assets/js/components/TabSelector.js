@@ -125,11 +125,16 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       TabSelector.prototype._subscribeHubEvents = function() {
         var _this = this;
 
-        eventsWithPromises.subscribe('mediaquery:resize', function(data) {
-          if ($.inArray(data.newSize, ['mq-xs', 'mq-s']) !== -1) {
-            _this.$triggersWrapperInner.removeClass(_this.selectors.activeClass).addClass(_this.selectors.inactiveClass);
-          }
-        });
+        if (this.config.collapseInSmallViewport === true) {
+          eventsWithPromises.subscribe('mediaquery:resize', function(data) {
+            if ($.inArray(data.newSize, ['mq-xs', 'mq-s']) !== -1) {
+              _this.$triggersWrapperInner
+                  .removeClass(_this.selectors.activeClass)
+                  .addClass(_this.selectors.inactiveClass);
+            }
+          });
+        }
+
       };
 
       /**
@@ -187,7 +192,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
        */
       TabSelector.prototype._toggleMenu = function($trigger) {
         // if the clicked item is outside the menu, and the menu is closed, do nothing
-        if (!$trigger.closest(this.$triggersWrapperInner).length && !this.$triggersWrapperInner.hasClass(this.selectors.activeClass)) {
+        if (!$trigger.closest(this.$triggersWrapperInner).length &&
+            !this.$triggersWrapperInner.hasClass(this.selectors.activeClass))
+        {
           return;
         }
         this.$triggersWrapperInner.toggleClass(this.selectors.activeClass).toggleClass(this.selectors.inactiveClass);
