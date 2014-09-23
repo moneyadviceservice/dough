@@ -38,8 +38,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   Validation = function($el, config) {
     this.uiEvents = uiEvents;
-    Validation.baseConstructor.apply(this, arguments);
-    this.config = $.extend(defaultConfig, this.config);
+    Validation.baseConstructor.call(this, $el, config, defaultConfig);
   };
 
   DoughBaseComponent.extend(Validation);
