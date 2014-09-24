@@ -115,13 +115,12 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   /**
    * Handler function for tracking event targets
    * Checks if trigger element is focussed, if the focus is within the target
-   * or ESC key is and hides menu accordingly
    * @param  {Object} e The event object for the current target
    * @return {this} This
    */
   CollapsableProto.handleUIEventTracking = function(e) {
     var $currentTarget = $(e.target);
-    if(e.keyCode === 27 || !$currentTarget.is(this.$trigger) && !$currentTarget.closest(this.$target).length) {
+    if(!$currentTarget.is(this.$trigger) && !$currentTarget.closest(this.$target).length) {
       this.toggle('hide');
     }
 
