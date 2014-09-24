@@ -4,7 +4,17 @@
  http://codepen.io/aronwoost/pen/nlyrf
  http://brennaobrien.com/blog/2014/05/style-input-type-range-in-every-browser.html
 **/
+@mixin range-track-colors {
+  background-color: $color-range-background;
+  border: 1px solid $color-range-border;
+}
+
 .form__input-range {
+  /* iPhone / mobile webkit */
+  @media screen and (max-device-width: $mq-m) {
+    /** have to set bg colour here instead of on track shadow DOM, for Android browser */
+    @include range-track-colors;
+  }
   -webkit-appearance: none;
   margin-bottom: $baseline-unit * 2;
   width: 100%;
@@ -14,11 +24,6 @@
   @include respond-to($mq-m) {
     margin-top: $baseline-unit;
   }
-}
-
-@mixin range-track-colors {
-  background-color: $color-range-background;
-  border: 1px solid $color-range-border;
 }
 
 .form__input-range::-webkit-slider-runnable-track {
