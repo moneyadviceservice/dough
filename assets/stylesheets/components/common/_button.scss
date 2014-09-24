@@ -97,29 +97,15 @@
   height: 52px;
   min-width: 93px;
   vertical-align: middle;
-
   > .icon {
     position: relative;
     top: 5px;
-  }
-
-  @include respond-to(0, $mq-m) {
-    height: $baseline-unit*7;
-    min-width: $baseline-unit*7;
-
-    > .icon {
-      top: 1px;
-    }
   }
 }
 
 .button--compact__text {
   margin-left: 5px;
   margin-right: 5px;
-
-  @include respond-to(0, $mq-m) {
-    @include visually-hidden;
-  }
 }
 
 // Sits alongside a text input. Button height matches text input height.
