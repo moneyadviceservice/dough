@@ -83,6 +83,11 @@ $ ./node_modules/karma/bin/karma start test/karma.conf.js --single-run
 
 ## Javascript style checking
 
+Make sure you ran npm install.
+```
+./node_modules/jshint/bin/jshint ./assets/js --config .jshintrc
+```
+
 ```
 ./node_modules/jscs/bin/jscs js
 ```
