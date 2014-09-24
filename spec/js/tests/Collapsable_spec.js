@@ -6,27 +6,35 @@ describe('Visibility toggler', function() {
 
   beforeEach(function(done) {
     var self = this;
-    requirejs(
-        ['jquery', 'Collapsable'],
-        function($, Collapsable) {
-          self.Collapsable = Collapsable;
-          self.$html = $(window.__html__['spec/js/fixtures/Collapsable.html']).appendTo('body');
-          self.$target = self.$html.filter('[data-dough-collapsable-target]');
-          done();
-        }, done);
+
+    this.$sandbox = $('<div />').appendTo('body');
+
+    requirejs(['componentLoader'], function(componentLoader) {
+      self.componentLoader = componentLoader;
+
+      self.beforeEachHook = function(done, fixtureHTML) {
+        this.$sandbox.html(fixtureHTML || $(window.__html__['spec/js/fixtures/Collapsable.html']).filter('#fixture-1').html());
+
+        this.componentLoader.init(this.$sandbox)
+          .then(function() {
+            this.$trigger = this.$sandbox.find('button');
+            this.$target = this.$sandbox.find('[data-dough-collapsable-target]');
+            this.$triggerLabel = this.$sandbox.find('[data-dough-collapsable-label]');
+            done();
+          }.bind(this));
+      };
+      done();
+    });
   });
 
   afterEach(function() {
-    this.$html.remove();
+    this.$sandbox.empty();
   });
 
   describe('closed by default', function() {
 
-    beforeEach(function() {
-      this.collapsable = new this.Collapsable(this.$html.filter('[data-dough-collapsable-trigger]'));
-      this.collapsable.init();
-      this.$trigger = this.$html.find('button');
-      this.$triggerLabel = this.$html.find('[data-dough-collapsable-label]');
+    beforeEach(function(done) {
+      this.beforeEachHook.call(this, done);
     });
 
     it('collapses the target panel by default', function() {
@@ -70,20 +78,36 @@ describe('Visibility toggler', function() {
 
   });
 
+  describe('On blur', function() {
+
+    beforeEach(function(done) {
+      var fixtureHTML = $(window.__html__['spec/js/fixtures/Collapsable.html']).filter('#fixture-3').html();
+      this.beforeEachHook.call(this, done, fixtureHTML);
+    });
+
+    it('collapsable target should be toggled if focussed is lost from trigger or target', function() {
+      this.$trigger.click();
+      expect(this.$target).to.have.class(activeClass);
+      expect(this.$trigger).to.have.class(activeClass);
+      $('body').click();
+      expect(this.$target).to.not.have.class(activeClass);
+      expect(this.$trigger).to.not.have.class(activeClass);
+    });
+
+  });
+
 
   describe('expanded by default', function() {
+    beforeEach(function(done) {
+      var fixtureHTML = $(window.__html__['spec/js/fixtures/Collapsable.html']).filter('#fixture-2').html();
+      this.beforeEachHook.call(this, done, fixtureHTML);
+    });
 
     it('wraps a button around the trigger text', function() {
-      this.collapsable = new this.Collapsable(
-          this.$html.filter('[data-dough-collapsable-trigger]'),
-          {
-            forceTo: 'show'
-          }
-      );
-      this.collapsable.init();
       expect(this.$target).to.have.class(activeClass);
     });
 
   });
+
 
 });
