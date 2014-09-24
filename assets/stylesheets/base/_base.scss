@@ -40,10 +40,8 @@ h4 {
 //
 // Styleguide p
 
-p {
-  .editorial & {
-    @extend %paragraph;
-  }
+.editorial p {
+  @extend %paragraph;
 }
 
 b,
