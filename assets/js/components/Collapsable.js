@@ -21,6 +21,10 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
 
   // Class variables
   var CollapsableProto,
+      defaultConfig = {
+        hideOnBlur : false,
+        forceTo : false
+      },
       selectors = {
         activeClass: 'is-active',
         inactiveClass: 'is-inactive',
@@ -41,11 +45,13 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    */
   function Collapsable($el, config) {
     this.selectors = selectors;
-    DoughBaseComponent.call(this, $el, config);
+    Collapsable.baseConstructor.call(this, $el, config, defaultConfig);
+    this.selectors = $.extend(this.selectors, (config && config.selectors) ? config.selectors : '');
     this.$trigger = this.$el;
     this.$target = $('[data-dough-collapsable-target="' + this.$trigger.attr('data-dough-collapsable-trigger') + '"]');
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this._setupAccessibility();
+    this.handleUIEventTracking = $.proxy(this.handleUIEventTracking, this);
     config && config.forceTo && this.toggle(config.forceTo, false);
     return this;
   }
@@ -98,6 +104,31 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   };
 
   /**
+   * Bind or unbinds the UI Events for tracking the current target
+   */
+  CollapsableProto.setTargetTrackingListeners = function(isActive) {
+    $('body')[isActive ? 'on' : 'off']('click keyup', this.handleUIEventTracking);
+
+    return this;
+  };
+
+  /**
+   * Handler function for tracking event targets
+   * Checks if trigger element is focussed, if the focus is within the target
+   * or ESC key is and hides menu accordingly
+   * @param  {Object} e The event object for the current target
+   * @return {this} This
+   */
+  CollapsableProto.handleUIEventTracking = function(e) {
+    var $currentTarget = $(e.target);
+    if(e.keyCode === 27 || !$currentTarget.is(this.$trigger) && !$currentTarget.closest(this.$target).length) {
+      this.toggle('hide');
+    }
+
+    return this;
+  };
+
+  /**
    * Toggle the element
    * @param  {[type]} forceTo Supply 'show' or 'hide' to
    * explicitly set, otherwise will automatically toggle
@@ -117,6 +148,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
       func = this.isShown ? 'removeClass' : 'addClass';
     }
 
+
     // toggle the element
     this.isShown = !!this.$target[func](selectors.activeClass).hasClass(selectors.activeClass);
 
@@ -132,10 +164,16 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
             .attr('tabindex', -1)
             .focus();
       }
+      if(this.config.hideOnBlur) {
+        this.setTargetTrackingListeners(true);
+      }
     } else {
       label = this.i18nStrings.open;
       expandedLabel = 'false';
       iconClass = selectors.iconClassOpen;
+      if(this.config.hideOnBlur) {
+        this.setTargetTrackingListeners(false);
+      }
     }
 
     this.$trigger.find('[data-dough-collapsable-label]').text(label);
