@@ -1,4 +1,5 @@
-define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce'], function($, eventsWithPromises, featureDetect) {
+define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce'],
+    function($, eventsWithPromises, featureDetect) {
 
   'use strict';
 

@@ -11,7 +11,9 @@ define([], function() {
     }
   }
 
-  support.js = ( supportTest('querySelector', document) && supportTest('localStorage', window) && supportTest('addEventListener', window) ) ? 'advanced' : 'basic';
+  support.js = ( supportTest('querySelector', document) &&
+      supportTest('localStorage', window) &&
+      supportTest('addEventListener', window) ) ? 'advanced' : 'basic';
   support.touch = ( supportTest('ontouchstart', window) || supportTest('onmsgesturechange', window) );
   support.localstorage = supportTest('localStorage', window);
   support.svg = (function() {
