@@ -46,7 +46,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   function Collapsable($el, config) {
     this.selectors = selectors;
     Collapsable.baseConstructor.call(this, $el, config, defaultConfig);
-    this.selectors = $.extend(this.selectors, (config && config.selectors) ? config.selectors : '');
     this.$trigger = this.$el;
     this.$target = $('[data-dough-collapsable-target="' + this.$trigger.attr('data-dough-collapsable-trigger') + '"]');
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
