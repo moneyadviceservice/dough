@@ -46,7 +46,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     this.$target = $('[data-dough-collapsable-target="' + this.$trigger.attr('data-dough-collapsable-trigger') + '"]');
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this._setupAccessibility();
-    this.$trigger = this.$trigger.find('button');
     config && config.forceTo && this.toggle(config.forceTo, false);
     return this;
   }
@@ -71,6 +70,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
         .attr('aria-controls', id)
         .attr('aria-expanded', 'false');
     this.$target.attr('id', id);
+    this.$trigger = this.$trigger.find('button');
   };
 
   /**
@@ -92,7 +92,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   CollapsableProto.setListeners = function(isActive) {
     this.$trigger[isActive ? 'on' : ' off']('click', $.proxy(function(e) {
       this.toggle();
-      e.preventDefault();
     }, this));
 
     return this;
@@ -130,8 +129,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
       iconClass = selectors.iconClassClose;
       if (focusTarget !== false) {
         this.$target
-          .attr('tabindex', -1)
-          .focus();
+            .attr('tabindex', -1)
+            .focus();
       }
     } else {
       label = this.i18nStrings.open;
