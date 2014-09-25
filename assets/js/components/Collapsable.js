@@ -107,7 +107,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    * Bind or unbinds the UI Events for tracking the current target
    */
   CollapsableProto.setTargetTrackingListeners = function(isActive) {
-    $('body')[isActive ? 'on' : 'off']('click keyup', this.handleUIEventTracking);
+    $('body')[isActive ? 'on' : 'off']('click touchend keyup', this.handleUIEventTracking);
 
     return this;
   };
