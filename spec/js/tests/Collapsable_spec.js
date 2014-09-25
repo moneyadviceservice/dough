@@ -85,7 +85,7 @@ describe('Visibility toggler', function() {
       this.beforeEachHook.call(this, done, fixtureHTML);
     });
 
-    it('collapsable target should be toggled if focussed is lost from trigger or target', function() {
+    it('collapsable target should be toggled if focus is lost from the trigger or target', function() {
       this.$trigger.click();
       expect(this.$target).to.have.class(activeClass);
       expect(this.$trigger).to.have.class(activeClass);
