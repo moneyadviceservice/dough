@@ -167,12 +167,14 @@
 
   .tab-selector__item-info {
     .js & {
-      clip: auto;
-      float: right;
-      font-size: 0.8em;
-      height: auto;
-      width: auto;
-      position: static;
+      @include respond-to(0, $mq-m) {
+        clip: auto;
+        float: right;
+        font-size: 0.8em;
+        height: auto;
+        width: auto;
+        position: static;
+      }
     }
   }
   .tab-selector__trigger.is-active .tab-selector__item-info {
