@@ -22,8 +22,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   // Class variables
   var CollapsableProto,
       defaultConfig = {
-        hideOnBlur : false,
-        forceTo : false
+        hideOnBlur: false,
+        forceTo: false
       },
       selectors = {
         activeClass: 'is-active',
@@ -119,7 +119,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    */
   CollapsableProto.handleUIEventTracking = function(e) {
     var $currentTarget = $(e.target);
-    if(!$currentTarget.is(this.$trigger) && !$currentTarget.closest(this.$target).length) {
+    if (!$currentTarget.is(this.$trigger) && !$currentTarget.closest(this.$target).length) {
       this.toggle('hide');
     }
 
@@ -162,14 +162,14 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
             .attr('tabindex', -1)
             .focus();
       }
-      if(this.config.hideOnBlur) {
+      if (this.config.hideOnBlur) {
         this.setTargetTrackingListeners(true);
       }
     } else {
       label = this.i18nStrings.open;
       expandedLabel = 'false';
       iconClass = selectors.iconClassOpen;
-      if(this.config.hideOnBlur) {
+      if (this.config.hideOnBlur) {
         this.setTargetTrackingListeners(false);
       }
     }
