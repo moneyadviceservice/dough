@@ -12,7 +12,7 @@
   ],
   "dependencies": {
     "normalize-css": "~3.0.0",
-    "eventsWithPromises": "https://github.com/moneyadviceservice/eventsWithPromises.git",
+    "eventsWithPromises": "https://github.com/moneyadviceservice/eventsWithPromises.git#master",
     "requirejs": "latest",
     "jquery": "latest",
     "jqueryThrottleDebounce": "https://github.com/cowboy/jquery-throttle-debounce.git"
