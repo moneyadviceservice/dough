@@ -1,0 +1,18 @@
+ul {
+  list-style: none;
+
+  > li:before {
+    content: '\2022';
+    color: $color-bullet;
+    display: block;
+    position: relative;
+    width: 0;
+    height: 0;
+    left: -20px;
+    top: -1px;
+  }
+}
+
+li {
+
+}
