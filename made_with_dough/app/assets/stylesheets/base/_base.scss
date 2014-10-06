@@ -30,3 +30,7 @@ small,
 .small {
   @include font-size($base-font-size-small);
 }
+
+.strikethrough {
+  text-decoration: line-through;
+}
