@@ -1,0 +1,14 @@
+@import 'dough/assets/stylesheets/lib';
+@import 'dough/assets/stylesheets/common';
+@import 'dough/assets/stylesheets/optional';
+
+// Contains variables that are a pre-requisite for the settings file
+@import 'lib/colors';
+
+// Default settings for the Dough project
+@import 'settings';
+
+@import 'lib/*';
+@import 'base/*';
+@import 'layout/*';
+@import 'components/*';

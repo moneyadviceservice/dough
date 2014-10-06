@@ -1,0 +1,33 @@
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0; // All type should only use margin-bottom.
+  font-weight: $bold;
+  color: $base-heading-color;
+}
+
+h1 {
+  @include font-size(36);
+
+  @include respond-to($mq-l) {
+    @include font-size(50);
+  }
+}
+
+h2 {
+  @include font-size(30);
+
+  @include respond-to($mq-l) {
+    @include font-size(40);
+  }
+}
+
+h3 {
+  @include font-size(20);
+  border-bottom: 1px solid $base-horizontal-rule-color;
+  margin-bottom: baseline-unit(4);
+}
+
+h4 {
+  @include font-size(18);
+  border-bottom: 1px solid $base-horizontal-rule-color;
+  margin-bottom: baseline-unit(3);
+}
