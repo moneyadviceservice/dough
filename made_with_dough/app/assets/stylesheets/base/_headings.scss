@@ -1,0 +1,17 @@
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0; // All type should only use margin-bottom.
+  font-weight: $bold;
+  color: $base-heading-color;
+}
+
+h1 {
+  @include font-size(40);
+}
+
+h2 {
+  @include font-size(20);
+}
+
+h3 {
+  @include font-size(18);
+}

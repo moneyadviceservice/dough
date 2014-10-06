@@ -1,0 +1,11 @@
+body {
+  @include font-size($base-font-size);
+  font-family: $base-font-stack;
+  font-weight: $light;
+  line-height: $base-line-height;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: baseline-unit(2);
+}
