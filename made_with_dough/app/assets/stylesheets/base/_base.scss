@@ -31,6 +31,7 @@ small,
   @include font-size($base-font-size-small);
 }
 
+// to be used on the span element to strikethrough text
 .strikethrough {
   text-decoration: line-through;
 }
