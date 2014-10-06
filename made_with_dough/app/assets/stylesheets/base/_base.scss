@@ -21,6 +21,8 @@ p {
   h2 + & {
     @include font-size($base-font-size-small);
     color: $base-smallprint-color;
+    margin-top: baseline-unit(-2);
+    margin-bottom: baseline-unit(3);
   }
 }
 
