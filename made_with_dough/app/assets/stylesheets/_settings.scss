@@ -1,0 +1,32 @@
+// TYPOGRAPHY
+
+// Default settings for Dough's typography.
+// Variables have no unit to make calculations easier.
+
+$base-font-size:    16 !default;
+$base-line-height:  1.4 !default;
+
+$base-font-family: "Helvetica Neue" !default;
+$base-font-stack: $base-font-family, "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+
+// Monospace font for code snippets
+$monospace-font-stack: Consolas, Andale Mono, Monaco, monospace !default;
+
+// Font weights that can be used in this project are:
+$bold: 700;
+$medium: 500;
+$light: 200;
+
+// Default colours for type and headings
+$base-text-color: $color-cape-cod;
+$base-heading-color: $color-outer-space;
+
+// Colour palette for the Dough brand
+$primary-brand-color: green;
+$secondary-brand-color: grey;
+
+
+// GRID
+
+// The vertical grid is spaced in 6px increments.
+$vertical-grid-spacing: 6 !default;
