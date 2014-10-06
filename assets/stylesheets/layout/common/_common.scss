@@ -6,18 +6,6 @@
   }
 }
 
-.l-constrained {
-  @extend %clearfix;
-  margin: 0 auto;
-
-  @if $responsive {
-    max-width: $mq-xl;
-    width: 100%;
-  } @else {
-    width: $mq-l;
-  }
-}
-
 .l-padded {
   padding-left: $baseline-unit;
   padding-right: $baseline-unit;
