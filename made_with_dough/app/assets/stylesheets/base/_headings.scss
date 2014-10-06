@@ -5,10 +5,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  @include font-size(36);
+  @include font-size(40);
 
   @include respond-to($mq-l) {
-    @include font-size(50);
+    @include font-size(60);
   }
 }
 
@@ -23,11 +23,22 @@ h2 {
 h3 {
   @include font-size(20);
   border-bottom: 1px solid $base-horizontal-rule-color;
-  margin-bottom: baseline-unit(4);
+  margin-top: baseline-unit(6);
+  margin-bottom: baseline-unit(3);
 }
 
 h4 {
-  @include font-size(18);
+  @include font-size(16);
   border-bottom: 1px solid $base-horizontal-rule-color;
+  margin-top: baseline-unit(6);
   margin-bottom: baseline-unit(3);
+}
+
+.strapline {
+  @include font-size(20);
+  margin-bottom: baseline-unit(12);
+
+  @include respond-to($mq-l) {
+    @include font-size(26);
+  }
 }
