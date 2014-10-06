@@ -1,4 +1,6 @@
-.component {
+.l-component {
   margin-top: baseline-unit(6);
   margin-bottom: baseline-unit(10);
+
+  max-width: $mq-m;
 }
