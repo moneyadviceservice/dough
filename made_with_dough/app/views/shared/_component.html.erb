@@ -1,15 +1,19 @@
 <% @components.each do |c| %>
 <section class="l-component">
-  <div class="component__description">
+  <div class="l-component__description">
     <%= c.doc_html.html_safe %>
   </div>
 
-  <code class="code code--raw">
-    <%= c.code_raw_html %>
-  </code>
+  <h3>Preview</h3>
 
   <div class="code code--processed">
     <%= raw(c.code_processed_html.result(binding)) %>
   </div>
+
+  <p>To embed the component include the following Ruby (erb) helper:</p>
+
+  <code class="code code--raw">
+    <%= c.code_raw_html %>
+  </code>
 </section>
 <% end %>

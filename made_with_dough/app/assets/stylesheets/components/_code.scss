@@ -1,13 +1,14 @@
 .code {
   font-family: $monospace-font-stack;
-  margin-top: baseline-unit(6);
-  margin-bottom: baseline-unit(6);
+  display: block;
 }
 
 .code--raw {
-
+  padding: baseline-unit(4);
+  background-color: $secondary-ui-color;
 }
 
 .code--processed {
-
+  margin-top: baseline-unit(6);
+  margin-bottom: baseline-unit(10);
 }
