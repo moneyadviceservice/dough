@@ -5,13 +5,26 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  @include font-size(40);
+  @include font-size(36);
+
+  @include respond-to($mq-l) {
+    @include font-size(50);
+  }
 }
 
 h2 {
-  @include font-size(20);
+  @include font-size(30);
+
+  @include respond-to($mq-l) {
+    @include font-size(40);
+  }
 }
 
 h3 {
+  @include font-size(20);
+  border-bottom: 1px solid $base-horizontal-rule-color;
+}
+
+h4 {
   @include font-size(18);
 }
