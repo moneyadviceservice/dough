@@ -7,18 +7,18 @@ module Dough
 
       attr_reader :text, :renderer
 
-      def initialize options = {}
+      def initialize(options = {})
         @text = options[:text]
         @renderer = options[:renderer]
       end
 
-      def render text
-        renderer.render inline: 'foo', locals: { text: text }
+      def render(text)
+        renderer.render(inline: 'foo', locals: { text: text })
       end
     end
 
     let(:renderer) { double(:Renderer, render: render) }
-    subject(:helper) { Foo.new helper_name: :inset_block, renderer: renderer, text: 'foo' }
+    subject(:helper) { Foo.new(helper_name: :inset_block, renderer: renderer, text: 'foo') }
 
     describe "#method_missing" do
       context "helper found" do
