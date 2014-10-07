@@ -25,7 +25,7 @@ module Dough
         let(:render) { double(:render, render: '', empty?: false) }
 
         it "delegates to the correct helper" do
-          allow(subject.inset_block).to receive(:render).and_return render
+          expect(subject.inset_block).to receive(:render).and_return render
           subject.inset_block('foo').render
         end
 
