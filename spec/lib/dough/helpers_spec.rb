@@ -21,8 +21,6 @@ module Dough
     subject(:helper) { Foo.new helper_name: :inset_block, renderer: renderer, text: 'foo' }
 
     describe "#method_missing" do
-      it "searches for a helper with the same name"
-
       context "helper found" do
         let(:render) { double(:render, render: '', empty?: false) }
 
