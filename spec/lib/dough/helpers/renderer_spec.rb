@@ -13,7 +13,7 @@ module Dough
         helper Dough::Helpers
 
         def index
-          render inline: "<%= inset_block 'Some instructional text' %>"
+          render(inline: "<%= inset_block 'Some instructional text' %>")
         end
       end
 
