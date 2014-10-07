@@ -1,4 +1,3 @@
-require "dough/helpers/inset_block"
 require "dough/helpers/form_row"
 require "dough/helpers/renderer"
 
