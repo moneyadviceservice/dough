@@ -2,6 +2,7 @@
 
 The Money Advice Service's frontend assets.
 
+[![Code Climate](https://codeclimate.com/github/moneyadviceservice/dough/badges/gpa.svg)](https://codeclimate.com/github/moneyadviceservice/dough)
 
 ## Prerequisites
 
