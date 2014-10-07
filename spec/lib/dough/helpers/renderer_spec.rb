@@ -23,15 +23,15 @@ module Dough
         end
 
         it "has an inset_block class" do
-          expect(response.body).to include 'class="inset-block"'
+          expect(response.body).to include('class="inset-block"')
         end
 
         it "has an inset_block content container class" do
-          expect(response.body).to include 'class="inset-block__content-container"'
+          expect(response.body).to include('class="inset-block__content-container"')
         end
 
         it "has an inset_block text class" do
-          expect(response.body).to include 'class="inset-block__text"'
+          expect(response.body).to include('class="inset-block__text"')
         end
       end
     end
