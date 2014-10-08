@@ -20,4 +20,3 @@ if Rails.env.test? || Rails.env.development?
   end
   task default: [:spec]
 end
-
