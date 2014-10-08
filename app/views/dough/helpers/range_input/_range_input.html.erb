@@ -1,4 +1,13 @@
-<div data-dough-component="RangeInput">
-  <label for="my_input">label</label>
-  <input id="my_input" data-dough-range-input type="text" min="1000" max="5000" value="1500"/>
+<p><label id="lbl-<%= html_content[:name_input] %>"><%= html_content[:lbl_input] %></label></p>
+<div class="l-form__range form__group form__group--inline" data-dough-component="RangeInput">
+  <span class="form__group-item">
+    <span class="form__input-container">
+      <span class="form__input-label"><%= html_content[:unit_input] %></span>
+      <input class="form__input" data-dough-range-input aria-describedby="lbl-<%= html_content[:name_input] %>" name="<%= html_content[:name_input] %>" type="text" pattern="\d*" min="<%= html_content[:min_value_input] %>" max="<%= html_content[:max_value_input] %>" value="<%= html_content[:value_input] %>" <%= 'maxlength=' + html_content[:max_length] if defined? html_content[:max_length] %>">
+      <span class="form__input-outline"></span>
+    </span>
+  </span>
+  <span class="form__group-item">
+    <span class="calc-result__suffix"><%= html_content[:suffix_input] %></span>
+  </span>
 </div>

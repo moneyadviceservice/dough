@@ -1,10 +1,14 @@
 <%= range_input "",
-    html: {
-      label: "Enter your value",
-      input_name: 'salary',
-      initial_value: 50,
-      min: 0,
-      max: 100,
-      step: 5
+    html_content: {
+        lbl_input: 'Salary',
+        hide_label: true,
+        name_input: 'salary',
+        value_input: '10000',
+        unit_input: '£',
+        min_value_input: 5000,
+        max_value_input: 15000,
+        step_input: 1,
+        suffix_input: 'per year',
+        max_length: "6"
     }
 %>
