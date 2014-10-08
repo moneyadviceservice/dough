@@ -11,3 +11,4 @@ Gemfile.lock
 vendor/assets/bower_components
 .idea/
 coverage/
+bower.json
