@@ -17,11 +17,15 @@
   <script>var responsiveStyle = true;</script>
   <!--<![endif]-->
 
+  <script>
+    <%= raw Rails.application.assets['modernizr/modernizr'] %>
+  </script>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
 
 <%= yield %>
-
+<%= javascript_include_tag 'requirejs/require', data: { main: javascript_path('application') } %>
 </body>
 </html>
