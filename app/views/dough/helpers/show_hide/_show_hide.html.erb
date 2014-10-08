@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <h3 class="trigger collapsable__trigger"
     data-dough-component="Collapsable"
     data-dough-collapsable-trigger="1">
@@ -13,3 +14,11 @@
 </h2>
 <div class="target collapsable__target" data-dough-collapsable-target="1"><%= html_content[:content] %></div>
 >>>>>>> Add Show n Hide component
+=======
+<h3 class="trigger collapsable__trigger"
+    data-dough-component="Collapsable"
+    data-dough-collapsable-trigger="1">
+  <%= html_content[:trigger].html_safe %>
+</h3>
+<div class="target collapsable__target" data-dough-collapsable-target="1"><%= html_content[:content].html_safe %></div>
+>>>>>>> Use html_safe to render markup
