@@ -128,8 +128,8 @@ module Dough
             expect(response.body).to include('Budgeting tips')
           end
 
-          it 'wraps the text in a div element' do
-            expect(response.body).to include('<div class="callout-instructional">')
+          it "wraps the text in a div element" do
+            expect(response.body).to include('<div class="callout callout--instructional">')
           end
         end
       end
