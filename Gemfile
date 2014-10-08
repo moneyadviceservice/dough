@@ -4,7 +4,7 @@ source "http://gems.test.mas"
 gemspec
 
 group :development, :test do
-  gem 'mas-development_dependencies'
+  gem 'mas-development_dependencies', git: 'git@github.com:moneyadviceservice/mas-development_dependencies.git'
   gem 'pry'
 end
 
