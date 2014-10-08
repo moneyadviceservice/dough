@@ -34,6 +34,29 @@ module Dough
           expect(response.body).to include('class="inset-block__text"')
         end
       end
+
+      describe "#callout_instructional" do
+
+        controller do
+          helper Dough::Helpers
+
+          def index
+            render(inline: "<%= callout_instructional 'Budgeting tips' %>")
+          end
+        end
+
+        before :each do
+          get :index
+        end
+
+        it 'renders "text"' do
+          expect(response.body).to include('Budgeting tips')
+        end
+
+        it "wraps the text in a div element" do
+          expect(response.body).to include('<div class="callout-instructional">')
+        end
+      end
     end
   end
 end
