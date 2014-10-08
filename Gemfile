@@ -5,6 +5,7 @@ gemspec
 
 group :development, :test do
   gem 'mas-development_dependencies'
+  gem 'pry'
 end
 
 group :build do
