@@ -115,10 +115,14 @@ describe('Tab selector', function() {
 
     it('closes the menu if the viewport is resized to small', function() {
       this.$triggers.last().click();
+      sinon.stub(this.TabSelector.prototype, '_haveTriggersWrapped', function() {
+        return true;
+      });
       this.eventsWithPromises.publish('mediaquery:resize', {
         newSize: 'mq-s'
       });
       expect(isOpen(this.$triggersInner)).to.equal(false);
+      this.TabSelector.prototype._haveTriggersWrapped.restore();
     });
 
   });

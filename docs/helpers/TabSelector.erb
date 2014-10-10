@@ -1,3 +1,29 @@
-# Need to think about API for this?
-
-<%= tab_selector :tabs => ['Tab 1', 'Tab 2', 'Tab 3'] %>
+<%=
+  tab_selector :section_name do |tab|
+    tab.section do |container|
+      container.heading 'Basic text'
+      container.content do
+        "Some basic text"
+      end
+    end
+    tab.section do |container|
+      container.heading 'Call out instructions'
+      container.content do
+        "Really complex content #{ callout_instructional "some stuff", html_content: {heading: 'foo', content: 'bar'} }"
+      end
+    end
+    tab.section do |container|
+      container.heading 'Call out editorial'
+      container.content do
+        callout_editorial "some stuff", html_content: {heading: 'foo', content: 'bar'}
+      end
+    end
+    tab.section do |container|
+      container.active
+      container.heading 'An inset block'
+      container.content do
+        inset_block "some stuff"
+      end
+    end
+  end
+%>
