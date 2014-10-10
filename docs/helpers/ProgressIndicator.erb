@@ -1,1 +1,8 @@
-<%= progress_indicator current_step => 1, total_steps => 3 %>
+<%= progress_indicator "",
+                       html_content: {
+                           step_label: 'Step',
+                           step_description: 'Adjust your figures',
+                           current_step: 1,
+                           total_steps: 3
+                       }
+%>
