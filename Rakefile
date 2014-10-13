@@ -11,7 +11,7 @@ Bundler::GemHelper.install_tasks
 
 require 'dough'
 
-if ENV['RAILS_ENV'] == 'test' or ENV['RAILS_ENV'] == 'development'
+if Rails.env.test? or Rails.env.development?
   require 'rspec/core'
   require 'rspec/core/rake_task'
   RSpec::Core::RakeTask.new(:spec) do |spec|
