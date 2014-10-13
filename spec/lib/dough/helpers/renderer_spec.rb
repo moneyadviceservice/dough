@@ -176,6 +176,33 @@ module Dough
           expect(response.body).to include('div class="tab-selector__trigger-container is-active"')
         end
       end
+
+      describe "#callout_instructional" do
+        controller do
+          helper Dough::Helpers
+
+          def index
+            render(inline: "<%= callout_instructional html_content: {
+    heading: '<h3>Budgeting tips</h3>',
+    content: '<p>In 1985, average first-time buyers needed a deposit of 5% to buy a home - in 2012, this had increased to 20%
+    <br/><strong>Source: HM Treasury </strong>
+      </p>'
+} %>")
+          end
+        end
+
+        before :each do
+          get :index
+        end
+
+        it 'renders "text"' do
+          expect(response.body).to include('Budgeting tips')
+        end
+
+        it "wraps the text in a div element" do
+          expect(response.body).to include('<div class="callout callout--instructional">')
+        end
+      end
     end
   end
 end
