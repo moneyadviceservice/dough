@@ -41,7 +41,6 @@ module Dough
       end
 
       describe '#callout_instructional' do
-
         controller do
           helper Dough::Helpers
 
