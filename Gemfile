@@ -7,6 +7,7 @@ group :development, :test do
   gem 'mas-development_dependencies', '2.3.0', github: 'moneyadviceservice/mas-development_dependencies'
   gem 'pry'
   gem 'rspec-rails'
+  gem 'capybara', '2.4.1'
 end
 
 gem 'mas-build' if ENV['MAS_BUILD']
