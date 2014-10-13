@@ -48,9 +48,6 @@
       border-bottom: 1px solid $color-tab-selector-border;
       width: 100%;
     }
-    &:focus {
-      outline: 0;
-    }
     .js & {
       &.is-active {
         @extend %font-heading-heavy;
