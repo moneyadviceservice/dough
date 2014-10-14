@@ -27,7 +27,7 @@ define([], function() {
      */
     this.attrs = [];
 
-    this._bindUiEvents(this.uiEvents || {});
+    this._bindUiEvents(this.config.uiEvents || {});
     return this;
   }
 

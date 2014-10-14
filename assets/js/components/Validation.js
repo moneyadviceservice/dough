@@ -22,22 +22,20 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     validationSummaryListAttribute: 'data-dough-validation-summary-list',
     validationSummaryHiddenClass: 'validation-summary--hidden',
     validationSummaryErrorClass: 'validation-summary__error',
-    inlineErrorClass: 'js-inline-error'
-  },
-
-  uiEvents = {
-    'blur input, select, textarea': '_handleBlurEvent',
-    'keyup input, textarea': '_handleChangeEvent',
-    'change input, select': '_handleChangeEvent',
-    'submit': '_handleSubmit'
-  },
+    inlineErrorClass: 'js-inline-error',
+    uiEvents: {
+      'blur input, select, textarea': '_handleBlurEvent',
+      'keyup input, textarea': '_handleChangeEvent',
+      'change input, select': '_handleChangeEvent',
+      'submit': '_handleSubmit'
+    }
+  };
 
   /**
    * Call base constructor
    * @constructor
    */
   Validation = function($el, config) {
-    this.uiEvents = uiEvents;
     Validation.baseConstructor.call(this, $el, config, defaultConfig);
   };
 
