@@ -52,7 +52,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       'minlength': '_validateMinLength'
     };
 
-    // If there's server erros on the page, we back off completely
+    // If there's server errors on the page, we back off completely
     // There are a number of different types of errors that the server
     // generates, and this file will grow in complexity trying to keep up.
     if (this.$el.find('[' + this.config.validationSummaryListAttribute + ']').find('li').length > 0) {
@@ -117,7 +117,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       var $formRow = $(o),
           $errorContainer = $formRow.find('.' + this.config.inlineErrorClass),
           $inputs = $formRow.find(this.config.fieldSelector),
-          errorHTML = "",
+          errorHTML = '',
           rowHasErrors = false,
           groupsDealtWith = [];
 
@@ -129,7 +129,9 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
         if (errorIndex > -1 && $.inArray(inputName, groupsDealtWith) === -1) {
           rowHasErrors = true;
           groupsDealtWith.push(inputName);
-          errorHTML += '<p id="' + this._getInlineErrorID(inputName) + '" class="' + this.config.validationSummaryErrorClass + '">' + (errorIndex + 1) + '. ' + this.errors[errorIndex].message + '</p>';
+          errorHTML += '<p id="' + this._getInlineErrorID(inputName) + '" class="' +
+              this.config.validationSummaryErrorClass + '">' + (errorIndex + 1) +
+              '. ' + this.errors[errorIndex].message + '</p>';
         }
       }, this));
 
@@ -153,12 +155,12 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   Validation.prototype.refreshValidationSummary = function() {
     var fieldName,
-        fieldGroupValidity,
         summaryHTML = '';
 
     $.each(this.errors, $.proxy(function(errorIndex, fieldGroupValidity) {
       fieldName = fieldGroupValidity.name;
-      summaryHTML += '<li class="' + this.config.validationSummaryErrorClass + '"><a href="#error-' + fieldName + '">' + fieldGroupValidity.message + '</a></li>';
+      summaryHTML += '<li class="' + this.config.validationSummaryErrorClass +
+          '"><a href="#error-' + fieldName + '">' + fieldGroupValidity.message + '</a></li>';
     }, this));
 
     this.$el.find('[' + this.config.validationSummaryListAttribute + ']').html(summaryHTML);
@@ -203,9 +205,9 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   Validation.prototype._prepareMarkup = function() {
     var $validationSummary = this.$el.find('.' + this.config.validationSummaryClass);
     if (!$validationSummary.length) {
-      this.$el.prepend('<div class="' + this.config.validationSummaryClass + ' ' + this.config.validationSummaryHiddenClass + '">\
-          <ol ' + this.config.validationSummaryListAttribute + '></ol>\
-        </div>');
+      this.$el.prepend('<div class="' + this.config.validationSummaryClass + ' ' +
+          this.config.validationSummaryHiddenClass + '"><ol ' +
+          this.config.validationSummaryListAttribute + '></ol></div>');
     }
 
     this.$el.find('.form__row').each($.proxy(function(i, o) {
@@ -341,7 +343,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   Validation.prototype._prepareFieldGroupValidity = function($primaryField, fieldGroupValidity) {
     // Hoist up to top level for ease of access
     $.each(fieldGroupValidity.errors, function(i, validatorResults) {
-      if (validatorResults.name == "required" && validatorResults.isEmpty !== true) {
+      if (validatorResults.name === 'required' && validatorResults.isEmpty !== true) {
         fieldGroupValidity.isEmpty = false;
       }
 
@@ -350,11 +352,13 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       }
     });
 
-    fieldGroupValidity.hasError = fieldGroupValidity.errors.length && (fieldGroupValidity.isEmpty || fieldGroupValidity.isInvalid);
+    fieldGroupValidity.hasError = fieldGroupValidity.errors.length &&
+        (fieldGroupValidity.isEmpty || fieldGroupValidity.isInvalid);
 
     // Check which message to use, empty should take prescedence
     if (fieldGroupValidity.isInvalid) {
-      fieldGroupValidity.message = $primaryField.attr(this.config.attributeInvalid) || $primaryField.attr(this.config.attributeEmpty);
+      fieldGroupValidity.message = $primaryField.attr(this.config.attributeInvalid) ||
+          $primaryField.attr(this.config.attributeEmpty);
     }
 
     if (fieldGroupValidity.isEmpty) {
@@ -371,17 +375,16 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @private
    * @param  {jQuery} $field   the field being checked
    * @param  {String} value    the field value
-   * @param  {String} required Validation parameters
    * @return {Object}          Validity object
    */
-  Validation.prototype._validateRequired = function($field, value, required) {
+  Validation.prototype._validateRequired = function($field, value) {
     var validity = { name: 'required' };
 
     if ($field.is('[type="radio"]') && !$field.prop('checked')) {
       validity.isEmpty = true;
     }
     else {
-      if (value == '') {
+      if (value === '') {
         validity.isEmpty = true;
       }
     }
@@ -479,7 +482,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       var _fieldName = fieldGroupValidity.name;
       if (_fieldName === fieldName) {
         matchedErrorIndex = index;
-        return;
+        return false;
       }
     }, this));
 
@@ -576,7 +579,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   /**
    * Check the form's validity with the server and if valid, submit it
-   * @param e
+   * @param {Object} e
    */
   Validation.prototype.checkValidityWithServer = function(e) {
     var _this = this;
