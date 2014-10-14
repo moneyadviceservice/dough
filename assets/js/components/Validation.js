@@ -520,12 +520,11 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * as a group.
    * Typical use case for this is radio/checkboxes.
    *
-   * @param  {jQuery} $field jQuery field
+   * @param  {jQuery || string} $field jQuery field or field name
    * @return {jQuery}        jQuery fieldgroup, array of fields with matching name
    */
   Validation.prototype._getFieldGroup = function($field) {
-    var $fieldGroup,
-        fieldName = $field.attr('name');
+    var fieldName = (typeof $field === 'string') ? $field : $field.attr('name');
 
     return this.$allFieldsOnPage.filter('[name="' + fieldName + '"]');
   };
@@ -570,9 +569,36 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     if (this.errors.length) {
       e.preventDefault();
       this._sortErrorsByFieldDisplayOrder().refreshValidationSummary()._showValidationSummary();
+    } else {
+      this.checkValidityWithServer(e);
     }
   };
 
+  /**
+   * Check the form's validity with the server and if valid, submit it
+   * @param e
+   */
+  Validation.prototype.checkValidityWithServer = function(e) {
+    var _this = this;
+
+    e.preventDefault();
+    $.ajax({
+      url: this.$el.attr('action'),
+      dataType: 'json'
+    })
+        .done(function() {
+          // manually submit form as no errors
+          _this.$el.submit();
+        })
+        .fail(function(jqXHR) {
+          if (jqXHR.responseJSON && jqXHR.responseJSON.errors) {
+            $.each(jqXHR.responseJSON.errors, function(idx, val) {
+              val.$fieldGroup = _this._getFieldGroup(val.name);
+              _this.addError(val);
+            });
+          }
+        });
+  };
 
   return Validation;
 
