@@ -195,7 +195,7 @@ module Dough
           get :index
         end
 
-        it 'renders "text"' do
+        it 'renders html content' do
           expect(response.body).to include('Budgeting tips')
         end
 
