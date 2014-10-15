@@ -17,7 +17,10 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
 
       var TabSelector,
           defaultConfig = {
-            collapseInSmallViewport: false
+            collapseInSmallViewport: false,
+            uiEvents: {
+              'click [data-dough-tab-selector-trigger]': '_handleClickEvent'
+            }
           },
           selectors = {
             triggersOuter: '[data-dough-tab-selector-triggers-outer]',
@@ -27,9 +30,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
             target: 'data-dough-tab-selector-target',
             activeClass: 'is-active',
             inactiveClass: 'is-inactive'
-          },
-          uiEvents = {
-            'click [data-dough-tab-selector-trigger]': '_handleClickEvent'
           },
           i18nStrings = {
             selected: 'selected',
@@ -43,7 +43,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       TabSelector = function($el, config) {
         var triggerId;
 
-        this.uiEvents = uiEvents;
         TabSelector.baseConstructor.call(this, $el, config, defaultConfig);
         this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
         this.selectors = $.extend(this.selectors || {}, selectors);
