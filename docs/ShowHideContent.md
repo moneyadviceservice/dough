@@ -1,4 +1,6 @@
-# Show/Hide
+# Show/Hide Trigger
+
+Wrapper for a show/hide content
 
 ## Rules
 
@@ -9,3 +11,4 @@ Should be used for a paragraph or two of text, (i.e. not just a few words, and n
 Can show/hide multiple at once
 
 The trigger link should be in context to the content (rather than just 'Click here', it could have the first part of the text)
+
