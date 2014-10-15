@@ -37,7 +37,6 @@ module Dough
         it 'has an inset_block text class' do
           expect(response.body).to include('class="inset-block__text"')
         end
-
       end
 
       describe '#callout_instructional' do

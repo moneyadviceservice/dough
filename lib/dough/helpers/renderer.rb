@@ -11,12 +11,7 @@ module Dough
 
       def render
         template_file = "dough/helpers/#{helper_name}/#{helper_name}"
-        context = renderer.render(partial: template_file, locals: options)
-        if context.empty?
-          fail NameError
-        else
-          context
-        end
+        renderer.render(partial: template_file, locals: options)
       end
     end
   end
