@@ -14,22 +14,23 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';
 
   var defaultConfig = {
-    fieldSelector: 'input, textarea, select',
-    attributeEmpty: 'data-dough-validation-empty',
-    attributeInvalid: 'data-dough-validation-invalid',
-    rowInvalidClass: 'is-errored',
-    validationSummaryClass: 'validation-summary',
-    validationSummaryListAttribute: 'data-dough-validation-summary-list',
-    validationSummaryHiddenClass: 'validation-summary--hidden',
-    validationSummaryErrorClass: 'validation-summary__error',
-    inlineErrorClass: 'js-inline-error',
-    uiEvents: {
-      'blur input, select, textarea': '_handleBlurEvent',
-      'keyup input, textarea': '_handleChangeEvent',
-      'change input, select': '_handleChangeEvent',
-      'submit': '_handleSubmit'
-    }
-  };
+        fieldSelector: 'input, textarea, select',
+        attributeEmpty: 'data-dough-validation-empty',
+        attributeInvalid: 'data-dough-validation-invalid',
+        rowInvalidClass: 'is-errored',
+        validationSummaryClass: 'validation-summary',
+        validationSummaryListAttribute: 'data-dough-validation-summary-list',
+        validationSummaryHiddenClass: 'validation-summary--hidden',
+        validationSummaryErrorClass: 'validation-summary__error',
+        inlineErrorClass: 'js-inline-error',
+        uiEvents: {
+          'blur input, select, textarea': '_handleBlurEvent',
+          'keyup input, textarea': '_handleChangeEvent',
+          'change input, select': '_handleChangeEvent',
+          'submit': '_handleSubmit'
+        }
+      },
+      Validation;
 
   /**
    * Call base constructor
