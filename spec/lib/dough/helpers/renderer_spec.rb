@@ -111,7 +111,7 @@ module Dough
             helper Dough::Helpers
 
             def index
-              render(inline: "<%= callout_instructional 'Some instructional text', html_content: { heading: '<h3>Budgeting tips</h3>', content: '<p>In 1985</p>' } %>")
+              render(inline: "<%= callout_instructional 'Some instructional text' %>")
             end
           end
 
@@ -120,11 +120,7 @@ module Dough
           end
 
           it 'renders the heading' do
-            expect(response.body).to include('<h3>Budgeting tips</h3>')
-          end
-
-          it 'renders the content' do
-            expect(response.body).to include('<p>In 1985</p>')
+            expect(response.body).to include('Some instructional text')
           end
 
           it "wraps the text in a div element" do
@@ -182,12 +178,7 @@ module Dough
           helper Dough::Helpers
 
           def index
-            render(inline: "<%= callout_instructional html_content: {
-    heading: '<h3>Budgeting tips</h3>',
-    content: '<p>In 1985, average first-time buyers needed a deposit of 5% to buy a home - in 2012, this had increased to 20%
-    <br/><strong>Source: HM Treasury </strong>
-      </p>'
-} %>")
+            render(inline: "<%= callout_instructional '<h3>Budgeting tips</h3>' %>")
           end
         end
 
