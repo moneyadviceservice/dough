@@ -9,8 +9,7 @@ module Dough
     describe Renderer, type: :controller do
       render_views
 
-
-      describe "#inset_block" do
+      describe '#inset_block' do
         controller do
           helper Dough::Helpers
 
@@ -19,8 +18,8 @@ module Dough
           end
         end
 
-        describe "#render" do
-          context "helper template found" do
+        describe '#render' do
+          context 'helper template found' do
             controller do
               helper Dough::Helpers
 
@@ -28,14 +27,14 @@ module Dough
                 render(inline: "<%= inset_block 'Some instructional text' %>")
               end
             end
-            it "renders the template" do
+            it 'renders the template' do
               get :index
 
               expect(response.body).to include('Some instructional text')
             end
           end
 
-          context "helper template not found" do
+          context 'helper template not found' do
             controller do
               helper Dough::Helpers
 
@@ -44,37 +43,37 @@ module Dough
               end
             end
 
-            it "throws an exception" do
-              expect {
+            it 'throws an exception' do
+              expect do
                 get :index
-              }.to raise_error ActionView::Template::Error
+              end.to raise_error ActionView::Template::Error
             end
           end
         end
 
-        describe "#inset_block" do
+        describe '#inset_block' do
           before :each do
             get :index
           end
 
-          it "renders text" do
+          it 'renders text' do
             expect(response.body).to include('Some instructional text')
           end
 
-          it "has an inset_block class" do
+          it 'has an inset_block class' do
             expect(response.body).to include('class="inset-block"')
           end
 
-          it "has an inset_block content container class" do
+          it 'has an inset_block content container class' do
             expect(response.body).to include('class="inset-block__content-container"')
           end
 
-          it "has an inset_block text class" do
+          it 'has an inset_block text class' do
             expect(response.body).to include('class="inset-block__text"')
           end
         end
 
-        describe "#callout_editorial" do
+        describe '#callout_editorial' do
           controller do
             helper Dough::Helpers
 
@@ -83,22 +82,21 @@ module Dough
             end
           end
 
-
-          it 'renders "text"' do
+          it 'renders text' do
             get :index
 
             expect(response.body).to include('Some heading')
           end
 
-          it "wraps the text in a div element" do
+          it 'wraps the text in a div element' do
             get :index
 
             expect(response.body).to include('<div class="callout-editorial">')
           end
 
-          context "parsing html content" do
+          context 'parsing html content' do
 
-            it "passed html heading is accessible" do
+            it 'passed html heading is accessible' do
               get :index
 
               expect(response.body).to include('Some heading')
@@ -123,15 +121,13 @@ module Dough
             expect(response.body).to include('Some instructional text')
           end
 
-          it "wraps the text in a div element" do
+          it 'wraps the text in a div element' do
             expect(response.body).to include('<div class="callout callout--instructional">')
           end
         end
       end
 
-      describe "#tab_selector" do
-        let(:tab_selector) {
-        }
+      describe '#tab_selector' do
 
         controller do
           helper Dough::Helpers
@@ -153,27 +149,29 @@ module Dough
           end
         end
 
-        it "has a tab selector" do
+        it 'has a tab selector' do
           get :index
 
           expect(response.body).to include('div class="tab-selector')
         end
 
-        it "creates tab wrappers" do
+        it 'creates tab wrappers' do
           get :index
 
-          expect(response.body).to include('div data-dough-tab-selector-triggers-outer class="tab-selector__triggers-outer"')
-          expect(response.body).to include('div data-dough-tab-selector-triggers-inner class="tab-selector__triggers-inner"')
+          expect(response.body)
+            .to include('div data-dough-tab-selector-triggers-outer class="tab-selector__triggers-outer"')
+          expect(response.body)
+            .to include('div data-dough-tab-selector-triggers-inner class="tab-selector__triggers-inner"')
         end
 
-        it "sets up the expected amount of tabs" do
+        it 'sets up the expected amount of tabs' do
           get :index
 
           expect(response.body).to include('div class="tab-selector__trigger-container is-active"')
         end
       end
 
-      describe "#callout_instructional" do
+      describe '#callout_instructional' do
         controller do
           helper Dough::Helpers
 
@@ -190,7 +188,7 @@ module Dough
           expect(response.body).to include('Budgeting tips')
         end
 
-        it "wraps the text in a div element" do
+        it 'wraps the text in a div element' do
           expect(response.body).to include('<div class="callout callout--instructional">')
         end
       end

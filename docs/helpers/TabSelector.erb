@@ -3,26 +3,26 @@
     tab.section do |container|
       container.heading 'Basic text'
       container.content do
-        "Some basic text"
+        'Some basic text'
       end
     end
     tab.section do |container|
       container.heading 'Call out instructions'
       container.content do
-        "Really complex content #{ callout_instructional "some stuff", html_content: {heading: 'foo', content: 'bar'} }"
+        "Really complex content #{ callout_instructional 'some stuff' }"
       end
     end
     tab.section do |container|
       container.heading 'Call out editorial'
       container.content do
-        callout_editorial "some stuff", html_content: {heading: 'foo', content: 'bar'}
+        callout_editorial 'some stuff'
       end
     end
     tab.section do |container|
       container.active
       container.heading 'An inset block'
       container.content do
-        inset_block "some stuff"
+        inset_block 'some stuff'
       end
     end
   end

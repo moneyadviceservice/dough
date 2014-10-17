@@ -6,7 +6,6 @@ require 'active_support/core_ext'
 
 module Dough
   module Helpers
-
     #
     # Leverage method_missing so that we don't have to create boilerplate code to deliver template dependant
     # helpers.
@@ -15,15 +14,15 @@ module Dough
     #
     def tab_selector(id, &block)
       tabs_structure = Dough::Helpers::TabSelector.selector id, &block
-      self.render partial: 'dough/helpers/tab_selector/tab_selector', locals: { tab_section: tabs_structure }
+      render(partial: 'dough/helpers/tab_selector/tab_selector', locals: { tab_section: tabs_structure })
     end
-      
+
     def method_missing(method_name, *args, &block)
       if helper_exists?(method_name)
         parsed_args = merge_optional_string(args)
         render_helper(method_name, parsed_args)
       else
-        super
+        super method_name, *args, &block
       end
     end
 
@@ -41,8 +40,8 @@ module Dough
     # If it does we render that we that parameters passed
     #
     def helper_exists?(method_name)
-      view_paths = ActionController::Base.view_paths 
-      context = ActionView::LookupContext.new(view_paths) 
+      view_paths = ActionController::Base.view_paths
+      context = ActionView::LookupContext.new(view_paths)
 
       context.exists?(method_name, ["dough/helpers/#{method_name}"], true)
     end

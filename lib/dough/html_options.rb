@@ -12,7 +12,7 @@ module Dough
         public_send("#{name.to_sym}=", '')
       end
 
-      super m, *args, &block
+      super(m, *args, &block)
     end
 
     def to_s

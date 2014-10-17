@@ -16,4 +16,3 @@ module Dough
     end
   end
 end
-

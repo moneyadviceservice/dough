@@ -5,13 +5,13 @@ module Dough
         def selector(section_name, &block)
           tab_element_id = section_name.to_s.gsub('_', ' ').parameterize
           @content = { element_id: tab_element_id, tabs: [] }
-          yield self
+          block.call(self)
           @content
         end
 
         def section(&block)
           @data = { active: false }
-          yield self
+          block.call self
           @content[:tabs] << @data
         end
 
@@ -28,7 +28,7 @@ module Dough
         end
 
         def content(&block)
-          @data.merge!(content: yield)
+          @data.merge!(content: block.call(self))
         end
       end
     end

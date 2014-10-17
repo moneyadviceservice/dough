@@ -47,8 +47,8 @@ module Dough
           end
 
           it 'renders the title' do
-            expect(tidy_markup(form_builder.validation_summary)).
-              to include(I18n.t('dough.forms.validation.summary.title', locale: :en))
+            expect(tidy_markup(form_builder.validation_summary))
+              .to include(I18n.t('dough.forms.validation.summary.title', locale: :en))
           end
 
           context 'when welsh' do
