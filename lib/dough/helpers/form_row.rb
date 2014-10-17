@@ -9,7 +9,7 @@ module ActionView
         options ||= {}
 
         @form_row = Dough::Helpers::FormRow.new(object: object, attribute: attribute, options: options)
-        @template.render({layout: 'dough/helpers/form_row/form_row', locals: @form_row.locals}, &block)
+        @template.render({ layout: 'dough/helpers/form_row/form_row', locals: @form_row.locals }, &block)
       end
     end
   end
@@ -29,7 +29,7 @@ module Dough
       end
 
       def locals
-        {html_options: html_options}
+        { html_options: html_options }
       end
 
       private

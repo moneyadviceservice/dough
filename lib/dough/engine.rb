@@ -8,7 +8,7 @@ module Dough
       ::ApplicationController.helper(Helpers)
     end
 
-    initializer "dough.assets.precompile" do |app|
+    initializer 'dough.assets.precompile' do |app|
       app.config.assets.precompile += %w(dough/assets/stylesheets/basic.css
                                          dough/assets/stylesheets/font_files.css
                                          dough/assets/stylesheets/font_base64.css)

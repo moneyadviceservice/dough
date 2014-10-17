@@ -8,6 +8,7 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
   gem 'capybara', '2.4.1'
+  gem 'rubocop'
 end
 
 gem 'mas-build' if ENV['MAS_BUILD']

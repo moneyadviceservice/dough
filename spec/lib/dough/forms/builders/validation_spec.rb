@@ -11,10 +11,10 @@ module Dough
         end
 
         def tidy_markup(markup)
-          markup.gsub("\n", "")
-                .gsub(/\>\s*\</,"><")
-                .gsub(/\>\s*/, ">")
-                .gsub(/\s*\<\//, "</") if markup
+          markup.gsub('\n', '')
+                .gsub(/\>\s*\</,'><')
+                .gsub(/\>\s*/, '>')
+                .gsub(/\s*\<\//, '</') if markup
         end
 
         let(:model) do
@@ -23,10 +23,10 @@ module Dough
             validates :field_one, numericality: true
           end
           model.valid?
-          model.errors[:base] << "base error A"
-          model.errors[:field_one] << "field_one error 1"
-          model.errors[:field_one] << "field_one error 2"
-          model.errors[:field_two] << "field_two error 1"
+          model.errors[:base] << 'base error A'
+          model.errors[:field_one] << 'field_one error 1'
+          model.errors[:field_one] << 'field_one error 2'
+          model.errors[:field_two] << 'field_two error 1'
           model
         end
 
@@ -47,13 +47,15 @@ module Dough
           end
 
           it 'renders the title' do
-            expect(tidy_markup(form_builder.validation_summary)).to include(I18n.t('dough.forms.validation.summary.title', locale: :en))
+            expect(tidy_markup(form_builder.validation_summary)).
+              to include(I18n.t('dough.forms.validation.summary.title', locale: :en))
           end
 
           context 'when welsh' do
             it 'renders the welsh title' do
               I18n.with_locale :cy do
-                expect(tidy_markup(form_builder.validation_summary)).to include(I18n.t('dough.forms.validation.summary.title', locale: :cy))
+                expect(tidy_markup(form_builder.validation_summary))
+                  .to include(I18n.t('dough.forms.validation.summary.title', locale: :cy))
               end
             end
           end
@@ -62,27 +64,28 @@ module Dough
             it 'returns custom message' do
               I18n.with_locale :test_custom_error do
                 expect(tidy_markup(form_builder.validation_summary)).to_not include('is not a number')
-                expect(tidy_markup(form_builder.validation_summary)).to_not include('Field one custom not a number error')
+                expect(tidy_markup(form_builder.validation_summary))
+                  .to_not include('Field one custom not a number error')
                 expect(tidy_markup(form_builder.validation_summary)).to include('custom not a number error')
               end
             end
           end
 
           it 'lists all errors for the object' do
-            model.errors.each do |field, error|
+            model.errors.each do |_field, error|
               expect(tidy_markup(form_builder.validation_summary)).to include(error)
             end
             expect(tidy_markup(form_builder.validation_summary)).to include('Field one is not a number')
           end
 
-          context "when model implements field order" do
+          context 'when model implements field order' do
             it 'lists errors in order' do
               allow(model).to receive(:field_order).and_return([:field_two, :field_one])
 
-              expected_match = ".*"
+              expected_match = '.*'
               model.field_order.each do |field|
                 model.errors[field].each do |error|
-                  expected_match += error + ".*"
+                  expected_match += error + '.*'
                 end
               end
 
@@ -109,12 +112,12 @@ module Dough
           end
         end
 
-        context "when there are multiple objects" do
+        context 'when there are multiple objects' do
           let(:another_model) do
             model = ValidationBuilderModel.new
-            model.errors[:field_a] << "field_a error a"
-            model.errors[:field_a] << "field_a error b"
-            model.errors[:field_b] << "field_b error a"
+            model.errors[:field_a] << 'field_a error a'
+            model.errors[:field_a] << 'field_a error b'
+            model.errors[:field_b] << 'field_b error a'
             model
           end
 
@@ -125,7 +128,7 @@ module Dough
 
             it 'lists all errors for the objects' do
               [model, another_model].each do |m|
-                m.errors.each do |field, error|
+                m.errors.each do |_field, error|
                   expect(tidy_markup(form_builder.validation_summary)).to include(error)
                 end
               end

@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 class HelperWrapper
   include Dough::Helpers
@@ -17,25 +17,25 @@ module Dough
         end
       end
 
-      describe "#inset_block" do
+      describe '#inset_block' do
         before :each do
           get :index
         end
 
-        it "has an inset_block class" do
+        it 'has an inset_block class' do
           expect(response.body).to include('class="inset-block"')
         end
 
-        it "has an inset_block content container class" do
+        it 'has an inset_block content container class' do
           expect(response.body).to include('class="inset-block__content-container"')
         end
 
-        it "has an inset_block text class" do
+        it 'has an inset_block text class' do
           expect(response.body).to include('class="inset-block__text"')
         end
       end
 
-      describe "#callout_instructional" do
+      describe '#callout_instructional' do
 
         controller do
           helper Dough::Helpers
@@ -53,7 +53,7 @@ module Dough
           expect(response.body).to include('Budgeting tips')
         end
 
-        it "wraps the text in a div element" do
+        it 'wraps the text in a div element' do
           expect(response.body).to include('<div class="callout-instructional">')
         end
       end

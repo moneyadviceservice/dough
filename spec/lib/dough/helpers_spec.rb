@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 module Dough
   describe Helpers do
@@ -20,24 +20,24 @@ module Dough
     let(:renderer) { double(:Renderer, render: render) }
     subject(:helper) { Foo.new(helper_name: :inset_block, renderer: renderer, text: 'foo') }
 
-    describe "#method_missing" do
-      context "helper found" do
+    describe '#method_missing' do
+      context 'helper found' do
         let(:render) { double(:render, render: '', empty?: false) }
 
-        it "delegates to the correct helper" do
+        it 'delegates to the correct helper' do
           expect(subject.inset_block).to receive(:render).and_return render
           subject.inset_block('foo').render
         end
 
       end
 
-      context "helper not found" do
+      context 'helper not found' do
         let(:render) { double(:render, render: '', empty?: true) }
 
-        it "raises the appropriate exception" do
-          expect {
+        it 'raises the appropriate exception' do
+          expect do
             subject.nonexistent_helper('foo').render
-          }.to raise_error NameError
+          end.to raise_error NameError
         end
       end
     end
