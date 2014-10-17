@@ -36,4 +36,4 @@ gem 'redcarpet'
 
 gem 'dough-ruby', path: '../'
 
-gem 'bowndler'
+gem 'bowndler', github: 'moneyadviceservice/bowndler'
