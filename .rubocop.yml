@@ -41,7 +41,7 @@ AllCops:
   - 'features/**/*'
   - 'tmp/**/*'
   - 'vendor/**/*'
-  # TODO clean this classes
+  # TODO clean these classes
   - 'app/controllers/styleguide_controller.rb'
   - 'app/domain/breadcrumb_trail.rb'
   - 'lib/core/repository/callback_requestable/static.rb'
