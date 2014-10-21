@@ -1,1 +1,9 @@
-<%= show_hide :target => "#element" %>
+<%= show_hide "",
+  html: {
+      index: "1"
+  },
+  html_content: {
+      trigger: "Trigger",
+      content: "<p>My content</p>"
+  }
+%>
