@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @components = Dir['../docs/*.md'].map{|path| Component.new(path)}
+    @components = Dir['../docs/*.md'].map { |path| Component.new(path) }
   end
 
   class Component

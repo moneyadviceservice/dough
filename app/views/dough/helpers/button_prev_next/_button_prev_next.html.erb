@@ -1,0 +1,10 @@
+<div id="<%= text %>">
+  <button class="button button--compact">
+    <span class="icon icon--left-chevron"></span>
+    <span class="button--compact__text"><%= options[:previous].html_safe %></span>
+  </button>
+  <button class="button button--compact">
+    <span class="button--compact__text"><%= options[:next].html_safe %></span>
+    <span class="icon icon--right-chevron"></span>
+  </button>
+</div>

@@ -29,7 +29,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
             trigger: 'data-dough-tab-selector-trigger',
             target: 'data-dough-tab-selector-target',
             activeClass: 'is-active',
-            inactiveClass: 'is-inactive'
+            inactiveClass: 'is-inactive',
+            collapsedClass: 'is-collapsed'
           },
           i18nStrings = {
             selected: 'selected',
@@ -56,8 +57,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
           this._updateTriggers(triggerId);
         }
 
-        // set height after triggers updated, so active trigger is visible on small viewport
-        this._setTriggerWrapperHeight();
+        if (this.config.collapseInSmallViewport === true) {
+          this._updateCollapsedState();
+        }
 
         this._subscribeHubEvents();
       };
@@ -88,6 +90,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       TabSelector.prototype._checkComponentMarkup = function() {
         this.$triggersWrapperOuter = this.$el.find(selectors.triggersOuter);
         this.$triggersWrapperInner = this.$el.find(selectors.triggersInner).addClass(this.selectors.inactiveClass);
+        this.$triggerContainers = this.$el.find('[' + selectors.triggerContainer + ']');
         this.$firstTrigger = this.$triggersWrapperInner.find('[' + selectors.trigger + ']').first();
 
         this.isComponentMarkupValid = !!(this.$triggersWrapperOuter.length &&
@@ -122,18 +125,47 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
        * @private
        */
       TabSelector.prototype._subscribeHubEvents = function() {
-        var _this = this;
-
         if (this.config.collapseInSmallViewport === true) {
-          eventsWithPromises.subscribe('mediaquery:resize', function(data) {
-            if ($.inArray(data.newSize, ['mq-xs', 'mq-s']) !== -1) {
-              _this.$triggersWrapperInner
-                  .removeClass(_this.selectors.activeClass)
-                  .addClass(_this.selectors.inactiveClass);
-            }
-          });
+          eventsWithPromises.subscribe('mediaquery:resize', $.proxy(this._updateCollapsedState, this));
         }
+      };
 
+      /**
+       * Check if the tabs should be collapsed or not
+       * (based on whether they're currently wrapped) and update them accordingly
+       * @private
+       */
+      TabSelector.prototype._updateCollapsedState = function() {
+        this.$el.removeClass(this.selectors.collapsedClass);
+        if (this._haveTriggersWrapped()) {
+          this.$triggersWrapperInner
+              .removeClass(this.selectors.activeClass)
+              .addClass(this.selectors.inactiveClass);
+          this.$el.addClass(this.selectors.collapsedClass);
+          // set height after triggers updated, so active trigger is visible on small viewport
+          this._setTriggerWrapperHeight();
+        }
+      };
+
+      /**
+       * Have the triggers (eg tabs) wrapped onto a second line?
+       * @returns {boolean}
+       * @private
+       */
+      TabSelector.prototype._haveTriggersWrapped = function() {
+        var result = false,
+            top;
+
+        this.$triggerContainers.each(function(idx) {
+          if (idx === 0) {
+            top = $(this).position().top;
+          } else {
+            if ($(this).position().top > (top + $(this).height())) {
+              result = true;
+            }
+          }
+        });
+        return result;
       };
 
       /**
@@ -164,7 +196,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
         var $trigger = $(e.currentTarget),
             targetAttr;
 
-        this._deSelectItem(this.$el.find('[' + selectors.triggerContainer + '].is-active'));
+        this._deSelectItem(this.$triggerContainers.filter('.is-active'));
         targetAttr = $trigger.attr(selectors.trigger);
         this._updateTriggers(targetAttr);
         this._positionMenu($trigger);

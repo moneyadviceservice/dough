@@ -12,13 +12,13 @@ module Dough
         public_send("#{name.to_sym}=", '')
       end
 
-      super
+      super(m, *args, &block)
     end
 
     def to_s
       hash = table.dup
       hash[:class] = hash.delete(:classes)
-      hash.map{|k,v| "#{k}=\"#{v}\""}.join(' ')
+      hash.map { |k, v| "#{k}=\"#{v}\"" }.join(' ')
     end
   end
 end

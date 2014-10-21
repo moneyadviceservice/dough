@@ -1,0 +1,19 @@
+<div class="tab-selector tab-selector--collapsable" data-dough-component="TabSelector" data-dough-tab-selector-config='{"collapseInSmallViewport": true}'>
+  <div data-dough-tab-selector-triggers-outer class="tab-selector__triggers-outer">
+    <div data-dough-tab-selector-triggers-inner class="tab-selector__triggers-inner">
+      <% tab_section[:tabs].each_with_index do |tab, index| %>
+      <div class="tab-selector__trigger-container <%= tab[:active] ? 'is-active' : 'is-inactive' %>" data-dough-tab-selector-trigger-container>
+        <a class="tab-selector__trigger" href="#<%= tab_section[:element_id] %>-<%= index + 1 %>" data-dough-tab-selector-trigger="<%= index + 1 %>">
+          <%= tab[:heading] %> <span class="tab-selector__item-info"><%= tab[:summary] %></span>
+        </a>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <% tab_section[:tabs].each_with_index do |tab, index| %>
+  <div class="tab-selector__target <%= tab[:active] ? 'is-active' : 'is-inactive' %>" id="<%= tab_section[:element_id] %>-<%= index + 1 %>" data-dough-tab-selector-target="<%= index + 1 %>">
+    <h2 class="tab-selector__target-heading"><%= tab[:heading] %></h2>
+    <%= tab[:content].html_safe %>
+  </div>
+  <% end %>
+</div>

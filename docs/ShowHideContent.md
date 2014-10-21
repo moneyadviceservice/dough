@@ -1,4 +1,6 @@
-# Show/Hide
+# Show/Hide Trigger
+
+Wrapper for a show/hide content
 
 ## Rules
 

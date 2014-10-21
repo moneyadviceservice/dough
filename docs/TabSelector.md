@@ -11,5 +11,3 @@ Source: [Smashing Magazine](http://www.smashingmagazine.com/2009/06/24/module-ta
 * Tabs should not be be used to indicate progress, but can help users understand the breadth of content on the page
 * Tabs should not contain the end or final result, these should be outside of any tabs. For example a form's inputs can be contained within tabs with the summary or results shown outside of these as a separate component
 * One tab should not rely on another tab to make sense
-
-

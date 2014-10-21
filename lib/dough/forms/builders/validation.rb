@@ -10,7 +10,7 @@ module Dough
           render 'summary_for_errors', errors: errors
         end
 
-        def errors_for(subject=nil, field)
+        def errors_for(subject = nil, field)
           subject ||= object
           filtered_errors = errors.select { |hash| hash[:object] == subject && hash[:field] == field }
 
@@ -26,7 +26,9 @@ module Dough
         end
 
         def lookup_context
-          ActionView::LookupContext.new(ActionController::Base.view_paths + [Dough::Engine.root.join('app/views/dough/forms/builders/validation')])
+          ActionView::LookupContext.new(
+            ActionController::Base.view_paths + [Dough::Engine.root.join('app/views/dough/forms/builders/validation')]
+          )
         end
 
         private
@@ -58,8 +60,8 @@ module Dough
               model_errors = model.errors
             end
 
-            model_errors.each do |field,message|
-              @errors << {number: counter, object: model, field: field, message: message}
+            model_errors.each do |field, message|
+              @errors << { number: counter, object: model, field: field, message: message }
               counter += 1
             end
           end

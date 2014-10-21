@@ -20,8 +20,12 @@
 }
 
 .tab-selector__trigger-container {
+  visibility: hidden;
   .js & {
     display: inline-block;
+  }
+  [data-dough-tabselector-initialised="yes"] & {
+    visibility: visible;
     &.is-active {
       display: inline-block;
     }
@@ -81,7 +85,7 @@
 //
 // Styleguide Tab selector collapsable
 .tab-selector--collapsable {
-  @include respond-to(0, $mq-m) {
+  &.is-collapsed {
 
     .tab-selector__triggers-inner {
       .js & {
@@ -158,6 +162,7 @@
   .tab-selector__icon {
     @extend .icon--down-chevron-blue;
   }
+
   .tab-selector__triggers-inner.is-active .tab-selector__icon {
     @extend .icon--up-chevron-blue;
   }
@@ -174,6 +179,7 @@
       }
     }
   }
+
   .tab-selector__trigger.is-active .tab-selector__item-info {
     @extend .visually-hidden;
   }
@@ -197,5 +203,3 @@
     @extend .visually-hidden;
   }
 }
-
-
