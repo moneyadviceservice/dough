@@ -27,6 +27,7 @@ module Dough
                 render(inline: "<%= inset_block 'Some instructional text' %>")
               end
             end
+
             it 'renders the template' do
               get :index
 
@@ -95,7 +96,6 @@ module Dough
           end
 
           context 'parsing html content' do
-
             it 'passed html heading is accessible' do
               get :index
 
@@ -128,7 +128,6 @@ module Dough
       end
 
       describe '#tab_selector' do
-
         controller do
           helper Dough::Helpers
 
