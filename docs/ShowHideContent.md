@@ -1,4 +1,4 @@
-# Show/Hide Trigger
+## Show/Hide Trigger
 
 Wrapper for a show/hide content
 

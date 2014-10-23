@@ -16,4 +16,5 @@ Rails.application.config.assets.precompile += %w(
   rsvp/rsvp.js
   jqueryThrottleDebounce/jquery.ba-throttle-debounce.js
   dough/assets/js/**/*.js
+  prism.js
 )

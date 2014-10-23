@@ -2,6 +2,9 @@
 @import 'dough/assets/stylesheets/common';
 @import 'dough/assets/stylesheets/optional';
 
+// Prism code syntax highlighting
+@import 'prism';
+
 // Contains variables that are a pre-requisite for the settings file
 @import 'lib/colors';
 
