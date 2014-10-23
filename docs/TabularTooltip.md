@@ -1,6 +1,6 @@
-# Tooltips
+## Tooltips
 
-## Rules
+### Rules
 
 * Should only be used outside of a form (typically within a table) - if not, please use ***FieldHelpText***.
 * Should be activated click

@@ -1,6 +1,6 @@
-# Editorial Callout
+## Editorial Callout
 
-## Rules
+### Rules
 
 * Should only be used as related, supporting text in editorial content (i.e. top tips, factoids, quotes)
 * Should not be used as instructions to using tool

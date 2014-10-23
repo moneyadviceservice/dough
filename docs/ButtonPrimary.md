@@ -1,4 +1,4 @@
-# Primary Button
+## Primary Button
 
 * Primary / next action button
 * Can have more that one, providing they are all next actions

@@ -1,6 +1,6 @@
 # Field Help Text
 
-## Rules
+### Rules
 
 * Should only be used in a form
 * Component "FieldHelpText" should be used when multiple field tooltips are required on one form. The component will add role='tooltip' attribute to the help text in this case, and only show them when the input field has focus.

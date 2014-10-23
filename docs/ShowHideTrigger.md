@@ -1,8 +1,8 @@
-# Show/Hide Trigger
+## Show/Hide Trigger
 
 Wrapper for a show/hide trigger
 
-## Rules
+### Rules
 
 Aim for non-essential content to be hidden, but essential content can be "alluded" to with the trigger text
 
