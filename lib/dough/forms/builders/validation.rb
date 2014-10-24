@@ -51,7 +51,7 @@ module Dough
           counter = 1
 
           error_models.each do |model|
-            model_errors = collate_model_errors model
+            model_errors = collate_model_errors(model)
 
             model_errors.each do |field, message|
               @errors << { number: counter, object: model, field: field, message: message }
@@ -63,7 +63,7 @@ module Dough
         end
 
         def collate_model_errors(model)
-          if model.respond_to? :field_order
+          if model.respond_to?(:field_order)
             model_errors = []
 
             (model.field_order + model.errors.keys).uniq.each do |field|
