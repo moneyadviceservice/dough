@@ -18,6 +18,8 @@ Style/Not:
   Enabled: false
 Style/DoubleNegation:
   Enabled: false
+Style/MethodDefParentheses:
+  EnforcedStyle: require_parentheses
 Style/RaiseArgs:
   Enabled: false
 Style/RegexpLiteral:
