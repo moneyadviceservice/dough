@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 source 'http://gems.test.mas' if ENV['MAS_BUILD']
 
 gemspec
