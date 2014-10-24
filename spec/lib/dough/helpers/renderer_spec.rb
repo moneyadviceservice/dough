@@ -92,7 +92,7 @@ module Dough
           it 'wraps the text in a div element' do
             get :index
 
-            expect(response.body).to include('<div class="callout-editorial">')
+            expect(response.body).to include('<div class="callout">')
           end
 
           context 'parsing html content' do
