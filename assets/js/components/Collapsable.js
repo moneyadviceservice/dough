@@ -95,7 +95,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    * @param {Boolean} isActive Set to 'true' to bind to events, 'false' to unbind.
    */
   CollapsableProto.setListeners = function(isActive) {
-    this.$trigger[isActive ? 'on' : ' off']('click', $.proxy(function(e) {
+    this.$trigger[isActive ? 'on' : ' off']('click', $.proxy(function() {
       this.toggle();
     }, this));
 
