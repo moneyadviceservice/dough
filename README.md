@@ -93,6 +93,16 @@ Make sure you ran npm install.
 ./node_modules/jscs/bin/jscs js
 ```
 
+To prevent commiting JavaScript files that violate JSHint and JSCS rules:
+
+```shell
+cat > .git/hooks/pre-commit <<EOF
+!/bin/sh
+./script/git-pre-commit-jshint.sh
+EOF
+chmod +x .git/hooks/pre-commit
+```
+
 ## Contributing
 
 1. Fork it
