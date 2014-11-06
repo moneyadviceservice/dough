@@ -47,7 +47,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   FieldHelpText.prototype.hideTooltip = function() {
     // Use this rather than $(...).is(':focus') as the latter fails in Phantom
-    if (this.$inputTarget.get(0) != document.activeElement) {
+    if (this.$inputTarget.get(0) !== document.activeElement) {
       this.$el.addClass(this.config.hiddenClass);
     }
 
