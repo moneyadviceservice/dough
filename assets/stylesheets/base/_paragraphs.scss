@@ -2,6 +2,10 @@
 //
 // Styleguide p
 
-.editorial p {
-  @extend %paragraph;
+p {
+  // basic paragraph currently extends the type styles from the body element
+
+  .editorial & {
+    @extend %paragraph;
+  }
 }
