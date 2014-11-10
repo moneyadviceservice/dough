@@ -19,6 +19,7 @@
 // .icon--up-chevron - up chevron icon
 // .icon--down-chevron - down chevron icon
 // .icon--up-chevron-blue - up chevron icon
+// .icon--up-chevron-grey - up chevron icon
 // .icon--down-chevron-blue - down chevron icon
 // .icon--left-chevron - left chevron icon
 // .icon--right-chevron - right chevron icon
@@ -209,6 +210,12 @@
 
 .icon--up-chevron-blue {
   background-position: -484px -75px;
+  width: 18px;
+  height: 16px;
+}
+
+.icon--up-chevron-grey {
+  background-position: -50px -462px;
   width: 18px;
   height: 16px;
 }
