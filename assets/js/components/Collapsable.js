@@ -1,7 +1,7 @@
 /**
  * # Element visibility toggler.
  *
- * Requires an element to have a data-dough-toggler attribute. The application
+ * Requires an element to have a data-dough-component="Collapsable" attribute. The application
  * file will spawn an instance of this class for each element it finds on the page.
  *
  * Events used: toggler:toggled(element, isShown) [Event for when the toggler is doing its work]
