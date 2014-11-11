@@ -50,7 +50,8 @@ define(['jquery', 'rsvp'], function($, RSVP) {
       if (componentsToCreate.length) {
         this._instantiateComponents(componentsToCreate, instantiatedList.deferreds);
         // Wait until all components are instantiated before initialising them in a second pass
-        RSVP.allSettled(instantiatedList.promises).then(function() {
+        RSVP.allSettled(instantiatedList.promises).then(function(results) {
+          self._checkForFailedInstantiations(results, initialisedList.deferreds);
           self._initialiseComponents(self.components, initialisedList.deferreds);
         });
       }
@@ -59,6 +60,15 @@ define(['jquery', 'rsvp'], function($, RSVP) {
         $('body').attr('data-dough-component-loader-all-loaded', 'yes');
       });
       return promises;
+    },
+
+    _checkForFailedInstantiations: function(results, initialisedList) {
+      $.each(results, function(idx, obj) {
+        if ((obj.state === 'rejected') && (obj.reason.description === 'SINGLETON-DUPLICATE')) {
+          initialisedList[idx].resolve();
+          initialisedList.splice(idx, 1);
+        }
+      });
     },
 
     /**
@@ -136,12 +146,19 @@ define(['jquery', 'rsvp'], function($, RSVP) {
           config = this._parseConfig($el, componentName);
 
       require([componentName], function(Constr) {
-        config.componentName = componentName;
-        if (!self.components[componentName]) {
-          self.components[componentName] = [];
+        if (!Constr.isSingleton || !self.components[componentName]) {
+          config.componentName = componentName;
+          if (!self.components[componentName]) {
+            self.components[componentName] = [];
+          }
+          self.components[componentName].push(new Constr($el, config));
+          instantiated.resolve();
+        } else {
+          instantiated.reject({
+            componentName: componentName,
+            description: 'SINGLETON-DUPLICATE'
+          });
         }
-        self.components[componentName].push(new Constr($el, config));
-        instantiated.resolve();
       });
     },
 

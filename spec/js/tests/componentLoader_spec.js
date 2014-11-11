@@ -161,4 +161,35 @@ describe('componentLoader', function() {
 
   });
 
+  describe('Some component types should only have one instance', function() {
+
+    beforeEach(function(done) {
+      var self = this;
+      this.$html = $(window.__html__['spec/js/fixtures/componentLoader.html']);
+      requirejs(['TabSelector'], function(TabSelector) {
+        self.TabSelector = TabSelector;
+        self.TabSelector.isSingleton = true;
+        self.componentLoader.init(self.$html)
+            .then(function(results) {
+              self.results = results;
+              done();
+            });
+      });
+    });
+
+    afterEach(function() {
+      delete this.TabSelector;
+    });
+
+    it('will not allow a second instance of a "single instance" component to be created', function() {
+      var tabSelectorCount = $.map(this.results, function(val) {
+        if (val.value === 'TabSelector') {
+          return val;
+        }
+      });
+      expect(tabSelectorCount.length).to.equal(1);
+    });
+
+  });
+
 });
