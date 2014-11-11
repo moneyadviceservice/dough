@@ -48,7 +48,7 @@ module Dough
 
     def merge_optional_string(args)
       new_args = {}
-      args.push text: args.slice!(0) if args.first.class == String
+      args.push text: args.slice!(0) if args.first.kind_of?(String)
       args.each { |arg| new_args.merge!(arg) }
 
       new_args

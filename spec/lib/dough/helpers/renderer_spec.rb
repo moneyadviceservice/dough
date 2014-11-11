@@ -35,6 +35,22 @@ module Dough
             end
           end
 
+          context 'when ActiveSupport::SafeBuffer' do
+            controller do
+              helper Dough::Helpers
+
+              def index
+                render(inline: "<%= inset_block ActiveSupport::SafeBuffer.new('Some instructional text') %>")
+              end
+            end
+
+            it 'renders the template' do
+              get :index
+
+              expect(response.body).to include('Some instructional text')
+            end
+          end
+
           context 'helper template not found' do
             controller do
               helper Dough::Helpers
