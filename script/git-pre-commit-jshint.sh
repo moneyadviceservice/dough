@@ -19,7 +19,7 @@ echo "\nLinting JavaScript:\n"
 
 for file in ${files}; do
     result=$(node_modules/.bin/jshint ${file} && node_modules/.bin/jscs ${file})
-    if [ "$result" == "" ]; then
+    if [ "$result" == "No code style errors found." ]; then
         echo "\033[32m${file}: OK\033[0m"
     else
         echo "\033[31m${result}\033[0m"
