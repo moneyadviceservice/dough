@@ -6,7 +6,7 @@
  *
  * Events used: toggler:toggled(element, isShown) [Event for when the toggler is doing its work]
  *
- * See test fixture for sample markup - /test/fixtures/VisibilityToggler.html
+ * See test fixture for sample markup - /spec/js/fixtures/Collapsable.html
  */
 
 /**
