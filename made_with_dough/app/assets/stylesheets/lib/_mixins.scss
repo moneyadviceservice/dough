@@ -1,7 +1,0 @@
-@mixin font-size($value) {
-  @if $responsive {
-    font-size: ($value / $base-font-size) + rem;
-  } @else {
-    font-size: $value + px;
-  }
-}
