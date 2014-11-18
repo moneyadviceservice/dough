@@ -7,11 +7,7 @@
 
 .tab-selector__triggers-inner {
   .js & {
-    border-bottom: 1px solid $color-tab-selector-border;
     position: static;
-    &.is-active {
-      background-color: transparent;
-    }
   }
 }
 
@@ -32,7 +28,6 @@
   }
 
   .tab-selector__trigger {
-    @extend %type;
     border-color: $color-tab-selector-border;
     border-style: solid;
     bottom: -1px;
@@ -54,7 +49,6 @@
     }
     .js & {
       &.is-active {
-        @extend %font-heading-heavy;
         background-color: $color-tab-selector-background-active;
         border-width: 1px 1px 0 1px;
         border-radius: 5px 5px 0 0;
@@ -160,24 +154,9 @@
   }
 
   .tab-selector__icon {
-    @extend .icon--down-chevron-blue;
   }
 
   .tab-selector__triggers-inner.is-active .tab-selector__icon {
-    @extend .icon--up-chevron-blue;
-  }
-
-  .tab-selector__item-info {
-    .js & {
-      @include respond-to(0, $mq-m) {
-        clip: auto;
-        float: right;
-        font-size: 0.8em;
-        height: auto;
-        width: auto;
-        position: static;
-      }
-    }
   }
 
   .tab-selector__trigger.is-active .tab-selector__item-info {
