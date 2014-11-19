@@ -1,4 +1,4 @@
-$:.push File.expand_path('../lib', __FILE__)
+$LOAD_PATH.push File.expand_path('../lib', __FILE__)
 
 # Maintain your gem's version:
 require 'dough/version'
@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,db,lib,assets,vendor/assets/non_bower_components}/**/*'] +
     ['LICENSE', 'Rakefile', 'README.md', 'bower.json', '.jscsrc', '.jshintrc']
-  s.test_files = Dir["spec/**/*"]
+  s.test_files = Dir['spec/**/*']
 
   s.add_dependency 'rails', '>= 3.2'
   s.add_dependency 'sass-rails'

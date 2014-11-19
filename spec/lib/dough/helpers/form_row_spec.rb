@@ -23,45 +23,45 @@ module ActionView
         helper Dough::Helpers
 
         def index
-          render inline: """
-                         <%= form_for User.new, url: '/' do |f| %>
-                                          <%= f.form_row do %>
-                                            <%= 'hello world' %>
-                                          <% end %>
-                                        <% end %>
-                         """
+          render inline: '''
+                         <%= form_for User.new, url: "/" do |f| %>
+                            <%= f.form_row do %>
+                              <%= "hello world" %>
+                            <% end %>
+                          <% end %>
+                         '''
         end
 
         def index_with_class
-          render inline: """
-                         <%= form_for @user = User.new, url: '/' do |f| %>
-                                          <%= f.form_row(:name, html_options: {classes: 'my-new-class'}) do |row| %>
-                                            <%= 'hello world' %>
-                                          <% end %>
-                                        <% end %>
-                         """
+          render inline: '''
+                         <%= form_for @user = User.new, url: "/" do |f| %>
+                            <%= f.form_row(:name, html_options: {classes: "my-new-class"}) do |row| %>
+                              <%= "hello world" %>
+                            <% end %>
+                          <% end %>
+                         '''
         end
 
         def index_with_error
           @user = User.new
           @user.errors[:name] << 'fail'
-          render inline: """
-                         <%= form_for @user, url: '/' do |f| %>
+          render inline: '''
+                         <%= form_for @user, url: "/" do |f| %>
                            <%= f.form_row(:name) do |row| %>
-                             <%= 'hello world' %>
+                             <%= "hello world" %>
                            <% end %>
                          <% end %>
-                         """
+                         '''
         end
 
         def index_with_options
-          render inline: """
-                         <%= form_for @user = User.new, url: '/' do |f| %>
-                           <%= f.form_row(html_options: {classes: 'my-new-class'}) do |row| %>
-                             <%= 'hello world' %>
+          render inline: '''
+                         <%= form_for @user = User.new, url: "/" do |f| %>
+                           <%= f.form_row(html_options: {classes: "my-new-class"}) do |row| %>
+                             <%= "hello world" %>
                            <% end %>
                          <% end %>
-                        """
+                         '''
         end
       end
 

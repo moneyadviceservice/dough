@@ -2,7 +2,7 @@ module ActionView
   module Helpers
     class FormBuilder
       def form_row(*args, &block)
-        attribute = args[0] if args[0].is_a?(Symbol) || nil
+        attribute = args[0] if args[0].is_a?(Symbol)
 
         options = args[0] if args[0].is_a?(Hash)
         options = args[1] if args[1].is_a?(Hash)

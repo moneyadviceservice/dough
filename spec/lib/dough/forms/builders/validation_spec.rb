@@ -12,9 +12,9 @@ module Dough
 
         def tidy_markup(markup)
           markup.gsub('\n', '')
-                .gsub(/\>\s*\</,'><')
-                .gsub(/\>\s*/, '>')
-                .gsub(/\s*\<\//, '</') if markup
+            .gsub(/\>\s*\</, '><')
+            .gsub(/\>\s*/, '>')
+            .gsub(/\s*\<\//, '</') if markup
         end
 
         let(:model) do
