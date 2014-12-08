@@ -79,7 +79,7 @@ rm -r tmp/cache
 Make sure you ran npm install.
 
 ```sh
-$ ./node_modules/karma/bin/karma start test/karma.conf.js --single-run
+$ ./node_modules/karma/bin/karma start spec/js/karma.conf.js --single-run
 ```
 
 ## Javascript style checking
