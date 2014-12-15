@@ -17,6 +17,19 @@ module Dough
       render(partial: 'dough/helpers/tab_selector/tab_selector', locals: { tab_section: tabs_structure })
     end
 
+    def heading_tag(content_or_options_with_block = nil, options = {}, &block)
+      if block_given?
+        options = content_or_options_with_block if content_or_options_with_block.is_a?(Hash)
+        value   = capture(&block).strip
+      else
+        value = content_or_options_with_block
+      end
+
+      level = options.delete(:level) { 1 }
+
+      content_tag("h#{level}", value.html_safe, options.merge('role' => :heading, 'aria-level' => level))
+    end
+
     def method_missing(method_name, *args, &block)
       if helper_exists?(method_name)
         parsed_args = merge_optional_string(args)
