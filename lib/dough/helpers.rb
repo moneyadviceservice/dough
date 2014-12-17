@@ -17,6 +17,25 @@ module Dough
       render(partial: 'dough/helpers/tab_selector/tab_selector', locals: { tab_section: tabs_structure })
     end
 
+    # Renders heading tag with accessible aria attributes.
+    #
+    # ==== Examples
+    #
+    #   heading_tag('Hello world!')
+    #    # => <h1 aria-level='1' role='heading'>Hello world!</h1>
+    #   heading_tag('Hello from header 2', level: 2)
+    #    # => <h2 aria-level='2' role='heading'>Hello world from header 2</h2>
+    #
+    #   <%= heading_tag do -%>
+    #     Hello world!
+    #   <% end -%>
+    #    # => <h1 aria-level='1' role='heading'>Hello world!</h1>
+    #
+    #   <%= heading_tag level: 3 do -%>
+    #     Hello world!
+    #   <% end -%>
+    #    # => <h3 aria-level='3' role='heading'>Hello world!</h3>
+    #
     def heading_tag(content_or_options_with_block = nil, options = {}, &block)
       if block_given?
         options = content_or_options_with_block if content_or_options_with_block.is_a?(Hash)
