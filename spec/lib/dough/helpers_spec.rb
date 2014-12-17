@@ -27,11 +27,13 @@ describe Dough::Helpers do
 
     context 'when passing a block' do
       subject(:heading_tag) do
-        helper.heading_tag { 'Header' }
+        helper.heading_tag level: 3 do
+          'Header'
+        end
       end
 
-      it 'returns the header with content in the block' do
-        expect(heading_tag).to eq('<h1 aria-level="1" role="heading">Header</h1>')
+      it 'returns the header with content in the block and the level' do
+        expect(heading_tag).to eq('<h3 aria-level="3" role="heading">Header</h3>')
       end
     end
 
