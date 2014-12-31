@@ -15,16 +15,16 @@ describe Dough::Forms::Builders::Validation do
   end
 
   let(:model) do
-    model = Dough::Forms::Builders::ValidationBuilderModel.new
-    model.class_eval do
-      validates :field_one, numericality: true
+    Dough::Forms::Builders::ValidationBuilderModel.new.tap do |m|
+      m.class_eval do
+        validates :field_one, numericality: true
+      end
+      m.valid?
+      m.errors[:base] << 'base error A'
+      m.errors[:field_one] << 'field_one error 1'
+      m.errors[:field_one] << 'field_one error 2'
+      m.errors[:field_two] << 'field_two error 1'
     end
-    model.valid?
-    model.errors[:base] << 'base error A'
-    model.errors[:field_one] << 'field_one error 1'
-    model.errors[:field_one] << 'field_one error 2'
-    model.errors[:field_two] << 'field_two error 1'
-    model
   end
 
   subject(:form_builder) { described_class.new(:model, model, {}, {}) }
@@ -116,11 +116,11 @@ describe Dough::Forms::Builders::Validation do
 
   context 'when there are multiple objects' do
     let(:another_model) do
-      model = Dough::Forms::Builders::ValidationBuilderModel.new
-      model.errors[:field_a] << 'field_a error a'
-      model.errors[:field_a] << 'field_a error b'
-      model.errors[:field_b] << 'field_b error a'
-      model
+      Dough::Forms::Builders::ValidationBuilderModel.new.tap do |m|
+        m.errors[:field_a] << 'field_a error a'
+        m.errors[:field_a] << 'field_a error b'
+        m.errors[:field_b] << 'field_b error a'
+      end
     end
 
     describe '#validation_summary' do
