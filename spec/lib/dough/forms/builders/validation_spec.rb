@@ -68,7 +68,6 @@ describe Dough::Forms::Builders::Validation do
       it 'returns custom message' do
         I18n.with_locale :test_custom_error do
           expect(validation_summary).to_not include('is not a number')
-          expect(validation_summary).to_not include('Field one custom not a number error')
           expect(validation_summary).to     include('custom not a number error')
         end
       end
