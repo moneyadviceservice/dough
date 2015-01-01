@@ -45,19 +45,18 @@ module Dough
         end
 
         def errors
-          return @errors if @errors
+          @errors ||= begin
+            [].tap do |errors|
+              counter = 1
 
-          @errors = []
-          counter = 1
-
-          error_models.each do |model|
-            collate_model_errors(model).each do |field, message|
-              @errors << { number: counter, object: model, field: field, message: message }
-              counter += 1
+              error_models.each do |model|
+                collate_model_errors(model).each do |field, message|
+                  errors << { number: counter, object: model, field: field, message: message }
+                  counter += 1
+                end
+              end
             end
           end
-
-          @errors
         end
 
         def collate_model_errors(model)
