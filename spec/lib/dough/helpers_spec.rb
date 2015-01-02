@@ -1,46 +1,44 @@
 require 'spec_helper'
 
-module Dough
-  describe Helpers do
-    class Foo
-      include Dough::Helpers
+describe Dough::Helpers do
+  class Foo
+    include Dough::Helpers
 
-      attr_reader :text, :renderer
+    attr_reader :text, :renderer
 
-      def initialize(options = {})
-        @text = options[:text]
-        @renderer = options[:renderer]
-      end
+    def initialize(options = {})
+      @text = options[:text]
+      @renderer = options[:renderer]
+    end
 
-      def render(text)
-        renderer.render(inline: 'foo', locals: { text: text })
+    def render(text)
+      renderer.render(inline: 'foo', locals: { text: text })
+    end
+  end
+
+  let(:renderer) { double(:Renderer, render: render) }
+  subject(:helper) { Foo.new(helper_name: :inset_block, renderer: renderer, text: 'foo') }
+
+  describe '#method_missing' do
+    context 'helper found' do
+      let(:render) { double(:render, render: '', empty?: false) }
+
+      it 'delegates to the correct helper' do
+        expect(subject.inset_block(html_content: { heading: 'foo', content: 'bar' }))
+          .to receive(:render)
+          .and_return render
+
+        subject.inset_block(html_content: { heading: 'foo', content: 'bar' }).render
       end
     end
 
-    let(:renderer) { double(:Renderer, render: render) }
-    subject(:helper) { Foo.new(helper_name: :inset_block, renderer: renderer, text: 'foo') }
+    context 'helper not found' do
+      let(:render) { double(:render, render: '', empty?: true) }
 
-    describe '#method_missing' do
-      context 'helper found' do
-        let(:render) { double(:render, render: '', empty?: false) }
-
-        it 'delegates to the correct helper' do
-          expect(subject.inset_block(html_content: { heading: 'foo', content: 'bar' }))
-            .to receive(:render)
-            .and_return render
-
-          subject.inset_block(html_content: { heading: 'foo', content: 'bar' }).render
-        end
-      end
-
-      context 'helper not found' do
-        let(:render) { double(:render, render: '', empty?: true) }
-
-        it 'raises the appropriate exception' do
-          expect do
-            subject.nonexistent_helper('foo').render
-          end.to raise_error NameError
-        end
+      it 'raises the appropriate exception' do
+        expect do
+          subject.nonexistent_helper('foo').render
+        end.to raise_error NameError
       end
     end
   end
