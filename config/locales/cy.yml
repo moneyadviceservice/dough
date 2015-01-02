@@ -7,35 +7,34 @@ cy:
   activerecord:
     errors:
       messages: &activerecord_errors_messages
-        inclusion: "%{attribute} wedi ei gynnwys ar y rhestr"
-        exclusion: "%{attribute} ar gadw"
-        invalid: "%{attribute} yn annilys"
-        confirmation: "%{attribute} yn cyd-fynd â’r %{attribute}"
-        accepted: "%{attribute} gael ei dderbyn"
-        empty: "%{attribute} fod yn wag"
-        blank: "%{attribute} fod yn wag"
-        present: "%{attribute} fod yn wag"
+        inclusion: "wedi ei gynnwys ar y rhestr"
+        exclusion: "ar gadw"
+        invalid: "yn annilys"
+        confirmation: "yn cyd-fynd â’r %{attribute}"
+        accepted: "gael ei dderbyn"
+        empty: "fod yn wag"
+        blank: "fod yn wag"
+        present: "fod yn wag"
         too_long:
-          one: "%{attribute} yn rhy hir (uchafswm yw 1 nod)"
-          other: "%{attribute} yn rhy hir (uchafswm yw %{count} o nodau)"
+          one: "yn rhy hir (uchafswm yw 1 nod)"
+          other: "yn rhy hir (uchafswm yw %{count} o nodau)"
         too_short:
-          one: "%{attribute} yn rhy fyr (isafswm yw 1 nod)"
-          other: "%{attribute} yn rhy fyr (isafswm yw %{count} o nodau)"
+          one: "yn rhy fyr (isafswm yw 1 nod)"
+          other: "yn rhy fyr (isafswm yw %{count} o nodau)"
         wrong_length:
-          one: "%{attribute} yr hyd cywir (dylai fod yn 1 nod)"
-          other: "%{attribute} yr hyd cywir (dylai fod yn %{count} o nodau)"
-        not_a_number: "%{attribute} yn rhif"
-        not_an_integer: "%{attribute} fod yn gyfanrif"
-        greater_than: "%{attribute} fod yn fwy na%{count}"
-        greater_than_or_equal_to: "%{attribute} fod yn fwy na neu’n gyfartal â %{count}"
-        equal_to: "%{attribute} fod yn gyfartal â %{count}"
-        less_than: "%{attribute} fod yn llai na %{count}"
-        less_than_or_equal_to: "%{attribute} fod yn llai na neu’n gyfartal â %{count}"
+          one: "yr hyd cywir (dylai fod yn 1 nod)"
+          other: "yr hyd cywir (dylai fod yn %{count} o nodau)"
+        not_a_number: "yn rhif"
+        not_an_integer: "fod yn gyfanrif"
+        greater_than: "fod yn fwy na%{count}"
+        greater_than_or_equal_to: "fod yn fwy na neu’n gyfartal â %{count}"
+        equal_to: "fod yn gyfartal â %{count}"
+        less_than: "fod yn llai na %{count}"
+        less_than_or_equal_to: "fod yn llai na neu’n gyfartal â %{count}"
         other_than: "%{attribute}fod yn rhywbeth ond %{count}"
-        odd: "%{attribute} fod yn odrif"
-        even: "%{attribute} fod yn odrif"
+        odd: "fod yn odrif"
+        even: "fod yn odrif"
   activemodel:
     errors:
       messages:
         <<: *activerecord_errors_messages
-

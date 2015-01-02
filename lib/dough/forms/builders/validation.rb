@@ -45,36 +45,30 @@ module Dough
         end
 
         def errors
-          return @errors if @errors
+          @errors ||= begin
+            [].tap do |errors|
+              counter = 1
 
-          @errors = []
-          counter = 1
-
-          error_models.each do |model|
-            model_errors = collate_model_errors(model)
-
-            model_errors.each do |field, message|
-              @errors << { number: counter, object: model, field: field, message: message }
-              counter += 1
+              error_models.each do |model|
+                collate_model_errors(model).each do |field, message|
+                  errors << { number: counter, object: model, field: field, message: message }
+                  counter += 1
+                end
+              end
             end
           end
-
-          @errors
         end
 
         def collate_model_errors(model)
-          if model.respond_to?(:field_order)
-            model_errors = []
+          field_order = Array(model.try(:field_order))
 
-            (model.field_order + model.errors.keys).uniq.each do |field|
-              model.errors[field].each do |message|
+          [].tap do |model_errors|
+            (field_order | model.errors.keys).each do |field|
+              model.errors.full_messages_for(field).each do |message|
                 model_errors << [field, message]
               end
             end
-          else
-            model_errors = model.errors
           end
-          model_errors
         end
       end
 
