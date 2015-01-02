@@ -30,6 +30,8 @@ describe Dough::Forms::Builders::Validation do
 
   describe '#validation_summary' do
 
+    subject(:validation_summary) { form_builder.validation_summary }
+
     context 'when there are no errors' do
       let(:model) do
         Dough::Forms::Builders::ValidationBuilderModel.new.tap do |m|
@@ -42,12 +44,12 @@ describe Dough::Forms::Builders::Validation do
       end
 
       it 'renders a hidden summary' do
-        expect(subject.validation_summary).to include('validation-summary--hidden')
+        expect(validation_summary).to include('validation-summary--hidden')
       end
     end
 
     it 'renders the title' do
-      expect(subject.validation_summary).to include(
+      expect(validation_summary).to include(
         I18n.t('dough.forms.validation.summary.title', locale: :en)
       )
     end
@@ -55,7 +57,7 @@ describe Dough::Forms::Builders::Validation do
     context 'when welsh' do
       it 'renders the welsh title' do
         I18n.with_locale :cy do
-          expect(subject.validation_summary).to include(
+          expect(validation_summary).to include(
             I18n.t('dough.forms.validation.summary.title', locale: :cy)
           )
         end
@@ -65,24 +67,24 @@ describe Dough::Forms::Builders::Validation do
     context 'with a custom i18n message' do
       it 'returns custom message' do
         I18n.with_locale :test_custom_error do
-          expect(subject.validation_summary).to_not include('is not a number')
-          expect(subject.validation_summary).to_not include('Field one custom not a number error')
-          expect(subject.validation_summary).to     include('custom not a number error')
+          expect(validation_summary).to_not include('is not a number')
+          expect(validation_summary).to_not include('Field one custom not a number error')
+          expect(validation_summary).to     include('custom not a number error')
         end
       end
     end
 
     it 'lists all errors for the object' do
       model.errors.each do |_field, error|
-        expect(subject.validation_summary).to include(error)
+        expect(validation_summary).to include(error)
       end
 
-      expect(subject.validation_summary).to include('Field one is not a number')
+      expect(validation_summary).to include('Field one is not a number')
     end
 
     context 'lists errors in order' do
       #FIXME: Don't like having to call a private method to have to verify list order
-      let(:errors) { subject.send(:errors) }
+      let(:errors) { form_builder.send(:errors) }
 
       before :each do
         allow(model).to receive(:field_order).and_return([:field_two, :field_one])
