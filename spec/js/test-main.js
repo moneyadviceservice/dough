@@ -35,7 +35,7 @@ require.config({
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
     rivets: 'vendor/assets/bower_components/rivets/dist/rivets',
     eventsWithPromises: 'vendor/assets/bower_components/eventsWithPromises/src/eventsWithPromises',
-    rsvp: 'vendor/assets/bower_components/rsvp/rsvp.amd',
+    rsvp: 'vendor/assets/bower_components/rsvp/rsvp',
     jqueryThrottleDebounce: 'vendor/assets/bower_components/jqueryThrottleDebounce/jquery.ba-throttle-debounce',
     utilities: 'assets/js/lib/utilities'
   },
