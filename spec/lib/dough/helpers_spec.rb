@@ -33,7 +33,8 @@ describe Dough::Helpers do
       end
 
       it 'returns the header with content in the block and the level' do
-        expect(heading_tag).to eq('<h3 aria-level="3" role="heading">Header</h3>')
+        expect(helper).to receive(:content_tag).with('h3', 'Header', 'role' => :heading, 'aria-level' => 3)
+        heading_tag
       end
     end
 
@@ -43,7 +44,8 @@ describe Dough::Helpers do
       end
 
       it 'returns the level passed in the options' do
-        expect(heading_tag).to eq('<h2 aria-level="2" role="heading">Header</h2>')
+        expect(helper).to receive(:content_tag).with('h2', 'Header', 'role' => :heading, 'aria-level' => 2)
+        heading_tag
       end
     end
 
@@ -53,7 +55,8 @@ describe Dough::Helpers do
       end
 
       it 'returns h1 as default' do
-        expect(heading_tag).to eq('<h1 aria-level="1" role="heading">Header</h1>')
+        expect(helper).to receive(:content_tag).with('h1', 'Header', 'role' => :heading, 'aria-level' => 1)
+        heading_tag
       end
     end
   end
