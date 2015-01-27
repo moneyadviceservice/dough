@@ -34,7 +34,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @returns {object} - a promise that will resolve or reject depending on whether all modules
      * initialise successfully
      */
-    init: function($container) {
+    init: function($container, includeDeferred) {
       var componentsToCreate,
           instantiatedList,
           initialisedList,
@@ -44,7 +44,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
       this.components = {};
       // if no DOM fragment supplied, use the document
       $container = $container || $('body');
-      componentsToCreate = this._listComponentsToCreate($container);
+      componentsToCreate = this._listComponentsToCreate($container, includeDeferred || false);
       instantiatedList = this._createPromises(componentsToCreate);
       initialisedList = this._createPromises(componentsToCreate);
       if (componentsToCreate.length) {
@@ -77,13 +77,14 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @returns {Array}
      * @private
      */
-    _listComponentsToCreate: function($container) {
+    _listComponentsToCreate: function($container, includeDeferred) {
       var componentsToCreate = [],
           $els,
           $el,
-          attrs;
+          attrs,
+          deferredSelector = !includeDeferred? ':not([data-dough-defer])' : '';
 
-      $els = $container.find('[data-dough-component]');
+      $els = $container.find('[data-dough-component]' + deferredSelector);
       $els.each(function() {
         $el = $(this);
         attrs = $el.attr('data-dough-component').split(' ');

@@ -36,7 +36,7 @@ describe('componentLoader', function() {
 
       // NOTE: components add a "data-dough-<componentName>-initialised='yes'" attribute to themselves once
       // they have successfully initialised
-      this.$html.find('[data-dough-component]').each(function(){
+      this.$html.find('[data-dough-component]:not([data-dough-defer])').each(function() {
         $component = $(this);
         componentNames = $component.attr('data-dough-component').split(' ');
         $.each(componentNames, function(idx, componentName) {
@@ -46,6 +46,30 @@ describe('componentLoader', function() {
         });
       });
       expect(allInitialised).to.equal(true);
+    });
+
+    it('should ignore deferred components', function() {
+      var allInitialised = true;
+
+      this.$html.find('[data-dough-component][data-dough-defer]').each(function() {
+        var $component,
+            componentName;
+
+        $component = $(this);
+        componentName = $component.attr('data-dough-component').split(' ');
+        if (!$component.is('[data-dough-' + componentName + '-initialised="yes"]')) {
+          allInitialised = false;
+        }
+      });
+    });
+
+    it('should enable a deferred component', function(done) {
+      var $deferredComponent = this.$html.find('[data-dough-component][data-dough-defer]').eq(0);
+
+      this.componentLoader.init(this.$html, true).then(function() {
+        expect($deferredComponent.is('[data-dough-' + $deferredComponent.attr('data-dough-component') + '-initialised="yes"]')).to.be.true;
+        done();
+      });
     });
 
     it('should set a flag to indicate all components have been initialised', function() {
