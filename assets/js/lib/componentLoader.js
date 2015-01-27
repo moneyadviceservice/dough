@@ -31,6 +31,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
     /**
      * Create components based on the supplied DOM fragment (or document if not supplied)
      * @param {jQuery} [$container]
+     * @param {boolean} [includeDeferred] - Includes deferred objects when initialising components
      * @returns {object} - a promise that will resolve or reject depending on whether all modules
      * initialise successfully
      */
@@ -74,6 +75,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
     /**
      * Make an array of objects, each containing pointers to a component container and name
      * @param {object} $container
+     * @param {boolean} [includeDeferred] - Includes deferred objects when initialising components
      * @returns {Array}
      * @private
      */
@@ -82,9 +84,13 @@ define(['jquery', 'rsvp'], function($, RSVP) {
           $els,
           $el,
           attrs,
-          deferredSelector = !includeDeferred? ':not([data-dough-defer])' : '';
+          selector = '[data-dough-component]';
 
-      $els = $container.find('[data-dough-component]' + deferredSelector);
+      if (!includeDeferred) {
+        selector += ':not([data-dough-defer])';
+      }
+
+      $els = $container.is(selector)? $container : $container.find(selector);
       $els.each(function() {
         $el = $(this);
         attrs = $el.attr('data-dough-component').split(' ');

@@ -61,6 +61,7 @@ describe('componentLoader', function() {
           allInitialised = false;
         }
       });
+      expect(allInitialised).to.be.false;
     });
 
     it('should enable a deferred component', function(done) {
