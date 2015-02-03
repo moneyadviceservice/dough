@@ -6,12 +6,6 @@ require 'active_support/core_ext'
 
 module Dough
   module Helpers
-    #
-    # Leverage method_missing so that we don't have to create boilerplate code to deliver template dependant
-    # helpers.
-    #
-    # We should only use this pattern when a template partial is needed
-    #
     def tab_selector(id, &block)
       tabs_structure = Dough::Helpers::TabSelector.selector id, &block
       render(partial: 'dough/helpers/tab_selector/tab_selector', locals: { tab_section: tabs_structure })
@@ -49,6 +43,12 @@ module Dough
       content_tag("h#{level}", value.html_safe, options.merge('role' => :heading, 'aria-level' => level))
     end
 
+    #
+    # Leverage method_missing so that we don't have to create boilerplate code to deliver template dependant
+    # helpers.
+    #
+    # We should only use this pattern when a template partial is needed
+    #
     def method_missing(method_name, *args, &block)
       if helper_exists?(method_name)
         parsed_args = merge_optional_string(args)
