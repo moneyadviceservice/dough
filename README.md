@@ -22,6 +22,7 @@ $ git clone https://github.com/moneyadviceservice/dough.git
 Make sure all dependencies are available:
 
 ```sh
+$ npm install -g bower
 $ bower install
 $ npm install
 ```
