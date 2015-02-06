@@ -5,7 +5,6 @@
 }
 
 .validation-summary__content-container {
-  @extend .is-errored;
   background: $color-validation-summary-background;
 }
 
