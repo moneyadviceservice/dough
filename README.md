@@ -1,6 +1,6 @@
 # Dough
 
-The Money Advice Service's frontend assets.
+A reusable UI component library from the Money Advice Service, free for use on any Rails based project. More info and a fuller introduction available [on our blog](http://making.moneyadviceservice.org.uk/2015/01/making-with-dough/).
 
 [![Code Climate](https://codeclimate.com/github/moneyadviceservice/dough/badges/gpa.svg)](https://codeclimate.com/github/moneyadviceservice/dough)
 
