@@ -42,6 +42,7 @@ describe('componentLoader', function() {
         $.each(componentNames, function(idx, componentName) {
           if (!$component.is('[data-dough-' + componentName + '-initialised="yes"]')) {
             allInitialised = false;
+            return false;
           }
         });
       });
@@ -59,6 +60,7 @@ describe('componentLoader', function() {
         componentName = $component.attr('data-dough-component').split(' ');
         if (!$component.is('[data-dough-' + componentName + '-initialised="yes"]')) {
           allInitialised = false;
+          return false;
         }
       });
       expect(allInitialised).to.be.false;
