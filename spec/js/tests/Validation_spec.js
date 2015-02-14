@@ -32,6 +32,56 @@ describe('Validation', function() {
       var validation = new this.Validation(this.component).init();
       expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
     });
+
+  });
+
+  describe('Checks with server that form is valid', function() {
+    beforeEach(function(done) {
+      var self = this;
+      this.server = sinon.fakeServer.create();
+      requirejs(
+          ['jquery', 'Validation'],
+          function($, Validation) {
+            self.$html = $(window.__html__['spec/js/fixtures/Validation/RegExp.html']).appendTo('body');
+            self.component = self.$html.find('[data-dough-component="Validation"]');
+            self.Validation = Validation;
+            done();
+          }, done);
+    });
+
+    afterEach(function() {
+      this.$html.remove();
+      this.server.restore();
+    });
+
+    function serverResponse(server, response) {
+      server.respondWith('GET', /.*/,
+          [400,
+            { 'Content-Type': 'application/json' },
+            JSON.stringify(response)]);
+    }
+
+    it('shows an error message provided by the server', function() {
+      var validation = new this.Validation(this.component).init(),
+          msg = 'This email has already been registered.';
+
+      serverResponse(this.server, {
+        'errors':[{
+            'errors': [],
+            'isEmpty': false,
+            'isInvalid': false,
+            'hasError': true,
+            'message': msg,
+            'name': 'email'
+          }]
+      });
+      this.component.find('#input').val('louis@walsh.com');
+      this.component.submit();
+      this.server.respond();
+      expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
+      expect(validation.$el.find('.' + validation.config.inlineErrorClass)).to.contain.text('1. ' + msg);
+    });
+
   });
 
   describe('With existing Server Markup', function() {
@@ -66,8 +116,6 @@ describe('Validation', function() {
       expect(validation.enabled).to.equal(false);
     });
   });
-
-
 
   // Basic required field
   describe('with a required field', function() {
@@ -324,8 +372,6 @@ describe('Validation', function() {
       expect($validationSummaryList.find('li').length).to.equal(0);
     });
   });
-
-
 
   // Minimum length check
   describe('MinLength', function() {
