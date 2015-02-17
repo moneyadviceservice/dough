@@ -31,10 +31,11 @@ define(['jquery', 'rsvp'], function($, RSVP) {
     /**
      * Create components based on the supplied DOM fragment (or document if not supplied)
      * @param {jQuery} [$container]
+     * @param {boolean} [includeDeferred] - Includes deferred objects when initialising components
      * @returns {object} - a promise that will resolve or reject depending on whether all modules
      * initialise successfully
      */
-    init: function($container) {
+    init: function($container, includeDeferred) {
       var componentsToCreate,
           instantiatedList,
           initialisedList,
@@ -44,7 +45,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
       this.components = {};
       // if no DOM fragment supplied, use the document
       $container = $container || $('body');
-      componentsToCreate = this._listComponentsToCreate($container);
+      componentsToCreate = this._listComponentsToCreate($container, includeDeferred || false);
       instantiatedList = this._createPromises(componentsToCreate);
       initialisedList = this._createPromises(componentsToCreate);
       if (componentsToCreate.length) {
@@ -74,16 +75,22 @@ define(['jquery', 'rsvp'], function($, RSVP) {
     /**
      * Make an array of objects, each containing pointers to a component container and name
      * @param {object} $container
+     * @param {boolean} [includeDeferred] - Includes deferred objects when initialising components
      * @returns {Array}
      * @private
      */
-    _listComponentsToCreate: function($container) {
+    _listComponentsToCreate: function($container, includeDeferred) {
       var componentsToCreate = [],
           $els,
           $el,
-          attrs;
+          attrs,
+          selector = '[data-dough-component]';
 
-      $els = $container.find('[data-dough-component]');
+      if (!includeDeferred) {
+        selector += ':not([data-dough-defer])';
+      }
+
+      $els = $container.is(selector)? $container : $container.find(selector);
       $els.each(function() {
         $el = $(this);
         attrs = $el.attr('data-dough-component').split(' ');
