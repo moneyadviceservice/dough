@@ -28,11 +28,11 @@ define([], function() {
     if (!$el || !$el.length) {
       throw new Error('Element not supplied to DoughBaseComponent constructor');
     }
+
     this.config = $.extend({}, defaultConfig || {}, config || {});
-
     this.setElement($el);
-
     this._setComponentName(this.config.componentName);
+
     /*
      Populate this array with the data attributes this module will use.
      Exclude 'data-dough-' prefix, as this is automatically added.
