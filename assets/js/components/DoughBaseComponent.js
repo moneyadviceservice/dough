@@ -29,8 +29,10 @@ define([], function() {
       throw new Error('Element not supplied to DoughBaseComponent constructor');
     }
     this.config = $.extend({}, defaultConfig || {}, config || {});
-    this.componentName = this.config.componentName;
+
     this.setElement($el);
+
+    this._setComponentName(this.config.componentName);
     /*
      Populate this array with the data attributes this module will use.
      Exclude 'data-dough-' prefix, as this is automatically added.
@@ -156,6 +158,30 @@ define([], function() {
    */
   DoughBaseComponent.prototype._initialisedFailure = function(initialised) {
     initialised && initialised.reject(this.componentName);
+  };
+
+  /**
+   * Checks whether a componentName has been passed via the config and whether it is actually
+   * present in [data-dough-component] and displays a warning
+   * @param  {string} componentName The componentName to check
+   * @private
+   */
+  DoughBaseComponentProto._setComponentName = function(componentName) {
+    var warning;
+
+    if (typeof componentName !== 'undefined') {
+      if (this.$el.data('dough-component').indexOf(componentName)) {
+        warning = '\'' + componentName + '\' componentName was not found in the data-dough-component attribute';
+      }
+      this.componentName = componentName;
+    }
+    else {
+      warning = 'componentName not specified';
+    }
+
+    if (warning && console && console.warn) {
+      console.warn(warning);
+    }
   };
 
   return DoughBaseComponent;
