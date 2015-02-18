@@ -8,6 +8,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';
 
   var defaultConfig = {
+    componentName: 'FieldHelpText',
+
     // Used to show/hide tooltip with focus
     hiddenClass: 'field-help-text--hidden',
 

@@ -12,6 +12,7 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'],
   'use strict';
 
   var defaultConfig = {
+        componentName: 'RangeInput',
         keepSynced: true
       },
       RangeInput;

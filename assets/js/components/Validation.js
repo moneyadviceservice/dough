@@ -13,6 +13,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';
 
   var defaultConfig = {
+        componentName: 'Validation',
         fieldSelector: 'input, textarea, select',
         attributeEmpty: 'data-dough-validation-empty',
         attributeInvalid: 'data-dough-validation-invalid',

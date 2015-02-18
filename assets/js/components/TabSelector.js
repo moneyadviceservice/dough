@@ -12,6 +12,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
 
       var TabSelector,
           defaultConfig = {
+            componentName: 'TabSelector',
             collapseInSmallViewport: false,
             uiEvents: {
               'click [data-dough-tab-selector-trigger]': '_handleClickEvent'
