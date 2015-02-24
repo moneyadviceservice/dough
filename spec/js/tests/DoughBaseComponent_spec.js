@@ -1,5 +1,3 @@
-// @todo Add tests for _initialisedSuccess and _initialisedFailure
-
 describe('DoughBaseComponent', function() {
   'use strict';
 
@@ -57,6 +55,43 @@ describe('DoughBaseComponent', function() {
     });
   });
 
+  describe('initialisation', function () {
+    var initialised = {
+      resolve: function() {},
+      reject: function() {}
+    };
+
+    describe('successful', function () {
+      it('should call the resolve (promise) function', function() {
+        var spy = sandbox.spy(initialised, 'resolve'),
+            doughBaseComponent = new this.DoughBaseComponent(this.component, { componentName: 'Foo' });
+
+        doughBaseComponent._initialisedSuccess(initialised);
+
+        expect(spy.called).to.be.true;
+      });
+
+      it('should stamp initialised="yes" on the component element', function() {
+        var doughBaseComponent = new this.DoughBaseComponent(this.component, { componentName: 'Foo' });
+
+        doughBaseComponent._initialisedSuccess(initialised);
+
+        expect(doughBaseComponent.$el).to.have.attr('data-dough-foo-initialised', 'yes');
+      });
+    });
+
+    describe('failed', function () {
+      it('should call the reject (promise) function', function() {
+        var spy = sandbox.spy(initialised, 'reject'),
+            doughBaseComponent = new this.DoughBaseComponent(this.component, { componentName: 'Foo' });
+
+        doughBaseComponent._initialisedFailure(initialised);
+
+        expect(spy.called).to.be.true;
+      });
+    });
+  });
+
   describe('extending', function () {
     it('should allow extending from the DoughBaseComponent constructor', function() {
       var ExtendedComponent,
@@ -84,7 +119,7 @@ describe('DoughBaseComponent', function() {
         var doughBaseComponent,
             spy;
 
-        this.DoughBaseComponent.prototype.fn = $.noop;
+        this.DoughBaseComponent.prototype.fn = function() {};
         spy = sandbox.stub(this.DoughBaseComponent.prototype, 'fn');
 
         doughBaseComponent = new this.DoughBaseComponent(this.component, {
@@ -106,7 +141,7 @@ describe('DoughBaseComponent', function() {
         var doughBaseComponent,
             spy;
 
-        this.DoughBaseComponent.prototype.fn = $.noop;
+        this.DoughBaseComponent.prototype.fn = function() {};
         spy = sandbox.stub(this.DoughBaseComponent.prototype, 'fn');
 
         doughBaseComponent = new this.DoughBaseComponent(this.component, {
