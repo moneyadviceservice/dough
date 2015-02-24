@@ -16,14 +16,14 @@
  * @module componentLoader
  * @returns {Function} componentLoader
  */
-define(['jquery', 'rsvp'], function($, RSVP) {
+define(['jquery', 'rsvp', 'utilities'], function($, RSVP, utilities) {
 
   'use strict';
 
   return {
 
     /**
-     * Stores Each key will store a component name and an array of
+     * Each key will store a component name and an array of
      * instances of that component type.
      * @attribute
      * @type {Object}
@@ -199,27 +199,14 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @returns {object} - parsed JSON config or empty object
      */
     _parseConfig: function($el, componentName) {
-      var config = $el.attr('data-dough-' + this._convertComponentNameToDashed(componentName) + '-config');
+      var config = $el.attr('data-dough-' + utilities.convertCamelCaseToDashed(componentName) + '-config');
       try {
         config = JSON.parse(config);
       } catch (err) {
         config = {};
       }
       return config;
-    },
-
-    /**
-     * Converts camelcase component name to dashed
-     * @param {string} componentName eg. TabSelector
-     * @returns {string} eg. tab-selector
-     */
-    _convertComponentNameToDashed: function(componentName) {
-      var val = componentName.replace(/([A-Z])/g, function($1) {
-        return '-' + $1.toLowerCase();
-      });
-      return val.substr(1);
     }
-
   };
 
 });

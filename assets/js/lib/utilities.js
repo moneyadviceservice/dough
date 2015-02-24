@@ -25,6 +25,19 @@ define([], function() {
     numberToCurrency: function(num) {
       var re = '\\d(?=(\\d{3})+$)';
       return '£' + Math.round(num).toFixed(0).replace(new RegExp(re, 'g'), '$&,');
+    },
+
+    /**
+     * Converts a CamelCase string to a dashed one
+     * @param {string} str eg. TabSelector
+     * @private
+     * @returns {string} eg. tab-selector
+     */
+    convertCamelCaseToDashed: function(str) {
+      var val = str.replace(/[A-Z]/g, function(match) {
+        return '-' + match.toLowerCase();
+      });
+      return val.substr(1);
     }
 
   };

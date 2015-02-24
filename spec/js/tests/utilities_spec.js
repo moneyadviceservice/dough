@@ -33,4 +33,10 @@ describe('utilities', function() {
 
   });
 
+  describe('convertCamelCaseToDashed', function () {
+    it('should convert a camel cased string into a dash-separated string', function() {
+      expect(this.mod.convertCamelCaseToDashed('FooBar')).to.equal('foo-bar');
+    });
+  });
+
 });
