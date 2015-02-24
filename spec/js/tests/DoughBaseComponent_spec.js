@@ -21,8 +21,8 @@ describe('DoughBaseComponent', function() {
     sandbox.restore();
   });
 
-  describe('init', function() {
-    it('should set the element passed to the constructor', function() {
+  describe('instantiation', function() {
+    it('should cache the element passed to the constructor', function() {
       var doughBaseComponent = new this.DoughBaseComponent(this.component, { componentName: 'Foo' });
 
       expect(doughBaseComponent.$el).to.equal(this.$html);
