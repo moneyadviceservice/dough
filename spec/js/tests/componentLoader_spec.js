@@ -2,6 +2,13 @@ describe('componentLoader', function() {
 
   'use strict';
 
+  function convertCamelCaseToDashed(str) {
+    var val = str.replace(/[A-Z]/g, function(match) {
+      return '-' + match.toLowerCase();
+    });
+    return val.substr(1);
+  }
+
   beforeEach(function(done) {
     var self = this;
     window.Modernizr = {
@@ -40,6 +47,7 @@ describe('componentLoader', function() {
         $component = $(this);
         componentNames = $component.attr('data-dough-component').split(' ');
         $.each(componentNames, function(idx, componentName) {
+          componentName = convertCamelCaseToDashed(componentName);
           if (!$component.is('[data-dough-' + componentName + '-initialised="yes"]')) {
             allInitialised = false;
             return false;
@@ -70,7 +78,7 @@ describe('componentLoader', function() {
       var $deferredComponent = this.$html.find('[data-dough-component][data-dough-defer]').eq(0);
 
       this.componentLoader.init(this.$html, true).then(function() {
-        expect($deferredComponent.is('[data-dough-' + $deferredComponent.attr('data-dough-component') + '-initialised="yes"]')).to.be.true;
+        expect($deferredComponent.is('[data-dough-' + convertCamelCaseToDashed($deferredComponent.attr('data-dough-component')) + '-initialised="yes"]')).to.be.true;
         done();
       });
     });

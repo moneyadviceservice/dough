@@ -153,7 +153,6 @@ define(['jquery', 'rsvp', 'utilities'], function($, RSVP, utilities) {
 
       require([componentName], function(Constr) {
         if (!Constr.isSingleton || !self.components[componentName]) {
-          config.componentName = componentName;
           if (!self.components[componentName]) {
             self.components[componentName] = [];
           }

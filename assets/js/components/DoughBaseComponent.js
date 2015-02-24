@@ -167,13 +167,15 @@ define([], function() {
    * @private
    */
   DoughBaseComponentProto._setComponentName = function(componentName) {
-    var warning;
+    var warning,
+        componentDataAttr = this.$el.data('dough-component');
 
     if (typeof componentName !== 'undefined') {
-      if (this.$el.data('dough-component').indexOf(componentName)) {
-        warning = '\'' + componentName + '\' componentName was not found in the data-dough-component attribute';
+      if (componentDataAttr && componentDataAttr.indexOf(componentName) === -1) {
+        warning = '"' + componentName + '"' + ' componentName was not found in the data-dough-component attribute';
       }
       this.componentName = componentName;
+      this.componentAttributeName = utilities.convertCamelCaseToDashed(componentName);
     }
     else {
       warning = 'componentName not specified';
