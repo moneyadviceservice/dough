@@ -53,6 +53,30 @@ describe('DoughBaseComponent', function() {
       expect(doughBaseComponent.componentName).to.equal('Foo');
       expect(doughBaseComponent.componentAttributeName).to.equal('foo');
     });
+
+    it('should mix the passed config into the component\'s defaultConfig', function() {
+      var doughBaseComponent,
+          config,
+          defaultConfig;
+
+      defaultConfig = {
+        componentName: 'Foo',
+        foo: 'baz',
+        baz: 'qux'
+      };
+
+      config = {
+        foo: 'bar'
+      };
+
+      doughBaseComponent = new this.DoughBaseComponent(this.component, config, defaultConfig);
+
+      expect(doughBaseComponent.config).to.eql({
+        componentName: 'Foo',
+        baz: 'qux',
+        foo: 'bar'
+      });
+    });
   });
 
   describe('initialisation', function () {
