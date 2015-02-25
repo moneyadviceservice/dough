@@ -71,7 +71,7 @@ describe('DoughBaseComponent', function() {
         expect(spy.called).to.be.true;
       });
 
-      it('should stamp initialised="yes" on the component element', function() {
+      it('should stamp an initialised="yes" attribute on the component element', function() {
         var doughBaseComponent = new this.DoughBaseComponent(this.component, { componentName: 'Foo' });
 
         doughBaseComponent._initialisedSuccess(initialised);
@@ -93,7 +93,7 @@ describe('DoughBaseComponent', function() {
   });
 
   describe('extending', function () {
-    it('should allow extending from the DoughBaseComponent constructor', function() {
+    it('should allow extending from the DoughBaseComponent', function() {
       var ExtendedComponent,
           extendedComponent;
 
