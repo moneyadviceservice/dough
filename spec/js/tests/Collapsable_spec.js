@@ -110,4 +110,41 @@ describe('Visibility toggler', function() {
   });
 
 
+  describe('Panel focussed after opening by default', function() {
+    beforeEach(function(done) {
+      var fixtureHTML = $(window.__html__['spec/js/fixtures/Collapsable.html']).filter('#fixture-1').html();
+      this.beforeEachHook.call(this, done, fixtureHTML);
+    });
+
+    it('collapsable target should be focussed', function() {
+      this.$trigger.click();
+      expect(this.$target[0]).to.equal(document.activeElement);
+    });
+  });
+
+
+  describe('Panel not focussed after opening', function() {
+    beforeEach(function(done) {
+      var fixtureHTML = $(window.__html__['spec/js/fixtures/Collapsable.html']).filter('#fixture-4').html();
+      this.beforeEachHook.call(this, done, fixtureHTML);
+    });
+
+    it('collapsable target should not be focussed', function() {
+      this.$trigger.click();
+      expect(this.$target[0]).to.not.equal(document.activeElement);
+    });
+  });
+
+
+  describe('Panel focussed after opening', function() {
+    beforeEach(function(done) {
+      var fixtureHTML = $(window.__html__['spec/js/fixtures/Collapsable.html']).filter('#fixture-5').html();
+      this.beforeEachHook.call(this, done, fixtureHTML);
+    });
+
+    it('collapsable target should be focussed', function() {
+      this.$trigger.click();
+      expect(this.$target[0]).to.equal(document.activeElement);
+    });
+  });
 });
