@@ -23,7 +23,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   var CollapsableProto,
       defaultConfig = {
         hideOnBlur: false,
-        forceTo: false
+        forceTo: false,
+        focusTarget: true
       },
       selectors = {
         activeClass: 'is-active',
@@ -130,7 +131,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    * Toggle the element
    * @param  {[type]} forceTo Supply 'show' or 'hide' to
    * explicitly set, otherwise will automatically toggle
-   * @param {boolean} [focusTarget] - whether to focus the panel
+   * @param {boolean} [focusTarget] - whether to focus the panel. Defaults to `config.focusTarget`
    * @return {[type]}         [description]
    */
   CollapsableProto.toggle = function(forceTo, focusTarget) {
@@ -157,7 +158,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
       label = this.i18nStrings.close;
       expandedLabel = 'true';
       iconClass = selectors.iconClassClose;
-      if (focusTarget !== false) {
+      if (focusTarget !== false && this.config.focusTarget) {
         this.$target
             .attr('tabindex', -1)
             .focus();
