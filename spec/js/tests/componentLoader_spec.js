@@ -1,4 +1,4 @@
-describe('componentLoader', function(utilities) {
+describe('componentLoader', function() {
 
   'use strict';
 

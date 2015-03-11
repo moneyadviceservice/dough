@@ -69,13 +69,13 @@ describe('DoughBaseComponent', function() {
     });
   });
 
-  describe('initialisation', function () {
+  describe('initialisation', function() {
     var initialised = {
       resolve: function() {},
       reject: function() {}
     };
 
-    describe('successful', function () {
+    describe('successful', function() {
       it('should call the resolve (promise) function', function() {
         var spy = sandbox.spy(initialised, 'resolve'),
             doughBaseComponent = new this.DoughBaseComponent(this.component);
@@ -94,7 +94,7 @@ describe('DoughBaseComponent', function() {
       });
     });
 
-    describe('failed', function () {
+    describe('failed', function() {
       it('should call the reject (promise) function', function() {
         var spy = sandbox.spy(initialised, 'reject'),
             doughBaseComponent = new this.DoughBaseComponent(this.component);
@@ -106,7 +106,7 @@ describe('DoughBaseComponent', function() {
     });
   });
 
-  describe('extending', function () {
+  describe('extending', function() {
     var extendedComponentFixture;
 
     beforeEach(function() {
@@ -128,13 +128,13 @@ describe('DoughBaseComponent', function() {
     });
   });
 
-  describe('events', function () {
-    beforeEach(function () {
+  describe('events', function() {
+    beforeEach(function() {
       this.$button = $('<button data-dough-base-component-btn />');
       this.component.append(this.$button);
     });
 
-    describe('binding events', function () {
+    describe('binding events', function() {
       it('should bind UI events to the elements specified in the events hash', function() {
         var doughBaseComponent,
             spy;
@@ -155,7 +155,7 @@ describe('DoughBaseComponent', function() {
       });
     });
 
-    describe('unbinding events', function () {
+    describe('unbinding events', function() {
       it('should unbind any events on the element when the destroy() method is invoked', function() {
         var doughBaseComponent,
             spy;
