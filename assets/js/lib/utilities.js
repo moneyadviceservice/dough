@@ -28,16 +28,13 @@ define([], function() {
     },
 
     /**
-     * Converts a CamelCase string to a dashed one
+     * Converts a CamelCase string to a dashed-one
      * @param {string} str eg. TabSelector
      * @private
      * @returns {string} eg. tab-selector
      */
     convertCamelCaseToDashed: function(str) {
-      var val = str.replace(/[A-Z]/g, function(match) {
-        return '-' + match.toLowerCase();
-      });
-      return val.substr(1);
+      return str.replace(/([^\s])([A-Z][a-z])/g, '$1-$2').toLowerCase();
     }
 
   };
