@@ -31,7 +31,7 @@ define([], function() {
 
     this.config = $.extend({}, defaultConfig || {}, config || {});
     this.setElement($el);
-    this._setComponentName(this.config.componentName);
+    this._setComponentName(this.constructor.componentName);
 
     /*
      Populate this array with the data attributes this module will use.
@@ -44,6 +44,8 @@ define([], function() {
     this._bindUiEvents(this.config.uiEvents || {});
     return this;
   };
+
+  DoughBaseComponent.componentName = 'DoughBaseComponent';
 
   /**
    * Extend DoughBaseComponent class using the supplied constructor

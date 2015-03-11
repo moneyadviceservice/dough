@@ -16,8 +16,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   'use strict';
 
   // Class variables
-  var CollapsableProto,
-      defaultConfig = {
+  var defaultConfig = {
         componentName: 'Collapsable',
         hideOnBlur: false,
         forceTo: false,
@@ -63,6 +62,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    * Inherit from base module, for shared methods and interface
    */
   DoughBaseComponent.extend(Collapsable);
+
+  Collapsable.componentName = 'Collapsable';
 
   /**
    * Setups accessibility functionality for trigger and target buttons

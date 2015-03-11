@@ -12,7 +12,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
 
       var TabSelector,
           defaultConfig = {
-            componentName: 'TabSelector',
             collapseInSmallViewport: false,
             uiEvents: {
               'click [data-dough-tab-selector-trigger]': '_handleClickEvent'
@@ -68,6 +67,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
        * Inherit from base module, for shared methods and interface
        */
       DoughBaseComponent.extend(TabSelector);
+
+      TabSelector.componentName = 'TabSelector';
 
       /**
        * Initialise component

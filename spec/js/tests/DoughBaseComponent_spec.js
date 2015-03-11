@@ -21,7 +21,7 @@ describe('DoughBaseComponent', function() {
 
   describe('instantiation', function() {
     it('should cache the element passed to the constructor', function() {
-      var doughBaseComponent = new this.DoughBaseComponent(this.component, { componentName: 'Foo' });
+      var doughBaseComponent = new this.DoughBaseComponent(this.component);
 
       expect(doughBaseComponent.$el).to.equal(this.$html);
     });
@@ -31,27 +31,19 @@ describe('DoughBaseComponent', function() {
           doughBaseComponent;
 
       config = {
-        componentName: 'Foo',
         foo: 'bar'
       };
 
       doughBaseComponent = new this.DoughBaseComponent(this.component, config);
 
-      expect(doughBaseComponent.config).to.eql({ foo: 'bar', componentName: 'Foo' });
+      expect(doughBaseComponent.config).to.eql({ foo: 'bar' });
     });
 
     it('should set the componentName', function() {
-      var config,
-          doughBaseComponent;
+      var doughBaseComponent = new this.DoughBaseComponent(this.component);
 
-      config = {
-        componentName: 'Foo'
-      };
-
-      doughBaseComponent = new this.DoughBaseComponent(this.component, config);
-
-      expect(doughBaseComponent.componentName).to.equal('Foo');
-      expect(doughBaseComponent.componentAttributeName).to.equal('foo');
+      expect(doughBaseComponent.componentName).to.equal('DoughBaseComponent');
+      expect(doughBaseComponent.componentAttributeName).to.equal('dough-base-component');
     });
 
     it('should mix the passed config into the component\'s defaultConfig', function() {
@@ -60,7 +52,6 @@ describe('DoughBaseComponent', function() {
           defaultConfig;
 
       defaultConfig = {
-        componentName: 'Foo',
         foo: 'baz',
         baz: 'qux'
       };
@@ -72,7 +63,6 @@ describe('DoughBaseComponent', function() {
       doughBaseComponent = new this.DoughBaseComponent(this.component, config, defaultConfig);
 
       expect(doughBaseComponent.config).to.eql({
-        componentName: 'Foo',
         baz: 'qux',
         foo: 'bar'
       });
@@ -88,7 +78,7 @@ describe('DoughBaseComponent', function() {
     describe('successful', function () {
       it('should call the resolve (promise) function', function() {
         var spy = sandbox.spy(initialised, 'resolve'),
-            doughBaseComponent = new this.DoughBaseComponent(this.component, { componentName: 'Foo' });
+            doughBaseComponent = new this.DoughBaseComponent(this.component);
 
         doughBaseComponent._initialisedSuccess(initialised);
 
@@ -96,18 +86,18 @@ describe('DoughBaseComponent', function() {
       });
 
       it('should stamp an initialised="yes" attribute on the component element', function() {
-        var doughBaseComponent = new this.DoughBaseComponent(this.component, { componentName: 'Foo' });
+        var doughBaseComponent = new this.DoughBaseComponent(this.component);
 
         doughBaseComponent._initialisedSuccess(initialised);
 
-        expect(doughBaseComponent.$el).to.have.attr('data-dough-foo-initialised', 'yes');
+        expect(doughBaseComponent.$el).to.have.attr('data-dough-dough-base-component-initialised', 'yes');
       });
     });
 
     describe('failed', function () {
       it('should call the reject (promise) function', function() {
         var spy = sandbox.spy(initialised, 'reject'),
-            doughBaseComponent = new this.DoughBaseComponent(this.component, { componentName: 'Foo' });
+            doughBaseComponent = new this.DoughBaseComponent(this.component);
 
         doughBaseComponent._initialisedFailure(initialised);
 
@@ -117,6 +107,12 @@ describe('DoughBaseComponent', function() {
   });
 
   describe('extending', function () {
+    var extendedComponentFixture;
+
+    beforeEach(function() {
+      extendedComponentFixture = $(window.__html__['spec/js/fixtures/DoughBaseComponentExtended.html']);
+    });
+
     it('should allow extending from the DoughBaseComponent', function() {
       var ExtendedComponent,
           extendedComponent;
@@ -125,9 +121,9 @@ describe('DoughBaseComponent', function() {
         ExtendedComponent.baseConstructor.call(this, $el, config);
       };
       this.DoughBaseComponent.extend(ExtendedComponent);
+      ExtendedComponent.componentName = 'ExtendedComponent';
 
-      extendedComponent = new ExtendedComponent(this.$html, { componentName: 'Foo' });
-
+      extendedComponent = new ExtendedComponent(extendedComponentFixture);
       expect(extendedComponent).to.be.instanceof(this.DoughBaseComponent);
     });
   });
@@ -147,7 +143,6 @@ describe('DoughBaseComponent', function() {
         spy = sandbox.stub(this.DoughBaseComponent.prototype, 'fn');
 
         doughBaseComponent = new this.DoughBaseComponent(this.component, {
-          componentName: 'Foo',
           uiEvents: {
             'click [data-dough-base-component-btn]': 'fn'
           }
@@ -169,7 +164,6 @@ describe('DoughBaseComponent', function() {
         spy = sandbox.stub(this.DoughBaseComponent.prototype, 'fn');
 
         doughBaseComponent = new this.DoughBaseComponent(this.component, {
-          componentName: 'Foo',
           uiEvents: {
             'click [data-dough-base-component-btn]': 'fn'
           }

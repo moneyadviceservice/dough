@@ -12,7 +12,6 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'],
   'use strict';
 
   var defaultConfig = {
-        componentName: 'RangeInput',
         keepSynced: true
       },
       RangeInput;
@@ -30,6 +29,8 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'],
   };
 
   DoughBaseComponent.extend(RangeInput);
+
+  RangeInput.componentName = 'RangeInput';
 
   /**
    * Init - detect range type support and clone input / label

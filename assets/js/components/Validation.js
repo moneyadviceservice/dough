@@ -13,7 +13,6 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';
 
   var defaultConfig = {
-        componentName: 'Validation',
         fieldSelector: 'input, textarea, select',
         attributeEmpty: 'data-dough-validation-empty',
         attributeInvalid: 'data-dough-validation-invalid',
@@ -42,6 +41,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   DoughBaseComponent.extend(Validation);
+
+  Validation.componentName = 'Validation';
 
   Validation.prototype.init = function(initialised) {
     this.ATTRIBUTE_VALIDATORS = {

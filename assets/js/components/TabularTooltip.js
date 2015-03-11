@@ -11,7 +11,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';
 
   var TabularTooltip,
-			defaultConfig = {
+      defaultConfig = {
         componentName: 'TabularTooltip'
       };
 
@@ -26,6 +26,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   DoughBaseComponent.extend(TabularTooltip);
+
+  TabularTooltip.componentName = 'TabularTooltip';
 
   /**
    * Initialise component
