@@ -2,6 +2,6 @@
   <% if error[:field] == :base %>
     <%= error[:message].html_safe %>
   <% else %>
-    <%= link_to(error[:message], "#error-#{error[:number]}") %>
+    <%= link_to(error[:message], "#error-#{error_prefix}-#{error[:number]}") %>
   <% end %>
 </li>

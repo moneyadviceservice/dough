@@ -2,7 +2,7 @@
   <div class="validation-summary__content-container">
     <p class="validation-summary__title"><%= t('dough.forms.validation.summary.title') %></p>
     <ol class="validation-summary__list" data-dough-validation-summary-list>
-      <%= render partial: 'summary_for_errors_li', collection: errors, as: 'error' %>
+      <%= render partial: 'summary_for_errors_li', collection: errors, as: 'error', locals: { error_prefix: error_prefix } %>
     </ol>
   </div>
 </div>
