@@ -157,7 +157,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     $.each(this.errors, $.proxy(function(errorIndex, fieldGroupValidity) {
       fieldName = fieldGroupValidity.name;
-      summaryHTML += '<li class="' + this.config.validationSummaryErrorClass + '"><a href="#error-' + fieldName + '">' + fieldGroupValidity.message + '</a></li>';
+      summaryHTML += '<li class="' + this.config.validationSummaryErrorClass + '"><a href="#' + this._getInlineErrorID(fieldName) + '">' + fieldGroupValidity.message + '</a></li>';
     }, this));
 
     this.$el.find('[' + this.config.validationSummaryListAttribute + ']').html(summaryHTML);
@@ -229,7 +229,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {String}         The inline error ID
    */
   Validation.prototype._getInlineErrorID = function(fieldName) {
-    return 'error-' + fieldName;
+    var formID = this.$el.attr('id');
+    return 'error-' + (formID ? formID + '-' : '') + fieldName;
   };
 
   /**

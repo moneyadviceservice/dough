@@ -67,8 +67,6 @@ describe('Validation', function() {
     });
   });
 
-
-
   // Basic required field
   describe('with a required field', function() {
     beforeEach(function(done) {
@@ -187,6 +185,44 @@ describe('Validation', function() {
       validation.$el.submit();
 
       expect($validationSummaryList.find('li').length).to.equal(0);
+    });
+  });
+
+  // Basic required field
+  describe('with a form ID', function() {
+    beforeEach(function(done) {
+      var self = this;
+      requirejs(
+          ['jquery', 'Validation'],
+          function($, Validation) {
+            self.$html = $(window.__html__['spec/js/fixtures/Validation/WithFormID.html']).appendTo('body');
+            self.component = self.$html.find('[data-dough-component="Validation"]');
+            self.Validation = Validation;
+            done();
+          }, done);
+    });
+
+    afterEach(function() {
+      this.$html.remove();
+    });
+
+    it('references the inline error with the aria-describedby attribute on the input when invalid', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+
+      expect($input.attr('aria-describedby').indexOf('error-test_form_0-name')).not.to.equal(-1);
+    });
+
+    it('removes references to the inline error from aria-describedby when valid', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      focusInOut($input);
+      $input.val('test').keyup();
+
+      expect($input.attr('aria-describedby').indexOf('error-test_form_0-name')).to.equal(-1);
     });
   });
 
