@@ -10,14 +10,14 @@ module Dough
         include ActionView::Helpers::TranslationHelper
 
         def validation_summary
-          render 'summary_for_errors', errors: errors
+          render 'summary_for_errors', errors: errors, error_prefix: error_prefix
         end
 
         def errors_for(subject = nil, field)
           subject ||= object
           filtered_errors = errors.select { |hash| hash[:object] == subject && hash[:field] == field }
 
-          render partial: 'errors_for_field', collection: filtered_errors, as: 'error'
+          render partial: 'errors_for_field', collection: filtered_errors, as: 'error', locals: { error_prefix: error_prefix }
         end
 
         def validates(*models)
@@ -69,6 +69,12 @@ module Dough
               end
             end
           end
+        end
+
+        def error_prefix
+          @options
+            .try { |options| options[:html] }
+            .try { |html| html[:id] } || object_name
         end
       end
 

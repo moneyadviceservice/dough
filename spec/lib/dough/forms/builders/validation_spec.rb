@@ -81,6 +81,20 @@ describe Dough::Forms::Builders::Validation do
       expect(validation_summary).to include('Field one is not a number')
     end
 
+    context 'when form has an ID' do
+      subject(:form_builder) { described_class.new(:model, model, {}, {html: {id: 'form_id'}}) }
+
+      it 'uses the form id to generate the error links' do
+        expect(validation_summary).to include('#error-form_id-1')
+      end
+    end
+
+    context 'when form has no ID' do
+      it 'uses the model name to generate the error links' do
+        expect(validation_summary).to include('#error-model-1')
+      end
+    end
+
     context 'lists errors in order' do
       #FIXME: Don't like having to call a private method to have to verify list order
       let(:errors) { form_builder.send(:errors) }
@@ -115,6 +129,20 @@ describe Dough::Forms::Builders::Validation do
         model.errors[field].each do |error|
           expect(subject.errors_for(field)).to include(error)
         end
+      end
+    end
+
+    context 'when form has an ID' do
+      subject(:form_builder) { described_class.new(:model, model, {}, {html: {id: 'form_id'}}) }
+
+      it 'uses the form ID to generate the error id' do
+        expect(subject.errors_for(:field_one)).to include('error-form_id-1')
+      end
+    end
+
+    context 'when form has no ID' do
+      it 'uses the model name to generate the error id' do
+        expect(subject.errors_for(:field_one)).to include('error-model-1')
       end
     end
   end
