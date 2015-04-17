@@ -13,3 +13,4 @@ vendor/assets/bower_components
 coverage/
 bower.json
 .DS_Store
+docs/js
