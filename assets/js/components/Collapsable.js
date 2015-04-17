@@ -1,27 +1,22 @@
 /**
  * # Element visibility toggler.
  *
- * Requires an element to have a data-dough-component="Collapsable" attribute. The application
+ * Requires an element to have a `data-dough-component="Collapsable"` attribute. The application
  * file will spawn an instance of this class for each element it finds on the page.
  *
- * Events used: toggler:toggled(element, isShown) [Event for when the toggler is doing its work]
+ * Events used: `toggler:toggled(element, isShown)` (Event for when the toggler is doing its work)
  *
- * See test fixture for sample markup - /spec/js/fixtures/Collapsable.html
+ * See test fixture for sample markup - _spec/js/fixtures/Collapsable.html_
+ *
+ * @module Collapsable
+ * @returns {class} Collapsable
  */
 
-/**
- * Require from Config
- * @param  {[type]} $         [description]
- * @param  {[type]} DoughBaseComponent [description]
- * @return {[type]}           [description]
- * @private
- */
 define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, DoughBaseComponent, eventsWithPromises) {
   'use strict';
 
   // Class variables
-  var CollapsableProto,
-      defaultConfig = {
+  var defaultConfig = {
         hideOnBlur: false,
         forceTo: false,
         focusTarget: true,
@@ -36,35 +31,38 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
           open: 'Show',
           close: 'Hide'
         }
-      };
+      },
+			Collapsable;
 
   /**
-   *
-   * @param {jQuery} $el - mandatory - the trigger
-   * @param {object} config
-   * @returns {Collapsable}
    * @constructor
+   * @extends {DoughBaseComponent}
+   * @param {object} $el - Trigger element (jQuery element)
+   * @param {object} [config]
+   * @returns {FieldHelpText}
    */
-  function Collapsable($el, config) {
+  Collapsable = function($el, config) {
+    this.selectors = selectors;
     Collapsable.baseConstructor.call(this, $el, config, defaultConfig);
 
     this.$triggers = this.$el.is(this.config.selectors.trigger)? this.$el : this.$el.find(this.config.selectors.trigger);
     this.$target = $('[data-dough-collapsable-target="' + this.$triggers.attr('data-dough-collapsable-trigger') + '"]');
+    this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this._setupAccessibility();
     this.handleUIEventTracking = $.proxy(this.handleUIEventTracking, this);
     config && config.forceTo && this.toggle(config.forceTo, false);
     return this;
-  }
+  };
 
   /**
    * Inherit from base module, for shared methods and interface
-   * @type {[type]}
-   * @private
    */
   DoughBaseComponent.extend(Collapsable);
-  CollapsableProto = Collapsable.prototype;
 
-  CollapsableProto._setupAccessibility = function() {
+  /**
+   * Setups accessibility functionality for trigger and target buttons
+   */
+  Collapsable.prototype._setupAccessibility = function() {
     var id = 'data-dough-collapsable-target-' + this.$target.attr('data-dough-collapsable-target');
 
     this.$triggers.wrapInner('<button class="unstyled-button" type="button"/>');
@@ -80,10 +78,12 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   };
 
   /**
-   * Init function
-   * @return {Collapsable}
+   * Initialises component
+   * @param {object} initialised Promise passed from eventsWithPromises (RSVP Promise).
+   * @returns {Collapsable}
+   * @public
    */
-  CollapsableProto.init = function(initialised) {
+  Collapsable.prototype.init = function(initialised) {
     // is the target element visible already
     this.isShown = !!this.$target.hasClass(this.config.selectors.activeClass);
     this.setListeners(true);
@@ -92,11 +92,12 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   };
 
   /**
-   * Bind or unbind relevant DOM events
-   * @param {Boolean} isActive Set to 'true' to bind to events, 'false' to unbind.
+   * Bind or unbind relevant DOM events on the trigger
+   * @param {boolean} [isActive] Set to 'true' to bind to events, 'false' to unbind.
+   * @public
    */
-  CollapsableProto.setListeners = function(isActive) {
-    this.$triggers[isActive ? 'on' : ' off']('click', $.proxy(function() {
+  Collapsable.prototype.setListeners = function(isActive) {
+    this.$trigger[isActive ? 'on' : ' off']('click', $.proxy(function() {
       this.toggle();
     }, this));
 
@@ -104,9 +105,11 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   };
 
   /**
-   * Bind or unbinds the UI Events for tracking the current target
+   * Sets up the target tracking
+   * @param {boolean} [isActive] Set to `true` to bind to events, `false` to unbind.
+   * @public
    */
-  CollapsableProto.setTargetTrackingListeners = function(isActive) {
+  Collapsable.prototype.setTargetTrackingListeners = function(isActive) {
     $('body')[isActive ? 'on' : 'off']('click touchend keyup', this.handleUIEventTracking);
 
     return this;
@@ -115,10 +118,11 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   /**
    * Handler function for tracking event targets
    * Checks if trigger element is focussed, if the focus is within the target
-   * @param  {Object} e The event object for the current target
-   * @return {this} This
+   * @param  {object} e The event object for the current target
+   * @public
+   * @returns {Collapsable}
    */
-  CollapsableProto.handleUIEventTracking = function(e) {
+  Collapsable.prototype.handleUIEventTracking = function(e) {
     var $currentTarget = $(e.target);
     if (!$currentTarget.is(this.$triggers) && !$currentTarget.closest(this.$target).length) {
       this.toggle('hide');
@@ -129,12 +133,11 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
 
   /**
    * Toggle the element
-   * @param  {[type]} forceTo Supply 'show' or 'hide' to
-   * explicitly set, otherwise will automatically toggle
+   * @param  {string} [forceTo=show|hide] - explicitly toggle the element (set automatically by default).
    * @param {boolean} [focusTarget] - whether to focus the panel. Defaults to `config.focusTarget`
-   * @return {[type]}         [description]
+   * @returns {Collapsable}
    */
-  CollapsableProto.toggle = function(forceTo, focusTarget) {
+  Collapsable.prototype.toggle = function(forceTo, focusTarget) {
     var func,
         label,
         expandedLabel,

@@ -1,6 +1,10 @@
+/**
+ * DoughBaseComponent
+ * @module DoughBaseComponent
+ * @return {class} DoughBaseComponent
+ */
 define([], function() {
   'use strict';
-
 
   /**
    * This is used as the base class for all modules.
@@ -53,7 +57,7 @@ define([], function() {
 
   /**
    * Set the parent element for this context.
-   * @param {[type]} $el [description]
+   * @param {object} $el [description]
    */
   DoughBaseComponentProto.setElement = function($el) {
     this.$el = $el;
@@ -66,7 +70,7 @@ define([], function() {
    *
    * After this has been run, you can safely run 'delete [[instance]]' to remove it from memory.
    *
-   * @return {[type]}
+   * @return {instance}
    */
   DoughBaseComponentProto.destroy = function() {
     this._unbindUiEvents();
@@ -136,7 +140,6 @@ define([], function() {
   /**
    * Indicate that the component initialised successfully, passing its component name. The resolved
    * promise will be fed back to the component loader
-   * @private
    */
   DoughBaseComponentProto._initialisedSuccess = function(initialised) {
     this.$el.attr('data-dough-' + this.componentName + '-initialised', 'yes');
@@ -146,7 +149,6 @@ define([], function() {
   /**
    * Indicate that the component failed to initialise, passing its component name. The rejected
    * promise will be fed back to the component loader
-   * @private
    */
   DoughBaseComponentProto._initialisedFailure = function(initialised) {
     initialised && initialised.reject(this.componentName);

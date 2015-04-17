@@ -1,8 +1,8 @@
 /**
  * Show/hide field tooltips when user focuses on relevant input field.
- * @param  {[type]} $         [description]
- * @return {[type]}           [description]
- * @private
+ *
+ * @module FieldHelpText
+ * @returns {class} FieldHelpText
  */
 define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';
@@ -14,10 +14,15 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     // Initially set for page load, so js-enabled users don't see the tooltips flashing on page load
     preInitHiddenClass: 'field-help-text--jshide'
   },
+  FieldHelpText;
 
-    /**
+  /**
    * Call base constructor
    * @constructor
+   * @extends {DoughBaseComponent}
+   * @param {object} $el - Trigger element (jQuery element)
+   * @param {object} [config]
+   * @returns {FieldHelpText}
    */
   FieldHelpText = function($el, config) {
     FieldHelpText.baseConstructor.call(this, $el, config, defaultConfig);
@@ -27,6 +32,10 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   DoughBaseComponent.extend(FieldHelpText);
 
+  /**
+   * [init description]
+   * @return {FieldHelpText} [description]
+   */
   FieldHelpText.prototype.init = function() {
     var tooltipID = this.$el.attr('id');
 
@@ -39,12 +48,20 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return this;
   };
 
+  /**
+   * Show the tool tip
+   * @return {FieldHelpText}
+   */
   FieldHelpText.prototype.showTooltip = function() {
     this.$el.removeClass(this.config.hiddenClass);
 
     return this;
   };
 
+  /**
+   * Hide the tool tip
+   * @return {FieldHelpText}
+   */
   FieldHelpText.prototype.hideTooltip = function() {
     // Use this rather than $(...).is(':focus') as the latter fails in Phantom
     if (this.$inputTarget.get(0) !== document.activeElement) {
@@ -54,11 +71,19 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return this;
   };
 
+  /**
+   * Add accessibility
+   * @return {FieldHelpText}
+   */
   FieldHelpText.prototype._addAccessibility = function() {
     this.$el.attr('role', 'tooltip');
     return this;
   };
 
+  /**
+   * Setup event listeners
+   * @return {FieldHelpText}
+   */
   FieldHelpText.prototype._addListeners = function() {
     this.$inputTarget.
           on('focusin', $.proxy(this.showTooltip, this)).
@@ -67,6 +92,10 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return this;
   };
 
+  /**
+   * Setup onBlur
+   * @return {FieldHelpText}
+   */
   FieldHelpText.prototype._onBlur = function() {
     var $activeElement = $(document.activeElement),
         $activeParents = $activeElement.parents();

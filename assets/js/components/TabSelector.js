@@ -1,15 +1,10 @@
 /**
- * # Tab selector
- *
- * Requires an element to have a data-dough-component="TabSelector" attribute.
- */
-
-/**
- * Require from Config
- * @param  {object} $         [description]
- * @param  {object} DoughBaseComponent [description]
- * @return {object}
- * @private
+ * #### Tabs component
+ * Requires an element to have a `data-dough-component="TabSelector"` attribute.
+ * @param  {object} $ (jQuery)
+ * @param  {function} DoughBaseComponent
+ * @module TabSelector
+ * @returns {class} TabSelector
  */
 define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
     function($, DoughBaseComponent, eventsWithPromises, mediaQueries) {
@@ -40,6 +35,10 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       /**
        * Call DoughBaseComponent constructor. Find options list.
        * @constructor
+       * @param {object} $el - Trigger element (jQuery element)
+       * @param {object} [config]
+       * @extends {DoughBaseComponent}
+       * @returns {TabSelector}
        */
       TabSelector = function($el, config) {
         var triggerId;
@@ -70,8 +69,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       DoughBaseComponent.extend(TabSelector);
 
       /**
-       * Init function
-       * @returns {TabSelector}
+       * Initialise component
+       * @param {Object} initialised Promise passed from eventsWithPromises (RSVP Promise).
        */
       TabSelector.prototype.init = function(initialised) {
         if (this.isComponentMarkupValid === true) {
@@ -85,7 +84,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       /**
        * Set up references to the various required parts of the component. If they are all
        * present, set the property isComponentMarkupValid to true
-       * @private
        */
       TabSelector.prototype._checkComponentMarkup = function() {
         this.$triggersWrapperOuter = this.$el.find(selectors.triggersOuter);
@@ -100,7 +98,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
 
       /**
        * Any one-off actions to make the component more accessible
-       * @private
        */
       TabSelector.prototype._setupAccessibility = function() {
         this.$el.find('[' + selectors.target + ']').attr({
@@ -113,7 +110,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       /**
        * Set the height of the triggers outer wrapper so that it will hold vertical space open
        * when the inner wrapper is positioned
-       * @private
        */
       TabSelector.prototype._setTriggerWrapperHeight = function() {
         this.$triggersWrapperOuter.height(this.$triggersWrapperInner.outerHeight());
@@ -122,7 +118,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       /**
        * Subscribe to hub event - if the viewport is resized to small, set the triggers wrapper to
        * inactive so the 'dropdown' menu isn't open
-       * @private
        */
       TabSelector.prototype._subscribeHubEvents = function() {
         if (this.config.collapseInSmallViewport === true) {
@@ -133,7 +128,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       /**
        * Check if the tabs should be collapsed or not
        * (based on whether they're currently wrapped) and update them accordingly
-       * @private
        */
       TabSelector.prototype._updateCollapsedState = function() {
         this.$el.removeClass(this.selectors.collapsedClass);
@@ -150,7 +144,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       /**
        * Have the triggers (eg tabs) wrapped onto a second line?
        * @returns {boolean}
-       * @private
        */
       TabSelector.prototype._haveTriggersWrapped = function() {
         var result = false,
@@ -170,7 +163,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
 
       /**
        * Change all links in tabs to button elements
-       * @private
        */
       TabSelector.prototype._convertLinksToButtons = function() {
         var _this = this;
@@ -190,7 +182,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       /**
        * Handle a click on a trigger
        * @returns {TabSelector}
-       * @private
        */
       TabSelector.prototype._handleClickEvent = function(e) {
         var $trigger = $(e.currentTarget),
@@ -209,7 +200,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       /**
        * Deselect a trigger
        * @param {jQuery} $el
-       * @private
        */
       TabSelector.prototype._deSelectItem = function($el) {
         $el.removeClass(this.selectors.activeClass).addClass(this.selectors.inactiveClass).attr('aria-selected', false);
@@ -219,7 +209,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       /**
        * Show / hide and position the menu so the selected item remains stationary
        * @returns {TabSelector}
-       * @private
        */
       TabSelector.prototype._toggleMenu = function($trigger) {
         // if the clicked item is outside the menu, and the menu is closed, do nothing
@@ -236,7 +225,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       /**
        * Position the menu when it's open
        * @param {jQuery} $selected - selected trigger
-       * @private
        */
       TabSelector.prototype._positionMenu = function($selected) {
         var pos;
@@ -252,7 +240,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
        * Activate / deactivate trigger
        * @param {string} targetAttr - the value of the clicked trigger
        * @returns {TabSelector}
-       * @private
        */
       TabSelector.prototype._updateTriggers = function(targetAttr) {
         var $selectedTriggers = this.$el.find('[' + selectors.trigger + '="' + targetAttr + '"]'),
@@ -291,7 +278,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
        * Activate / deactivate any targets based on the trigger clicked
        * @param {string} targetAttr - the value of the clicked trigger
        * @returns {TabSelector}
-       * @private
        */
       TabSelector.prototype._updateTargets = function(targetAttr) {
         var $selectedTarget = this.$el.find('[' + selectors.target + '="' + targetAttr + '"]'),
@@ -322,7 +308,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       /**
        * Focus the selected target panel
        * @param {jQuery} $selectedTarget
-       * @private
        */
       TabSelector.prototype._focusTarget = function($selectedTarget) {
         var scrollTop;

@@ -2,25 +2,30 @@
  * Replaces browser default tooltips for elements, with
  * CSS-powered tooltips that work on touchscreen devices too.
  *
- * @param  {Object}   $         (jQuery)
- * @param  {Function} DoughBaseComponent
+ * @param  {object} $ (jQuery)
+ * @param  {function} DoughBaseComponent
+ * @module TabularTooltip
+ * @return {class} TabularTooltip
  */
 define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';
 
+  var TabularTooltip;
+
   /**
-   * Call base constructor
    * @constructor
+   * @extends {DoughBaseComponent}
+   * @returns {TabularTooltip}
    */
-  var TabularTooltip = function() {
+  TabularTooltip = function() {
     TabularTooltip.baseConstructor.apply(this, arguments);
   };
 
   DoughBaseComponent.extend(TabularTooltip);
 
   /**
-   * Init
-   * @param {Promise} initialised
+   * Initialise component
+   * @param {Object} initialised Promise passed from eventsWithPromises (RSVP Promise).
    */
   TabularTooltip.prototype.init = function(initialised) {
     var title = this.$el.attr('title');
