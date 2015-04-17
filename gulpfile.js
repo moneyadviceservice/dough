@@ -10,7 +10,17 @@ jsDocTask = function() {
     .pipe(jsdoc.parser({
       plugins: ['plugins/markdown']
     }))
-    .pipe(jsdoc.generator(docsDestDir));
+    .pipe(jsdoc.generator(docsDestDir, {
+      path: 'ink-docstrap',
+      systemName: '',
+      footer: '',
+      copyright: 'Copyright Money Advice Service &copy;',
+      navType: 'vertical',
+      theme: 'flatly',
+      linenums: true,
+      collapseSymbols: false,
+      inverseNav: false
+    }));
 };
 
 gulp.task('jsdoc', jsDocTask);
