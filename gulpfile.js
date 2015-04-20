@@ -7,20 +7,25 @@ var gulp = require('gulp'),
 
 jsDocTask = function() {
   return gulp.src(docsSrcDir)
-    .pipe(jsdoc.parser({
-      plugins: ['plugins/markdown']
-    }))
-    .pipe(jsdoc.generator(docsDestDir, {
-      path: 'ink-docstrap',
-      systemName: '',
-      footer: '',
-      copyright: 'Copyright Money Advice Service &copy;',
-      navType: 'vertical',
-      theme: 'flatly',
-      linenums: true,
-      collapseSymbols: false,
-      inverseNav: false
-    }));
+    .pipe(
+      jsdoc(docsDestDir,
+        {
+          path: 'ink-docstrap',
+          systemName: '',
+          footer: '',
+          copyright: 'Copyright Money Advice Service &copy;',
+          navType: 'vertical',
+          theme: 'flatly',
+          linenums: true,
+          collapseSymbols: false,
+          inverseNav: false
+        },
+        {
+          plugins: ['plugins/markdown'],
+          cleverLinks: true
+        }
+      )
+    );
 };
 
 gulp.task('jsdoc', jsDocTask);
