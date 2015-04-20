@@ -1,6 +1,5 @@
 var gulp = require('gulp'),
     jsdoc = require('gulp-jsdoc'),
-    livereload = require('gulp-livereload'),
     docsSrcDir = './assets/js/**/*.js',
     docsDestDir = './docs/js',
     jsDocTask;
