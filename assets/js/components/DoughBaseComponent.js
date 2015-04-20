@@ -1,22 +1,30 @@
 /**
- * DoughBaseComponent
+ * This is used as the base class for all modules.
+ * All components should extend this class.
+ *
+ * Includes:
+ *  - event binding/triggering
+ *  - logging
+ *  - i18n library
+ *
  * @module DoughBaseComponent
- * @return {class} DoughBaseComponent
+ * @returns {class} DoughBaseComponent
  */
 define([], function() {
   'use strict';
 
-  /**
-   * This is used as the base class for all modules.
-   * All modules/components should extend this class.
-   *
-   * Includes:
-   *  event binding/triggering
-   *  logging
-   *  i18n library
-   */
+  var DoughBaseComponent;
 
-  function DoughBaseComponent($el, config, defaultConfig) {
+  /**
+   * @constructor
+   * @param {object} $el - Trigger element (jQuery element)
+   * @param {object} [config] - this can be passed directly via the constructor,
+   * or if using `componentLoader`, then as a JSON object `data-dough-COMPONENTNAME-config="{'foo': {'bar': 'baz'}}"` on the
+   * component's HTML element.
+   * @param {object} [defaultConfig] - Default component configuration. Is overridden by `config` values.
+   * @returns {instance}
+   */
+  DoughBaseComponent = function($el, config, defaultConfig) {
     if (!$el || !$el.length) {
       throw new Error('Element not supplied to DoughBaseComponent constructor');
     }
@@ -33,12 +41,12 @@ define([], function() {
 
     this._bindUiEvents(this.config.uiEvents || {});
     return this;
-  }
+  };
 
   /**
    * Extend DoughBaseComponent class using the supplied constructor
-   * @param {function} Subclass
-   * @param {function} [Superclass] - if not supplied, defaults to DoughBaseComponent
+   * @param {function} Subclass - Class which will be extended
+   * @param {function} [Superclass] - If not supplied, defaults to DoughBaseComponent
    */
   DoughBaseComponent.extend = function(Subclass, Superclass) {
     var Super = Superclass || DoughBaseComponent;
@@ -53,34 +61,30 @@ define([], function() {
     Subclass.superclass = Super.prototype;
   };
 
-  var DoughBaseComponentProto = DoughBaseComponent.prototype;
-
   /**
    * Set the parent element for this context.
-   * @param {object} $el [description]
+   * @param {object} $el _jQuery_ element
    */
-  DoughBaseComponentProto.setElement = function($el) {
+  DoughBaseComponent.prototype.setElement = function($el) {
     this.$el = $el;
     return this;
   };
 
   /**
    * All DoughBaseComponents (if applicable) should have this method,
-   * which will unbind all events it attached when initialising itself.
+   * which will unbind all events it attaches when initialising itself.
    *
    * After this has been run, you can safely run 'delete [[instance]]' to remove it from memory.
    *
    * @return {instance}
    */
-  DoughBaseComponentProto.destroy = function() {
+  DoughBaseComponent.prototype.destroy = function() {
     this._unbindUiEvents();
     return this;
   };
 
   /**
-   * Set callbacks, where `this.events` is a hash of
-   *
-   * {"event selector": "callback"}*
+   * Set callbacks, where `this.events` is a hash of `{"event selector": "callback"}`:
    *
    *     {
    *       'mousedown .title':  'edit',
@@ -88,19 +92,19 @@ define([], function() {
    *       'click .open':       function(e) { ... }
    *     }
    *
-   * pairs. Callbacks will be bound to the view, with `this` set properly.
+   * Callbacks will be bound to the view, with `this` set properly.
    * Uses event delegation for efficiency.
    * Omitting the selector binds the event to `this.el`.
    * This only works for delegate-able events: not `focus`, `blur`, and
    * not `change`, `submit`, and `reset` in Internet Explorer.
    *
-   * Adapted from the equivalent function in BackboneJS - http://backbonejs.org/#View-delegateEvents
+   * Adapted from the equivalent function in [BackboneJS](http://backbonejs.org/#View-delegateEvents).
    *
    * @param events
-   * @returns {DoughBaseComponent}
+   * @returns {instance}
    */
 
-  DoughBaseComponentProto._bindUiEvents = function(events) {
+  DoughBaseComponent.prototype._bindUiEvents = function(events) {
     var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
     if (!events) {
@@ -129,10 +133,10 @@ define([], function() {
 
   /**
    * Clears all callbacks previously bound to the component with `delegateEvents`.
-   * @returns {DoughBaseComponent}
+   * @returns {instance}
    */
 
-  DoughBaseComponentProto._unbindUiEvents = function() {
+  DoughBaseComponent.prototype._unbindUiEvents = function() {
     this.$el.off('.' + this.componentName + '-boundUiEvents');
     return this;
   };
@@ -141,7 +145,7 @@ define([], function() {
    * Indicate that the component initialised successfully, passing its component name. The resolved
    * promise will be fed back to the component loader
    */
-  DoughBaseComponentProto._initialisedSuccess = function(initialised) {
+  DoughBaseComponent.prototype._initialisedSuccess = function(initialised) {
     this.$el.attr('data-dough-' + this.componentName + '-initialised', 'yes');
     initialised && initialised.resolve(this.componentName);
   };
@@ -150,7 +154,7 @@ define([], function() {
    * Indicate that the component failed to initialise, passing its component name. The rejected
    * promise will be fed back to the component loader
    */
-  DoughBaseComponentProto._initialisedFailure = function(initialised) {
+  DoughBaseComponent.prototype._initialisedFailure = function(initialised) {
     initialised && initialised.reject(this.componentName);
   };
 

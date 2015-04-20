@@ -1,18 +1,20 @@
 /**
  * UI component loader. Scans the supplied DOM for 'data-dough-component' attributes and initialises
  * components based on those attribute values
- * eg. the following markup will cause 2 components to be initialised, DropdownList and MultiToggler
  *
- <div class="container">
- <div data-dough-component="DropdownList">
- </div>
- <div data-dough-component="MultiToggler">
- </div>
- </div>
-
- * Components are created in 2 separate passes. The reason for this is so that all components can
+ * The following markup will cause two components to be initialised, DropdownList and MultiToggler:
+ *
+ *     <div class="container">
+ *       <div data-dough-component="DropdownList"></div>
+ *       <div data-dough-component="MultiToggler"></div>
+ *     </div>
+ *
+ * Components are created in two separate passes. The reason for this is so that all components can
  * have a chance to set up listeners to any other components they need. Once they are all created,
- * they are initialised (the 'init' method of each is called) in a second pass.
+ * they are initialised (the `init` method of each is called) in a second pass.
+ *
+ * @module componentLoader
+ * @returns {Function} componentLoader
  */
 define(['jquery', 'rsvp'], function($, RSVP) {
 
@@ -21,19 +23,20 @@ define(['jquery', 'rsvp'], function($, RSVP) {
   return {
 
     /**
-     * Will store a hash. Each key will store a component name. Each value will store an array of
-     * instances of that component type
+     * Stores Each key will store a component name and an array of
+     * instances of that component type.
      * @attribute
-     * @type {object}
+     * @type {Object}
      */
     components: {},
 
     /**
-     * Create components based on the supplied DOM fragment (or document if not supplied)
-     * @param {jQuery} [$container]
-     * @param {boolean} [includeDeferred] - Includes deferred objects when initialising components
-     * @returns {object} - a promise that will resolve or reject depending on whether all modules
-     * initialise successfully
+     * Create components based on the supplied DOM fragment
+     * @param {jQuery} [$container] - Uses `$('body')` if not supplied.
+     * @param {Boolean} [includeDeferred] - Includes deferred objects when initialising components.
+     * Deferred objects can be specified for later instantiation by specifying `data-dough-defer` on the HTML element.
+     * @returns {Object} - a promise that will resolve or reject depending on whether all modules
+     * initialised successfully
      */
     init: function($container, includeDeferred) {
       var componentsToCreate,
@@ -43,7 +46,7 @@ define(['jquery', 'rsvp'], function($, RSVP) {
           promises;
 
       this.components = {};
-      // if no DOM fragment supplied, use the document
+      // if no DOM fragment supplied, use the `<body>` tag
       $container = $container || $('body');
       componentsToCreate = this._listComponentsToCreate($container, includeDeferred || false);
       instantiatedList = this._createPromises(componentsToCreate);
@@ -74,10 +77,9 @@ define(['jquery', 'rsvp'], function($, RSVP) {
 
     /**
      * Make an array of objects, each containing pointers to a component container and name
-     * @param {object} $container
-     * @param {boolean} [includeDeferred] - Includes deferred objects when initialising components
+     * @param {Object} $container
+     * @param {Boolean} [includeDeferred] - Includes deferred objects when initialising components
      * @returns {Array}
-     * @private
      */
     _listComponentsToCreate: function($container, includeDeferred) {
       var componentsToCreate = [],
@@ -111,7 +113,6 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * 'master' deferred for resolution)
      * @param {Array} componentsToCreate
      * @returns {{deferreds: Array, promises: Array}}
-     * @private
      */
     _createPromises: function(componentsToCreate) {
       var obj = {
@@ -131,7 +132,6 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @param {Array} componentsToCreate
      * @param {Array} instantiatedList - array of deferreds, one to be assigned to each new
      * component
-     * @private
      */
     _instantiateComponents: function(componentsToCreate, instantiatedList) {
       var self = this;
@@ -146,7 +146,6 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @param {object} $el
      * @param {object} instantiated - a deferred, to be resolved after each component is required /
      * instantiated, which may be async, hence the use of a deferred
-     * @private
      */
     _instantiateComponent: function(componentName, $el, instantiated) {
       var self = this,
@@ -177,7 +176,6 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @param {array} initialisedList - list of promises, one to pass to each component so it can
      * indicate when it has initialised (it might need to conduct async activity to do so, so it's
      * not enough to just set a flag after the constructor is called)
-     * @private
      */
     _initialiseComponents: function(components, initialisedList) {
       var i = 0;
@@ -199,7 +197,6 @@ define(['jquery', 'rsvp'], function($, RSVP) {
      * @param {jQuery} $el - component container
      * @param {string} componentName
      * @returns {object} - parsed JSON config or empty object
-     * @private
      */
     _parseConfig: function($el, componentName) {
       var config = $el.attr('data-dough-' + this._convertComponentNameToDashed(componentName) + '-config');
@@ -214,7 +211,6 @@ define(['jquery', 'rsvp'], function($, RSVP) {
     /**
      * Converts camelcase component name to dashed
      * @param {string} componentName eg. TabSelector
-     * @private
      * @returns {string} eg. tab-selector
      */
     _convertComponentNameToDashed: function(componentName) {

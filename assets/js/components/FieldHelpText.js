@@ -20,9 +20,11 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * Call base constructor
    * @constructor
    * @extends {DoughBaseComponent}
-   * @param {object} $el - Trigger element (jQuery element)
-   * @param {object} [config]
-   * @returns {FieldHelpText}
+   * @param {object} $el - Trigger element (_jQuery_ element)
+   * @param {object} [config] - this can be passed directly via the constructor,
+   * or if using `componentLoader`, then as a JSON object `data-dough-COMPONENTNAME-config="{'foo': {'bar': 'baz'}}"` on the
+   * component's HTML element.
+   * @returns {instance}
    */
   FieldHelpText = function($el, config) {
     FieldHelpText.baseConstructor.call(this, $el, config, defaultConfig);
@@ -33,8 +35,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   DoughBaseComponent.extend(FieldHelpText);
 
   /**
-   * [init description]
-   * @return {FieldHelpText} [description]
+   * Initialises component
+   * @returns {instance}
    */
   FieldHelpText.prototype.init = function() {
     var tooltipID = this.$el.attr('id');
@@ -50,7 +52,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   /**
    * Show the tool tip
-   * @return {FieldHelpText}
+   * @returns {instance}
    */
   FieldHelpText.prototype.showTooltip = function() {
     this.$el.removeClass(this.config.hiddenClass);
@@ -60,7 +62,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   /**
    * Hide the tool tip
-   * @return {FieldHelpText}
+   * @returns {instance}
    */
   FieldHelpText.prototype.hideTooltip = function() {
     // Use this rather than $(...).is(':focus') as the latter fails in Phantom
@@ -72,8 +74,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   /**
-   * Add accessibility
-   * @return {FieldHelpText}
+   * Add ARIA roles
+   * @returns {instance}
    */
   FieldHelpText.prototype._addAccessibility = function() {
     this.$el.attr('role', 'tooltip');
@@ -81,8 +83,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   /**
-   * Setup event listeners
-   * @return {FieldHelpText}
+   * Setup event listeners on the input target
+   * @returns {instance}
    */
   FieldHelpText.prototype._addListeners = function() {
     this.$inputTarget.
@@ -93,8 +95,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   };
 
   /**
-   * Setup onBlur
-   * @return {FieldHelpText}
+   * Setup onBlur events
+   * @returns {instance}
    */
   FieldHelpText.prototype._onBlur = function() {
     var $activeElement = $(document.activeElement),

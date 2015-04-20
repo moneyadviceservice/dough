@@ -7,7 +7,7 @@
  * - `min|max` number range checking
  *
  * @module Validation
- * @return {class} Validation
+ * @returns {class} Validation
  */
 define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';

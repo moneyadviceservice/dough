@@ -5,7 +5,7 @@
  * @param  {object} $ (jQuery)
  * @param  {function} DoughBaseComponent
  * @module TabularTooltip
- * @return {class} TabularTooltip
+ * @returns {class} TabularTooltip
  */
 define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   'use strict';
