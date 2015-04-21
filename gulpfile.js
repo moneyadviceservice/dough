@@ -9,19 +9,15 @@ jsDocTask = function() {
     .pipe(
       jsdoc(docsDestDir,
         {
-          path: 'ink-docstrap',
-          systemName: '',
-          footer: '',
+          path: './node_modules/jaguarjs-jsdoc',
+          applicationName: 'Dough JavaScript',
+          cleverLinks: true,
           copyright: 'Copyright Money Advice Service &copy;',
-          navType: 'vertical',
-          theme: 'flatly',
           linenums: true,
-          collapseSymbols: false,
-          inverseNav: false
+          collapseSymbols: false
         },
         {
           plugins: ['plugins/markdown'],
-          cleverLinks: true
         }
       )
     );
