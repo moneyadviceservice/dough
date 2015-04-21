@@ -27,6 +27,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
         focusTarget: true
       },
       selectors = {
+        trigger: '[data-dough-collapsable-trigger]',
         activeClass: 'is-active',
         inactiveClass: 'is-inactive',
         iconClassOpen: 'icon--down-chevron-blue',
@@ -47,8 +48,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   function Collapsable($el, config) {
     this.selectors = selectors;
     Collapsable.baseConstructor.call(this, $el, config, defaultConfig);
-    this.$trigger = this.$el;
-    this.$target = $('[data-dough-collapsable-target="' + this.$trigger.attr('data-dough-collapsable-trigger') + '"]');
+
+    this.$triggers = this.$el.is(this.selectors.trigger)? this.$el : this.$el.find(this.selectors.trigger);
+    this.$target = $('[data-dough-collapsable-target="' + this.$triggers.attr('data-dough-collapsable-trigger') + '"]');
     this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this._setupAccessibility();
     this.handleUIEventTracking = $.proxy(this.handleUIEventTracking, this);
@@ -67,8 +69,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   CollapsableProto._setupAccessibility = function() {
     var id = 'data-dough-collapsable-target-' + this.$target.attr('data-dough-collapsable-target');
 
-    this.$trigger.wrapInner('<button class="unstyled-button" type="button"/>');
-    this.$trigger.find('button')
+    this.$triggers.wrapInner('<button class="unstyled-button" type="button"/>');
+    this.$triggers.find('button')
         .prepend('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' +
             selectors.iconClassOpen + '"></span>')
         .append('<span class="visually-hidden" data-dough-collapsable-label>' +
@@ -76,7 +78,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
         .attr('aria-controls', id)
         .attr('aria-expanded', 'false');
     this.$target.attr('id', id);
-    this.$trigger = this.$trigger.find('button');
+    this.$triggers = this.$triggers.find('button');
   };
 
   /**
@@ -96,7 +98,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    * @param {Boolean} isActive Set to 'true' to bind to events, 'false' to unbind.
    */
   CollapsableProto.setListeners = function(isActive) {
-    this.$trigger[isActive ? 'on' : ' off']('click', $.proxy(function() {
+    this.$triggers[isActive ? 'on' : ' off']('click', $.proxy(function() {
       this.toggle();
     }, this));
 
@@ -120,7 +122,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    */
   CollapsableProto.handleUIEventTracking = function(e) {
     var $currentTarget = $(e.target);
-    if (!$currentTarget.is(this.$trigger) && !$currentTarget.closest(this.$target).length) {
+    if (!$currentTarget.is(this.$triggers) && !$currentTarget.closest(this.$target).length) {
       this.toggle('hide');
     }
 
@@ -152,7 +154,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     this.isShown = !!this.$target[func](selectors.activeClass).hasClass(selectors.activeClass);
 
     // toggle the class on the trigger element (active = shown / nothing = not shown)
-    this.$trigger[func](selectors.activeClass);
+    this.$triggers[func](selectors.activeClass);
 
     if (this.isShown === true) {
       label = this.i18nStrings.close;
@@ -175,9 +177,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
       }
     }
 
-    this.$trigger.find('[data-dough-collapsable-label]').text(label);
-    this.$trigger.attr('aria-expanded', expandedLabel);
-    this.$trigger
+    this.$triggers.find('[data-dough-collapsable-label]').text(label);
+    this.$triggers.attr('aria-expanded', expandedLabel);
+    this.$triggers
         .find('[data-dough-collapsable-icon]')
         .removeClass(selectors.iconClassOpen + ' ' + selectors.iconClassClose).addClass(iconClass);
 
