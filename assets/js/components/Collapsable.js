@@ -24,18 +24,18 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
       defaultConfig = {
         hideOnBlur: false,
         forceTo: false,
-        focusTarget: true
-      },
-      selectors = {
-        trigger: '[data-dough-collapsable-trigger]',
-        activeClass: 'is-active',
-        inactiveClass: 'is-inactive',
-        iconClassOpen: 'icon--down-chevron-blue',
-        iconClassClose: 'icon--up-chevron-blue'
-      },
-      i18nStrings = {
-        open: 'Show',
-        close: 'Hide'
+        focusTarget: true,
+        selectors: {
+          trigger: '[data-dough-collapsable-trigger]',
+          activeClass: 'is-active',
+          inactiveClass: 'is-inactive',
+          iconClassOpen: 'icon--down-chevron-blue',
+          iconClassClose: 'icon--up-chevron-blue'
+        },
+        i18nStrings: {
+          open: 'Show',
+          close: 'Hide'
+        }
       };
 
   /**
@@ -46,12 +46,10 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    * @constructor
    */
   function Collapsable($el, config) {
-    this.selectors = selectors;
     Collapsable.baseConstructor.call(this, $el, config, defaultConfig);
 
-    this.$triggers = this.$el.is(this.selectors.trigger)? this.$el : this.$el.find(this.selectors.trigger);
+    this.$triggers = this.$el.is(this.config.selectors.trigger)? this.$el : this.$el.find(this.config.selectors.trigger);
     this.$target = $('[data-dough-collapsable-target="' + this.$triggers.attr('data-dough-collapsable-trigger') + '"]');
-    this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this._setupAccessibility();
     this.handleUIEventTracking = $.proxy(this.handleUIEventTracking, this);
     config && config.forceTo && this.toggle(config.forceTo, false);
@@ -72,9 +70,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     this.$triggers.wrapInner('<button class="unstyled-button" type="button"/>');
     this.$triggers.find('button')
         .prepend('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' +
-            selectors.iconClassOpen + '"></span>')
+            this.config.selectors.iconClassOpen + '"></span>')
         .append('<span class="visually-hidden" data-dough-collapsable-label>' +
-            this.i18nStrings.open + '</span>')
+            this.config.i18nStrings.open + '</span>')
         .attr('aria-controls', id)
         .attr('aria-expanded', 'false');
     this.$target.attr('id', id);
@@ -87,7 +85,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    */
   CollapsableProto.init = function(initialised) {
     // is the target element visible already
-    this.isShown = !!this.$target.hasClass(this.selectors.activeClass);
+    this.isShown = !!this.$target.hasClass(this.config.selectors.activeClass);
     this.setListeners(true);
     this._initialisedSuccess(initialised);
     return this;
@@ -151,15 +149,15 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
 
 
     // toggle the element
-    this.isShown = !!this.$target[func](selectors.activeClass).hasClass(selectors.activeClass);
+    this.isShown = !!this.$target[func](this.config.selectors.activeClass).hasClass(this.config.selectors.activeClass);
 
     // toggle the class on the trigger element (active = shown / nothing = not shown)
-    this.$triggers[func](selectors.activeClass);
+    this.$triggers[func](this.config.selectors.activeClass);
 
     if (this.isShown === true) {
-      label = this.i18nStrings.close;
+      label = this.config.i18nStrings.close;
       expandedLabel = 'true';
-      iconClass = selectors.iconClassClose;
+      iconClass = this.config.selectors.iconClassClose;
       if (focusTarget !== false && this.config.focusTarget) {
         this.$target
             .attr('tabindex', -1)
@@ -169,9 +167,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
         this.setTargetTrackingListeners(true);
       }
     } else {
-      label = this.i18nStrings.open;
+      label = this.config.i18nStrings.open;
       expandedLabel = 'false';
-      iconClass = selectors.iconClassOpen;
+      iconClass = this.config.selectors.iconClassOpen;
       if (this.config.hideOnBlur) {
         this.setTargetTrackingListeners(false);
       }
@@ -181,7 +179,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     this.$triggers.attr('aria-expanded', expandedLabel);
     this.$triggers
         .find('[data-dough-collapsable-icon]')
-        .removeClass(selectors.iconClassOpen + ' ' + selectors.iconClassClose).addClass(iconClass);
+        .removeClass(this.config.selectors.iconClassOpen + ' ' + this.config.selectors.iconClassClose).addClass(iconClass);
 
     // can bind to this by eventsWithPromises.subscribe('toggler:toggled', function(Collapsable) { });
     if (typeof forceTo === 'undefined') {
