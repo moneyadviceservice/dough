@@ -1,10 +1,11 @@
 .button {
   @include inline-block;
+  background: $color-button-default;
+  border-radius: 5px;
   margin-bottom: 0;
   line-height: inherit;
   text-align: center;
   white-space: nowrap;
-  background: $color-button-default;
   color: $color-button-text;
   cursor: pointer;
   filter: none;
@@ -19,6 +20,8 @@
 
   &.is-disabled,
   &[disabled] {
+    background: $color-button-default-background-disabled;
+    color: $color-button-text-disabled;
     pointer-events: none;
     cursor: not-allowed;
   }
