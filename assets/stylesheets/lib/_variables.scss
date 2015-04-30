@@ -2,8 +2,6 @@ $base-font-size: 16 !default;
 
 $baseline-unit: if($responsive, 0.375rem, 6px);
 
-$sprite-background-size: 550px;
-
 // Core colors --------------------------------------------------------------------------- //
 // IMPORTANT: These should never be referenced directly within a Sass partial
 // Instead, create a useful and semantic reference to it i.e. $color-nav-background: $color-black;
