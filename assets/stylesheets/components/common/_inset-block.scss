@@ -1,9 +1,5 @@
 .inset-block {
   margin: $baseline-unit*2 0 $baseline-unit*3 0;
-
-  @include respond-to($mq-s) {
-    margin: $baseline-unit*2 0 $baseline-unit*5 0;
-  }
 }
 
 .inset-block__content-container {
