@@ -15,13 +15,4 @@
     @extend %type-callout;
     margin: 0 $baseline-unit*3 $baseline-unit*3 $baseline-unit*3;
   }
-
-  .editorial & {
-
-    @include respond-to($mq-l) {
-      @include column(3.5, 7);
-      float: right;
-      margin-bottom: $baseline-unit*2;
-    }
-  }
 }
