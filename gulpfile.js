@@ -23,8 +23,8 @@ jsDocTask = function() {
     );
 };
 
+gulp.task('default', ['jsdoc']);
 gulp.task('jsdoc', jsDocTask);
-
 gulp.task('watch', function() {
   jsDocTask();
   gulp.watch(docsSrcDir, ['jsdoc']);
