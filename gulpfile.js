@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
     jsdoc = require('gulp-jsdoc'),
+    ghPages = require('gulp-gh-pages'),
     docsSrcDir = './assets/js/**/*.js',
     docsDestDir = './docs/js',
     jsDocTask;
@@ -23,8 +24,17 @@ jsDocTask = function() {
     );
 };
 
+gulp.task('deploy', function() {
+  return gulp.src(docsDestDir + '/**/*')
+    .pipe(ghPages());
+});
+
 gulp.task('default', ['jsdoc']);
+
+gulp.task('build', ['jsdoc', 'deploy']);
+
 gulp.task('jsdoc', jsDocTask);
+
 gulp.task('watch', function() {
   jsDocTask();
   gulp.watch(docsSrcDir, ['jsdoc']);
