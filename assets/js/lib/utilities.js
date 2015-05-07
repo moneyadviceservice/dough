@@ -1,3 +1,7 @@
+/**
+ * @module utilities
+ * @return {Function} utilities
+ */
 define([], function() {
 
   'use strict';
@@ -5,8 +9,8 @@ define([], function() {
   return {
 
     /**
-     * Convert a currency string into an integer
-     * @param {String} currency eg. £24,000.12
+     * Convert a currency string into an integer.
+     * @param {String} currency e.g. £24,000.12
      * @returns {Number} eg. 24000
      */
     currencyToInteger: function(currency) {

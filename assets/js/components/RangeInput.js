@@ -4,7 +4,8 @@
  * @param  {object} DoughBaseComponent [description]
  * @param  {object} featureDetect      [description]
  * @param  {object} eventsWithPromises [description]
- * @return {object}                    [description]
+ * @module RangeInput
+ * @returns {class} RangeInput
  */
 define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'],
     function($, DoughBaseComponent, featureDetect, eventsWithPromises) {
@@ -13,29 +14,33 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'],
   var defaultConfig = {
         keepSynced: true
       },
+      RangeInput;
 
-      /**
-       * Call base constructor
-       * @constructor
-       */
-      RangeInput = function($el, config) {
-        RangeInput.baseConstructor.call(this, $el, config, defaultConfig);
+  /**
+   * Call base constructor
+   * @constructor
+   */
+  RangeInput = function($el, config) {
+    RangeInput.baseConstructor.call(this, $el, config, defaultConfig);
 
-        if (featureDetect.inputtypes.range) {
-          this._cloneElements();
-        }
-      };
+    if (featureDetect.inputtypes.range) {
+      this._cloneElements();
+    }
+  };
 
   DoughBaseComponent.extend(RangeInput);
 
   /**
    * Init - detect range type support and clone input / label
-   * @param {boolean} initialised
+   * @param {object} initialised Promise passed from eventsWithPromises (RSVP Promise).
    */
   RangeInput.prototype.init = function(initialised) {
     this._initialisedSuccess(initialised);
   };
 
+  /**
+   * Description
+   */
   RangeInput.prototype._cloneElements = function() {
     var $textInput,
         $rangeInput;
@@ -61,6 +66,9 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'],
     }
   };
 
+  /**
+   * Description
+   */
   RangeInput.prototype._setupSyncInputs = function($textInput, $rangeInput) {
     $textInput.on('change keyup', function() {
       var val = $textInput.val();

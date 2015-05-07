@@ -1,3 +1,9 @@
+/**
+ * Performs a number of browser support tests. Uses _Modernizr_ for `inputtypes` support check.
+ *
+ * @module featureDetect
+ * @returns {function} support
+ */
 define([], function() {
   'use strict';
 

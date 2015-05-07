@@ -9,7 +9,7 @@ A reusable UI component library from the Money Advice Service, free for use on a
 * [Git]
 * [Bower]
 * [NodeJS]
-* [Grunt]
+* [Gulp]
 
 ## Installation
 
@@ -104,6 +104,24 @@ EOF
 chmod +x .git/hooks/pre-commit
 ```
 
+## JavaScript documentation
+
+Dough's [JS documentation](http://moneyadviceservice.github.io/dough) follows the [jsDoc](https://github.com/jsdoc3/jsdoc) syntax and is generated using Gulp.
+
+To generate documentation
+
+```shell
+gulp jsdoc
+```
+
+To generate and deploy documentation to the [gh-pages](https://github.com/moneyadviceservice/dough/tree/gh-pages) branch.
+
+```shell
+gulp build
+```
+
+The *jsDoc* theme used is [jaguar-jsdoc](https://github.com/davidshimjs/jaguarjs-jsdoc).
+
 ## Contributing
 
 1. Fork it
@@ -117,7 +135,7 @@ chmod +x .git/hooks/pre-commit
 [bower]: http://bower.io
 [git]: http://git-scm.com
 [nodejs]: http://nodejs.org/
-[grunt]: http://gruntjs.com/getting-started
+[gulp]: https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md
 
 ## Releases
 31/7/14 - v1.0.0 - breaking change - VisibilityToggler component renamed to Collapsable
