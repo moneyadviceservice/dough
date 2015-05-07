@@ -44,6 +44,7 @@
     "sinon-chai": "^2.5.0",
     "gulp": "^3.8.11",
     "gulp-jsdoc": "^0.1.4",
-    "jaguarjs-jsdoc": "0.0.1"
+    "jaguarjs-jsdoc": "0.0.1",
+    "gulp-gh-pages": "^0.5.1"
   }
 }
