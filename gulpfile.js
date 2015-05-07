@@ -6,7 +6,7 @@ var gulp = require('gulp'),
     jsDocTask;
 
 jsDocTask = function() {
-  return gulp.src(docsSrcDir)
+  return gulp.src([docsSrcDir, './README.md'])
     .pipe(
       jsdoc(docsDestDir,
         {
