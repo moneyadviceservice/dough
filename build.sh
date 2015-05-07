@@ -10,3 +10,4 @@ npm install
 
 time bundle install
 time bundle exec rake build
+time mv pkg/*.gem .
