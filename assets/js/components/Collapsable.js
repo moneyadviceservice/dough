@@ -42,12 +42,9 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    * @returns {FieldHelpText}
    */
   Collapsable = function($el, config) {
-    this.selectors = selectors;
     Collapsable.baseConstructor.call(this, $el, config, defaultConfig);
-
     this.$triggers = this.$el.is(this.config.selectors.trigger)? this.$el : this.$el.find(this.config.selectors.trigger);
     this.$target = $('[data-dough-collapsable-target="' + this.$triggers.attr('data-dough-collapsable-trigger') + '"]');
-    this.i18nStrings = (config && config.i18nStrings) ? config.i18nStrings : i18nStrings;
     this._setupAccessibility();
     this.handleUIEventTracking = $.proxy(this.handleUIEventTracking, this);
     config && config.forceTo && this.toggle(config.forceTo, false);
@@ -88,6 +85,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     this.isShown = !!this.$target.hasClass(this.config.selectors.activeClass);
     this.setListeners(true);
     this._initialisedSuccess(initialised);
+
     return this;
   };
 
@@ -97,7 +95,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    * @public
    */
   Collapsable.prototype.setListeners = function(isActive) {
-    this.$trigger[isActive ? 'on' : ' off']('click', $.proxy(function() {
+    this.$triggers[isActive ? 'on' : ' off']('click', $.proxy(function() {
       this.toggle();
     }, this));
 
