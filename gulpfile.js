@@ -24,14 +24,14 @@ jsDocTask = function() {
     );
 };
 
-gulp.task('deploy', function() {
+gulp.task('deploy', ['jsdoc'], function() {
   return gulp.src(docsDestDir + '/**/*')
     .pipe(ghPages());
 });
 
 gulp.task('default', ['jsdoc']);
 
-gulp.task('build', ['jsdoc', 'deploy']);
+gulp.task('build', ['deploy']);
 
 gulp.task('jsdoc', jsDocTask);
 
