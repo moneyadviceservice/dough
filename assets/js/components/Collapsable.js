@@ -111,8 +111,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     }, this));
 
     if (this.config.oneGroupOpenOnly) {
-      eventsWithPromises.subscribe('toggler:close:' + this.groupName, $.proxy(function(el) {
-        if (!el.is(this.$el)) {
+      eventsWithPromises.subscribe('toggler:close:' + this.groupName, $.proxy(function($el) {
+        if (!$el.is(this.$el)) {
           this.toggle('hide', false);
         }
       }, this));
