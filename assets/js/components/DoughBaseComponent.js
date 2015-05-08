@@ -10,7 +10,7 @@
  * @module DoughBaseComponent
  * @returns {class} DoughBaseComponent
  */
-define([], function() {
+define(['utilities'], function(utilities) {
   'use strict';
 
   var DoughBaseComponent;
@@ -150,7 +150,7 @@ define([], function() {
    * promise will be fed back to the component loader
    */
   DoughBaseComponent.prototype._initialisedSuccess = function(initialised) {
-    this.$el.attr('data-dough-' + this.componentName + '-initialised', 'yes');
+    this.$el.attr('data-dough-' + this.componentAttributeName + '-initialised', 'yes');
     initialised && initialised.resolve(this.componentName);
   };
 
@@ -168,7 +168,7 @@ define([], function() {
    * @param  {string} componentName The componentName to check
    * @private
    */
-  DoughBaseComponentProto._setComponentName = function(componentName) {
+  DoughBaseComponent.prototype._setComponentName = function(componentName) {
     var warning,
         componentDataAttr = this.$el.data('dough-component');
 
