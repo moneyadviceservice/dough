@@ -17,7 +17,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
 
   // Class variables
   var defaultConfig = {
-        componentName: 'Collapsable',
         hideOnBlur: false,
         forceTo: false,
         oneGroupOpenOnly: false,
