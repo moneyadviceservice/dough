@@ -147,4 +147,19 @@ describe('Visibility toggler', function() {
       expect(this.$target[0]).to.equal(document.activeElement);
     });
   });
+
+  describe('Grouped collapsables', function() {
+    beforeEach(function(done) {
+      var fixtureHTML = $(window.__html__['spec/js/fixtures/Collapsable.html']).filter('#fixture-6').html();
+      this.beforeEachHook.call(this, done, fixtureHTML);
+    });
+
+    it('collapsables in a group should close when one of them is clicked', function() {
+      this.$sandbox.find('button').last().click();
+      expect(this.$target.first().attr('class')).to.equal('target');
+
+      this.$sandbox.find('button').first().click();
+      expect(this.$target.last().attr('class')).to.equal('target');
+    });
+  });
 });

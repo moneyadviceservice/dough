@@ -19,6 +19,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
   var defaultConfig = {
         hideOnBlur: false,
         forceTo: false,
+        oneGroupOpenOnly: false,
         focusTarget: true,
         selectors: {
           trigger: '[data-dough-collapsable-trigger]',
@@ -32,7 +33,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
           close: 'Hide'
         }
       },
-			Collapsable;
+      Collapsable;
 
   /**
    * @constructor
@@ -43,11 +44,16 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    */
   Collapsable = function($el, config) {
     Collapsable.baseConstructor.call(this, $el, config, defaultConfig);
-    this.$triggers = this.$el.is(this.config.selectors.trigger)? this.$el : this.$el.find(this.config.selectors.trigger);
+    this.$triggers =
+      this.$el.is(this.config.selectors.trigger)? this.$el :
+      this.$el.find(this.config.selectors.trigger);
     this.$target = $('[data-dough-collapsable-target="' + this.$triggers.attr('data-dough-collapsable-trigger') + '"]');
+    this.groupName = this.$triggers.data('dough-collapsable-group');
+
     this._setupAccessibility();
     this.handleUIEventTracking = $.proxy(this.handleUIEventTracking, this);
     config && config.forceTo && this.toggle(config.forceTo, false);
+
     return this;
   };
 
@@ -71,6 +77,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
         .attr('aria-controls', id)
         .attr('aria-expanded', 'false');
     this.$target.attr('id', id);
+
     this.$triggers = this.$triggers.find('button');
   };
 
@@ -96,8 +103,20 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    */
   Collapsable.prototype.setListeners = function(isActive) {
     this.$triggers[isActive ? 'on' : ' off']('click', $.proxy(function() {
+      if (this.config.oneGroupOpenOnly) {
+        eventsWithPromises.publish('toggler:close:' + this.groupName, this.$el);
+      }
+
       this.toggle();
     }, this));
+
+    if (this.config.oneGroupOpenOnly) {
+      eventsWithPromises.subscribe('toggler:close:' + this.groupName, $.proxy(function($el) {
+        if (!$el.is(this.$el)) {
+          this.toggle('hide', false);
+        }
+      }, this));
+    }
 
     return this;
   };
@@ -148,7 +167,6 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
       func = this.isShown ? 'removeClass' : 'addClass';
     }
 
-
     // toggle the element
     this.isShown = !!this.$target[func](this.config.selectors.activeClass).hasClass(this.config.selectors.activeClass);
 
@@ -180,7 +198,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
     this.$triggers.attr('aria-expanded', expandedLabel);
     this.$triggers
         .find('[data-dough-collapsable-icon]')
-        .removeClass(this.config.selectors.iconClassOpen + ' ' + this.config.selectors.iconClassClose).addClass(iconClass);
+        .removeClass(this.config.selectors.iconClassOpen +
+                     ' ' + this.config.selectors.iconClassClose).addClass(iconClass);
 
     // can bind to this by eventsWithPromises.subscribe('toggler:toggled', function(Collapsable) { });
     if (typeof forceTo === 'undefined') {
