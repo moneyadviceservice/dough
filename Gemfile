@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-source 'http://gems.test.mas' if ENV['MAS_BUILD']
+source 'http://gems.test.mas'
 
 gemspec
 
@@ -10,4 +10,4 @@ group :development, :test do
   gem 'capybara', '2.4.1'
 end
 
-gem 'mas-build' if ENV['MAS_BUILD']
+gem 'mas-build', '~> 2.0'
