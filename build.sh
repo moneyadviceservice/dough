@@ -9,5 +9,4 @@ npm install
 ./node_modules/gulp/bin/gulp.js build
 
 time bundle install
-time bundle exec rake build
-time mv pkg/*.gem .
+time bundle exec rake app:gem:build
