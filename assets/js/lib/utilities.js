@@ -2,7 +2,7 @@
  * @module utilities
  * @return {Function} utilities
  */
-define([], function() {
+define('utilities', [], function() {
 
   'use strict';
 
@@ -30,7 +30,6 @@ define([], function() {
     /**
      * Converts a CamelCase string to a dashed-one
      * @param {string} str eg. TabSelector
-     * @private
      * @returns {string} eg. tab-selector
      */
     convertCamelCaseToDashed: function(str) {

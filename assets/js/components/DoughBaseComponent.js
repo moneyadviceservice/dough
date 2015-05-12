@@ -166,7 +166,6 @@ define(['utilities'], function(utilities) {
    * Checks whether a componentName has been passed via the config and whether it is actually
    * present in [data-dough-component] and displays a warning
    * @param  {string} componentName The componentName to check
-   * @private
    */
   DoughBaseComponent.prototype._setComponentName = function(componentName) {
     var warning,

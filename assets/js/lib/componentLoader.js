@@ -1,3 +1,4 @@
+//= require dough/assets/js/lib/utilities
 /**
  * UI component loader. Scans the supplied DOM for 'data-dough-component' attributes and initialises
  * components based on those attribute values
