@@ -62,6 +62,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    */
   DoughBaseComponent.extend(Collapsable);
 
+  Collapsable.componentName = 'Collapsable';
+
   /**
    * Setups accessibility functionality for trigger and target buttons
    */

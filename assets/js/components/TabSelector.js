@@ -68,6 +68,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
        */
       DoughBaseComponent.extend(TabSelector);
 
+      TabSelector.componentName = 'TabSelector';
+
       /**
        * Initialise component
        * @param {Object} initialised Promise passed from eventsWithPromises (RSVP Promise).

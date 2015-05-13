@@ -10,7 +10,7 @@
  * @module DoughBaseComponent
  * @returns {class} DoughBaseComponent
  */
-define([], function() {
+define(['utilities'], function(utilities) {
   'use strict';
 
   var DoughBaseComponent;
@@ -28,9 +28,11 @@ define([], function() {
     if (!$el || !$el.length) {
       throw new Error('Element not supplied to DoughBaseComponent constructor');
     }
+
     this.config = $.extend({}, defaultConfig || {}, config || {});
-    this.componentName = this.config.componentName;
     this.setElement($el);
+    this._setComponentName(this.constructor.componentName);
+
     /*
      Populate this array with the data attributes this module will use.
      Exclude 'data-dough-' prefix, as this is automatically added.
@@ -42,6 +44,8 @@ define([], function() {
     this._bindUiEvents(this.config.uiEvents || {});
     return this;
   };
+
+  DoughBaseComponent.componentName = 'DoughBaseComponent';
 
   /**
    * Extend DoughBaseComponent class using the supplied constructor
@@ -146,7 +150,7 @@ define([], function() {
    * promise will be fed back to the component loader
    */
   DoughBaseComponent.prototype._initialisedSuccess = function(initialised) {
-    this.$el.attr('data-dough-' + this.componentName + '-initialised', 'yes');
+    this.$el.attr('data-dough-' + this.componentAttributeName + '-initialised', 'yes');
     initialised && initialised.resolve(this.componentName);
   };
 
@@ -156,6 +160,31 @@ define([], function() {
    */
   DoughBaseComponent.prototype._initialisedFailure = function(initialised) {
     initialised && initialised.reject(this.componentName);
+  };
+
+  /**
+   * Checks whether a componentName has been passed via the config and whether it is actually
+   * present in [data-dough-component] and displays a warning
+   * @param  {string} componentName The componentName to check
+   */
+  DoughBaseComponent.prototype._setComponentName = function(componentName) {
+    var warning,
+        componentDataAttr = this.$el.data('dough-component');
+
+    if (typeof componentName !== 'undefined') {
+      if (componentDataAttr && componentDataAttr.indexOf(componentName) === -1) {
+        warning = '"' + componentName + '"' + ' componentName was not found in the data-dough-component attribute';
+      }
+      this.componentName = componentName;
+      this.componentAttributeName = utilities.convertCamelCaseToDashed(componentName);
+    }
+    else {
+      warning = 'componentName not specified';
+    }
+
+    if (warning && console && console.warn) {
+      console.warn(warning);
+    }
   };
 
   return DoughBaseComponent;

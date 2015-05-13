@@ -30,6 +30,8 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'],
 
   DoughBaseComponent.extend(RangeInput);
 
+  RangeInput.componentName = 'RangeInput';
+
   /**
    * Init - detect range type support and clone input / label
    * @param {object} initialised Promise passed from eventsWithPromises (RSVP Promise).

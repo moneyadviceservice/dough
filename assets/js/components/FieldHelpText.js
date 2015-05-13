@@ -34,6 +34,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   DoughBaseComponent.extend(FieldHelpText);
 
+  FieldHelpText.componentName = 'FieldHelpText';
+
   /**
    * Initialises component
    * @returns {instance}

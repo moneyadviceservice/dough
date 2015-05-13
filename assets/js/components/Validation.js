@@ -42,6 +42,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
   DoughBaseComponent.extend(Validation);
 
+  Validation.componentName = 'Validation';
+
   Validation.prototype.init = function(initialised) {
     this.ATTRIBUTE_VALIDATORS = {
       'required': '_validateRequired',

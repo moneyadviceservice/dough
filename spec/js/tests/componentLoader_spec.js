@@ -9,8 +9,9 @@ describe('componentLoader', function() {
         range: true
       }
     };
-    requirejs(['componentLoader'], function(componentLoader) {
+    requirejs(['componentLoader', 'utilities'], function(componentLoader, utilities) {
       self.componentLoader = componentLoader;
+      self.utilities = utilities;
       done();
     });
   });
@@ -32,7 +33,8 @@ describe('componentLoader', function() {
     it('should initialize all components in the DOM', function() {
       var allInitialised = true,
           $component,
-          componentNames;
+          componentNames,
+          self = this;
 
       // NOTE: components add a "data-dough-<componentName>-initialised='yes'" attribute to themselves once
       // they have successfully initialised
@@ -40,6 +42,7 @@ describe('componentLoader', function() {
         $component = $(this);
         componentNames = $component.attr('data-dough-component').split(' ');
         $.each(componentNames, function(idx, componentName) {
+          componentName = self.utilities.convertCamelCaseToDashed(componentName);
           if (!$component.is('[data-dough-' + componentName + '-initialised="yes"]')) {
             allInitialised = false;
             return false;
@@ -70,7 +73,7 @@ describe('componentLoader', function() {
       var $deferredComponent = this.$html.find('[data-dough-component][data-dough-defer]').eq(0);
 
       this.componentLoader.init(this.$html, true).then(function() {
-        expect($deferredComponent.is('[data-dough-' + $deferredComponent.attr('data-dough-component') + '-initialised="yes"]')).to.be.true;
+        expect($deferredComponent.is('[data-dough-range-input-initialised="yes"]')).to.be.true;
         done();
       });
     });
