@@ -2,21 +2,16 @@
   tab_selector :section_name do |tab|
     tab.section do |container|
       container.active
-      container.heading 'Basic text'
+      container.heading 'Tab one'
       container.content do
-        'Some basic text'
+        'Tab one'
       end
     end
+
     tab.section do |container|
-      container.heading 'Call out instructions'
+      container.heading 'Tab two'
       container.content do
-        "Really complex content #{ callout_instructional 'some stuff' }"
-      end
-    end
-    tab.section do |container|
-      container.heading 'Call out editorial'
-      container.content do
-        callout_editorial 'some stuff'
+        'Tab two'
       end
     end
   end
