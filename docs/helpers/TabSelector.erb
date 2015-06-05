@@ -1,28 +1,17 @@
 <%=
   tab_selector :section_name do |tab|
     tab.section do |container|
-      container.heading 'Basic text'
-      container.content do
-        'Some basic text'
-      end
-    end
-    tab.section do |container|
-      container.heading 'Call out instructions'
-      container.content do
-        "Really complex content #{ callout_instructional 'some stuff' }"
-      end
-    end
-    tab.section do |container|
-      container.heading 'Call out editorial'
-      container.content do
-        callout_editorial 'some stuff'
-      end
-    end
-    tab.section do |container|
       container.active
-      container.heading 'An inset block'
+      container.heading 'Tab one'
       container.content do
-        inset_block 'some stuff'
+        'Tab one'
+      end
+    end
+
+    tab.section do |container|
+      container.heading 'Tab two'
+      container.content do
+        'Tab two'
       end
     end
   end
