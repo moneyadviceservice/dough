@@ -20,7 +20,7 @@
   .js & {
     display: inline-block;
   }
-  [data-dough-tabselector-initialised="yes"] & {
+  [data-dough-tab-selector-initialised="yes"] & {
     visibility: visible;
     &.is-active {
       display: inline-block;
