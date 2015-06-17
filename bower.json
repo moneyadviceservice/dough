@@ -16,5 +16,8 @@
     "requirejs": "latest",
     "jquery": "latest",
     "jqueryThrottleDebounce": "https://github.com/cowboy/jquery-throttle-debounce.git"
+  },
+  "devDependencies": {
+    "squire": "~0.2.0"
   }
 }

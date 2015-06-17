@@ -1,38 +1,57 @@
 describe('mediaQueries - fires JS events when breakpoints are crossed', function() {
-
   'use strict';
 
+  var self = this;
 
-  beforeEach(function(done) {
-    var self = this;
-    requirejs(
-        ['jquery', 'mediaQueries', 'eventsWithPromises'],
-        function($, mediaQueries, eventsWithPromises) {
+  function require(done, config) {
+    requirejs(['squire'], function(squire) {
+      self.injector = new squire();
+
+      self.injector.mock('featureDetect', {
+        mediaQueries: config.mediaQuerySupport
+      })
+      .require(['jquery', 'mediaQueries', 'eventsWithPromises'], function($, mediaQueries, eventsWithPromises) {
           self.mediaQueries = mediaQueries;
           self.eventsWithPromises = eventsWithPromises;
           self.$html = $('<div />').appendTo('body');
+
           done();
         }, done);
+    }, done);
+  }
+
+  describe('media queries supported', function() {
+    beforeEach(function(done) {
+      require(done, { mediaQuerySupport: true });
+    });
+
+    it('fires a resize event on load', function() {
+      var spy = sinon.spy();
+      self.eventsWithPromises.subscribe('mediaquery:resize', spy);
+      expect(spy).to.have.been.called;
+    });
+
+    it('only fires one resize event if initialised twice', function() {
+      var spy = sinon.spy();
+      self.eventsWithPromises.subscribe('mediaquery:resize', spy);
+      spy.should.have.been.calledOnce;
+    });
+  });
+
+  describe('media queries not supported', function() {
+    beforeEach(function(done) {
+      require(done, { mediaQuerySupport: false });
+    });
+
+    describe('atSmallViewport', function() {
+      it('returns false when media queries are not supported', function() {
+        expect(self.mediaQueries.atSmallViewport()).to.be.equal(false);
+      });
+    });
   });
 
   afterEach(function() {
-    this.$html.empty();
+    self.$html.empty();
+    self.injector.remove();
   });
-
-  it('places a media query test element in the DOM', function() {
-    expect($('body').children('.js-mediaquery-test').length).to.equal(1);
-  });
-
-  it('fires a resize event on load', function() {
-    var spy = sinon.spy();
-    this.eventsWithPromises.subscribe('mediaquery:resize', spy);
-    expect(spy).to.have.been.called;
-  });
-
-  it('only fires one resize event if initialised twice', function() {
-    var spy = sinon.spy();
-    this.eventsWithPromises.subscribe('mediaquery:resize', spy);
-    spy.should.have.been.calledOnce;
-  });
-
 });
