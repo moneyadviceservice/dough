@@ -34,7 +34,7 @@ describe('mediaQueries - fires JS events when breakpoints are crossed', function
     it('only fires one resize event if initialised twice', function() {
       var spy = sinon.spy();
       self.eventsWithPromises.subscribe('mediaquery:resize', spy);
-      spy.should.have.been.calledOnce;
+      expect(spy).to.have.been.calledOnce;
     });
   });
 
