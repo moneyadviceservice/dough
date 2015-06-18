@@ -37,7 +37,8 @@ require.config({
     eventsWithPromises: 'vendor/assets/bower_components/eventsWithPromises/src/eventsWithPromises',
     rsvp: 'vendor/assets/bower_components/rsvp/rsvp',
     jqueryThrottleDebounce: 'vendor/assets/bower_components/jqueryThrottleDebounce/jquery.ba-throttle-debounce',
-    utilities: 'assets/js/lib/utilities'
+    utilities: 'assets/js/lib/utilities',
+    squire: 'vendor/assets/bower_components/squire/src/Squire'
   },
   shim: {
     modernizr: {

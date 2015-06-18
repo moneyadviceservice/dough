@@ -22,7 +22,8 @@ define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce
 
   /**
    *
-   * Gets current media query value (set on the `testElement`) and publishes an event `mediaquery:resize` via _eventsWithPromises_.
+   * Gets current media query value (set on the `testElement`) and
+   * publishes an event `mediaquery:resize` via _eventsWithPromises_.
    * @function
    * @param  {Boolean} forceEvent Bypass the `current` and `newSize` and publish the event.
    */
@@ -38,12 +39,14 @@ define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce
 
   /**
    * Gets current media query value as set using the
-   * Technique explained here: [Write Simple, Elegant and Maintainable Media Queries with Sass](http://davidwalsh.name/device-state-detection-css-media-queries-javascript)
+   * Technique explained here: [Write Simple, Elegant and Maintainable
+   * Media Queries with Sass](http://davidwalsh.name/device-state-detection-css-media-queries-javascript)
    * @function
    * @return {String} mq-xs or mq-s or mq-m or mq-l or mq-xl
    */
   function getSize() {
-    return window.getComputedStyle(testElement[0], ':after').getPropertyValue('content');
+    return featureDetect.mediaQueries ?
+      window.getComputedStyle(testElement[0], ':after').getPropertyValue('content') : 'mq-l';
   }
 
   /**
