@@ -41,4 +41,43 @@ describe('utilities', function() {
     });
   });
 
+  describe('log', function() {
+    var sandbox;
+
+    beforeEach(function() {
+      sandbox = sinon.sandbox.create();
+
+      // stub some console methods
+      sandbox.stub(window.console, "log");
+      sandbox.stub(window.console, "warn");
+    });
+
+    afterEach(function() {
+      sandbox.restore();
+    });
+
+    it('should output a console.log message by default', function() {
+      this.mod.log('test');
+
+      expect(console.log.callCount).to.be.equal(1);
+    });
+
+    it('should output a console.warn message if specified', function() {
+      this.mod.log('test', 'warn');
+
+      expect(console.warn.callCount).to.be.equal(1);
+    });
+
+    it('should not attempt to call console.log if browser does not support it', function() {
+      var stubDoesConsoleExist = sinon.stub(this.mod, 'doesConsoleExist', function() {
+        return false;
+      });
+
+      this.mod.log('test');
+
+      expect(console.log.callCount).to.be.equal(0);
+
+      stubDoesConsoleExist.restore();
+    });
+  });
 });
