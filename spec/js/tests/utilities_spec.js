@@ -68,7 +68,7 @@ describe('utilities', function() {
       expect(console.warn.callCount).to.be.equal(1);
     });
 
-    it('should not attempt to call console.log if browser does not support it', function() {
+    it('should not attempt to call console if browser does not support it', function() {
       var stubDoesConsoleExist = sinon.stub(this.mod, 'doesConsoleExist', function() {
         return false;
       });
@@ -78,6 +78,16 @@ describe('utilities', function() {
       expect(console.log.callCount).to.be.equal(0);
 
       stubDoesConsoleExist.restore();
+    });
+  });
+
+  describe('doesConsoleExist', function() {
+    it('return true if the console method exists', function() {
+      expect(this.mod.doesConsoleExist('warn')).to.be.equal(true);
+    });
+
+    it('return false if the console method does not exist', function() {
+      expect(this.mod.doesConsoleExist('blah')).to.be.equal(false);
     });
   });
 });

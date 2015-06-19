@@ -42,17 +42,21 @@ define('utilities', [], function() {
      * @param {string} type    Type of log message warn/info/table etc
      */
     log: function(message, type) {
-      if (this.doesConsoleExist()) {
-        window.console[type ? type : 'log'](message);
+      type = type ? type : 'log';
+
+      if (this.doesConsoleExist(type)) {
+        window.console[type](message);
       }
     },
 
     /**
      * Check to see if the console object exists
+     * @param  {string} type The console method name
      * @return {Boolean}
      */
-    doesConsoleExist: function() {
-      return typeof console !== 'undefined';
+    doesConsoleExist: function(type) {
+      return typeof window.console !== 'undefined' &&
+             typeof window.console[type] !== 'undefined';
     }
   };
 
