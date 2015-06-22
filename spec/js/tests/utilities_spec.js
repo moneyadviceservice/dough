@@ -48,8 +48,8 @@ describe('utilities', function() {
       sandbox = sinon.sandbox.create();
 
       // stub some console methods
-      sandbox.stub(window.console, "log");
-      sandbox.stub(window.console, "warn");
+      sandbox.stub(window.console, 'log');
+      sandbox.stub(window.console, 'warn');
     });
 
     afterEach(function() {
