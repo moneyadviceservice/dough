@@ -19,9 +19,11 @@ define(['utilities'], function(utilities) {
    * @constructor
    * @param {object} $el - Trigger element (jQuery element)
    * @param {object} [config] - this can be passed directly via the constructor,
-   * or if using `componentLoader`, then as a JSON object `data-dough-COMPONENTNAME-config="{'foo': {'bar': 'baz'}}"` on the
+   * or if using `componentLoader`, then as a JSON object
+   * `data-dough-COMPONENTNAME-config="{'foo': {'bar': 'baz'}}"` on the
    * component's HTML element.
-   * @param {object} [defaultConfig] - Default component configuration. Is overridden by `config` values.
+   * @param {object} [defaultConfig] - Default component configuration.
+   * Is overridden by `config` values.
    * @returns {instance}
    */
   DoughBaseComponent = function($el, config, defaultConfig) {
@@ -182,8 +184,8 @@ define(['utilities'], function(utilities) {
       warning = 'componentName not specified';
     }
 
-    if (warning && console && console.warn) {
-      console.warn(warning);
+    if (warning) {
+      utilities.log(warning, 'warn');
     }
   };
 

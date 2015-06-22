@@ -34,8 +34,30 @@ define('utilities', [], function() {
      */
     convertCamelCaseToDashed: function(str) {
       return str.replace(/([^\s])([A-Z][a-z])/g, '$1-$2').toLowerCase();
-    }
+    },
 
+    /**
+     * Log function which checks for console presence
+     * @param {string} message Log message
+     * @param {string} type    Type of log message warn/info/table etc
+     */
+    log: function(message, type) {
+      type = type ? type : 'log';
+
+      if (this.doesConsoleExist(type)) {
+        window.console[type](message);
+      }
+    },
+
+    /**
+     * Check to see if the console object exists
+     * @param  {string} type The console method name
+     * @return {Boolean}
+     */
+    doesConsoleExist: function(type) {
+      return typeof window.console !== 'undefined' &&
+             typeof window.console[type] !== 'undefined';
+    }
   };
 
 });
