@@ -555,6 +555,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     if (this.errors.length) {
       e.preventDefault();
+      e.stopPropagation();
       this._sortErrorsByFieldDisplayOrder().refreshValidationSummary()._showValidationSummary();
     }
   };
