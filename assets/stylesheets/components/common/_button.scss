@@ -1,17 +1,3 @@
-// Buttons
-//
-// :hover      - green
-// :focus      - green
-// :active     - green
-// .is-disabled - green
-// .button--primary            - yellow
-// .button--primary:hover      - yellow
-// .button--primary:focus      - yellow
-// .button--primary:active     - yellow
-// .button--primary.is-disabled - yellow
-//
-// Styleguide buttons
-
 .button {
   @include inline-block;
   margin-bottom: 0;
@@ -61,31 +47,15 @@
   }
 }
 
-// Requires the text to be wrapped in a sub-element in order to hide it at small viewport widths
-//
-// Styleguide Direction buttons
-
 .button--compact {
   cursor: pointer;
 }
-
-// Sits alongside a text input. Button height matches text input height.
-//
-// .button--inline-input
-//
-// Styleguide Inline buttons
 
 .button--inline-input {
   height: $input-height;
   line-height: 0;
   vertical-align: top;
 }
-
-// Smaller font / padding
-//
-// .button--small
-//
-// Styleguide Small buttons
 
 .button--small {
   line-height: 1;
