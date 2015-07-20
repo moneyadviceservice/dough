@@ -1,6 +1,3 @@
-// Tab selector, stays as tabs at all viewport widths
-//
-// Styleguide Tab selector
 .tab-selector__triggers-outer {
   position: relative;
 }
@@ -76,9 +73,6 @@
   @extend .visually-hidden;
 }
 
-// Tab selector, collapsing to dropdown below medium breakpoint
-//
-// Styleguide Tab selector collapsable
 .tab-selector--collapsable {
   &.is-collapsed {
 
