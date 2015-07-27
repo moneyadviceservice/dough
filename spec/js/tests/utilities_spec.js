@@ -10,6 +10,12 @@ describe('utilities', function() {
           self.mod = utilities;
           done();
         }, done);
+
+    self.clock = sinon.useFakeTimers();
+  });
+
+  after(function() {
+    this.clock.restore();
   });
 
   describe('currencyToInteger', function() {
@@ -89,5 +95,16 @@ describe('utilities', function() {
     it('return false if the console method does not exist', function() {
       expect(this.mod.doesConsoleExist('blah')).to.be.equal(false);
     });
+  });
+
+  describe('debounce', function() {
+    it('calls the method after certain amount of time', function() {
+      var func = sinon.stub(),
+          time = 2000;
+      this.mod.debounce(func, time)();
+      expect(func.callCount).to.be.equal(0);
+      this.clock.tick(time);
+      expect(func.callCount).to.be.equal(1);
+    })
   });
 });
