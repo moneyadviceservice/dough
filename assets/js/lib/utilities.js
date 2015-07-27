@@ -57,7 +57,27 @@ define('utilities', [], function() {
     doesConsoleExist: function(type) {
       return typeof window.console !== 'undefined' &&
              typeof window.console[type] !== 'undefined';
+    },
+
+    /**
+     * Rate limit the amount of times a method is called
+     * @param  {function} func Function to be called
+     * @param  {Number} wait How long to wait until func is called in milliseconds
+     * @return {function}
+     */
+    debounce: function(func, wait) {
+      var timeout;
+
+      return function() {
+        var context = this,
+            args = arguments,
+            later = function() {
+              timeout = null;
+              func.apply(context, args);
+            };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
     }
   };
-
 });
