@@ -64,7 +64,7 @@ define(['jquery', 'DoughBaseComponent'],
         $form = self.getFormFromComponent();
 
     $form.submit(function(e) {
-      if(window.confirm(self.message)) {
+      if (window.confirm(self.message)) {
         return true;
       } else {
         $.event.fix(e).preventDefault();
@@ -81,7 +81,7 @@ define(['jquery', 'DoughBaseComponent'],
    * @returns {HTMLElement} Form element to be used.
    */
   ConfirmableFormProto.getFormFromComponent = function() {
-    if(this.$el.is('form')) { return this.$el; }
+    if (this.$el.is('form')) { return this.$el; }
     return this.$el.parents('form').first();
   };
 
