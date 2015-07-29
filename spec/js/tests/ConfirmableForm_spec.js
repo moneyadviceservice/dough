@@ -52,7 +52,7 @@ describe('confirmation form', function () {
       var self = this;
 
       requirejs(['jquery', 'ConfirmableForm'], function ($, ConfirmableForm) {
-        self.$html = $(window.__html__['spec/javascripts/fixtures/ConfirmableFormOnInput.html']).appendTo('body');
+        self.$html = $(window.__html__['spec/js/fixtures/ConfirmableFormOnInput.html']).appendTo('body');
         self.$input = self.$html.find('input');
         self.$form = self.$html.find('form');
         self.ConfirmableForm = new ConfirmableForm(self.$input).init();
@@ -70,7 +70,7 @@ describe('confirmation form', function () {
       var self = this;
 
       requirejs(['jquery', 'ConfirmableForm'], function ($, ConfirmableForm) {
-        self.$html = $(window.__html__['spec/javascripts/fixtures/ConfirmableForm.html']).appendTo('body');
+        self.$html = $(window.__html__['spec/js/fixtures/ConfirmableForm.html']).appendTo('body');
         self.$input = self.$html.find('input');
         self.$form = self.$html.find('form');
         self.ConfirmableForm = new ConfirmableForm(self.$form).init();
