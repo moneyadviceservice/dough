@@ -1,3 +1,7 @@
+.form__row {
+  margin-bottom: $baseline-unit*3;
+}
+
 .form__row--is-errored {
   label {
     color: $color-validation-text;
@@ -83,6 +87,7 @@
 }
 
 .form__input-outline {
+  border: 1px solid $color-input-border-color;
   display: block;
   bottom: 0;
   left: 0;
@@ -90,4 +95,8 @@
   right: 0;
   top: 0;
   z-index: 1;
+}
+
+.form__input-container .form__input:focus ~ .form__input-outline {
+  border: 2px solid $color-input-focus-border-color;
 }

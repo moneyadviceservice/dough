@@ -5,12 +5,24 @@
 }
 
 .validation-summary__content-container {
-  @extend .is-errored;
   background: $color-validation-summary-background;
+  border-left: 10px solid $color-validation-border;
+  color: $color-validation-text;
+  padding: $baseline-unit 18px;
 }
 
 .validation-summary__title {
+  font-weight: 700;
 }
 
 .validation-summary__list {
+  margin: $baseline-unit*2 0;
+
+  a {
+     color:$color-validation-text;
+     text-decoration:none;
+     &:hover, &:focus {
+      text-decoration:underline;
+     }
+  }
 }

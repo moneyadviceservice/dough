@@ -16,7 +16,7 @@
       margin-left: 100%; // absolutely position tooltip a little to the right of parent element
       width: 250px; // no height - tooltip will be as tall as required to fit all the text
       background: #fff; // pale yellow
-      border: 1px solid $color-grey-paleo;
+      border: 1px solid $color-tabular-tooltip-border;
       color: #666; // override default blue link colour
       padding: 0.8em 1em;
     }
