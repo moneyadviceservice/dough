@@ -28,6 +28,7 @@ require.config({
     mediaQueries: 'assets/js/lib/mediaQueries',
     componentLoader: 'assets/js/lib/componentLoader',
     Collapsable: 'assets/js/components/Collapsable',
+    ConfirmableForm: 'assets/js/components/ConfirmableForm',
     TabSelector: 'assets/js/components/TabSelector',
     RangeInput: 'assets/js/components/RangeInput',
     FieldHelpText: 'assets/js/components/FieldHelpText',
