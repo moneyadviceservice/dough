@@ -1,0 +1,36 @@
+<div class="social-sharing">
+  <h2><%= title %></h2>
+
+  <ul class="unstyled-list">
+    <li class="social-sharing__item social-sharing__item--facebook">
+      <a
+        href="https://www.facebook.com/sharer.php?u=<%= url %>"
+        target="_blank"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="social-sharing__icon">
+          <use xlink:href="#svg-icon--facebook"></use>
+        </svg>
+        <span class="visually-hidden"><%= t('social_sharing.label_facebook') %></span>
+      </a>
+    </li><li class="social-sharing__item social-sharing__item--twitter">
+      <a
+        href="https://twitter.com/share?text=<%= text %>&amp;url=<%= url %>"
+        target="_blank"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="social-sharing__icon">
+          <use xlink:href="#svg-icon--twitter"></use>
+        </svg>
+        <span class="visually-hidden"><%= t('social_sharing.label_twitter') %></span>
+      </a>
+    </li><li class="social-sharing__item social-sharing__item--email">
+      <a
+        href="mailto:?subject=<%= text %>&amp;body=<%= u request.original_url %>"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="social-sharing__icon">
+          <use xlink:href="#svg-icon--email"></use>
+        </svg>
+        <span class="visually-hidden"><%= t('social_sharing.label_email') %></span>
+      </a>
+    </li>
+  </ul>
+</div>
