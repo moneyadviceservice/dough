@@ -22,7 +22,7 @@
 .social-sharing__item--facebook {
   background: $color-facebook;
 
-  .social-sharing__item__icon:hover {
+  &:hover {
     background: $color-facebook-hover;
   }
 }
@@ -30,7 +30,7 @@
 .social-sharing__item--twitter {
   background: $color-twitter;
 
-  .social-sharing__item__icon:hover {
+  &:hover {
     background: $color-twitter-hover;
   }
 }
@@ -38,7 +38,7 @@
 .social-sharing__item--email {
   background: $color-email;
 
-  .social-sharing__item__icon:hover {
+  &:hover {
     background: $color-email-hover;
   }
 }
