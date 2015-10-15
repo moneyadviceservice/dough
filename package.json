@@ -40,7 +40,7 @@
     "karma-phantomjs-launcher": "~0.1",
     "karma-requirejs": "^0.2.1",
     "karma-sinon": "^1.0.3",
-    "sinon": "^1.9.0",
+    "sinon": "~1.9.0",
     "sinon-chai": "^2.5.0",
     "gulp": "^3.8.11",
     "gulp-jsdoc": "^0.1.4",
