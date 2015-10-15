@@ -15,13 +15,15 @@ describe('Visibility toggler', function() {
       self.beforeEachHook = function(done, fixtureHTML) {
         this.$sandbox.html(fixtureHTML || $(window.__html__['spec/js/fixtures/Collapsable.html']).filter('#fixture-1').html());
 
-        this.componentLoader.init(this.$sandbox)
-          .then(function() {
-            this.$trigger = this.$sandbox.find('button');
-            this.$target = this.$sandbox.find('[data-dough-collapsable-target]');
-            this.$triggerLabel = this.$sandbox.find('[data-dough-collapsable-label]');
-            done();
-          }.bind(this));
+        setTimeout($.proxy(function() {
+          this.componentLoader.init(this.$sandbox)
+            .then(function() {
+              this.$trigger = this.$sandbox.find('button');
+              this.$target = this.$sandbox.find('[data-dough-collapsable-target]');
+              this.$triggerLabel = this.$sandbox.find('[data-dough-collapsable-label]');
+              done();
+            }.bind(this));
+        }, this), 100);
       };
       done();
     });
