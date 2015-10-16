@@ -16,11 +16,6 @@ require.config({
   // Karma serves files under /base, which is the basePath from your config file
   baseUrl: '/base',
 
-  // dynamically load all test files
-  deps: allTestFiles,
-
-  // we have to kickoff mocha, as it is asynchronous
-  callback: window.__karma__.start,
   paths: {
     DoughBaseComponent: 'assets/js/components/DoughBaseComponent',
     featureDetect: 'assets/js/lib/featureDetect',
@@ -46,5 +41,9 @@ require.config({
       exports: 'Modernizr'
     }
   }
-
 });
+
+// Squire appears to be causing conflicts with AMD modules,
+// so we explicitly wrap in a require module
+// @see http://stackoverflow.com/questions/17205904/squirejs-causing-random-tests-to-intermittently-fail-or-not-run-at-all
+require(allTestFiles, window.__karma__.start);
