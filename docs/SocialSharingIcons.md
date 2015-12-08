@@ -1,7 +1,13 @@
 ## Social Sharing Icons
 
 ### Definition
-This module exists to allow the insertion of Social Sharing icons to be added at all points throught a site and associated areas. By this means the module can be extended in the future to include any other icons that may be necessary. There are a number of values which can be passed through as described in the rules below.
+This module exists to allow the display of SVG Social Sharing icons to be added at all points throught a site.
+
+Currently it includes Facebook, Twitter and Email icons within the functionality to share the specified page via those means. The module could be extended to include other icons as necessary.
+
+There are a number of values which can be passed through as described in the rules below.
+
+Doesn't include non-SVG fallbacks, which need to be added as CSS background-image in the icon--facebook, icon--twitter, icon--email element.
 
 ### Rules
 * title: appears above the icons as a section heading
