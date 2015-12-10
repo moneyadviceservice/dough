@@ -1,12 +1,6 @@
 .social-sharing__item {
   display: inline-block;
-  margin: 0 10px 0 0;
-  border-radius: 3px;
   overflow: hidden;
-
-  &:last-child {
-    margin-right: 0;
-  }
 
   .social-sharing__item__icon {
     display: block;
@@ -14,31 +8,17 @@
   }
 }
 
-.social-sharing__icon {
-  height: 33px;
-  width: 55px;
+.social-sharing__icon--facebook {
+  height: (150px / 5);
+  width: (77.8922px / 5);
 }
 
-.social-sharing__item--facebook {
-  background: $color-facebook;
-
-  &:hover {
-    background: $color-facebook-hover;
-  }
+.social-sharing__icon--twitter {
+  height: (150px / 5);
+  width: (184.574px / 5);
 }
 
-.social-sharing__item--twitter {
-  background: $color-twitter;
-
-  &:hover {
-    background: $color-twitter-hover;
-  }
-}
-
-.social-sharing__item--email {
-  background: $color-email;
-
-  &:hover {
-    background: $color-email-hover;
-  }
+.social-sharing__icon--email {
+  height: (150px / 5);
+  width: (248.152px / 5);
 }
