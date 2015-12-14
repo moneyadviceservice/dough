@@ -1,7 +1,7 @@
 ## Social Sharing Icons
 
 ### Definition
-This module exists to allow the display of SVG Social Sharing icons to be added at all points throught a site.
+This module exists to allow the display of minimally-styled SVG Social Sharing icons at all points throught a site.
 
 Currently it includes Facebook, Twitter and Email icons within the functionality to share the specified page via those means. The module could be extended to include other icons as necessary.
 
@@ -17,9 +17,7 @@ Doesn't include non-SVG fallbacks, which need to be added as CSS background-imag
 * label_twitter: this is accessibility text specific to Twitter and is not visible on the page
 * label_email: this is accessibility text specific to Email and is not visible on the page
 
-<!--
 ### Examples
 
-* [Code example](No example on Master yet)
-* [Live example](No example on Live yet)
--->
+* [Code example](https://github.com/moneyadviceservice/frontend/blob/master/app/views/articles/show.html.erb)
+* [Live example](https://www.moneyadviceservice.org.uk/en/articles/do-you-need-to-borrow-money)
