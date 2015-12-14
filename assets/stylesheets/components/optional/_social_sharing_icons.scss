@@ -1,10 +1,15 @@
 .social-sharing__item {
   display: inline-block;
   overflow: hidden;
+  margin: 0 10px 0 0;
 
   .social-sharing__item__icon {
     display: block;
     line-height: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
   }
 }
 
