@@ -118,7 +118,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       var $formRow = $(o),
           $errorContainer = $formRow.find('.' + this.config.inlineErrorClass),
           $inputs = $formRow.find(this.config.fieldSelector),
-          errorHTML = "",
+          errorHTML = '',
           rowHasErrors = false,
           groupsDealtWith = [];
 
@@ -130,7 +130,9 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
         if (errorIndex > -1 && $.inArray(inputName, groupsDealtWith) === -1) {
           rowHasErrors = true;
           groupsDealtWith.push(inputName);
-          errorHTML += '<p id="' + this._getInlineErrorID(inputName) + '" class="' + this.config.validationSummaryErrorClass + '">' + (errorIndex + 1) + '. ' + this.errors[errorIndex].message + '</p>';
+          errorHTML += '<p id="' + this._getInlineErrorID(inputName) + '" class="' +
+                        this.config.validationSummaryErrorClass + '">' + (errorIndex + 1) + '. ' +
+                        this.errors[errorIndex].message + '</p>';
         }
       }, this));
 
@@ -154,12 +156,12 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   Validation.prototype.refreshValidationSummary = function() {
     var fieldName,
-        fieldGroupValidity,
         summaryHTML = '';
 
     $.each(this.errors, $.proxy(function(errorIndex, fieldGroupValidity) {
       fieldName = fieldGroupValidity.name;
-      summaryHTML += '<li class="' + this.config.validationSummaryErrorClass + '"><a href="#' + this._getInlineErrorID(fieldName) + '">' + fieldGroupValidity.message + '</a></li>';
+      summaryHTML += '<li class="' + this.config.validationSummaryErrorClass + '"><a href="#' +
+                      this._getInlineErrorID(fieldName) + '">' + fieldGroupValidity.message + '</a></li>';
     }, this));
 
     this.$el.find('[' + this.config.validationSummaryListAttribute + ']').html(summaryHTML);
@@ -203,9 +205,10 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   Validation.prototype._prepareMarkup = function() {
     var $validationSummary = this.$el.find('.' + this.config.validationSummaryClass);
     if (!$validationSummary.length) {
-      this.$el.prepend('<div class="' + this.config.validationSummaryClass + ' ' + this.config.validationSummaryHiddenClass + '">\
-          <ol ' + this.config.validationSummaryListAttribute + '></ol>\
-        </div>');
+      this.$el.prepend(
+        '<div class="' + this.config.validationSummaryClass + ' ' + this.config.validationSummaryHiddenClass + '">' +
+          '<ol ' + this.config.validationSummaryListAttribute + '></ol>' +
+        '</div>');
     }
 
     this.$el.find('.form__row').each($.proxy(function(i, o) {
@@ -337,7 +340,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   Validation.prototype._prepareFieldGroupValidity = function($primaryField, fieldGroupValidity) {
     // Hoist up to top level for ease of access
     $.each(fieldGroupValidity.errors, function(i, validatorResults) {
-      if (validatorResults.name == "required" && validatorResults.isEmpty !== true) {
+      if (validatorResults.name === 'required' && validatorResults.isEmpty !== true) {
         fieldGroupValidity.isEmpty = false;
       }
 
@@ -346,11 +349,13 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       }
     });
 
-    fieldGroupValidity.hasError = fieldGroupValidity.errors.length && (fieldGroupValidity.isEmpty || fieldGroupValidity.isInvalid);
+    fieldGroupValidity.hasError =
+      fieldGroupValidity.errors.length && (fieldGroupValidity.isEmpty || fieldGroupValidity.isInvalid);
 
     // Check which message to use, empty should take prescedence
     if (fieldGroupValidity.isInvalid) {
-      fieldGroupValidity.message = $primaryField.attr(this.config.attributeInvalid) || $primaryField.attr(this.config.attributeEmpty);
+      fieldGroupValidity.message =
+        $primaryField.attr(this.config.attributeInvalid) || $primaryField.attr(this.config.attributeEmpty);
     }
 
     if (fieldGroupValidity.isEmpty) {
@@ -369,14 +374,14 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @param  {String} required Validation parameters
    * @return {Object}          Validity object
    */
-  Validation.prototype._validateRequired = function($field, value, required) {
+  Validation.prototype._validateRequired = function($field, value) {
     var validity = { name: 'required' };
 
     if ($field.is('[type="radio"]') && !$field.prop('checked')) {
       validity.isEmpty = true;
     }
     else {
-      if (value == '') {
+      if (value === '') {
         validity.isEmpty = true;
       }
     }
@@ -513,8 +518,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {jQuery}        jQuery fieldgroup, array of fields with matching name
    */
   Validation.prototype._getFieldGroup = function($field) {
-    var $fieldGroup,
-        fieldName = $field.attr('name');
+    var fieldName = $field.attr('name');
 
     return this.$allFieldsOnPage.filter('[name="' + fieldName + '"]');
   };

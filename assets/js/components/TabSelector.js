@@ -231,7 +231,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
       TabSelector.prototype._positionMenu = function($selected) {
         var pos;
         if ($selected) {
-          pos = this.$triggersWrapperInner.hasClass(this.selectors.activeClass) ? (-1 * $selected.position().top) + 1 : 0;
+          pos =
+            this.$triggersWrapperInner.hasClass(this.selectors.activeClass) ? (-1 * $selected.position().top) + 1 : 0;
           $selected.length && this.$triggersWrapperInner.css('top', pos);
         }
 

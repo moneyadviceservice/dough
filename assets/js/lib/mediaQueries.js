@@ -21,6 +21,18 @@ define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce
       testElement = $('<div class="js-mediaquery-test" />');
 
   /**
+   * Gets current media query value as set using the
+   * Technique explained here: [Write Simple, Elegant and Maintainable
+   * Media Queries with Sass](http://davidwalsh.name/device-state-detection-css-media-queries-javascript)
+   * @function
+   * @return {String} mq-xs or mq-s or mq-m or mq-l or mq-xl
+   */
+  function getSize() {
+    return featureDetect.mediaQueries ?
+      window.getComputedStyle(testElement[0], ':after').getPropertyValue('content') : 'mq-l';
+  }
+
+  /**
    *
    * Gets current media query value (set on the `testElement`) and
    * publishes an event `mediaquery:resize` via _eventsWithPromises_.
@@ -35,18 +47,6 @@ define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce
         newSize: newSize // `mq-xs` or `mq-s`, etc
       });
     }
-  }
-
-  /**
-   * Gets current media query value as set using the
-   * Technique explained here: [Write Simple, Elegant and Maintainable
-   * Media Queries with Sass](http://davidwalsh.name/device-state-detection-css-media-queries-javascript)
-   * @function
-   * @return {String} mq-xs or mq-s or mq-m or mq-l or mq-xl
-   */
-  function getSize() {
-    return featureDetect.mediaQueries ?
-      window.getComputedStyle(testElement[0], ':after').getPropertyValue('content') : 'mq-l';
   }
 
   /**
