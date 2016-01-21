@@ -22,6 +22,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
         validationSummaryHiddenClass: 'validation-summary--hidden',
         validationSummaryErrorClass: 'validation-summary__error',
         inlineErrorClass: 'js-inline-error',
+        showValidationSummary: true,
         uiEvents: {
           'blur input, select, textarea': '_handleBlurEvent',
           'keyup input, textarea': '_handleChangeEvent',
@@ -155,6 +156,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation} Class instance
    */
   Validation.prototype.refreshValidationSummary = function() {
+    if (!this.config.showValidationSummary) return this;
+
     var fieldName,
         summaryHTML = '';
 
@@ -204,7 +207,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    */
   Validation.prototype._prepareMarkup = function() {
     var $validationSummary = this.$el.find('.' + this.config.validationSummaryClass);
-    if (!$validationSummary.length) {
+    if (!$validationSummary.length && this.config.showValidationSummary) {
       this.$el.prepend(
         '<div class="' + this.config.validationSummaryClass + ' ' + this.config.validationSummaryHiddenClass + '">' +
           '<ol ' + this.config.validationSummaryListAttribute + '></ol>' +
@@ -281,6 +284,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {type} [description]
    */
   Validation.prototype._showValidationSummary = function() {
+    if (!this.config.showValidationSummary) return this;
+
     this.$el.find('.' + this.config.validationSummaryClass).removeClass(this.config.validationSummaryHiddenClass);
     return this;
   };

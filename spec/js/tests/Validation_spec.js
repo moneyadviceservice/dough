@@ -23,14 +23,42 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('generates a fallback validation summary list', function() {
-      var validation = new this.Validation(this.component).init();
-      expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
-    });
+    describe('Validation', function() {
+      describe('When showValidationSummary is not set', function() {
+        it('generates a fallback validation summary list', function() {
+          var validation = new this.Validation(this.component).init();
+          expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
+        });
 
-    it('generates an inline message when does not exist', function() {
-      var validation = new this.Validation(this.component).init();
-      expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
+        it('generates an inline message', function() {
+          var validation = new this.Validation(this.component).init();
+          expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
+        });
+      });
+
+      describe('When showValidationSummary is enabled', function() {
+        it('generates a fallback validation summary list', function() {
+          var validation = new this.Validation(this.component, {showValidationSummary: true}).init();
+          expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
+        });
+
+        it('generates an inline message', function() {
+          var validation = new this.Validation(this.component, {showValidationSummary: true}).init();
+          expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
+        });
+      });
+
+      describe('When showValidationSummary is disabled', function() {
+        it('does not generate a fallback validation summary list', function() {
+          var validation = new this.Validation(this.component, {showValidationSummary: false}).init();
+          expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(0);
+        });
+
+        it('generates an inline message', function() {
+          var validation = new this.Validation(this.component, {showValidationSummary: false}).init();
+          expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
+        });
+      });
     });
   });
 
@@ -51,14 +79,42 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('does not generate a fallback validation-summary', function() {
-      var validation = new this.Validation(this.component).init();
-      expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
-    });
+    describe('Validation', function() {
+      describe('When showValidationSummary is not set', function() {
+        it('does not generate a fallback validation summary list', function() {
+          var validation = new this.Validation(this.component).init();
+          expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
+        });
 
-    it('does not generate an inline message when exists already', function() {
-      var validation = new this.Validation(this.component).init();
-      expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
+        it('does not generate an inline message', function() {
+          var validation = new this.Validation(this.component).init();
+          expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
+        });
+      });
+
+      describe('When showValidationSummary is enabled', function() {
+        it('does not generate a fallback validation summary list', function() {
+          var validation = new this.Validation(this.component, {showValidationSummary: true}).init();
+          expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
+        });
+
+        it('does not generate an inline message', function() {
+          var validation = new this.Validation(this.component, {showValidationSummary: true}).init();
+          expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
+        });
+      });
+
+      describe('When showValidationSummary is disabled', function() {
+        it('does not generate a fallback validation summary list', function() {
+          var validation = new this.Validation(this.component, {showValidationSummary: false}).init();
+          expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
+        });
+
+        it('does not generate an inline message', function() {
+          var validation = new this.Validation(this.component, {showValidationSummary: false}).init();
+          expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
+        });
+      });
     });
 
     it('bails out and lets the server take over', function() {
@@ -88,11 +144,12 @@ describe('Validation', function() {
     it('shows the correct inline error if left empty on blur', function() {
       var validation = new this.Validation(this.component).init(),
           $input = validation.$el.find('#input'),
-          errorLookingFor = $input.attr(validation.config.attributeEmpty);
+          errorLookingFor = $input.attr(validation.config.attributeEmpty),
+          inlineErrorMessage = '.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")';
 
       focusInOut($input);
 
-      expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(1);
+      expect(validation.$el.find(inlineErrorMessage).length).to.equal(1);
     });
 
     it('adds the is-errored class to the parent form__row', function() {
@@ -132,33 +189,53 @@ describe('Validation', function() {
       expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).to.equal(-1);
     });
 
-    it('shows the validation summary if left empty on submit', function() {
-      var validation = new this.Validation(this.component).init(),
-          $input = validation.$el.find('#input'),
-          $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
+    describe('when the validation summary is to be shown', function() {
+      it('shows the validation summary if left empty on submit', function() {
+        var validation = new this.Validation(this.component, {showValidationSummary: true}).init(),
+            $input = validation.$el.find('#input'),
+            $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
 
-      validation.$el.submit();
+        validation.$el.submit();
 
-      expect($validationSummary).to.not.have.class(validation.config.validationSummaryHiddenClass);
+        expect($validationSummary).to.not.have.class(validation.config.validationSummaryHiddenClass);
+      });
+
+      it('does not show the validation summary if the form has not been submitted', function() {
+        var validation = new this.Validation(this.component, {showValidationSummary: true}).init(),
+            $input = validation.$el.find('#input'),
+            $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
+
+        expect($validationSummary).to.have.class(validation.config.validationSummaryHiddenClass);
+      });
+
+      it('adds the error to the validation summary list if left empty on submit', function() {
+        var validation = new this.Validation(this.component, {showValidationSummary: true}).init(),
+            $input = validation.$el.find('#input'),
+            errorLookingFor = $input.attr(validation.config.attributeEmpty),
+            $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
+
+        validation.$el.submit();
+
+        expect($validationSummaryList.find('li')).to.have.text(errorLookingFor);
+      });
     });
 
-    it('does not show the validation summary if the form has not been submitted', function() {
-      var validation = new this.Validation(this.component).init(),
-          $input = validation.$el.find('#input'),
-          $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
+    describe('when the validation summary is not to be shown', function() {
+      it('has not created the validation summary', function() {
+        var validation = new this.Validation(this.component, {showValidationSummary: false}).init(),
+            $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
 
-      expect($validationSummary).to.have.class(validation.config.validationSummaryHiddenClass);
-    });
+        expect($validationSummary.length).to.equal(0);
+      });
 
-    it('adds the error to the validation summary list if left empty on submit', function() {
-      var validation = new this.Validation(this.component).init(),
-          $input = validation.$el.find('#input'),
-          errorLookingFor = $input.attr(validation.config.attributeEmpty),
-          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
+      it('does not create the validation summary on submit', function() {
+        var validation = new this.Validation(this.component, {showValidationSummary: false}).init(),
+            $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
 
-      validation.$el.submit();
+        validation.$el.submit();
 
-      expect($validationSummaryList.find('li')).to.have.text(errorLookingFor);
+        expect($validationSummary.length).to.equal(0);
+      });
     });
 
     it('removes all relevant errors and error states if value corrected as the user types', function() {
@@ -307,31 +384,51 @@ describe('Validation', function() {
       expect($input2.attr('aria-describedby').indexOf(validation._getInlineErrorID($input2.attr('name')))).to.equal(-1);
     });
 
-    it('shows the validation summary if left empty on submit', function() {
-      var validation = new this.Validation(this.component).init(),
-          $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
+    describe('when the validation summary is to be shown', function() {
+      it('shows the validation summary if left empty on submit', function() {
+        var validation = new this.Validation(this.component, {showValidationSummary: true}).init(),
+            $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
 
-      validation.$el.submit();
+        validation.$el.submit();
 
-      expect($validationSummary).to.not.have.class(validation.config.validationSummaryHiddenClass);
+        expect($validationSummary).to.not.have.class(validation.config.validationSummaryHiddenClass);
+      });
+
+      it('does not show the validation summary if the form has not been submitted', function() {
+        var validation = new this.Validation(this.component, {showValidationSummary: true}).init(),
+            $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
+
+        expect($validationSummary).to.have.class(validation.config.validationSummaryHiddenClass);
+      });
+
+      it('adds the error (only once) to the validation summary list if left empty on submit', function() {
+        var validation = new this.Validation(this.component, {showValidationSummary: true}).init(),
+            $input = validation.$el.find('#input1'),
+            errorLookingFor = $input.attr(validation.config.attributeEmpty),
+            $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
+
+        validation.$el.submit();
+
+        expect($validationSummaryList.find('li:contains("' + errorLookingFor + '")').length).to.equal(1);
+      });
     });
 
-    it('does not show the validation summary if the form has not been submitted', function() {
-      var validation = new this.Validation(this.component).init(),
-          $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
+    describe('when the validation summary is not to be shown', function() {
+      it('has not created the validation summary', function() {
+        var validation = new this.Validation(this.component, {showValidationSummary: false}).init(),
+            $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
 
-      expect($validationSummary).to.have.class(validation.config.validationSummaryHiddenClass);
-    });
+        expect($validationSummary.length).to.equal(0);
+      });
 
-    it('adds the error (only once) to the validation summary list if left empty on submit', function() {
-      var validation = new this.Validation(this.component).init(),
-          $input = validation.$el.find('#input1'),
-          errorLookingFor = $input.attr(validation.config.attributeEmpty),
-          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']');
+      it('does not create the validation summary on submit', function() {
+        var validation = new this.Validation(this.component, {showValidationSummary: false}).init(),
+            $validationSummary = validation.$el.find('.' + validation.config.validationSummaryClass);
 
-      validation.$el.submit();
+        validation.$el.submit();
 
-      expect($validationSummaryList.find('li:contains("' + errorLookingFor + '")').length).to.equal(1);
+        expect($validationSummary.length).to.equal(0);
+      });
     });
 
     it('removes all relevant errors and error states if value corrected as the radio is selected', function() {
