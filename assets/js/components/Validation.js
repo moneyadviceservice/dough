@@ -375,6 +375,9 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return fieldGroupValidity;
   };
 
+  Validation.prototype._isCheckable = function($field) {
+    return $field.is('[type="radio"]') || $field.is('[type="checkbox"]');
+  };
 
   /**
    * Basic required field validator, for non-empty
@@ -387,7 +390,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
   Validation.prototype._validateRequired = function($field, value) {
     var validity = { name: 'required' };
 
-    if ($field.is('[type="radio"]') && !$field.prop('checked')) {
+    if (this._isCheckable($field) && !$field.prop('checked')) {
       validity.isEmpty = true;
     }
     else {
