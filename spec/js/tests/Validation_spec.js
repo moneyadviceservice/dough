@@ -177,52 +177,109 @@ describe('Validation', function() {
       this.$html.remove();
     });
 
-    it('shows the correct inline error if left empty on blur', function() {
-      var validation = new this.Validation(this.component).init(),
-          $input = validation.$el.find('#input'),
-          errorLookingFor = $input.attr(validation.config.attributeEmpty),
-          inlineErrorMessage = '.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")';
+    describe('when inline validation is enabled', function() {
+      it('shows the correct inline error if left empty on blur', function() {
+        var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+            $input = validation.$el.find('#input'),
+            errorLookingFor = $input.attr(validation.config.attributeEmpty),
+            inlineErrorMessage = '.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")';
 
-      focusInOut($input);
+        focusInOut($input);
 
-      expect(validation.$el.find(inlineErrorMessage).length).to.equal(1);
+        expect(validation.$el.find(inlineErrorMessage).length).to.equal(1);
+      });
+
+      it('adds the is-errored class to the parent form__row', function() {
+        var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+            $input = validation.$el.find('#input');
+
+        focusInOut($input);
+
+        expect($input.parents('.form__row')).to.have.class(validation.config.rowInvalidClass);
+      });
+
+      it('adds the aria-invalid attribute to the input', function() {
+        var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+            $input = validation.$el.find('#input');
+
+        focusInOut($input);
+
+        expect($input).to.have.attr('aria-invalid', 'true');
+      });
+
+      it('references the inline error with the aria-describedby attribute on the input when invalid', function() {
+        var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+            $input = validation.$el.find('#input');
+
+        focusInOut($input);
+
+        expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).not.to.equal(-1);
+      });
+
+      it('removes references to the inline error from aria-describedby when valid', function() {
+        var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+            $input = validation.$el.find('#input');
+
+        focusInOut($input);
+        $input.val('test').keyup();
+
+        expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).to.equal(-1);
+      });
+
+      it('removes all relevant errors and error states if value corrected as the user types', function() {
+        var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+            $input = validation.$el.find('#input'),
+            errorLookingFor = $input.attr(validation.config.attributeEmpty),
+            $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']'),
+            $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
+
+        validation.$el.submit();
+        $input.val('test').keyup();
+
+        expect($input.parents('.form__row')).not.to.have.class(validation.config.rowInvalidClass);
+        expect($validationSummaryList.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
+        expect($inlineError.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
+      });
     });
 
-    it('adds the is-errored class to the parent form__row', function() {
-      var validation = new this.Validation(this.component).init(),
-          $input = validation.$el.find('#input');
+    describe('when inline validation is disabled', function() {
+      it('does not show an inline error if left empty on blur', function() {
+        var validation = new this.Validation(this.component, {showInlineValidation: false}).init(),
+            $input = validation.$el.find('#input'),
+            errorLookingFor = $input.attr(validation.config.attributeEmpty),
+            inlineErrorMessage = '.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")';
 
-      focusInOut($input);
+        focusInOut($input);
 
-      expect($input.parents('.form__row')).to.have.class(validation.config.rowInvalidClass);
-    });
+        expect(validation.$el.find(inlineErrorMessage).length).to.equal(0);
+      });
 
-    it('adds the aria-invalid attribute to the input', function() {
-      var validation = new this.Validation(this.component).init(),
-          $input = validation.$el.find('#input');
+      it('does not add the is-errored class to the parent form__row', function() {
+        var validation = new this.Validation(this.component, {showInlineValidation: false}).init(),
+            $input = validation.$el.find('#input');
 
-      focusInOut($input);
+        focusInOut($input);
 
-      expect($input).to.have.attr('aria-invalid', 'true');
-    });
+        expect($input.parents('.form__row')).to.not.have.class(validation.config.rowInvalidClass);
+      });
 
-    it('references the inline error with the aria-describedby attribute on the input when invalid', function() {
-      var validation = new this.Validation(this.component).init(),
-          $input = validation.$el.find('#input');
+      it('does not add the aria-invalid attribute to the input', function() {
+        var validation = new this.Validation(this.component, {showInlineValidation: false}).init(),
+            $input = validation.$el.find('#input');
 
-      focusInOut($input);
+        focusInOut($input);
 
-      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).not.to.equal(-1);
-    });
+        expect($input).to.not.have.attr('aria-invalid', 'true');
+      });
 
-    it('removes references to the inline error from aria-describedby when valid', function() {
-      var validation = new this.Validation(this.component).init(),
-          $input = validation.$el.find('#input');
+      it('does not reference the inline error with the aria-describedby attribute on the input when invalid', function() {
+        var validation = new this.Validation(this.component, {showInlineValidation: false}).init(),
+            $input = validation.$el.find('#input');
 
-      focusInOut($input);
-      $input.val('test').keyup();
+        focusInOut($input);
 
-      expect($input.attr('aria-describedby').indexOf(validation._getInlineErrorID($input.attr('name')))).to.equal(-1);
+        expect($input.attr('aria-describedby')).not.to.exist;
+      });
     });
 
     describe('when the validation summary is to be shown', function() {
@@ -272,21 +329,6 @@ describe('Validation', function() {
 
         expect($validationSummary.length).to.equal(0);
       });
-    });
-
-    it('removes all relevant errors and error states if value corrected as the user types', function() {
-      var validation = new this.Validation(this.component).init(),
-          $input = validation.$el.find('#input'),
-          errorLookingFor = $input.attr(validation.config.attributeEmpty),
-          $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']'),
-          $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
-
-      validation.$el.submit();
-      $input.val('test').keyup();
-
-      expect($input.parents('.form__row')).not.to.have.class(validation.config.rowInvalidClass);
-      expect($validationSummaryList.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
-      expect($inlineError.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
     });
 
     it('allows the form to submit if the value is filled in', function() {

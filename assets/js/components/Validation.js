@@ -116,6 +116,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation} Class instance
    */
   Validation.prototype.refreshInlineErrors = function() {
+    if (!this.config.showInlineValidation) return this;
+
     this.$el.find('.form__row').each($.proxy(function(i, o) {
       var $formRow = $(o),
           $errorContainer = $formRow.find('.' + this.config.inlineErrorClass),
@@ -246,6 +248,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation}  Class instance
    */
   Validation.prototype._addAccessibility = function($fieldGroup) {
+    if (!this.config.showInlineValidation) return this;
+
     $fieldGroup.each($.proxy(function(i, field) {
       var $field = $(field),
           existingDescribedBy = $field.attr('aria-describedby') || '',
