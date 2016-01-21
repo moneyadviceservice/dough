@@ -156,6 +156,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation} Class instance
    */
   Validation.prototype.refreshValidationSummary = function() {
+    if (!this.config.showValidationSummary) return this;
+
     var fieldName,
         summaryHTML = '';
 
@@ -282,6 +284,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {type} [description]
    */
   Validation.prototype._showValidationSummary = function() {
+    if (!this.config.showValidationSummary) return this;
+
     this.$el.find('.' + this.config.validationSummaryClass).removeClass(this.config.validationSummaryHiddenClass);
     return this;
   };
