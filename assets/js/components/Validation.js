@@ -23,6 +23,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
         validationSummaryErrorClass: 'validation-summary__error',
         inlineErrorClass: 'js-inline-error',
         showValidationSummary: true,
+        showInlineValidation: true,
         uiEvents: {
           'blur input, select, textarea': '_handleBlurEvent',
           'keyup input, textarea': '_handleChangeEvent',
@@ -218,7 +219,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       var $formRow = $(o),
           $existingInlineErrors = $formRow.find('.' + this.config.inlineErrorClass);
 
-      if (!$existingInlineErrors.length) {
+      if (!$existingInlineErrors.length && this.config.showInlineValidation) {
         $formRow.prepend($('<div class="' + this.config.inlineErrorClass + '" />'));
       }
     }, this));

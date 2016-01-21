@@ -59,6 +59,42 @@ describe('Validation', function() {
           expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
         });
       });
+
+      describe('When showInlineValidation is not set', function() {
+        it('generates a fallback validation summary list', function() {
+          var validation = new this.Validation(this.component).init();
+          expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
+        });
+
+        it('generates an inline message', function() {
+          var validation = new this.Validation(this.component).init();
+          expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
+        });
+      });
+
+      describe('When showInlineValidation is enabled', function() {
+        it('generates a fallback validation summary list', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: true}).init();
+          expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
+        });
+
+        it('generates an inline message', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: true}).init();
+          expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(1);
+        });
+      });
+
+      describe('When showInlineValidation is disabled', function() {
+        it('generates a fallback validation summary list', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: false}).init();
+          expect(validation.$el.find('.' + validation.config.validationSummaryClass).length).to.equal(1);
+        });
+
+        it('does not generate an inline message', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: false}).init();
+          expect(validation.$el.find('.' + validation.config.inlineErrorClass).length).to.equal(0);
+        });
+      });
     });
   });
 
