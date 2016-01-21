@@ -22,8 +22,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @extends {DoughBaseComponent}
    * @param {object} $el - Trigger element (_jQuery_ element)
    * @param {object} [config] - this can be passed directly via the constructor,
-   * or if using `componentLoader`, then as a JSON object `data-dough-COMPONENTNAME-config="{'foo': {'bar': 'baz'}}"` on the
-   * component's HTML element.
+   * or if using `componentLoader`, then as a JSON object `data-dough-COMPONENTNAME-config="{'foo': {'bar': 'baz'}}"`
+   * on the component's HTML element.
    * @returns {instance}
    */
   FieldHelpText = function($el, config) {
