@@ -623,72 +623,118 @@ describe('Validation', function() {
     });
 
     describe('when inline validation is enabled', function() {
-      it('shows the correct inline error if all checkboxes are left empty on submit', function() {
-        var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
-            $input = validation.$el.find('#input1'),
-            errorLookingFor = $input.attr(validation.config.attributeEmpty);
+      describe('on submit', function() {
+        it('shows the correct inline error if all checkboxes are left empty', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+              $input = validation.$el.find('#input1'),
+              errorLookingFor = $input.attr(validation.config.attributeEmpty);
 
-        validation.$el.submit();
+          validation.$el.submit();
 
-        expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(1);
+          expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(1);
+        });
+
+        it('adds the is-errored class to the parent form__row', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+              $input = validation.$el.find('#input1');
+
+          validation.$el.submit();
+
+          expect($input.parents('.form__row')).to.have.class(validation.config.rowInvalidClass);
+        });
+
+        it('adds the aria-invalid attribute to both inputs', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+              $input1 = validation.$el.find('#input1'),
+              $input2 = validation.$el.find('#input2');
+
+          validation.$el.submit();
+
+          expect($input1).to.have.attr('aria-invalid', 'true');
+          expect($input2).to.have.attr('aria-invalid', 'true');
+        });
+
+        it('references the inline error with the aria-describedby attribute on both inputs when invalid', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+              $input1 = validation.$el.find('#input1'),
+              $input2 = validation.$el.find('#input2');
+
+          validation.$el.submit();
+
+          expect($input1.attr('aria-describedby').indexOf(validation._getInlineErrorID($input1.attr('name')))).not.to.equal(-1);
+          expect($input2.attr('aria-describedby').indexOf(validation._getInlineErrorID($input2.attr('name')))).not.to.equal(-1);
+        });
+
+        it('removes references to the inline error from aria-describedby when valid on both inputs', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+              $input1 = validation.$el.find('#input1'),
+              $input2 = validation.$el.find('#input2'),
+              errorId1 = validation._getInlineErrorID($input1.attr('name'));
+
+          validation.$el.submit();
+          $input1.prop('checked', true).change();
+
+          expect($input1.attr('aria-describedby').indexOf(errorId1)).to.equal(-1);
+          expect($input2.attr('aria-describedby').indexOf(validation._getInlineErrorID($input2.attr('name')))).to.equal(-1);
+        });
+
+        it('removes all relevant errors and error states if value corrected as the checkbox is selected', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+              $input = validation.$el.find('#input1'),
+              errorLookingFor = $input.attr(validation.config.attributeEmpty),
+              $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']'),
+              $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
+
+          validation.$el.submit();
+          $input.prop('checked', true).change();
+
+          expect($input.parents('.form__row')).not.to.have.class(validation.config.rowInvalidClass);
+          expect($validationSummaryList.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
+          expect($inlineError.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
+        });
       });
 
-      it('adds the is-errored class to the parent form__row', function() {
-        var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
-            $input = validation.$el.find('#input1');
+      describe('on blur', function() {
+        it('does not show an inline error if all checkboxes are left empty', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+              $input = validation.$el.find('#input1'),
+              errorLookingFor = $input.attr(validation.config.attributeEmpty);
 
-        validation.$el.submit();
+          focusInOut($input);
 
-        expect($input.parents('.form__row')).to.have.class(validation.config.rowInvalidClass);
-      });
+          expect(validation.$el.find('.' + validation.config.inlineErrorClass + ':contains("' + errorLookingFor + '")').length).to.equal(0);
+        });
 
-      it('adds the aria-invalid attribute to both inputs', function() {
-        var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
-            $input1 = validation.$el.find('#input1'),
-            $input2 = validation.$el.find('#input2');
+        it('does not add the is-errored class to the parent form__row', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+              $input = validation.$el.find('#input1');
 
-        validation.$el.submit();
+          focusInOut($input);
 
-        expect($input1).to.have.attr('aria-invalid', 'true');
-        expect($input2).to.have.attr('aria-invalid', 'true');
-      });
+          expect($input.parents('.form__row')).not.to.have.class(validation.config.rowInvalidClass);
+        });
 
-      it('references the inline error with the aria-describedby attribute on both inputs when invalid', function() {
-        var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
-            $input1 = validation.$el.find('#input1'),
-            $input2 = validation.$el.find('#input2');
+        it('does not add the aria-invalid attribute to both inputs', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+              $input1 = validation.$el.find('#input1'),
+              $input2 = validation.$el.find('#input2');
 
-        validation.$el.submit();
+          focusInOut($input1);
 
-        expect($input1.attr('aria-describedby').indexOf(validation._getInlineErrorID($input1.attr('name')))).not.to.equal(-1);
-        expect($input2.attr('aria-describedby').indexOf(validation._getInlineErrorID($input2.attr('name')))).not.to.equal(-1);
-      });
+          expect($input1).not.to.have.attr('aria-invalid', 'true');
+          expect($input2).not.to.have.attr('aria-invalid', 'true');
+        });
 
-      // it('removes references to the inline error from aria-describedby when valid on both inputs', function() {
-      //   var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
-      //       $input1 = validation.$el.find('#input1'),
-      //       $input2 = validation.$el.find('#input2');
+        it('does not reference the inline error with the aria-describedby attribute on both inputs when invalid', function() {
+          var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
+              $input1 = validation.$el.find('#input1'),
+              $input2 = validation.$el.find('#input2');
 
-      //   this.component.trigger('submit');
-      //   $input1.prop('checked', true).change();
+          focusInOut($input1);
 
-      //   expect($input1.attr('aria-describedby').indexOf(validation._getInlineErrorID($input1.attr('name')))).to.equal(-1);
-      //   expect($input2.attr('aria-describedby').indexOf(validation._getInlineErrorID($input2.attr('name')))).to.equal(-1);
-      // });
-
-      it('removes all relevant errors and error states if value corrected as the checkbox is selected', function() {
-        var validation = new this.Validation(this.component, {showInlineValidation: true}).init(),
-            $input = validation.$el.find('#input1'),
-            errorLookingFor = $input.attr(validation.config.attributeEmpty),
-            $validationSummaryList = validation.$el.find('[' + validation.config.validationSummaryListAttribute + ']'),
-            $inlineError = $input.parent('.form__row').find('.' + validation.config.inlineErrorClass);
-
-        validation.$el.submit();
-        $input.prop('checked', true).change();
-
-        expect($input.parents('.form__row')).not.to.have.class(validation.config.rowInvalidClass);
-        expect($validationSummaryList.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
-        expect($inlineError.filter(':contains("' + errorLookingFor + '")').length).to.equal(0);
+          expect($input1.attr('aria-describedby')).not.to.exist;
+          expect($input2.attr('aria-describedby')).not.to.exist;
+        });
       });
     });
 

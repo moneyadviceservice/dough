@@ -277,7 +277,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
           inlineErrorID = this._getInlineErrorID($field.attr('name'));
 
       $field.removeAttr('aria-invalid');
-      $field.attr('aria-describedby', existingDescribedBy.replace(inlineErrorID, ''));
+      $field.attr('aria-describedby', existingDescribedBy.replace(new RegExp(inlineErrorID, 'g'), ''));
     }, this));
 
     return this;
@@ -375,6 +375,12 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return fieldGroupValidity;
   };
 
+  /**
+   * Returns true if the given field is a radio button or a checkbox
+   *
+   * @param  {jQuery} $field   the field being checked
+   * @return {boolean}         whether or not the given field is a radio button or checkbox
+   */
   Validation.prototype._isCheckable = function($field) {
     return $field.is('[type="radio"]') || $field.is('[type="checkbox"]');
   };
@@ -384,7 +390,6 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    *
    * @param  {jQuery} $field   the field being checked
    * @param  {String} value    the field value
-   * @param  {String} required Validation parameters
    * @return {Object}          Validity object
    */
   Validation.prototype._validateRequired = function($field, value) {
@@ -543,7 +548,12 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {void}
    */
   Validation.prototype._handleBlurEvent = function(e) {
-    this.checkfieldGroupValidity($(e.target));
+    var $field = $(e.target),
+        isCheckbox = $field.is('[type="checkbox"]');
+
+    if (!isCheckbox) {
+      this.checkfieldGroupValidity($field);
+    }
   };
 
   /**
