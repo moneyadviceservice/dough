@@ -40,10 +40,17 @@ describe('utilities', function() {
   });
 
   describe('convertCamelCaseToDashed', function() {
-    it('should convert a camel cased string into a dash-separated string', function() {
-      expect(this.mod.convertCamelCaseToDashed('FooBar')).to.equal('foo-bar');
-      expect(this.mod.convertCamelCaseToDashed('FOOBar')).to.equal('foo-bar');
-      expect(this.mod.convertCamelCaseToDashed('FooBarBaz')).to.equal('foo-bar-baz');
+    [
+      ['FooBar', 'foo-bar'],
+      ['FOOBar', 'foo-bar'],
+      ['FooBarBaz', 'foo-bar-baz'],
+    ].forEach(function(fixture) {
+      var input = fixture[0],
+          expected = fixture[1];
+
+      it('should convert ' + input + ' into ' + expected, function() {
+        expect(this.mod.convertCamelCaseToDashed(input)).to.equal(expected);
+      });
     });
   });
 
