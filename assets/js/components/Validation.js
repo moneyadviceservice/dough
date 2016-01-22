@@ -23,6 +23,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
         validationSummaryErrorClass: 'validation-summary__error',
         inlineErrorClass: 'js-inline-error',
         showValidationSummary: true,
+        showInlineValidation: true,
         uiEvents: {
           'blur input, select, textarea': '_handleBlurEvent',
           'keyup input, textarea': '_handleChangeEvent',
@@ -115,6 +116,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation} Class instance
    */
   Validation.prototype.refreshInlineErrors = function() {
+    if (!this.config.showInlineValidation) return this;
+
     this.$el.find('.form__row').each($.proxy(function(i, o) {
       var $formRow = $(o),
           $errorContainer = $formRow.find('.' + this.config.inlineErrorClass),
@@ -218,7 +221,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
       var $formRow = $(o),
           $existingInlineErrors = $formRow.find('.' + this.config.inlineErrorClass);
 
-      if (!$existingInlineErrors.length) {
+      if (!$existingInlineErrors.length && this.config.showInlineValidation) {
         $formRow.prepend($('<div class="' + this.config.inlineErrorClass + '" />'));
       }
     }, this));
@@ -245,6 +248,8 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation}  Class instance
    */
   Validation.prototype._addAccessibility = function($fieldGroup) {
+    if (!this.config.showInlineValidation) return this;
+
     $fieldGroup.each($.proxy(function(i, field) {
       var $field = $(field),
           existingDescribedBy = $field.attr('aria-describedby') || '',
