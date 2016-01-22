@@ -116,7 +116,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation} Class instance
    */
   Validation.prototype.refreshInlineErrors = function() {
-    if (!this.config.showInlineValidation) return this;
+    if (!this.config.showInlineValidation) { return this; }
 
     this.$el.find('.form__row').each($.proxy(function(i, o) {
       var $formRow = $(o),
@@ -159,7 +159,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation} Class instance
    */
   Validation.prototype.refreshValidationSummary = function() {
-    if (!this.config.showValidationSummary) return this;
+    if (!this.config.showValidationSummary) { return this; }
 
     var fieldName,
         summaryHTML = '';
@@ -248,7 +248,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation}  Class instance
    */
   Validation.prototype._addAccessibility = function($fieldGroup) {
-    if (!this.config.showInlineValidation) return this;
+    if (!this.config.showInlineValidation) { return this; }
 
     $fieldGroup.each($.proxy(function(i, field) {
       var $field = $(field),
@@ -289,7 +289,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {type} [description]
    */
   Validation.prototype._showValidationSummary = function() {
-    if (!this.config.showValidationSummary) return this;
+    if (!this.config.showValidationSummary) { return this; }
 
     this.$el.find('.' + this.config.validationSummaryClass).removeClass(this.config.validationSummaryHiddenClass);
     return this;
