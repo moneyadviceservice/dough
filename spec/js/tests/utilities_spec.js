@@ -41,6 +41,34 @@ describe('utilities', function() {
 
   describe('convertCamelCaseToDashed', function() {
     [
+      // Permutations of upper and lower case (to catch corner cases)
+      ['a', 'a'],
+      ['A', 'a'],
+      ['aa', 'aa'],
+      ['Aa', 'aa'],
+      ['aA', 'aa'],
+      ['AA', 'aa'],
+      ['aaa', 'aaa'],
+      ['Aaa', 'aaa'],
+      ['aAa', 'a-aa'],
+      ['aaA', 'aa-a'],
+      ['AAa', 'a-aa'],
+      ['AaA', 'aa-a'],
+      ['aAA', 'a-aa'],
+      ['AAA', 'aaa'],
+      ['AbAbAb', 'ab-ab-ab'],
+      ['ABAbAb', 'ab-ab-ab'],
+      ['AbABAb', 'ab-ab-ab'],
+      ['AbAbAB', 'ab-ab-ab'],
+      ['ABABAb', 'abab-ab'],
+      ['AbABAB', 'ab-abab'],
+      ['AbABAb', 'ab-ab-ab'],
+      ['AbcAbcAbc', 'abc-abc-abc'],
+      ['ABCAbcAbc', 'abc-abc-abc'],
+      ['AbcABCAbc', 'abc-abc-abc'],
+      ['AbcAbcABC', 'abc-abc-abc'],
+
+      // Examples (from the original test)
       ['FooBar', 'foo-bar'],
       ['FOOBar', 'foo-bar'],
       ['FooBarBaz', 'foo-bar-baz'],
