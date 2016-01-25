@@ -1,0 +1,22 @@
+<div>
+  <form data-dough-component="Validation" class="form" action="/test" novalidate>
+    <div class="form__row ">
+        <input aria-required="true"
+               data-dough-validation-empty="You must pick at least one."
+               id="input1"
+               name="current_answer"
+               required="required"
+               type="checkbox"
+               value="first_input">
+        <input aria-required="true"
+               data-dough-bind-checked="current_answer"
+               data-dough-validation-empty="You must pick at least one."
+               id="input2"
+               name="current_answer"
+               required="required"
+               type="checkbox"
+               value="second_input">
+    </div>
+    <input type="submit" id="submit">
+  </form>
+</div>

@@ -116,7 +116,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation} Class instance
    */
   Validation.prototype.refreshInlineErrors = function() {
-    if (!this.config.showInlineValidation) return this;
+    if (!this.config.showInlineValidation) { return this; }
 
     this.$el.find('.form__row').each($.proxy(function(i, o) {
       var $formRow = $(o),
@@ -159,7 +159,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation} Class instance
    */
   Validation.prototype.refreshValidationSummary = function() {
-    if (!this.config.showValidationSummary) return this;
+    if (!this.config.showValidationSummary) { return this; }
 
     var fieldName,
         summaryHTML = '';
@@ -248,7 +248,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {Validation}  Class instance
    */
   Validation.prototype._addAccessibility = function($fieldGroup) {
-    if (!this.config.showInlineValidation) return this;
+    if (!this.config.showInlineValidation) { return this; }
 
     $fieldGroup.each($.proxy(function(i, field) {
       var $field = $(field),
@@ -277,7 +277,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
           inlineErrorID = this._getInlineErrorID($field.attr('name'));
 
       $field.removeAttr('aria-invalid');
-      $field.attr('aria-describedby', existingDescribedBy.replace(inlineErrorID, ''));
+      $field.attr('aria-describedby', existingDescribedBy.replace(new RegExp(inlineErrorID, 'g'), ''));
     }, this));
 
     return this;
@@ -289,7 +289,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {type} [description]
    */
   Validation.prototype._showValidationSummary = function() {
-    if (!this.config.showValidationSummary) return this;
+    if (!this.config.showValidationSummary) { return this; }
 
     this.$el.find('.' + this.config.validationSummaryClass).removeClass(this.config.validationSummaryHiddenClass);
     return this;
@@ -375,19 +375,27 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
     return fieldGroupValidity;
   };
 
+  /**
+   * Returns true if the given field is a radio button or a checkbox
+   *
+   * @param  {jQuery} $field   the field being checked
+   * @return {boolean}         whether or not the given field is a radio button or checkbox
+   */
+  Validation.prototype._isCheckable = function($field) {
+    return $field.is('[type="radio"]') || $field.is('[type="checkbox"]');
+  };
 
   /**
    * Basic required field validator, for non-empty
    *
    * @param  {jQuery} $field   the field being checked
    * @param  {String} value    the field value
-   * @param  {String} required Validation parameters
    * @return {Object}          Validity object
    */
   Validation.prototype._validateRequired = function($field, value) {
     var validity = { name: 'required' };
 
-    if ($field.is('[type="radio"]') && !$field.prop('checked')) {
+    if (this._isCheckable($field) && !$field.prop('checked')) {
       validity.isEmpty = true;
     }
     else {
@@ -540,7 +548,12 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
    * @return {void}
    */
   Validation.prototype._handleBlurEvent = function(e) {
-    this.checkfieldGroupValidity($(e.target));
+    var $field = $(e.target),
+        isCheckbox = $field.is('[type="checkbox"]');
+
+    if (!isCheckbox) {
+      this.checkfieldGroupValidity($field);
+    }
   };
 
   /**
