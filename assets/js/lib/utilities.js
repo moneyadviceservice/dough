@@ -35,9 +35,9 @@ define('utilities', [], function() {
     convertCamelCaseToDashed: function(str) {
       if (str.length > 2) {
         // First replace aA patterns with a-A
-        var str = str.replace(/([a-z])([A-Z])/g, '$1-$2')
-                     // then AAa patterns with A-Aa
-                     .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2');
+        str = str.replace(/([a-z])([A-Z])/g, '$1-$2')
+                  // then AAa patterns with A-Aa
+                 .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2');
       }
       return str.toLowerCase();
     },
