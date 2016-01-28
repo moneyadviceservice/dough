@@ -40,10 +40,92 @@ describe('utilities', function() {
   });
 
   describe('convertCamelCaseToDashed', function() {
-    it('should convert a camel cased string into a dash-separated string', function() {
-      expect(this.mod.convertCamelCaseToDashed('FooBar')).to.equal('foo-bar');
-      expect(this.mod.convertCamelCaseToDashed('FOOBar')).to.equal('foo-bar');
-      expect(this.mod.convertCamelCaseToDashed('FooBarBaz')).to.equal('foo-bar-baz');
+    [
+      // Permutations of upper and lower case (to catch corner cases)
+      ['a', 'a'],
+      ['A', 'a'],
+      ['aa', 'aa'],
+      ['Aa', 'aa'],
+      ['aA', 'aa'],
+      ['AA', 'aa'],
+      ['aaa', 'aaa'],
+      ['Aaa', 'aaa'],
+      ['aAa', 'a-aa'],
+      ['aaA', 'aa-a'],
+      ['AAa', 'a-aa'],
+      ['AaA', 'aa-a'],
+      ['aAA', 'a-aa'],
+      ['AAA', 'aaa'],
+      ['AbAbAb', 'ab-ab-ab'],
+      ['ABAbAb', 'ab-ab-ab'],
+      ['AbABAb', 'ab-ab-ab'],
+      ['AbAbAB', 'ab-ab-ab'],
+      ['ABABAb', 'abab-ab'],
+      ['AbABAB', 'ab-abab'],
+      ['AbABAb', 'ab-ab-ab'],
+      ['AbcAbcAbc', 'abc-abc-abc'],
+      ['ABCAbcAbc', 'abc-abc-abc'],
+      ['AbcABCAbc', 'abc-abc-abc'],
+      ['AbcAbcABC', 'abc-abc-abc'],
+
+      // Examples (from the original test)
+      ['FooBar', 'foo-bar'],
+      ['FOOBar', 'foo-bar'],
+      ['FooBarBaz', 'foo-bar-baz'],
+
+      // Actual component names (to catch regressions)
+      ['CalculatorPageTotal', 'calculator-page-total'],
+      ['CalculatorSlider', 'calculator-slider'],
+      ['ClearInput', 'clear-input'],
+      ['Collapsable', 'collapsable'],
+      ['ConfirmableForm', 'confirmable-form'],
+      ['ContributionsFormModel', 'contributions-form-model'],
+      ['CopyToClipboard', 'copy-to-clipboard'],
+      ['CutbackItem', 'cutback-item'],
+      ['DateCountdown', 'date-countdown'],
+      ['DoughBaseComponent', 'dough-base-component'],
+      ['DragAndDrop', 'drag-and-drop'],
+      ['DynamicSelectBox', 'dynamic-select-box'],
+      ['DynamicToggler', 'dynamic-toggler'],
+      ['EmbedCodeGenerator', 'embed-code-generator'],
+      ['ExtendedComponent', 'extended-component'],
+      ['FieldHelpText', 'field-help-text'],
+      ['FieldToggleVisibility', 'field-toggle-visibility'],
+      ['FirmMap', 'firm-map'],
+      ['FormModel', 'form-model'],
+      ['FrameScroller', 'frame-scroller'],
+      ['HighlightCalculatorRow', 'highlight-calculator-row'],
+      ['InputFilters', 'input-filters'],
+      ['LanguageSelector', 'language-selector'],
+      ['MultiTableFilter', 'multi-table-filter'],
+      ['NestedFormAddition', 'nested-form-addition'],
+      ['Newsletter', 'newsletter'],
+      ['NewsletterSticky', 'newsletter-sticky'],
+      ['OtherSelection', 'other-selection'],
+      ['PaydayLoans', 'payday-loans'],
+      ['PjaxifyForm', 'pjaxify-form'],
+      ['PrintAction', 'print-action'],
+      ['RangeInput', 'range-input'],
+      ['RemoveCalculatorPage', 'remove-calculator-page'],
+      ['RioNav', 'rio-nav'],
+      ['ScrollForm', 'scroll-form'],
+      ['ScrollTo', 'scroll-to'],
+      ['ShowMore', 'show-more'],
+      ['StickyColumn', 'sticky-column'],
+      ['TabSelector', 'tab-selector'],
+      ['TabularTooltip', 'tabular-tooltip'],
+      ['ToggleField', 'toggle-field'],
+      ['ToggleHint', 'toggle-hint'],
+      ['Tooltip', 'tooltip'],
+      ['Validation', 'validation'],
+      ['ViewAll', 'view-all'],
+    ].forEach(function(fixture) {
+      var input = fixture[0],
+          expected = fixture[1];
+
+      it('should convert ' + input + ' into ' + expected, function() {
+        expect(this.mod.convertCamelCaseToDashed(input)).to.equal(expected);
+      });
     });
   });
 

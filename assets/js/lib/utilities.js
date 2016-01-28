@@ -33,7 +33,13 @@ define('utilities', [], function() {
      * @returns {string} eg. tab-selector
      */
     convertCamelCaseToDashed: function(str) {
-      return str.replace(/([^\s])([A-Z][a-z])/g, '$1-$2').toLowerCase();
+      if (str.length > 2) {
+        // First replace aA patterns with a-A
+        str = str.replace(/([a-z])([A-Z])/g, '$1-$2')
+                  // then AAa patterns with A-Aa
+                 .replace(/([A-Z])([A-Z][a-z])/g, '$1-$2');
+      }
+      return str.toLowerCase();
     },
 
     /**
