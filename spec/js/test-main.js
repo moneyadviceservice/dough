@@ -24,6 +24,7 @@ require.config({
     componentLoader: 'assets/js/lib/componentLoader',
     Collapsable: 'assets/js/components/Collapsable',
     ConfirmableForm: 'assets/js/components/ConfirmableForm',
+    Print: 'assets/js/components/Print',
     TabSelector: 'assets/js/components/TabSelector',
     RangeInput: 'assets/js/components/RangeInput',
     FieldHelpText: 'assets/js/components/FieldHelpText',
