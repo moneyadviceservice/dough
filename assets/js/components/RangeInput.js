@@ -14,7 +14,7 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'],
 
   var defaultConfig = {
         keepSynced: true,
-        ignoreAtts: ""
+        ignoreAtts: ''
       },
       RangeInput;
 
