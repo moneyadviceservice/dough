@@ -7,12 +7,14 @@
  * @module RangeInput
  * @returns {class} RangeInput
  */
+
 define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'],
     function($, DoughBaseComponent, featureDetect, eventsWithPromises) {
   'use strict';
 
   var defaultConfig = {
-        keepSynced: true
+        keepSynced: true,
+        ignoreAtts: ""
       },
       RangeInput;
 
@@ -57,7 +59,7 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'],
           'type': 'range',
           'aria-role': 'slider'
         })
-        .removeAttr('name data-dough-range-input')
+        .removeAttr('name data-dough-range-input ' + this.config.ignoreAtts)
         .on('input change', function() { // recapture focus on slider for iOS w/ Voiceover
           $(this).focus();
         })
@@ -82,6 +84,7 @@ define(['jquery', 'DoughBaseComponent', 'featureDetect', 'eventsWithPromises'],
     });
     $rangeInput.on('change input', function() {
       $textInput.val($rangeInput.val());
+      $textInput.change();
     });
   };
 
