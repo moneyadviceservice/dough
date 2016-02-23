@@ -14,7 +14,7 @@
   }
 
   &:focus {
-    outline: 2px solid $color-input-focus-border-color;
+    @include focus-outline;
   }
 
   &.is-disabled,
