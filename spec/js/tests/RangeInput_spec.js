@@ -62,9 +62,24 @@ describe('Range input', function() {
         value: '3000'
       });
     });
-
   });
 
+  describe('Range inputs supported, passing an HTML attribute to ignore', function() {
+
+    beforeEach(function() {
+      this.featureDetect.inputtypes.range = true;
+      this.rangeInput = new this.RangeInput(this.$html, {
+        ignoreAtts: 'data-attribute'
+      });
+      this.$inputText = this.$html.find('[data-dough-range-input]');
+      this.$inputSlider = this.$html.find('.form__input-range');
+    });
+
+    it('Does not clone an attribute passed in the ignoreAtts parameter', function() {
+      expect(this.$inputText.attr('data-attribute')).to.equal('foo');
+      expect(this.$inputSlider.attr('data-attribute')).to.be.undefined;
+    });
+  });
 
   describe('Range inputs supported but don\'t keep inputs in sync', function() {
 
