@@ -29,7 +29,7 @@ define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce
    */
   function getSize() {
     return featureDetect.mediaQueries ?
-      window.getComputedStyle(testElement[0], ':after').getPropertyValue('content') : 'mq-l';
+      window.getComputedStyle(testElement[0], ':after').getPropertyValue('content').replace(/"/g, '') : 'mq-l';
   }
 
   /**
