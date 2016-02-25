@@ -17,7 +17,17 @@
   .js & {
     display: inline-block;
   }
-  [data-dough-tab-selector-initialised="yes"] & {
+
+  /*
+   * When tab selector is being used within a single page the tabs are not
+   * visible until the data-dough-tab-selector-initialised marker attribute
+   * has been added to the containing element.
+   *
+   * To use the tabs without JavaScript when each tab actually links to a
+   * separate page add the tab-selector--without-js modifier class to the
+   * containing element.
+   */
+  [data-dough-tab-selector-initialised="yes"] &, .tab-selector--without-js & {
     visibility: visible;
     &.is-active {
       display: inline-block;
