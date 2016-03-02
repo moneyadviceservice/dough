@@ -1,0 +1,52 @@
+//Media Query Variables
+
+@function px($px) {
+  @return ($px / $base-font-size) * 1em
+}
+
+$mq-xs: 0 !default;
+$mq-xs-max: px(479) !default;
+$mq-s: px(480) !default;
+$mq-s-max: px(719) !default;
+$mq-m: px(720) !default;
+$mq-m-max: px(959) !default;
+$mq-l: px(960) !default;
+$mq-l-max: px(1199) !default;
+$mq-xl: px(1200) !default;
+
+@mixin respond-to($min-width, $max-width: false) {
+  @if $responsive {
+    @media screen and (min-width: $min-width) {
+      @if $max-width {
+        @media (max-width: $max-width) {
+          @content
+        }
+      } @else {
+        @content;
+      }
+    }
+  } @else if $min-width <= $mq-l and (not $max-width or $max-width and $max-width >= $mq-l) {
+    // output content without mediaqueries if fixed width and less than x-large
+    @content;
+  }
+}
+
+@mixin device-pixel-ratio($ratio: 2) {
+  @media only screen and (-webkit-min-device-pixel-ratio: $ratio),
+  only screen and (min--moz-device-pixel-ratio: $ratio),
+  only screen and (-o-min-device-pixel-ratio: #{($ratio*10)}/10),
+  only screen and (min-device-pixel-ratio: $ratio),
+  only screen and (min-resolution: #{($ratio*96)}dpi),
+  only screen and (min-resolution: #{$ratio}dppx) {
+    @content;
+  }
+}
+
+.js-mediaquery-test:after {
+  display: none;
+  @include respond-to($mq-xs) { content: 'mq-xs'; }
+  @include respond-to($mq-s) { content: 'mq-s'; }
+  @include respond-to($mq-m) { content: 'mq-m'; }
+  @include respond-to($mq-l) { content: 'mq-l'; }
+  @include respond-to($mq-xl) { content: 'mq-xl'; }
+}
