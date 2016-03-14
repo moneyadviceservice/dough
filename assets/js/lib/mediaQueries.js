@@ -58,8 +58,8 @@ define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce
    *
    * Removes the current mq- class on the page (html) element and sets the new one.
    * @function
-   * @param  {String} current mq- className.
-   * @param  {String} new mq- className.
+   * @param  {String} currentClassName mq- className.
+   * @param  {String} newClassName mq- className.
    */
   function updatePageClass(currentClassName, newClassName){
     $pageElement
