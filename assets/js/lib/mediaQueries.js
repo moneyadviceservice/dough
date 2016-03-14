@@ -18,7 +18,8 @@ define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce
   'use strict';
 
   var current = false,
-      testElement = $('<div class="js-mediaquery-test" />');
+      testElement = $('<div class="js-mediaquery-test" />'),
+      $pageElement = $('html');
 
   /**
    * Gets current media query value as set using the
@@ -29,7 +30,7 @@ define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce
    */
   function getSize() {
     return featureDetect.mediaQueries ?
-      window.getComputedStyle(testElement[0], ':after').getPropertyValue('content') : 'mq-l';
+      window.getComputedStyle(testElement[0], ':after').getPropertyValue('content').replace(/"/g, '') : 'mq-l';
   }
 
   /**
@@ -42,24 +43,41 @@ define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce
   function checkSize(forceEvent) {
     var newSize = getSize();
     if ((newSize !== current) || forceEvent) {
+      updatePageClass(current, newSize);
+
       current = newSize;
       eventsWithPromises.publish('mediaquery:resize', {
         newSize: newSize // `mq-xs` or `mq-s`, etc
       });
+
     }
+  }
+
+
+  /**
+   *
+   * Removes the current mq- class on the page (html) element and sets the new one.
+   * @function
+   * @param  {String} current mq- className.
+   * @param  {String} new mq- className.
+   */
+  function updatePageClass(currentClassName, newClassName){
+    $pageElement
+      .addClass(newClassName)
+      .removeClass(currentClassName);
   }
 
   /**
    * Initialise module
    * @function
    */
-  function init ($el) {
+  function init ($elem) {
 
     if (!featureDetect.mediaQueries) {
       return;
     }
 
-    $el = $el || $('body');
+    var $el = $elem || $('body');
     if (!$(testElement).closest($el).length) {
       $el.append(testElement);
 
