@@ -23,6 +23,7 @@ require.config({
     mediaQueries: 'assets/js/lib/mediaQueries',
     componentLoader: 'assets/js/lib/componentLoader',
     Collapsable: 'assets/js/components/Collapsable',
+    CollapsableMobile: 'assets/js/components/CollapsableMobile',
     ConfirmableForm: 'assets/js/components/ConfirmableForm',
     Print: 'assets/js/components/Print',
     TabSelector: 'assets/js/components/TabSelector',
