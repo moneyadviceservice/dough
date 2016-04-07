@@ -15,6 +15,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      'spec/js/fixtures/stylesheets/lib.css',
       'spec/js/test-main.js',
       'spec/js/fixtures/*.html',
       'spec/js/fixtures/Validation/*.html',
@@ -70,7 +71,30 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['PhantomJS_mobile', 'PhantomJS_desktop'],
+
+
+    // Custom browser launchers from phantom-karma-launcher for mobile / desktop
+    customLaunchers: {
+      'PhantomJS_desktop': {
+        base: 'PhantomJS',
+        options: {
+          viewportSize: {
+            width: 1200,
+            height: 1000
+          }
+        }
+      },
+      'PhantomJS_mobile': {
+        base: 'PhantomJS',
+        options: {
+          viewportSize: {
+            width: 320,
+            height: 600
+          }
+        }
+      }
+    },
 
 
     // Continuous Integration mode

@@ -1,0 +1,17 @@
+.js-mediaquery-test:after {
+  display: none; }
+  @media screen and (min-width: 0) {
+    .js-mediaquery-test:after {
+      content: 'mq-xs'; } }
+  @media screen and (min-width: 30em) {
+    .js-mediaquery-test:after {
+      content: 'mq-s'; } }
+  @media screen and (min-width: 45em) {
+    .js-mediaquery-test:after {
+      content: 'mq-m'; } }
+  @media screen and (min-width: 60em) {
+    .js-mediaquery-test:after {
+      content: 'mq-l'; } }
+  @media screen and (min-width: 75em) {
+    .js-mediaquery-test:after {
+      content: 'mq-xl'; } }
