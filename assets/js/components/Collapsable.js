@@ -21,6 +21,8 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
         forceTo: false,
         oneGroupOpenOnly: false,
         focusTarget: true,
+        showLabels: false,
+        iconPosition: 'left',
         selectors: {
           trigger: '[data-dough-collapsable-trigger]',
           activeClass: 'is-active',
@@ -69,13 +71,17 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
    */
   Collapsable.prototype._setupAccessibility = function() {
     var id = 'data-dough-collapsable-target-' + this.$target.attr('data-dough-collapsable-target');
-
-    this.$triggers.wrapInner('<button class="unstyled-button" type="button"/>');
+    this.$triggers.addClass('collapsable--icon-' + this.config.iconPosition);
+    this.$triggers.wrapInner('<button class="unstyled-button collapsable-button" type="button"/>');
     this.$triggers.find('button')
+        .addClass('collapsable-button--' +
+          (this.config.showLabels ? 'show' : 'hide') + '-label')
         .prepend('<span data-dough-collapsable-icon class="collapsable__trigger-icon icon ' +
-            this.config.selectors.iconClassOpen + '"></span>')
-        .append('<span class="visually-hidden" data-dough-collapsable-label>' +
-            this.config.i18nStrings.open + '</span>')
+          this.config.selectors.iconClassOpen + '"></span>')
+        .append('<span class="' +
+          (this.config.showLabels ? 'collapsable-icon-label' : 'visually-hidden') +
+          '" data-dough-collapsable-label>' +
+          this.config.i18nStrings.open + '</span>')
         .attr('aria-controls', id)
         .attr('aria-expanded', 'false');
     this.$target.attr('id', id);

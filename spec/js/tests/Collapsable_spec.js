@@ -46,6 +46,7 @@ describe('Visibility toggler', function() {
     });
 
     it('adds visually hidden text to indicate the state of the button i.e open or closed', function() {
+      expect(this.$triggerLabel).to.have.class('visually-hidden');
       expect(this.$triggerLabel).to.have.text('Show');
       this.$trigger.click();
       expect(this.$triggerLabel).to.have.text('Hide');
@@ -162,4 +163,32 @@ describe('Visibility toggler', function() {
       expect(this.$target.last().attr('class')).to.equal('target');
     });
   });
+
+
+  describe('Show labels attribute', function() {
+    beforeEach(function(done) {
+      var fixtureHTML = $(window.__html__['spec/js/fixtures/Collapsable.html']).filter('#fixture-7').html();
+      this.beforeEachHook.call(this, done, fixtureHTML);
+    });
+
+    it('does not have the hidden class', function() {
+      expect(this.$triggerLabel).to.not.have.class('visually-hidden');
+    });
+
+    it('has the expected class', function() {
+      expect(this.$triggerLabel).to.have.class('collapsable-icon-label');
+    });
+  });
+
+  describe('Icon position attribute', function() {
+    beforeEach(function(done) {
+      var fixtureHTML = $(window.__html__['spec/js/fixtures/Collapsable.html']).filter('#fixture-8').html();
+      this.beforeEachHook.call(this, done, fixtureHTML);
+    });
+
+    it('Has the icon-right class', function() {
+      expect(this.$trigger).to.have.class('visually-hidden');
+    });
+  });
+
 });

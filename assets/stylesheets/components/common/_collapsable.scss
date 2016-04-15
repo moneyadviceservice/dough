@@ -1,9 +1,42 @@
 // Collapsible sections. The first section will automatically be set to open on load, with any further sections closed (collapsed).
 //
 // Styleguide Collapsable
+.collapsable-button--show-label {
+  min-height: 30px;
+}
+
 .js .collapsable__target {
   display: none;
   &.is-active {
     display: block;
+  }
+}
+
+.collapsable-icon-label {
+  font-size: 12px;
+  position: absolute;
+  top: 0;
+  text-align: center;
+  min-width: 30px;
+}
+
+.collapsable--icon-right {
+  position: relative;
+  width: 100%;
+
+  .collapsable-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  .collapsable-icon-label {
+    right: 5px;
+  }
+
+  .collapsable__trigger-icon {
+    position: absolute;
+    right: 5px;
+    top: 15px;
   }
 }
