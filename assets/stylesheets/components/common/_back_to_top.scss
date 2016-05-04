@@ -1,0 +1,23 @@
+.back_to_top__link {
+  padding: 12px 22px;
+  white-space: nowrap;
+  background: $color-button-default;
+  color: $color-button-text;
+  position: fixed;
+  bottom: 0;
+  visibility: hidden;
+
+  &:focus {
+    outline: 2px solid $color-input-focus-border-color;
+  }
+}
+
+.back_to_top__link--shown {
+  visibility: visible;
+}
+
+.back_to_top__link__arrow {
+  width: 20px;
+  height: 12.1572px;
+  margin-left: 11px;
+}
