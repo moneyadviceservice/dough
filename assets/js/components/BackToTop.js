@@ -4,7 +4,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
 
   var BackToTop,
       defaultConfig = {
-        definedHeight: 1704,
+        triggerPoint: 1704,
       },
       i18nStrings = {
         title: 'Back to top'
@@ -17,6 +17,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     this.atSmallViewport = false;
     this.linkHeight = 0;
     this.hiddenClass = 'visually-hidden';
+    this.showClass = 'back_to_top__link--shown';
     this.active = false;
     this.scrollingToTop = false;
   };
@@ -41,7 +42,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
         '</svg>' +
       '</a>');
 
-    $(document).find('footer')
+    this.$el.parentsUntil('l-body').parent().find('footer')
       .append(this.$bttLink)
       .find('.l-footer-secondary')
         .addClass('back_to_top__spacer');
@@ -55,7 +56,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
 
     this.$bttLink
       .click(function() {
-        $(this).removeClass('back_to_top__link--shown');
+        $(this).removeClass(self.showClass);
         self.scrollingToTop = true;
 
         $('html, body').animate({scrollTop: 0}, 800, function() {
@@ -65,12 +66,18 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
   };
 
   BackToTop.prototype._getActive = function() {
-    if ($(window).scrollTop() < this.config.definedHeight && !this.scrollingToTop) {
+    var scrollAmount = this._getScrollAmount();
+
+    if (scrollAmount < this.config.triggerPoint && !this.scrollingToTop) {
       this.active = false;
     } else {
       this.active = true;
     }
   };
+
+  BackToTop.prototype._getScrollAmount = function() {
+    return $(window).scrollTop();
+  }
 
   BackToTop.prototype._resize = function() {
     if (mediaQueries.atSmallViewport()) {
@@ -93,12 +100,12 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     if (!this.scrollingToTop) {
       this._getActive();
 
-      if (this.active) {
       // we are beyond the scroll point
-        this.$bttLink.addClass('back_to_top__link--shown');
-      } else {
+      if (this.active) {
+        this.$bttLink.addClass(this.showClass);
       // we are not beyond the scroll point
-        this.$bttLink.removeClass('back_to_top__link--shown');
+      } else {
+        this.$bttLink.removeClass(this.showClass);
       }
     }
   };
@@ -113,4 +120,3 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
 
   return BackToTop;
 });
-
