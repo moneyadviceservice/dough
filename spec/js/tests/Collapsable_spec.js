@@ -187,7 +187,7 @@ describe('Visibility toggler', function() {
     });
 
     it('Has the icon-right class', function() {
-      expect(this.$trigger).to.have.class('visually-hidden');
+      expect(this.$triggerLabel).to.have.class('visually-hidden');
     });
   });
 

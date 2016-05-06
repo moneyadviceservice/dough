@@ -1,4 +1,4 @@
-describe.only('Visibility toggler on Mobile', function() {
+describe('Visibility toggler on Mobile', function() {
 
   'use strict';
 
