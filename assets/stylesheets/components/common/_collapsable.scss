@@ -5,7 +5,7 @@
   min-height: 30px;
 }
 
-.js .collapsable__target {
+.js .collapsable__target.collapsable__target--initialised {
   display: none;
   &.is-active {
     display: block;

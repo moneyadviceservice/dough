@@ -85,6 +85,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises'], function($, Dough
         .attr('aria-controls', id)
         .attr('aria-expanded', 'false');
     this.$target.attr('id', id);
+    this.$target.addClass('collapsable__target--initialised');
 
     this.$triggers = this.$triggers.find('button');
   };

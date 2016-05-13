@@ -157,10 +157,10 @@ describe('Visibility toggler', function() {
 
     it('collapsables in a group should close when one of them is clicked', function() {
       this.$sandbox.find('button').last().click();
-      expect(this.$target.first().attr('class')).to.equal('target');
+      expect(this.$target.first()).to.have.class('target');
 
       this.$sandbox.find('button').first().click();
-      expect(this.$target.last().attr('class')).to.equal('target');
+      expect(this.$target.last()).to.have.class('target');
     });
   });
 
