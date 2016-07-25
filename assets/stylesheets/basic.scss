@@ -6,11 +6,11 @@ body, .dough {
 }
 
 h1 {
-  color: #61a612; //$color-green-secondary
+  color: #006A00; //$color-green-secondary
 }
 
 h2, h3, h4, h5, h6 {
-  color: #388426; //$color-green-dark
+  color: #2F6500; //$color-green-dark
 }
 
 h1 {
@@ -30,17 +30,17 @@ h4 {
 }
 
 a {
-  color: #1f6faa; // $color-link-default
+  color: #003d8e; // $color-link-default
   text-decoration: none;
 
   &:visited {
-    color: #1f6faa; // $color-link-default
+    color: #003d8e; // $color-link-default
   }
 
   &:hover,
   &:focus {
     outline: none;
-    color: #1f6faa; // $color-link-default
+    color: #003d8e; // $color-link-default
     text-decoration: underline;
   }
 }
