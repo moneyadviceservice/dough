@@ -28,6 +28,7 @@ require.config({
     Print: 'assets/js/components/Print',
     TabSelector: 'assets/js/components/TabSelector',
     RangeInput: 'assets/js/components/RangeInput',
+    SearchFocus: 'assets/js/components/SearchFocus',
     FieldHelpText: 'assets/js/components/FieldHelpText',
     Validation: 'assets/js/components/Validation',
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
