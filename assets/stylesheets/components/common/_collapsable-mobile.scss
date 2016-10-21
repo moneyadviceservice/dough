@@ -17,7 +17,7 @@
     }
   }
 
-  .collapsable__target {
+  .collapsable__target.collapsable__target--initialised {
     display: none;
 
     @include respond-to($mq-m) {
