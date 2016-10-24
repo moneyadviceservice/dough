@@ -5,12 +5,5 @@
 }
 
 .validation-summary__content-container {
-  @extend .is-errored;
   background: $color-validation-summary-background;
-}
-
-.validation-summary__title {
-}
-
-.validation-summary__list {
 }
