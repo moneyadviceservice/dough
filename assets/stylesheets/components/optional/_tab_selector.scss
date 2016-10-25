@@ -35,7 +35,6 @@
   }
 
   .tab-selector__trigger {
-    @extend %type;
     border-color: $color-tab-selector-border;
     border-style: solid;
     bottom: -1px;
