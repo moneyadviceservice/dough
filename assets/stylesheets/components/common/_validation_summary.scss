@@ -7,3 +7,7 @@
 .validation-summary__content-container {
   background: $color-validation-summary-background;
 }
+
+.validation-summary__error--no-link {
+  color: $color-validation-text;
+}
