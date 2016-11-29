@@ -23,6 +23,7 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
         validationSummaryErrorClass: 'validation-summary__error',
         inlineErrorClass: 'js-inline-error',
         showValidationSummary: true,
+        showValidationSummaryLinks: true,
         showInlineValidation: true,
         uiEvents: {
           'blur input, select, textarea': '_handleBlurEvent',
@@ -166,8 +167,14 @@ define(['jquery', 'DoughBaseComponent'], function($, DoughBaseComponent) {
 
     $.each(this.errors, $.proxy(function(errorIndex, fieldGroupValidity) {
       fieldName = fieldGroupValidity.name;
-      summaryHTML += '<li class="' + this.config.validationSummaryErrorClass + '"><a href="#' +
+      if (!this.config.showValidationSummaryLinks) {
+        summaryHTML += '<li class="' + this.config.validationSummaryErrorClass + '--no-link">' +
+                        fieldGroupValidity.message + '</li>';
+      } else {
+        summaryHTML += '<li class="' + this.config.validationSummaryErrorClass + '"><a href="#' +
                       this._getInlineErrorID(fieldName) + '">' + fieldGroupValidity.message + '</a></li>';
+      }
+
     }, this));
 
     this.$el.find('[' + this.config.validationSummaryListAttribute + ']').html(summaryHTML);
