@@ -1,3 +1,3 @@
 module Dough
-  VERSION = '5.22.1'
+  VERSION = '5.23.0'
 end
