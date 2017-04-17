@@ -341,6 +341,35 @@ describe('Validation', function() {
 
       expect($validationSummaryList.find('li').length).to.equal(0);
     });
+
+    it('does not allow event propagation if there are errors', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      var additionalEvent;
+      $('form').on('submit', function(event){
+        additionalEvent = event;
+      });
+
+      validation.$el.submit();
+
+      expect(additionalEvent.isPropagationStopped()).to.be.true;
+    });
+
+    it('allows event propagation if there are no errors', function() {
+      var validation = new this.Validation(this.component).init(),
+          $input = validation.$el.find('#input');
+
+      var additionalEvent;
+      $('form').on('submit', function(event){
+        additionalEvent = event;
+      });
+
+      $input.val('test');
+      validation.$el.submit();
+
+      expect(additionalEvent.isPropagationStopped()).to.be.false;
+    });
   });
 
   // Basic required field
