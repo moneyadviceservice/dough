@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
     ['LICENSE', 'Rakefile', 'README.md', 'bower.json', '.jscsrc', '.jshintrc']
   s.test_files = Dir['spec/**/*']
 
-  s.add_dependency 'rails', '>= 3.2'
+  s.add_dependency 'rails', '>= 3.2', '< 5'
   s.add_dependency 'sass-rails'
   s.add_dependency 'activesupport'
 end
