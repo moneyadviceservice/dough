@@ -1,4 +1,4 @@
-.form__row--is-errored {
+.is-errored, .form__row--is-errored {
   label {
     color: $color-validation-text;
     font-weight: bold;
