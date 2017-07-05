@@ -25,6 +25,7 @@ require.config({
     Collapsable: 'assets/js/components/Collapsable',
     CollapsableMobile: 'assets/js/components/CollapsableMobile',
     ConfirmableForm: 'assets/js/components/ConfirmableForm',
+    PopupTip: 'assets/js/components/PopupTip',
     Print: 'assets/js/components/Print',
     TabSelector: 'assets/js/components/TabSelector',
     RangeInput: 'assets/js/components/RangeInput',

@@ -1,0 +1,47 @@
+.popup-tip__button {
+  background-color: transparent;
+  border: none;
+  font-weight: 700;
+  font-style: italic;
+  position: relative;
+}
+
+.popup-tip__content {
+  display: none;
+  padding: $baseline-unit*2;
+  border: 2px solid $color-grey-dark;
+  background-color: $color-white;
+  z-index: 1;
+  position: absolute;
+  left: $baseline-unit;
+
+  &.is-inactive {
+    display: none;
+  }
+
+  &.is-active {
+    display: block;
+  }
+
+  @include respond-to($mq-m) {
+    max-width: 300px;
+  }
+}
+
+.popup-tip__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.popup-tip__close {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  background-color: $color-white;
+  border: 2px solid $color-grey-dark;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  padding: 1px;
+}
