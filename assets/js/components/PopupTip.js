@@ -33,12 +33,6 @@ define(['jquery', 'DoughBaseComponent'],
   };
 
   PopupTip.prototype.showPopupTip = function() {
-    var triggerPos    = this.$trigger.offset();
-
-    this.$popup.css({
-      'top': triggerPos.top
-    });
-
     this.$popup.removeClass(this.config.selectors.inactiveClass);
     this.$popup.addClass(this.config.selectors.activeClass);
   };
