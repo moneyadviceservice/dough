@@ -36,7 +36,7 @@ define(['jquery', 'DoughBaseComponent'],
     var triggerPos    = this.$trigger.offset();
 
     this.$popup.css({
-      'top' : triggerPos.top
+      'top': triggerPos.top
     });
 
     this.$popup.removeClass(this.config.selectors.inactiveClass);
