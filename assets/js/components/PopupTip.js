@@ -4,11 +4,12 @@ define(['jquery', 'DoughBaseComponent'],
 
   var defaultConfig = {
         selectors: {
-          trigger:       '[data-dough-popup-trigger]',
-          popupContent:  '[data-dough-popup-content]',
-          popupClose:    '[data-dough-popup-close]',
-          activeClass:   'is-active',
-          inactiveClass: 'is-inactive',
+          trigger:        '[data-dough-popup-trigger]',
+          popupContainer: '[data-dough-popup-container]',
+          popupContent:   '[data-dough-popup-content]',
+          popupClose:     '[data-dough-popup-close]',
+          activeClass:    'is-active',
+          inactiveClass:  'is-inactive',
         }
       },
       PopupTip;
@@ -17,7 +18,8 @@ define(['jquery', 'DoughBaseComponent'],
     PopupTip.baseConstructor.call(this, $el, config, defaultConfig);
 
     this.$trigger = this.$el.find(this.config.selectors.trigger);
-    this.$popup   = this.$el.find(this.config.selectors.popupContent);
+    this.$popup   = this.$el.find(this.config.selectors.popupContainer);
+    this.$popupContent = this.$el.find(this.config.selectors.popupContent);
 
     return this;
   };
@@ -28,18 +30,20 @@ define(['jquery', 'DoughBaseComponent'],
   PopupTip.prototype._addEvents = function() {
     var $closeBtn = this.$el.find(this.config.selectors.popupClose);
 
-    this.$trigger.on('click', $.proxy(this.showPopupTip, this));
-    $closeBtn.on('click', $.proxy(this.hidePopupTip, this));
+    this.$trigger.click($.proxy(this.showPopupTip, this));
+    $closeBtn.click($.proxy(this.hidePopupTip, this));
   };
 
   PopupTip.prototype.showPopupTip = function() {
     this.$popup.removeClass(this.config.selectors.inactiveClass);
     this.$popup.addClass(this.config.selectors.activeClass);
+    this.$popupContent.attr('tabindex', -1).focus();
   };
 
   PopupTip.prototype.hidePopupTip = function() {
     this.$popup.addClass(this.config.selectors.inactiveClass);
     this.$popup.removeClass(this.config.selectors.activeClass);
+    this.$trigger.focus();
   };
 
   PopupTip.prototype.init = function(initialised) {
