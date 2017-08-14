@@ -102,7 +102,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
        * Any one-off actions to make the component more accessible
        */
       TabSelector.prototype._setupAccessibility = function() {
-        this.$el.find('[' + selectors.target + ']').attr({
+        this.$el.find('[' + selectors.target + '].' + selectors.inactiveClass).attr({
           'aria-hidden': 'true',
           'tabindex': '-1'
         });
