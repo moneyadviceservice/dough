@@ -172,7 +172,7 @@ define(['jquery', 'DoughBaseComponent', 'eventsWithPromises', 'mediaQueries'],
           var content = $(this).html(),
               triggerId = $(this).attr(selectors.trigger);
           $(this).replaceWith('<button class="tab-selector__trigger unstyled-button" type="button" ' +
-              selectors.trigger + '="' + triggerId + '">' +
+              selectors.trigger + '="' + triggerId + '" role="link">' +
               content +
               ' <span class="visually-hidden" data-dough-tab-selector-show> ' +
               _this.i18nStrings.show + '</span>' +
