@@ -48,4 +48,35 @@ RSpec.describe Dough::Forms::Builder do
       expect(subject.errors_summary_partial_name).to eq('errors_summary')
     end
   end
+
+  describe '#errors_for' do
+    context 'when is valid' do
+      before do
+        model.name = 'My real name'
+        model.valid?
+      end
+
+      it 'returns empty summary' do
+        expect(builder.errors_for(:name)).to be_nil
+      end
+    end
+
+    context 'when is invalid' do
+      before do
+        model.name = nil
+        model.valid?
+      end
+
+      it 'displays the error message' do
+        expect(builder.errors_for(:name)).to include("Name can't be blank")
+      end
+    end
+  end
+
+  describe '#errors_for_partial_name' do
+    it 'returns the name of the partial' do
+      expect(subject.errors_for_partial_name).to eq('errors_for')
+    end
+  end
+
 end
