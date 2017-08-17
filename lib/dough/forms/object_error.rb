@@ -1,3 +1,5 @@
+require 'active_model/model'
+
 module Dough
   module Forms
     class ObjectError
