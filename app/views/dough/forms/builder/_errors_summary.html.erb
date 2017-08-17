@@ -3,9 +3,9 @@
     <p class="validation-summary__title"><%= t('dough.forms.validation.summary.title') %></p>
 
     <ol class="validation-summary__list" data-dough-validation-summary-list>
-      <% errors.full_messages.each do |message| %>
+      <% errors.each do |error| %>
         <li class="validation-summary__error">
-          <%= message.html_safe %>
+          <%= link_to(error.full_message.html_safe, "##{error.unique_identifier}") %>
         </li>
       <% end %>
     </ol>

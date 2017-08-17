@@ -2,7 +2,7 @@ module Dough
   module Forms
     class ObjectError
       include ActiveModel::Model
-      attr_accessor :object, :field_name, :message, :counter
+      attr_accessor :object, :field_name, :message, :counter, :prefix
 
       def ==(other)
         object == other.object && field_name == other.field_name &&
@@ -12,14 +12,19 @@ module Dough
       def full_message
         "#{field_name} #{message}".humanize
       end
+
+      def unique_identifier
+        "error-#{prefix}-#{counter}"
+      end
     end
 
     class Builder < ActionView::Helpers::FormBuilder
       include ActionView::Helpers::RenderingHelper
       include ActionView::Helpers::TranslationHelper
+      include ActionView::Helpers::UrlHelper
 
       def errors_summary
-        render(errors_summary_partial_name, errors: object.errors) if object.errors.present?
+        render(errors_summary_partial_name, errors: object_errors) if object_errors.present?
       end
 
       # This is the partial used to render the summary errors.
@@ -61,7 +66,8 @@ module Dough
             object: object,
             field_name: error[0],
             message: error[1],
-            counter: index + 1
+            counter: index + 1,
+            prefix: object_name
           )
         end
       end

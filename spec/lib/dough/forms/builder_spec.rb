@@ -41,6 +41,12 @@ RSpec.describe Dough::Forms::Builder do
       it 'displays the error message' do
         expect(errors_summary).to include("Name can't be blank")
       end
+
+      it 'renders a link to the field error' do
+        expect(errors_summary).to include('<a href="#error-model-1">')
+        expect(errors_summary).to include('<a href="#error-model-2">')
+        expect(errors_summary).to include('<a href="#error-model-3">')
+      end
     end
 
     context 'when is valid' do
@@ -66,7 +72,7 @@ RSpec.describe Dough::Forms::Builder do
     context 'when is valid' do
       let(:model) { valid_model }
 
-      it 'returns empty summary' do
+      it 'returns no error messages' do
         expect(inline_error).to be_nil
       end
     end
@@ -80,6 +86,10 @@ RSpec.describe Dough::Forms::Builder do
 
       it 'displays the error messages with a numerical prefix' do
         expect(inline_error).to include("1. Name can't be blank")
+      end
+
+      it 'creates a uniques id' do
+        expect(inline_error).to include('id="error-model-1"')
       end
     end
   end
