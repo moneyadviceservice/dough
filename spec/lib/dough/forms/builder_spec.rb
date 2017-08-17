@@ -26,6 +26,15 @@ RSpec.describe Dough::Forms::Builder do
     end
   end
 
+  describe '#object_error_class' do
+    subject(:object_error_class) { builder.object_error_class }
+    let(:model) { valid_model }
+
+    it 'returns an ObjectError class' do
+      expect(object_error_class).to be(Dough::Forms::ObjectError)
+    end
+  end
+
   describe '#errors_summary' do
     subject(:errors_summary) { builder.errors_summary }
 

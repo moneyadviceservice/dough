@@ -1,23 +1,7 @@
+require 'dough/forms/object_error'
+
 module Dough
   module Forms
-    class ObjectError
-      include ActiveModel::Model
-      attr_accessor :object, :field_name, :message, :counter, :prefix
-
-      def ==(other)
-        object == other.object && field_name == other.field_name &&
-          counter == other.counter && message == other.message
-      end
-
-      def full_message
-        "#{field_name} #{message}".humanize
-      end
-
-      def unique_identifier
-        "error-#{prefix}-#{counter}"
-      end
-    end
-
     class Builder < ActionView::Helpers::FormBuilder
       include ActionView::Helpers::RenderingHelper
       include ActionView::Helpers::TranslationHelper
@@ -62,7 +46,7 @@ module Dough
 
       def object_errors
         object.errors.map.each_with_index do |error, index|
-          ::Dough::Forms::ObjectError.new(
+          object_error_class.new(
             object: object,
             field_name: error[0],
             message: error[1],
@@ -70,6 +54,27 @@ module Dough
             prefix: object_name
           )
         end
+      end
+
+      #
+      # This returns the class for handling all errors on the object.
+      # This class will be used on all partials for 'error_summary' and 'errors_for'
+      #
+      # If you need to customize the error to be displayed on the partials
+      # you can overwrite the default object error class adding a class
+      # that respects the interface of the default object error class.
+      #
+      # class MyBuilder < Dough::Forms::Builder
+      #   def object_error_class
+      #     MyObjectErrorClass
+      #   end
+      # end
+      #
+      # class MyObjectErrorClass < Dough::Forms::ObjectError
+      # end
+      #
+      def object_error_class
+        ::Dough::Forms::ObjectError
       end
 
       def lookup_context
