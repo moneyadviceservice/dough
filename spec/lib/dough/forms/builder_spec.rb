@@ -4,21 +4,33 @@ RSpec.describe Dough::Forms::Builder do
   class CustomModel
     include ActiveModel::Validations
 
-    attr_accessor :name
+    attr_accessor :name, :age
     validates :name, presence: true
+    validates :age, presence: true, numericality: true
   end
 
   subject(:builder) { described_class.new(:model, model, {}, {}) }
-  let(:model) { CustomModel.new }
+  let(:valid_model) do
+    CustomModel.new.tap do |object|
+      object.name = 'My real name'
+      object.age = 27
+      object.valid?
+    end
+  end
+
+  let(:invalid_model) do
+    CustomModel.new.tap do |object|
+      object.name = nil
+      object.age = nil
+      object.valid?
+    end
+  end
 
   describe '#errors_summary' do
     subject(:errors_summary) { builder.errors_summary }
 
-    context 'when is invalid' do
-      before do
-        model.name = nil
-        model.valid?
-      end
+    context 'when form is invalid' do
+      let(:model) { invalid_model }
 
       it 'displays summary title' do
         expect(errors_summary).to include(
@@ -32,10 +44,7 @@ RSpec.describe Dough::Forms::Builder do
     end
 
     context 'when is valid' do
-      before do
-        model.name = 'My real name'
-        model.valid?
-      end
+      let(:model) { valid_model }
 
       it 'returns empty summary' do
         expect(errors_summary).to be_nil
@@ -44,39 +53,64 @@ RSpec.describe Dough::Forms::Builder do
   end
 
   describe '#errors_summary_partial_name' do
+    let(:model) { invalid_model }
+
     it 'returns the name of the partial' do
       expect(subject.errors_summary_partial_name).to eq('errors_summary')
     end
   end
 
   describe '#errors_for' do
+    subject(:inline_error) { builder.errors_for(:name) }
+
     context 'when is valid' do
-      before do
-        model.name = 'My real name'
-        model.valid?
-      end
+      let(:model) { valid_model }
 
       it 'returns empty summary' do
-        expect(builder.errors_for(:name)).to be_nil
+        expect(inline_error).to be_nil
       end
     end
 
-    context 'when is invalid' do
-      before do
-        model.name = nil
-        model.valid?
-      end
+    context 'when form is invalid' do
+      let(:model) { invalid_model }
 
       it 'displays the error message' do
-        expect(builder.errors_for(:name)).to include("Name can't be blank")
+        expect(inline_error).to include("Name can't be blank")
+      end
+
+      it 'displays the error messages with a numerical prefix' do
+        expect(inline_error).to include("1. Name can't be blank")
       end
     end
   end
 
   describe '#errors_for_partial_name' do
+    let(:model) { invalid_model }
+
     it 'returns the name of the partial' do
       expect(subject.errors_for_partial_name).to eq('errors_for')
     end
   end
 
+  describe '#object_errors' do
+    context 'when is valid' do
+      let(:model) { valid_model }
+
+      it 'returns empty errors' do
+        expect(builder.object_errors).to eq([])
+      end
+    end
+
+    context 'when form is invalid' do
+      let(:model) { invalid_model }
+
+      it 'returns object errors with a counter' do
+        expect(builder.object_errors).to eq([
+          ::Dough::Forms::ObjectError.new(object: model, field_name: :name, message: "can't be blank", counter: 1),
+          ::Dough::Forms::ObjectError.new(object: model, field_name: :age, message: "can't be blank", counter: 2),
+          ::Dough::Forms::ObjectError.new(object: model, field_name: :age, message: "is not a number", counter: 3),
+        ])
+      end
+    end
+  end
 end

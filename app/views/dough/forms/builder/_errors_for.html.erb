@@ -1,5 +1,13 @@
-<%= error.inspect %>
+<!-- EXAMPLE
 <div class="js-inline-error">
-  <p class="validation-summary__error" id="error-<%= error_prefix %>-<%= error[:number] %>">
+  <p class="validation-summary__error" id="error-new_user-1">
+    1. First name can't be blank
+  </p>
+</div>
+-->
+
+<div class="js-inline-error">
+  <p class="validation-summary__error" id="error-<%#= error_prefix %>-<%#= error[:number] %>">
+  <%= error.counter %>. <%= error.full_message.html_safe %>
   </p>
 </div>
