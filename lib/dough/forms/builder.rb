@@ -7,6 +7,12 @@ module Dough
       include ActionView::Helpers::TranslationHelper
       include ActionView::Helpers::UrlHelper
 
+      # Returns a summary of errors to be displayed on the form.
+      #
+      # Usage (assuming 'f' is the form builder variable name):
+      #
+      #  <%= f.errors_summary %>
+      #
       def errors_summary
         render(errors_summary_partial_name, errors: object_errors) if object_errors.present?
       end
@@ -25,6 +31,13 @@ module Dough
         'errors_summary'
       end
 
+      # Returns *all* error messages for the field passed on the argument.
+      #
+      # Usage (assuming 'f' is the form builder variable name):
+      #
+      #  <%= f.errors_for(:age) %>
+      #  <%= f.errors_for(:name) %>
+      #
       def errors_for(field_name)
         errors = object_errors.select { |error, _| error.field_name == field_name }
         render(partial: errors_for_partial_name, collection: errors, as: 'error')
@@ -77,11 +90,22 @@ module Dough
         ::Dough::Forms::ObjectError
       end
 
+      # Returns an Array<Pathname> for locating the views
+      # for the error summary and the error for each field.
+      # You can overwrite this method to look for the summary:
+      #
+      # class MyBuilder < Dough::Form::Builder
+      #   def partial_paths
+      #     [Rails.root.join('app/views/my_builder_partials/')]
+      #   end
+      # end
+      #
+      def partial_paths
+        [Dough::Engine.root.join('app/views/dough/forms/builder/')]
+      end
+
       def lookup_context
-        ActionView::LookupContext.new(
-          ActionController::Base.view_paths +
-          [Dough::Engine.root.join('app/views/dough/forms/builder/')]
-        )
+        ActionView::LookupContext.new(ActionController::Base.view_paths + partial_paths)
       end
 
       def view_renderer
