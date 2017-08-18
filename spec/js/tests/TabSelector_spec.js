@@ -6,7 +6,8 @@ describe('Tab selector', function() {
       triggersInner = '[data-dough-tab-selector-triggers-inner]',
       triggerSelector = '[data-dough-tab-selector-trigger]',
       activeTrigger = triggerSelector + '.' + activeClass,
-      target = '[data-dough-tab-selector-target].' + activeClass + ' .tab-selector__target-heading';
+      target = '[data-dough-tab-selector-target].' + activeClass,
+      inactiveTarget = '[data-dough-tab-selector-target].is-inactive';
 
   beforeEach(function(done) {
     var self = this;
@@ -36,6 +37,14 @@ describe('Tab selector', function() {
     return $root.find(target);
   }
 
+  function activeTargetHeading($root) {
+    return activeTarget($root).find('.tab-selector__target-heading');
+  }
+
+  function inactiveTargets($root) {
+    return $root.find(inactiveTarget);
+  }
+
   describe('general functions', function() {
 
     beforeEach(function(done) {
@@ -48,9 +57,18 @@ describe('Tab selector', function() {
     });
 
     it('selects the first item in the list', function() {
+      var _this = this;
       this.$html.find(activeTrigger).each(function() {
         expect($(this).text()).to.contain('panel 1');
         expect($(this).text()).to.contain('selected');
+
+        expect(activeTarget(_this.$html)).not.to.have.attr('aria-hidden', 'true');
+      });
+    });
+
+    it('sets aria-hidden=true on inactive items', function() {
+      inactiveTargets(this.$html).each(function() {
+        expect($(this)).to.have.attr('aria-hidden', 'true');
       });
     });
 
@@ -71,9 +89,18 @@ describe('Tab selector', function() {
 
     it('shows the associated target panel when a trigger is clicked', function() {
       this.$triggers.last().click();
-      expect(activeTarget(this.$html)).to.have.text('Panel 3');
+      expect(activeTargetHeading(this.$html)).to.have.text('Panel 3');
+      expect(activeTarget(this.$html)).to.have.attr('aria-hidden', 'false');
       this.$triggers.first().click();
-      expect(activeTarget(this.$html)).to.have.text('Panel 1');
+      expect(activeTargetHeading(this.$html)).to.have.text('Panel 1');
+      expect(activeTarget(this.$html)).to.have.attr('aria-hidden', 'false');
+    });
+
+    it('sets aria-hidden to false on other target panels when a trigger is clicked', function() {
+      this.$triggers.last().click();
+      inactiveTargets(this.$html).each(function() {
+        expect($(this)).to.have.attr('aria-hidden', 'true');
+      });
     });
 
     it('updates other copies of the clicked trigger', function() {
