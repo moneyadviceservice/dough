@@ -1,0 +1,13 @@
+<div class="validation-summary" role="alert">
+  <div class="validation-summary__content-container">
+    <p class="validation-summary__title"><%= t('dough.forms.validation.summary.title') %></p>
+
+    <ol class="validation-summary__list" data-dough-validation-summary-list>
+      <% errors.each do |error| %>
+        <li class="validation-summary__error">
+          <%= link_to(error.full_message.html_safe, "##{error.unique_identifier}") %>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+</div>
