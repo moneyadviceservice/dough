@@ -1,0 +1,21 @@
+<% if local_assigns[:options] %>
+  <% title = options.fetch(:title, '') %>
+  <% text = options.fetch(:text, '') %>
+  <% classname = options.fetch(:classname, '') %>
+  <% tooltip_hide = options.fetch(:tooltip_hide, '') %>
+<% end %>
+
+<div data-dough-popup-container class="helper popup-tip__container <%= classname %>">
+  <p data-dough-popup-content class="popup-tip__content">
+    <span class="popup-tip__title--no-js"><%= title %>:</span> <%= text %>
+  </p>
+
+  <button data-dough-popup-close type="button" class="popup-tip__close">
+    <span aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon svg-icon--mobile-close-box">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-icon--mobile-close-box"></use>
+      </svg>
+    </span>
+    <span class="visually-hidden"><%= tooltip_hide %></span>
+  </button>
+</div>
