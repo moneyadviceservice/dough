@@ -7,7 +7,12 @@
 
 <div data-dough-popup-container class="helper popup-tip__container <%= classname %>">
   <p data-dough-popup-content class="popup-tip__content">
-    <span class="popup-tip__title--no-js"><%= title %>:</span> <%= text %>
+    <% if title.present? %>
+      <span class="popup-tip__title--no-js">
+        <%= title %>:
+      </span>
+    <% end %>
+    <%= text %>
   </p>
 
   <button data-dough-popup-close type="button" class="popup-tip__close">
