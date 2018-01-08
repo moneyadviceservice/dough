@@ -41,7 +41,7 @@ describe('confirmation form', function () {
     it('blocks submission if the user does not confirm', function() {
       var calledWith,
           stubFn = function(arg) { calledWith = arg; return true; },
-          confirm = sandbox.stub(window, 'confirm', stubFn);
+          confirm = sandbox.stub(window, 'confirm').callsFake(stubFn);
       this.$input.click();
       expect(calledWith).to.eq('The message');
     });

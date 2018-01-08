@@ -157,7 +157,7 @@ describe('utilities', function() {
     });
 
     it('should not attempt to call console if browser does not support it', function() {
-      var stubDoesConsoleExist = sinon.stub(this.mod, 'doesConsoleExist', function() {
+      var stubDoesConsoleExist = sinon.stub(this.mod, 'doesConsoleExist').callsFake(function() {
         return false;
       });
 
