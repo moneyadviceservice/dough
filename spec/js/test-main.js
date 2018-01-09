@@ -22,6 +22,7 @@ require.config({
     modernizr: 'vendor/assets/modernizr/modernizr',
     mediaQueries: 'assets/js/lib/mediaQueries',
     componentLoader: 'assets/js/lib/componentLoader',
+    BackToTop: 'assets/js/components/BackToTop',
     Collapsable: 'assets/js/components/Collapsable',
     CollapsableMobile: 'assets/js/components/CollapsableMobile',
     ConfirmableForm: 'assets/js/components/ConfirmableForm',

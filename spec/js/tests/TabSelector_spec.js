@@ -142,7 +142,7 @@ describe('Tab selector', function() {
 
     it('closes the menu if the viewport is resized to small', function() {
       this.$triggers.last().click();
-      sinon.stub(this.TabSelector.prototype, '_haveTriggersWrapped', function() {
+      sinon.stub(this.TabSelector.prototype, '_haveTriggersWrapped').callsFake(function() {
         return true;
       });
       this.eventsWithPromises.publish('mediaquery:resize', {
