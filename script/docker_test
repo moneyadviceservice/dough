@@ -11,7 +11,7 @@ docker run \
         ./script/test
 
 if [ $? = 0 ]; then
-    echo "All tests passed."
+    echo "All required tests passed."
 else
     echo "Test(s) failed."
 fi
