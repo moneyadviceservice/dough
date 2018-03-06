@@ -22,6 +22,12 @@ describe Dough::Forms::Builders::Validation do
 
   subject(:form_builder) { described_class.new(:model, model, {}, {}) }
 
+  describe '#view_renderer' do
+    it 'do not raise exception' do
+      expect { form_builder.view_renderer }.to_not raise_exception
+    end
+  end
+
   describe '#error_count' do
     it 'returns number of errors' do
       expect(subject.error_count).to eql(5)
