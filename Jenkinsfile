@@ -11,5 +11,16 @@ pipeline {
                 sh('./script/test')
             }
         }
+        stage('build') {
+          when {branch 'master'}
+            steps {
+                sh('./script/build')
+          }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+        }
     }
 }

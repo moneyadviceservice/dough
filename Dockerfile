@@ -35,6 +35,7 @@ RUN /bin/bash -lc "rvm requirements" && \
 
 #Install Bundler & Geminabox
 RUN /bin/bash -lc "gem install -v ${BUNDLER_VERSION} bundler"
+RUN /bin/bash -lc "gem install geminabox"
 
 #Install Node
 RUN curl https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz \
