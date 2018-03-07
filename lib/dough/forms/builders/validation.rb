@@ -34,11 +34,11 @@ module Dough
           )
         end
 
-        private
-
         def view_renderer
           ActionView::Renderer.new(lookup_context)
         end
+
+        private
 
         def error_models
           @error_models ||= [object]
