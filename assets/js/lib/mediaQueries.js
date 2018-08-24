@@ -101,6 +101,12 @@ define(['jquery', 'eventsWithPromises', 'featureDetect', 'jqueryThrottleDebounce
      */
     atSmallViewport: function() {
       return ($.inArray(getSize(), ['mq-xs', 'mq-s']) > -1);
+    },
+    atMediumViewport: function() {
+      return ($.inArray(getSize(), ['mq-m']) > -1);
+    },
+    atLargeViewport: function() {
+      return ($.inArray(getSize(), ['mq-l', 'mq-xl']) > -1);
     }
 
   };
