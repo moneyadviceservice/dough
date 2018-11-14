@@ -1,5 +1,5 @@
-define(['jquery', 'DoughBaseComponent'],
-  function($, DoughBaseComponent) {
+define(['jquery', 'DoughBaseComponent', 'mediaQueries'],
+  function($, DoughBaseComponent, mediaQueries) {
   'use strict';
 
   var defaultConfig = {
@@ -20,6 +20,8 @@ define(['jquery', 'DoughBaseComponent'],
     this.$trigger = this.$el.find(this.config.selectors.trigger);
     this.$popup   = this.$el.find(this.config.selectors.popupContainer);
     this.$popupContent = this.$el.find(this.config.selectors.popupContent);
+    this.atLargeViewport = mediaQueries.atLargeViewport();
+    this.atSmallViewport = mediaQueries.atSmallViewport();
 
     return this;
   };

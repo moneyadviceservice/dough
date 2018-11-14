@@ -40,8 +40,15 @@ describe.only('Displays Popup Tooltip', function() {
       this.$trigger.click();
       expect(this.$container).to.have.class(activeClass);
 
-      console.log(trigger.getBoundingClientRect());
-      console.log($(window).width());
+      if (this.obj.atLargeViewport) {
+        // Position is dynamically set only on larger viewports
+        console.log($(window).width());
+        console.log(trigger.getBoundingClientRect());
+      } else {
+        // Position is static on smaller viewports
+        console.log($(window).width());
+        console.log(trigger.getBoundingClientRect());
+      }
     });
 
     it('closes the popup on close button click', function() {
