@@ -1,5 +1,7 @@
 <div data-dough-component="PopupTip">
-  <button data-dough-popup-trigger type="button"></button>
+  <p><span id="explanatoryText">Some text</span>
+    <button data-dough-popup-trigger type="button" id="trigger"></button>
+  </p>
   <div data-dough-popup-container>
     <p data-dough-popup-content>Content</p>
     <button data-dough-popup-close type="button">
@@ -9,4 +11,14 @@
       </span>
     </button>
   </div>
+  <style>
+    #trigger {
+      width: 25px;
+      height: 25px;
+    }
+    #explanatoryText {
+      display: inline-block;
+      width: 100px;
+    }
+  </style>
 </div>
