@@ -1,12 +1,76 @@
-<div data-dough-component="PopupTip">
-  <button data-dough-popup-trigger type="button"></button>
-  <div data-dough-popup-container>
-    <p data-dough-popup-content>Content</p>
-    <button data-dough-popup-close type="button">
-      <span aria-hidden="true">X</span>
-      <span class="visually-hidden">
-        Close
-      </span>
-    </button>
+<div>
+  <div id="PopupTip_shortText" data-dough-component="PopupTip">
+    <p><span id="explanatoryText_1">Some text</span><button data-dough-popup-trigger type="button" id="trigger_1"></button></p>
+    <div data-dough-popup-container id="container_1">
+      <p data-dough-popup-content>Content</p>
+      <button data-dough-popup-close type="button">
+        <span aria-hidden="true">X</span>
+        <span class="visually-hidden">
+          Close
+        </span>
+      </button>
+    </div>
   </div>
+
+  <div id="PopupTip_longText" data-dough-component="PopupTip">
+    <p><span id="explanatoryText_2">Some considerably longer text</span><button data-dough-popup-trigger type="button" id="trigger_2"></button></p>
+    <div data-dough-popup-container id="container_2">
+      <p data-dough-popup-content>Content</p>
+      <button data-dough-popup-close type="button">
+        <span aria-hidden="true">X</span>
+        <span class="visually-hidden">
+          Close
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div id="PopupTip_mobile" data-dough-component="PopupTip">
+    <p><span>Some text whose length is irrelevant</span><button data-dough-popup-trigger type="button" id="trigger_3"></button></p>
+    <div data-dough-popup-container id="container_3">
+      <p data-dough-popup-content>Content</p>
+      <button data-dough-popup-close type="button">
+        <span aria-hidden="true">X</span>
+        <span class="visually-hidden">
+          Close
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <style>
+      #PopupTip_shortText, #PopupTip_longText, #PopupTip_mobile {
+        position: relative;
+      }
+
+      #trigger_1, #trigger_2, #trigger_3 {
+        width: 25px;
+        height: 25px;
+      }
+
+      #explanatoryText_1, #explanatoryText_2 {
+        display: inline-block;
+      }
+
+      #explanatoryText_1 {
+        width: 100px;
+      }
+
+      #explanatoryText_2 {
+        width: 700px;
+      }
+
+      #container_1, #container_2, #container_3 {
+        position: absolute;
+      }
+
+      #container_1, #container_2 {
+        top: 0;
+        width: 300px;
+      }
+
+      #container_3 {
+        width: 100%;
+      }
+  </style>
 </div>
