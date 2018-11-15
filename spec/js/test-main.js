@@ -18,6 +18,7 @@ require.config({
 
   paths: {
     DoughBaseComponent: 'assets/js/components/DoughBaseComponent',
+    DoughEventConstants: 'assets/js/constants/DoughEventConstants',
     featureDetect: 'assets/js/lib/featureDetect',
     modernizr: 'vendor/assets/modernizr/modernizr',
     mediaQueries: 'assets/js/lib/mediaQueries',
