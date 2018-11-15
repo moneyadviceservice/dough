@@ -67,6 +67,12 @@ describe('DoughBaseComponent', function() {
         foo: 'bar'
       });
     });
+
+    it('should create a unique id for each component', function() {
+      var doughBaseComponent = new this.DoughBaseComponent(this.component);
+
+      expect(doughBaseComponent.__index).to.match(/[0-9]+/);
+    });
   });
 
   describe('initialisation', function() {
