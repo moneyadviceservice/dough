@@ -17,3 +17,4 @@ docs/js
 .publish/
 .sass-cache/
 .rubocop-*
+*.iml

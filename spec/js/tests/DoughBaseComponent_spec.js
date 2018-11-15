@@ -67,6 +67,12 @@ describe('DoughBaseComponent', function() {
         foo: 'bar'
       });
     });
+
+    it('should create a unique id for each component', function() {
+      var doughBaseComponent = new this.DoughBaseComponent(this.component);
+
+      expect(doughBaseComponent.__id).to.match(/[0-9]+/);
+    });
   });
 
   describe('initialisation', function() {
@@ -92,6 +98,26 @@ describe('DoughBaseComponent', function() {
 
         expect(doughBaseComponent.$el).to.have.attr('data-dough-dough-base-component-initialised', 'yes');
       });
+
+      it('should stamp an id attribute on the component element', function() {
+        var doughBaseComponent = new this.DoughBaseComponent(this.component);
+
+        doughBaseComponent._initialisedSuccess(initialised);
+
+        expect(doughBaseComponent.$el.attr('data-dough-dough-base-component-id'))
+          .to
+          .match(/[0-9]+/);
+      });
+
+      it('should trigger a successful event upon initialisation', function() {
+        var doughBaseComponent = new this.DoughBaseComponent(this.component),
+            spy = sandbox.spy();
+
+        doughBaseComponent.$el.on('INITIALISE-SUCCESS.DoughBaseEvent', spy);
+        doughBaseComponent._initialisedSuccess(initialised);
+
+        expect(spy.called).to.be.true;
+      });
     });
 
     describe('failed', function() {
@@ -102,6 +128,17 @@ describe('DoughBaseComponent', function() {
         doughBaseComponent._initialisedFailure(initialised);
 
         expect(spy.called).to.be.true;
+      });
+
+      it('should trigger a failed event', function() {
+        var doughBaseComponent = new this.DoughBaseComponent(this.component),
+            spy = sandbox.spy();
+
+        doughBaseComponent.$el.on('INITIALISE-FAILURE.DoughBaseEvent', spy);
+        doughBaseComponent._initialisedFailure(initialised);
+
+        expect(spy.called).to.be.true;
+
       });
     });
   });

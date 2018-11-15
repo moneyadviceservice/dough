@@ -84,6 +84,36 @@ define('utilities', [], function() {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
       };
+    },
+
+    /**
+     * Enforces that the function not be called again until a certain amount of time has passed without it being re-called
+     * @param  {function} func Function to be called
+     * @param  {Number} threshhold How long to wait until func is called in milliseconds
+     * @param  {context} scope of where the function is invoked.
+     * @return {function}
+     */
+    throttle: function(func, threshhold, scope) {
+      threshhold || (threshhold = 250);
+      var last,
+        deferTimer;
+      return function() {
+        var context = scope || this;
+
+        var now = +new Date,
+          args = arguments;
+        if (last && now < last + threshhold) {
+          // hold on to it
+          window.clearTimeout(deferTimer);
+          deferTimer = window.setTimeout(function() {
+            last = now;
+            func.apply(context, args);
+          }, threshhold);
+        } else {
+          last = now;
+          func.apply(context, args);
+        }
+      };
     }
   };
 });

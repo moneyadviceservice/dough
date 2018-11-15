@@ -33,7 +33,7 @@ pipeline {
             }
         }
         stage('build') {
-            when { branch 'master' }
+          when {branch 'master'}
             steps {
                 sh "docker-compose -f docker-compose.yml run --rm rails ./jenkins/build"
             }

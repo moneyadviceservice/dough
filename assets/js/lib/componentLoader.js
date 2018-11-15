@@ -17,7 +17,7 @@
  * @module componentLoader
  * @returns {Function} componentLoader
  */
-define(['jquery', 'rsvp', 'utilities'], function($, RSVP, utilities) {
+define(['jquery', 'rsvp', 'utilities', 'DoughEventConstants'], function($, RSVP, utilities, DoughEventConstants) {
 
   'use strict';
 
@@ -63,6 +63,7 @@ define(['jquery', 'rsvp', 'utilities'], function($, RSVP, utilities) {
       promises = RSVP.allSettled(initialisedList.promises);
       promises.then(function() {
         $('body').attr('data-dough-component-loader-all-loaded', 'yes');
+        $container.trigger(DoughEventConstants.ComponentsComplete);
       });
       return promises;
     },
@@ -185,6 +186,9 @@ define(['jquery', 'rsvp', 'utilities'], function($, RSVP, utilities) {
           try {
             instance.init && instance.init(initialisedList[i]);
           } catch (err) {
+            if (document.location.hostname.indexOf('localhost') >= 0) {
+              console.log(err);
+            }
             initialisedList[i].reject(err);
           }
           i++;
