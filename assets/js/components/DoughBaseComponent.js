@@ -154,6 +154,7 @@ define(['utilities'], function(utilities) {
    */
   DoughBaseComponent.prototype._initialisedSuccess = function(initialised) {
     this.$el.attr('data-dough-' + this.componentAttributeName + '-initialised', 'yes');
+    this.$el.attr('data-dough-' + this.componentAttributeName + '-index', this.__index);
     initialised && initialised.resolve(this.componentName);
   };
 
