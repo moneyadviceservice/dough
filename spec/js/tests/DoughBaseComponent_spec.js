@@ -98,6 +98,16 @@ describe('DoughBaseComponent', function() {
 
         expect(doughBaseComponent.$el).to.have.attr('data-dough-dough-base-component-initialised', 'yes');
       });
+
+      it('should stamp an index attribute on the component element', function() {
+        var doughBaseComponent = new this.DoughBaseComponent(this.component);
+
+        doughBaseComponent._initialisedSuccess(initialised);
+
+        expect(doughBaseComponent.$el.attr('data-dough-dough-base-component-index'))
+          .to
+          .match(/[0-9]+/);
+      });
     });
 
     describe('failed', function() {
