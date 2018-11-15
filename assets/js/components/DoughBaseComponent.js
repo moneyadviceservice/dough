@@ -13,7 +13,8 @@
 define(['utilities'], function(utilities) {
   'use strict';
 
-  var DoughBaseComponent;
+  var DoughBaseComponent,
+  indexCounter = 0;
 
   /**
    * @constructor
@@ -30,10 +31,10 @@ define(['utilities'], function(utilities) {
     if (!$el || !$el.length) {
       throw new Error('Element not supplied to DoughBaseComponent constructor');
     }
-
     this.config = $.extend({}, defaultConfig || {}, config || {});
     this.setElement($el);
     this._setComponentName(this.constructor.componentName);
+    this.__index = this._getNextDoughComponentID();
 
     /*
      Populate this array with the data attributes this module will use.
@@ -187,6 +188,10 @@ define(['utilities'], function(utilities) {
     if (warning) {
       utilities.log(warning, 'warn');
     }
+  };
+
+  DoughBaseComponent.prototype._getNextDoughComponentID = function () {
+    return (++indexCounter).toString();
   };
 
   return DoughBaseComponent;
