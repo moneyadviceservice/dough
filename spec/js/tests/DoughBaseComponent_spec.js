@@ -129,6 +129,16 @@ describe('DoughBaseComponent', function() {
 
         expect(spy.called).to.be.true;
       });
+
+      it('should trigger a failed event', function() {
+        var doughBaseComponent = new this.DoughBaseComponent(this.component);
+
+        doughBaseComponent.$el.on('INITIALISE-FAILURE.DoughBaseEvent', function(event) {
+          expect(event.type).to.eq('INITIALISE-FAILURE');
+        });
+        doughBaseComponent._initialisedFailure(initialised);
+
+      });
     });
   });
 

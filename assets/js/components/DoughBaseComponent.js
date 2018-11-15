@@ -167,6 +167,10 @@ define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConst
    * promise will be fed back to the component loader
    */
   DoughBaseComponent.prototype._initialisedFailure = function(initialised) {
+    this.$el.trigger(DoughEventConstants.InitialisedFailure,
+      {
+        'instance': this,
+      });
     initialised && initialised.reject(this.componentName);
   };
 
