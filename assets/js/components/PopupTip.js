@@ -36,10 +36,18 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries'],
     $closeBtn.click($.proxy(this.hidePopupTip, this));
   };
 
-  PopupTip.prototype.showPopupTip = function() {
-    this.$popup.removeClass(this.config.selectors.inactiveClass);
-    this.$popup.addClass(this.config.selectors.activeClass);
+  PopupTip.prototype.showPopupTip = function(e) {
+    this.$popup
+      .removeClass(this.config.selectors.inactiveClass)
+      .addClass(this.config.selectors.activeClass)
     this.$popupContent.attr('tabindex', -1).focus();
+
+    // is icon less or more than 50% across page width
+    if ($(e.target).position().left - ($(e.target).width() / 2) < ($(window).width() / 2)) {
+      this.$popup.css('left', e.target.offsetLeft);
+    } else {
+      this.$popup.css('left', e.target.offsetLeft - this.$popup.width());
+    }
   };
 
   PopupTip.prototype.hidePopupTip = function() {
