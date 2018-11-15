@@ -108,6 +108,16 @@ describe('DoughBaseComponent', function() {
           .to
           .match(/[0-9]+/);
       });
+
+      it('should trigger a successful event upon initialisation', function() {
+        var doughBaseComponent = new this.DoughBaseComponent(this.component);
+
+        doughBaseComponent.$el.on('INITIALISE-SUCCESS.DoughBaseEvent', function(event) {
+          expect(event.type).to.eq('INITIALISE-SUCCESS');
+        });
+        doughBaseComponent._initialisedSuccess(initialised);
+
+      });
     });
 
     describe('failed', function() {

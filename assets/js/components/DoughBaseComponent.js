@@ -10,7 +10,7 @@
  * @module DoughBaseComponent
  * @returns {class} DoughBaseComponent
  */
-define(['utilities'], function(utilities) {
+define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConstants) {
   'use strict';
 
   var DoughBaseComponent,
@@ -155,6 +155,10 @@ define(['utilities'], function(utilities) {
   DoughBaseComponent.prototype._initialisedSuccess = function(initialised) {
     this.$el.attr('data-dough-' + this.componentAttributeName + '-initialised', 'yes');
     this.$el.attr('data-dough-' + this.componentAttributeName + '-index', this.__index);
+    this.$el.trigger(DoughEventConstants.InitialisedSuccess,
+      {
+        'instance': this,
+      });
     initialised && initialised.resolve(this.componentName);
   };
 
