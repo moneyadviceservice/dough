@@ -14,13 +14,14 @@ describe.only('Displays Popup Tooltip', function() {
         fixture.load('PopupTip.html');
 
         self.$popupTip = $(fixture.el).find('[data-dough-component="PopupTip"]');
+        self.obj = new PopupTip(self.$popupTip);
+        self.obj.init();
+        self.offset = self.obj.offset;
         self.$popupTip_shortText = self.$popupTip[0];
         self.$popupTip_longText = self.$popupTip[1];
-        self.obj = new PopupTip(self.$popupTip);
         self.$trigger = self.$popupTip.find('[data-dough-popup-trigger]');
         self.$container = self.$popupTip.find('[data-dough-popup-container]');
         self.$close = self.$popupTip.find('[data-dough-popup-close]');
-        self.obj.init();
 
         done();
       }, done);
@@ -50,8 +51,8 @@ describe.only('Displays Popup Tooltip', function() {
       // Position is dynamically set only on larger viewports
       if (this.obj.atLargeViewport) {
         // Overlay aligns with trigger on LHS and top when icon < 50% viewport width
-        expect(container_1.getBoundingClientRect().left).to.equal(trigger_1.getBoundingClientRect().left);
-        expect(container_1.getBoundingClientRect().top).to.equal(trigger_1.getBoundingClientRect().top);
+        expect(container_1.getBoundingClientRect().left).to.equal(trigger_1.getBoundingClientRect().left + this.offset);
+        expect(container_1.getBoundingClientRect().top).to.equal(trigger_1.getBoundingClientRect().top + this.offset);
       }
 
       // Long text
@@ -60,8 +61,8 @@ describe.only('Displays Popup Tooltip', function() {
       // Position is dynamically set only on larger viewports
       if (this.obj.atLargeViewport) {
         // Overlay aligns with trigger on LHS and top when icon > 50% viewport width
-        expect(container_2.getBoundingClientRect().left).to.equal(trigger_2.getBoundingClientRect().left - container_2.getBoundingClientRect().width);
-        expect(container_2.getBoundingClientRect().top).to.equal(trigger_2.getBoundingClientRect().top);
+        expect(container_2.getBoundingClientRect().left).to.equal(trigger_2.getBoundingClientRect().left - container_2.getBoundingClientRect().width - this.offset);
+        expect(container_2.getBoundingClientRect().top).to.equal(trigger_2.getBoundingClientRect().top + this.offset);
       }
     });
 

@@ -22,6 +22,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries'],
     this.$popupContent = this.$el.find(this.config.selectors.popupContent);
     this.atLargeViewport = mediaQueries.atLargeViewport();
     this.atSmallViewport = mediaQueries.atSmallViewport();
+    this.offset = 35;
 
     return this;
   };
@@ -40,13 +41,14 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries'],
     this.$popup
       .removeClass(this.config.selectors.inactiveClass)
       .addClass(this.config.selectors.activeClass)
+      .css('top', e.target.offsetTop + this.offset);
     this.$popupContent.attr('tabindex', -1).focus();
 
     // is icon less or more than 50% across page width
     if ($(e.target).position().left - ($(e.target).width() / 2) < ($(window).width() / 2)) {
-      this.$popup.css('left', e.target.offsetLeft);
+      this.$popup.css('left', e.target.offsetLeft + this.offset);
     } else {
-      this.$popup.css('left', e.target.offsetLeft - this.$popup.width());
+      this.$popup.css('left', e.target.offsetLeft - this.$popup.width() - this.offset);
     }
   };
 
