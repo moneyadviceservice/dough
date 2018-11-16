@@ -40,15 +40,18 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries'],
   PopupTip.prototype.showPopupTip = function(e) {
     this.$popup
       .removeClass(this.config.selectors.inactiveClass)
-      .addClass(this.config.selectors.activeClass)
-      .css('top', e.target.offsetTop + this.offset);
+      .addClass(this.config.selectors.activeClass);
     this.$popupContent.attr('tabindex', -1).focus();
 
-    // is icon less or more than 50% across page width
-    if ($(e.target).position().left - ($(e.target).width() / 2) < ($(window).width() / 2)) {
-      this.$popup.css('left', e.target.offsetLeft + this.offset);
-    } else {
-      this.$popup.css('left', e.target.offsetLeft - this.$popup.width() - this.offset);
+    if (!this.atSmallViewport) {
+      this.$popup.css('top', e.target.offsetTop + this.offset);
+
+      // is icon less or more than 50% across page width
+      if ($(e.target).position().left - ($(e.target).width() / 2) < ($(window).width() / 2)) {
+        this.$popup.css('left', e.target.offsetLeft + this.offset);
+      } else {
+        this.$popup.css('left', e.target.offsetLeft - this.$popup.width() - this.offset);
+      }
     }
   };
 
