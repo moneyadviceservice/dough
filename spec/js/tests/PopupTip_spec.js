@@ -1,4 +1,4 @@
-describe.only('Displays Popup Tooltip', function() {
+describe('Displays Popup Tooltip', function() {
   'use strict';
 
   var activeClass   = 'is-active',
