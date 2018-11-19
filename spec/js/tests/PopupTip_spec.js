@@ -17,11 +17,12 @@ describe('Displays Popup Tooltip', function() {
         self.obj = new PopupTip(self.$popupTip);
         self.obj.init();
         self.offset = self.obj.offset;
-        self.$popupTip_shortText = self.$popupTip[0];
-        self.$popupTip_longText = self.$popupTip[1];
-        self.$trigger = self.$popupTip.find('[data-dough-popup-trigger]');
         self.$container = self.$popupTip.find('[data-dough-popup-container]');
         self.$close = self.$popupTip.find('[data-dough-popup-close]');
+        self.$trigger_1 = document.getElementById('trigger_1');
+        self.$container_1 = document.getElementById('container_1');
+        self.$trigger_2 = document.getElementById('trigger_2');
+        self.$container_2 = document.getElementById('container_2');
 
         done();
       }, done);
@@ -35,34 +36,34 @@ describe('Displays Popup Tooltip', function() {
     it('hides the popup content on load', function() {
       expect(this.$container).to.not.have.class(activeClass);
     });
+  });
 
-    it('displays the popup in the correct position on trigger click', function() {
-      this.$trigger.click();
+  describe('Dynamic behaviour', function() {
+    it('displays the popup on trigger click', function() {
+      this.$trigger_1.click();
       expect(this.$container).to.have.class(activeClass);
+    });
 
-      var trigger_1 = document.getElementById('trigger_1');
-      var container_1 = document.getElementById('container_1');
-      var trigger_2 = document.getElementById('trigger_2');
-      var container_2 = document.getElementById('container_2');
-
-      // Short text
-      $(trigger_1).click();
+    it('aligns the popup with trigger on LHS and top when icon position < 50% viewport width', function() {
+      this.$trigger_1.click();
 
       // Position is dynamically set only on larger viewports
       if (this.obj.atLargeViewport) {
-        // Overlay aligns with trigger on LHS and top when icon < 50% viewport width
-        expect(container_1.getBoundingClientRect().left).to.equal(trigger_1.getBoundingClientRect().left + this.offset);
-        expect(container_1.getBoundingClientRect().top).to.equal(trigger_1.getBoundingClientRect().top + this.offset);
+        expect(this.$container_1.getBoundingClientRect().left).to.equal(this.$trigger_1.getBoundingClientRect().left + this.offset);
+        expect(this.$container_1.getBoundingClientRect().top).to.equal(this.$trigger_1.getBoundingClientRect().top + this.offset);
       }
+    });
 
-      // Long text
+    it('aligns the popup with trigger on RHS and top when icon position > 50% viewport width', function() {
+      var trigger_2 = document.getElementById('trigger_2');
+      var container_2 = document.getElementById('container_2');
+
       $(trigger_2).click();
 
       // Position is dynamically set only on larger viewports
       if (this.obj.atLargeViewport) {
-        // Overlay aligns with trigger on LHS and top when icon > 50% viewport width
-        expect(container_2.getBoundingClientRect().left).to.equal(trigger_2.getBoundingClientRect().left - container_2.getBoundingClientRect().width - this.offset);
-        expect(container_2.getBoundingClientRect().top).to.equal(trigger_2.getBoundingClientRect().top + this.offset);
+        expect(this.$container_2.getBoundingClientRect().left).to.equal(this.$trigger_2.getBoundingClientRect().left - this.$container_2.getBoundingClientRect().width - this.offset);
+        expect(this.$container_2.getBoundingClientRect().top).to.equal(this.$trigger_2.getBoundingClientRect().top + this.offset);
       }
     });
 
