@@ -199,7 +199,7 @@ define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConst
     }
   };
 
-  DoughBaseComponent.prototype._getNextDoughComponentID = function () {
+  DoughBaseComponent.prototype._getNextDoughComponentID = function() {
     return (++indexCounter).toString();
   };
 
