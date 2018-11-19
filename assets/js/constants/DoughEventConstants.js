@@ -1,5 +1,5 @@
 define([],
-function () {
+function() {
   'use strict';
   var DoughEventConstants = {};
 
