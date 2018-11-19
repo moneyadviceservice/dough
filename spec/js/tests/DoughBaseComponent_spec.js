@@ -110,13 +110,13 @@ describe('DoughBaseComponent', function() {
       });
 
       it('should trigger a successful event upon initialisation', function() {
-        var doughBaseComponent = new this.DoughBaseComponent(this.component);
+        var doughBaseComponent = new this.DoughBaseComponent(this.component),
+            spy = sandbox.spy();
 
-        doughBaseComponent.$el.on('INITIALISE-SUCCESS.DoughBaseEvent', function(event) {
-          expect(event.type).to.eq('INITIALISE-SUCCESS');
-        });
+        doughBaseComponent.$el.on('INITIALISE-SUCCESS.DoughBaseEvent', spy);
         doughBaseComponent._initialisedSuccess(initialised);
 
+        expect(spy.called).to.be.true;
       });
     });
 
@@ -131,12 +131,13 @@ describe('DoughBaseComponent', function() {
       });
 
       it('should trigger a failed event', function() {
-        var doughBaseComponent = new this.DoughBaseComponent(this.component);
+        var doughBaseComponent = new this.DoughBaseComponent(this.component),
+            spy = sandbox.spy();
 
-        doughBaseComponent.$el.on('INITIALISE-FAILURE.DoughBaseEvent', function(event) {
-          expect(event.type).to.eq('INITIALISE-FAILURE');
-        });
+        doughBaseComponent.$el.on('INITIALISE-FAILURE.DoughBaseEvent', spy);
         doughBaseComponent._initialisedFailure(initialised);
+
+        expect(spy.called).to.be.true;
 
       });
     });

@@ -157,7 +157,7 @@ define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConst
     this.$el.attr('data-dough-' + this.componentAttributeName + '-index', this.__index);
     this.$el.trigger(DoughEventConstants.InitialisedSuccess,
       {
-        'instance': this,
+        'instance': this
       });
     initialised && initialised.resolve(this.componentName);
   };
@@ -169,7 +169,7 @@ define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConst
   DoughBaseComponent.prototype._initialisedFailure = function(initialised) {
     this.$el.trigger(DoughEventConstants.InitialisedFailure,
       {
-        'instance': this,
+        'instance': this
       });
     initialised && initialised.reject(this.componentName);
   };
