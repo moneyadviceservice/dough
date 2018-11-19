@@ -25,12 +25,25 @@
     </div>
   </div>
 
+  <div id="PopupTip_mobile" data-dough-component="PopupTip">
+    <p><span>Some text whose length is irrelevant</span><button data-dough-popup-trigger type="button" id="trigger_3"></button></p>
+    <div data-dough-popup-container id="container_3">
+      <p data-dough-popup-content>Content</p>
+      <button data-dough-popup-close type="button">
+        <span aria-hidden="true">X</span>
+        <span class="visually-hidden">
+          Close
+        </span>
+      </button>
+    </div>
+  </div>
+
   <style>
-      #PopupTip_shortText, #PopupTip_longText {
+      #PopupTip_shortText, #PopupTip_longText, #PopupTip_mobile {
         position: relative;
       }
 
-      #trigger_1, #trigger_2 {
+      #trigger_1, #trigger_2, #trigger_3 {
         width: 25px;
         height: 25px;
       }
@@ -48,6 +61,11 @@
       }
 
       #container_1, #container_2, #container_3 {
+        position: absolute;
+        width: 100%;
+      }
+
+      #container_1, #container_2 {
         position: absolute;
       }
 

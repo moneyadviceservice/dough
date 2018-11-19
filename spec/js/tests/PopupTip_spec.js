@@ -19,10 +19,13 @@ describe('Displays Popup Tooltip', function() {
         self.offset = self.obj.offset;
         self.$container = self.$popupTip.find('[data-dough-popup-container]');
         self.$close = self.$popupTip.find('[data-dough-popup-close]');
-        self.$trigger_1 = document.getElementById('trigger_1');
-        self.$container_1 = document.getElementById('container_1');
-        self.$trigger_2 = document.getElementById('trigger_2');
-        self.$container_2 = document.getElementById('container_2');
+        self.$trigger_1 = $(document).find('#trigger_1');
+        self.$container_1 = $(document).find('#container_1');
+        self.$trigger_2 = $(document).find('#trigger_2');
+        self.$container_2 = $(document).find('#container_2');
+        self.$trigger_3 = $(document).find('#trigger_3');
+        self.$container_3 = $(document).find('#container_3');
+        self.$component_mobile = $(document).find('#PopupTip_mobile');
 
         done();
       }, done);
@@ -44,26 +47,30 @@ describe('Displays Popup Tooltip', function() {
       expect(this.$container).to.have.class(activeClass);
     });
 
-    it('aligns the popup with trigger on LHS and top when icon position < 50% viewport width', function() {
+    it('aligns the popup with trigger on LHS/top when icon position < 50% viewport width on desktop', function() {
       this.$trigger_1.click();
 
-      // Position is dynamically set only on larger viewports
       if (this.obj.atLargeViewport) {
-        expect(this.$container_1.getBoundingClientRect().left).to.equal(this.$trigger_1.getBoundingClientRect().left + this.offset);
-        expect(this.$container_1.getBoundingClientRect().top).to.equal(this.$trigger_1.getBoundingClientRect().top + this.offset);
+        expect(this.$container_1[0].getBoundingClientRect().left).to.equal(this.$trigger_1[0].getBoundingClientRect().left + this.offset);
+        expect(this.$container_1[0].getBoundingClientRect().top).to.equal(this.$trigger_1[0].getBoundingClientRect().top + this.offset);
       }
     });
 
-    it('aligns the popup with trigger on RHS and top when icon position > 50% viewport width', function() {
-      var trigger_2 = document.getElementById('trigger_2');
-      var container_2 = document.getElementById('container_2');
+    it('aligns the popup with trigger on RHS/top when icon position > 50% viewport width on desktop', function() {
+      this.$trigger_2.click();
 
-      $(trigger_2).click();
-
-      // Position is dynamically set only on larger viewports
       if (this.obj.atLargeViewport) {
-        expect(this.$container_2.getBoundingClientRect().left).to.equal(this.$trigger_2.getBoundingClientRect().left - this.$container_2.getBoundingClientRect().width - this.offset);
-        expect(this.$container_2.getBoundingClientRect().top).to.equal(this.$trigger_2.getBoundingClientRect().top + this.offset);
+        expect(this.$container_2[0].getBoundingClientRect().left).to.equal(this.$trigger_2[0].getBoundingClientRect().left - this.$container_2[0].getBoundingClientRect().width - this.offset);
+        expect(this.$container_2[0].getBoundingClientRect().top).to.equal(this.$trigger_2[0].getBoundingClientRect().top + this.offset);
+      }
+    });
+
+    it('displays the popup full width on mobile', function() {
+      this.$trigger_3.click();
+
+      if (!this.obj.atLargeViewport) {
+        expect(this.$container_3[0].getBoundingClientRect().left).to.equal(this.$component_mobile[0].getBoundingClientRect().left);
+        expect(this.$container_3[0].getBoundingClientRect().width).to.equal(this.$component_mobile[0].getBoundingClientRect().width);
       }
     });
 
