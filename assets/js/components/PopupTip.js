@@ -43,17 +43,27 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries'],
       .addClass(this.config.selectors.activeClass);
     this.$popupContent.attr('tabindex', -1).focus();
 
+    this._positionPopup(this.$popup, e.target);
+  };
+
+  PopupTip.prototype._resize = function() {
+    if (this.$el.find('.is-active').length > 0) {
+      this._positionPopup(this.$el.find('.is-active'));
+    }
+  }
+
+  PopupTip.prototype._positionPopup = function($index, trigger) {
     if (!this.atSmallViewport) {
-      this.$popup.css('top', e.target.offsetTop + this.offset);
+      $index.css('top', trigger.offsetTop + this.offset);
 
       // is icon less or more than 50% across page width
-      if ($(e.target).position().left - ($(e.target).width() / 2) < ($(window).width() / 2)) {
-        this.$popup.css('left', e.target.offsetLeft + this.offset);
+      if ($(trigger).position().left - ($(trigger).width() / 2) < ($(window).width() / 2)) {
+        $index.css('left', trigger.offsetLeft + this.offset);
       } else {
-        this.$popup.css('left', e.target.offsetLeft - this.$popup.width() - this.offset);
+        $index.css('left', trigger.offsetLeft - $index.width() - this.offset);
       }
     }
-  };
+  }
 
   PopupTip.prototype.hidePopupTip = function() {
     this.$popup.addClass(this.config.selectors.inactiveClass);
