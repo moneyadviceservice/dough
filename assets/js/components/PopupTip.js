@@ -1,5 +1,5 @@
-define(['jquery', 'DoughBaseComponent', 'mediaQueries'],
-  function($, DoughBaseComponent, mediaQueries) {
+define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
+  function($, DoughBaseComponent, mediaQueries, utilities) {
   'use strict';
 
   var defaultConfig = {
@@ -21,6 +21,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries'],
     this.$popup   = this.$el.find(this.config.selectors.popupContainer);
     this.$popupContent = this.$el.find(this.config.selectors.popupContent);
     this.offset = 35;
+    this.debounceWait = 100;
 
     return this;
   };
@@ -30,10 +31,11 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries'],
 
   PopupTip.prototype._addEvents = function() {
     var $closeBtn = this.$el.find(this.config.selectors.popupClose);
+    var resizeProxy = $.proxy(this._resize, this);
 
     this.$trigger.click($.proxy(this._showPopupTip, this));
     $closeBtn.click($.proxy(this._hidePopupTip, this));
-    $(window).resize($.proxy(this._resize, this));
+    $(window).on('resize', utilities.debounce(resizeProxy, this.debounceWait));
   };
 
   PopupTip.prototype._showPopupTip = function(e) {

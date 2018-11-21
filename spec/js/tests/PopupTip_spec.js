@@ -13,6 +13,7 @@ describe('Displays Popup Tooltip', function() {
       ['jquery', 'PopupTip'], function($, PopupTip) {
         fixture.load('PopupTip.html');
 
+        self.clock = sinon.useFakeTimers();
         self.$popupTip = $(fixture.el).find('[data-dough-component="PopupTip"]');
         self.obj = new PopupTip(self.$popupTip);
         self.obj.init();
@@ -33,6 +34,7 @@ describe('Displays Popup Tooltip', function() {
 
   afterEach(function() {
     fixture.cleanup();
+    this.clock.restore();
   });
 
   describe('Default behaviour', function() {
@@ -41,7 +43,7 @@ describe('Displays Popup Tooltip', function() {
     });
   });
 
-  describe.only('Dynamic behaviour', function() {
+  describe('Dynamic behaviour', function() {
     beforeEach(function() {
       this.$container
         .removeClass(activeClass)
@@ -87,6 +89,8 @@ describe('Displays Popup Tooltip', function() {
 
       $(window).resize();
 
+      this.clock.tick(this.obj.debounceWait);
+
       if (!this.obj.atSmallViewport()) {
         expect(this.$container_1[0].getBoundingClientRect().left).to.equal(this.$trigger_1[0].getBoundingClientRect().left + this.offset);
         expect(this.$container_1[0].getBoundingClientRect().top).to.equal(this.$trigger_1[0].getBoundingClientRect().top + this.offset);
@@ -100,6 +104,8 @@ describe('Displays Popup Tooltip', function() {
 
       $(window).resize();
 
+      this.clock.tick(this.obj.debounceWait);
+
       if (!this.obj.atSmallViewport()) {
         expect(this.$container_2[0].getBoundingClientRect().left).to.equal(this.$trigger_2[0].getBoundingClientRect().left - this.$container_2[0].getBoundingClientRect().width - this.offset);
         expect(this.$container_2[0].getBoundingClientRect().top).to.equal(this.$trigger_2[0].getBoundingClientRect().top + this.offset);
@@ -112,6 +118,8 @@ describe('Displays Popup Tooltip', function() {
         .addClass(activeClass);
 
       $(window).resize();
+
+      this.clock.tick(this.obj.debounceWait);
 
       if (this.obj.atSmallViewport()) {
         expect(this.$container_3[0].getBoundingClientRect().left).to.equal(this.$component_mobile[0].getBoundingClientRect().left);
