@@ -56,34 +56,47 @@ describe('Displays Popup Tooltip', function() {
     });
 
     it('aligns the popup with trigger on LHS/top when icon position < 50% viewport width on desktop', function() {
-      this.$trigger_1.click();
+      var trigger = this.$trigger_1[0];
+      var container = this.$container_1[0];
+
+      trigger.click();
 
       if (!this.obj.atSmallViewport()) {
-        expect(this.$container_1[0].getBoundingClientRect().left).to.equal(this.$trigger_1[0].getBoundingClientRect().left + this.offset);
-        expect(this.$container_1[0].getBoundingClientRect().top).to.equal(this.$trigger_1[0].getBoundingClientRect().top + this.offset);
+        expect(container.getBoundingClientRect().left).to.equal(trigger.getBoundingClientRect().left + this.offset);
+        expect(container.getBoundingClientRect().top).to.equal(trigger.getBoundingClientRect().top + this.offset);
       }
     });
 
     it('aligns the popup with trigger on RHS/top when icon position > 50% viewport width on desktop', function() {
-      this.$trigger_2.click();
+      var trigger = this.$trigger_2[0];
+      var container = this.$container_2[0];
+
+      trigger.click();
 
       if (!this.obj.atSmallViewport()) {
-        expect(this.$container_2[0].getBoundingClientRect().left).to.equal(this.$trigger_2[0].getBoundingClientRect().left - this.$container_2[0].getBoundingClientRect().width - this.offset);
-        expect(this.$container_2[0].getBoundingClientRect().top).to.equal(this.$trigger_2[0].getBoundingClientRect().top + this.offset);
+        expect(container.getBoundingClientRect().left).to.equal(trigger.getBoundingClientRect().left - container.getBoundingClientRect().width - this.offset);
+        expect(container.getBoundingClientRect().top).to.equal(trigger.getBoundingClientRect().top + this.offset);
       }
     });
 
     it('displays the popup full width on mobile', function() {
-      this.$trigger_3.click();
+      var trigger = this.$trigger_3[0];
+      var container = this.$container_3[0];
+      var component = this.$component_mobile[0];
+
+      trigger.click();
 
       if (this.obj.atSmallViewport()) {
-        expect(this.$container_3[0].getBoundingClientRect().left).to.equal(this.$component_mobile[0].getBoundingClientRect().left);
-        expect(this.$container_3[0].getBoundingClientRect().width).to.equal(this.$component_mobile[0].getBoundingClientRect().width);
+        expect(container.getBoundingClientRect().left).to.equal(component.getBoundingClientRect().left);
+        expect(container.getBoundingClientRect().width).to.equal(component.getBoundingClientRect().width);
       }
     });
 
     it('sets the correct position of an open popup when the viewport resizes when icon position < 50% viewport width on desktop', function() {
-      this.$container_1
+      var trigger = this.$trigger_1[0];
+      var container = this.$container_1[0];
+
+      $(container)
         .removeClass(inactiveClass)
         .addClass(activeClass);
 
@@ -92,13 +105,16 @@ describe('Displays Popup Tooltip', function() {
       this.clock.tick(this.obj.debounceWait);
 
       if (!this.obj.atSmallViewport()) {
-        expect(this.$container_1[0].getBoundingClientRect().left).to.equal(this.$trigger_1[0].getBoundingClientRect().left + this.offset);
-        expect(this.$container_1[0].getBoundingClientRect().top).to.equal(this.$trigger_1[0].getBoundingClientRect().top + this.offset);
+        expect(container.getBoundingClientRect().left).to.equal(trigger.getBoundingClientRect().left + this.offset);
+        expect(container.getBoundingClientRect().top).to.equal(trigger.getBoundingClientRect().top + this.offset);
       }
     });
 
     it('sets the correct position of an open popup when the viewport resizes when icon position > 50% viewport width on desktop', function() {
-      this.$container_2
+      var trigger = this.$trigger_2[0];
+      var container = this.$container_2[0];
+
+      $(container)
         .removeClass(inactiveClass)
         .addClass(activeClass);
 
@@ -107,13 +123,16 @@ describe('Displays Popup Tooltip', function() {
       this.clock.tick(this.obj.debounceWait);
 
       if (!this.obj.atSmallViewport()) {
-        expect(this.$container_2[0].getBoundingClientRect().left).to.equal(this.$trigger_2[0].getBoundingClientRect().left - this.$container_2[0].getBoundingClientRect().width - this.offset);
-        expect(this.$container_2[0].getBoundingClientRect().top).to.equal(this.$trigger_2[0].getBoundingClientRect().top + this.offset);
+        expect(container.getBoundingClientRect().left).to.equal(trigger.getBoundingClientRect().left - container.getBoundingClientRect().width - this.offset);
+        expect(container.getBoundingClientRect().top).to.equal(trigger.getBoundingClientRect().top + this.offset);
       }
     });
 
     it('sets the correct position of an open popup when the viewport resizes on mobile', function() {
-      this.$container_3
+      var container = this.$container_3[0];
+      var component = this.$component_mobile[0];
+
+      $(container)
         .removeClass(inactiveClass)
         .addClass(activeClass);
 
@@ -122,8 +141,8 @@ describe('Displays Popup Tooltip', function() {
       this.clock.tick(this.obj.debounceWait);
 
       if (this.obj.atSmallViewport()) {
-        expect(this.$container_3[0].getBoundingClientRect().left).to.equal(this.$component_mobile[0].getBoundingClientRect().left);
-        expect(this.$container_3[0].getBoundingClientRect().width).to.equal(this.$component_mobile[0].getBoundingClientRect().width);
+        expect(container.getBoundingClientRect().left).to.equal(component.getBoundingClientRect().left);
+        expect(container.getBoundingClientRect().width).to.equal(component.getBoundingClientRect().width);
       }
     });
 
