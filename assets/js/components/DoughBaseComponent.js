@@ -34,7 +34,7 @@ define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConst
     this.config = $.extend({}, defaultConfig || {}, config || {});
     this.setElement($el);
     this._setComponentName(this.constructor.componentName);
-    this.__index = this._getNextDoughComponentID();
+    this.__id = this._getNextDoughComponentID();
 
     /*
      Populate this array with the data attributes this module will use.
@@ -154,7 +154,7 @@ define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConst
    */
   DoughBaseComponent.prototype._initialisedSuccess = function(initialised) {
     this.$el.attr('data-dough-' + this.componentAttributeName + '-initialised', 'yes');
-    this.$el.attr('data-dough-' + this.componentAttributeName + '-index', this.__index);
+    this.$el.attr('data-dough-' + this.componentAttributeName + '-id', this.__id);
     this.$el.trigger(DoughEventConstants.InitialisedSuccess,
       {
         'instance': this

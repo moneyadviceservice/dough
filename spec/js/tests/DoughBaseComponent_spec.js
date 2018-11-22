@@ -71,7 +71,7 @@ describe('DoughBaseComponent', function() {
     it('should create a unique id for each component', function() {
       var doughBaseComponent = new this.DoughBaseComponent(this.component);
 
-      expect(doughBaseComponent.__index).to.match(/[0-9]+/);
+      expect(doughBaseComponent.__id).to.match(/[0-9]+/);
     });
   });
 
