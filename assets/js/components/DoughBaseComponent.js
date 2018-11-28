@@ -153,6 +153,7 @@ define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConst
    * promise will be fed back to the component loader
    */
   DoughBaseComponent.prototype._initialisedSuccess = function(initialised) {
+    this.initialised = true;
     this.$el.attr('data-dough-' + this.componentAttributeName + '-initialised', 'yes');
     this.$el.attr('data-dough-' + this.componentAttributeName + '-id', this.__id);
     this.$el.trigger(DoughEventConstants.InitialisedSuccess,

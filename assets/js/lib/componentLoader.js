@@ -183,7 +183,7 @@ define(['jquery', 'rsvp', 'utilities'], function($, RSVP, utilities) {
       $.each(components, function(componentName, list) {
         $.each(list, function(idx, instance) {
           try {
-            instance.init && instance.init(initialisedList[i]);
+            instance.init && !instance.initialised && instance.init(initialisedList[i]);
           } catch (err) {
             initialisedList[i].reject(err);
           }
