@@ -9,9 +9,10 @@ describe('componentLoader', function() {
         range: true
       }
     };
-    requirejs(['componentLoader', 'utilities'], function(componentLoader, utilities) {
+    requirejs(['componentLoader', 'utilities', 'DoughEventConstants'], function(componentLoader, utilities, DoughEventConstants) {
       self.componentLoader = componentLoader;
       self.utilities = utilities;
+      self.doughEventConstants = DoughEventConstants;
       done();
     });
   });
@@ -80,6 +81,17 @@ describe('componentLoader', function() {
 
     it('should set a flag to indicate all components have been initialised', function() {
       expect($('body').is('[data-dough-component-loader-all-loaded="yes"]')).to.equal(true);
+    });
+
+    it('should fire a COMPONENTS_COMPLETE.DoughBaseEvent when all components have been initialised', function() {
+      var spy = sinon.spy();
+
+      this.$html.on('COMPONENTS_COMPLETE.DoughBaseEvent', spy);
+
+      this.componentLoader.init(this.$html, true).then(function() {
+        expect(spy.called).to.be.true;
+        done();
+      });
     });
 
     it('should keep track of all initialized components', function() {
