@@ -5,6 +5,7 @@ set -e
 if [ -f /.dockerenv ]; then
     source ~/.bashrc
     rvm use default
+    bundle config github.com $GITHUB_USER:$GITHUB_PASS
 fi
 
 export RAILS_ENV=production
@@ -24,8 +25,8 @@ function run {
 # (re)install node packages to local dir before tests run
 
 run npm install
-run bundle install
-run gem build dough-ruby.gemspec
+run bundle install --quiet
+run gem build *.gemspec
 run gem inabox *.gem -g http://gems.dev.mas.local
 
 exit "$exit_code"

@@ -5,6 +5,7 @@ set -e
 if [ -f /.dockerenv ]; then
     source ~/.bashrc
     rvm use default
+    bundle config github.com $GITHUB_USER:$GITHUB_PASS
 fi
 
 export RAILS_ENV=test
@@ -15,6 +16,7 @@ exit_code=0
 
 function run {
     declare -a tests_command=("$@")
+
     echo ''
     echo "=== Running \`${tests_command[*]}\`"
     if ! ${tests_command[*]}; then
@@ -32,14 +34,18 @@ function info {
     fi
 }
 
-# (re)install node packages to local dir before tests run
 run npm install
-run bundle install
+run bundle install --quiet
+run bundle update brakeman --quiet
 run bower install --allow-root
 run bundle exec rspec
 run sass assets/stylesheets/_templates/karma_tests.scss spec/js/fixtures/stylesheets/lib.css
 run npm test
 run jscs assets/js
 info brakeman -q --no-pager --ensure-latest
+
+if [ -f /.dockerenv ]; then
+  run bundle exec danger --dangerfile=jenkins/Dangerfile --verbose
+fi
 
 exit "$exit_code"
