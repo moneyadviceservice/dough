@@ -6,6 +6,7 @@ gemspec
 group :development, :test do
   gem 'brakeman', require: false
   gem 'mas-development_dependencies', github: 'moneyadviceservice/mas-development_dependencies', ref: 'de00ee4'
+  gem 'nokogiri', '1.8.5'
   gem 'pry'
   gem 'rspec-rails'
   gem 'capybara', '2.4.1'
