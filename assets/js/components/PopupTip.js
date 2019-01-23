@@ -3,16 +3,16 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
   'use strict';
 
   var defaultConfig = {
-        selectors: {
-          trigger:        '[data-dough-popup-trigger]',
-          popupContainer: '[data-dough-popup-container]',
-          popupContent:   '[data-dough-popup-content]',
-          popupClose:     '[data-dough-popup-close]',
-          activeClass:    'is-active',
-          inactiveClass:  'is-inactive',
-        }
-      },
-      PopupTip;
+    selectors: {
+      trigger:        '[data-dough-popup-trigger]',
+      popupContainer: '[data-dough-popup-container]',
+      popupContent:   '[data-dough-popup-content]',
+      popupClose:     '[data-dough-popup-close]',
+      activeClass:    'is-active',
+      inactiveClass:  'is-inactive',
+    }
+  },
+  PopupTip;
 
   PopupTip = function($el, config) {
     PopupTip.baseConstructor.call(this, $el, config, defaultConfig);
@@ -20,7 +20,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     this.$trigger = this.$el.find(this.config.selectors.trigger);
     this.$popup   = this.$el.find(this.config.selectors.popupContainer);
     this.$popupContent = this.$el.find(this.config.selectors.popupContent);
-    this.$component = this.$el;
+    this.$container = this.$el.parent();
     this.offset = 35;
     this.debounceWait = 100;
 
@@ -56,12 +56,12 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
   };
 
   PopupTip.prototype._positionPopup = function($index, trigger) {
-    var componentPos = this.$component[0].getBoundingClientRect();
+    var componentPos = this.$container[0].getBoundingClientRect();
     var triggerPos = trigger.getBoundingClientRect();
     var indexPos = $index[0].getBoundingClientRect();
 
-    this.$component.css('position', 'relative');
-    $index.css('width', this.$component.width());
+    this.$container.css('position', 'relative');
+    $index.css('width', this.$container.width());
 
     if (this.atSmallViewport()) {
       // mobile view
