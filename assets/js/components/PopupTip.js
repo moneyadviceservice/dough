@@ -20,6 +20,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     this.$trigger = this.$el.find(this.config.selectors.trigger);
     this.$popup   = this.$el.find(this.config.selectors.popupContainer);
     this.$popupContent = this.$el.find(this.config.selectors.popupContent);
+    this.$container = this.$el.parent();
     this.offset = 35;
     this.debounceWait = 100;
 
@@ -57,10 +58,12 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
   };
 
   PopupTip.prototype._positionPopup = function($index, $trigger) {
+    this.$container.css('position', 'relative');
+    $index.css('width', this.$container.width());
+
     if (this.atSmallViewport()) {
       $index.css('top', $trigger.position().top + this.offset);
       $index.css('left', 0);
-      $index.css('width', '100%');
     } else {
       $index.css('top', $trigger.position().top + this.offset);
 
