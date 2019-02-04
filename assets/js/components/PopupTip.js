@@ -43,7 +43,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     this.$popup
       .removeClass(this.config.selectors.inactiveClass)
       .addClass(this.config.selectors.activeClass);
-    this.$popupContent.attr('tabindex', -1).focus();
+    this.$popupContent.focus();
 
     this._positionPopup(this.$popup, $(e.target));
   };
