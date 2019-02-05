@@ -16,3 +16,4 @@ bower.json
 docs/js
 .publish/
 .sass-cache/
+.rubocop-*
