@@ -1,4 +1,4 @@
-FROM masdevtestregistry.azurecr.io/jenkins/ruby2.2.5:latest
+FROM masdevtestregistry.azurecr.io/jenkins/ruby2.5.3:latest
 MAINTAINER development.team@moneyadviceservice.org.uk
 
 RUN apt-get -qq update > /dev/null && \

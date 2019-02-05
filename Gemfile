@@ -3,6 +3,8 @@ source 'http://gems.dev.mas.local' if ENV['MAS_BUILD']
 
 gemspec
 
+ruby '2.5.3'
+
 group :development, :test do
   gem 'brakeman', require: false
   gem 'capybara', '2.4.1'
