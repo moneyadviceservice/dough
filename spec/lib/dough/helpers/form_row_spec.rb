@@ -5,7 +5,7 @@ describe Dough::Helpers::FormRow do
     subject { described_class.new(object: :a, options: { object: :b }) }
 
     it 'can be overriden' do
-      expect(subject.object).to eql(:b)
+      expect(subject.object).to be(:b)
     end
   end
 end
@@ -59,7 +59,7 @@ describe ActionView::Helpers::FormBuilder, type: :controller do
     end
   end
 
-  before :each do
+  before do
     @routes.draw do
       get '/anonymous/index'
       get '/anonymous/index_with_class'

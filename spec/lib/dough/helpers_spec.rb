@@ -19,8 +19,9 @@ describe Dough::Helpers do
     end
   end
 
-  let(:renderer) { double(:Renderer, render: render) }
   subject(:helper) { Foo.new(helper_name: :inset_block, renderer: renderer, text: 'foo') }
+
+  let(:renderer) { double(:Renderer, render: render) }
 
   describe '#heading_tag' do
     let(:render) { double(:render, render: '', empty?: false) }

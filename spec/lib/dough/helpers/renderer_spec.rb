@@ -67,7 +67,7 @@ describe Dough::Helpers::Renderer, type: :controller do
     end
 
     describe '#inset_block' do
-      before :each do
+      before do
         get :index
       end
 
@@ -127,7 +127,7 @@ describe Dough::Helpers::Renderer, type: :controller do
         end
       end
 
-      before :each do
+      before do
         get :index
       end
 
@@ -157,8 +157,7 @@ describe Dough::Helpers::Renderer, type: :controller do
                     end
                   end
                 end
-              %>"
-              )
+              %>")
       end
     end
 
@@ -172,9 +171,9 @@ describe Dough::Helpers::Renderer, type: :controller do
       get :index
 
       expect(response.body)
-      .to include('div data-dough-tab-selector-triggers-outer class="tab-selector__triggers-outer"')
+        .to include('div data-dough-tab-selector-triggers-outer class="tab-selector__triggers-outer"')
       expect(response.body)
-      .to include('div data-dough-tab-selector-triggers-inner class="tab-selector__triggers-inner"')
+        .to include('div data-dough-tab-selector-triggers-inner class="tab-selector__triggers-inner"')
     end
 
     it 'sets up the expected amount of tabs' do
@@ -193,7 +192,7 @@ describe Dough::Helpers::Renderer, type: :controller do
       end
     end
 
-    before :each do
+    before do
       get :index
     end
 
