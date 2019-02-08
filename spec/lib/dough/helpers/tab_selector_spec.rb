@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Dough::Helpers::TabSelector do
   context 'a basic tab structure' do
     subject(:tab_selector) do
-      Dough::Helpers::TabSelector.selector 'section_id' do |tab|
+      described_class.selector 'section_id' do |tab|
         tab.section do |container|
           container.heading 'Some title'
           container.content do
@@ -33,7 +33,7 @@ describe Dough::Helpers::TabSelector do
 
   context 'multiple tabs' do
     subject(:tab_selector) do
-      Dough::Helpers::TabSelector.selector 'section_id' do |tab|
+      described_class.selector 'section_id' do |tab|
         tab.section do |container|
           container.heading 'Some title'
           container.content do

@@ -2,15 +2,15 @@ require 'spec_helper'
 
 RSpec.describe Dough::Forms::ObjectError do
   describe '#full_message' do
-    subject(:object_error) do
+    subject(:full_message) do
+      object_error.full_message
+    end
+
+    let(:object_error) do
       described_class.new(
         field_name: :age,
         message: 'is invalid'
       )
-    end
-
-    subject(:full_message) do
-      object_error.full_message
     end
 
     context 'when show error WITHOUT field name' do

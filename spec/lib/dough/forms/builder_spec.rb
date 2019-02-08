@@ -10,6 +10,7 @@ RSpec.describe Dough::Forms::Builder do
   end
 
   subject(:builder) { described_class.new(:model, model, {}, {}) }
+
   let(:valid_model) do
     CustomModel.new.tap do |object|
       object.name = 'My real name'
@@ -28,6 +29,7 @@ RSpec.describe Dough::Forms::Builder do
 
   describe '#object_error_class' do
     subject(:object_error_class) { builder.object_error_class }
+
     let(:model) { valid_model }
 
     it 'returns an ObjectError class' do
@@ -125,10 +127,10 @@ RSpec.describe Dough::Forms::Builder do
 
       it 'returns object errors with a counter' do
         expect(builder.object_errors).to eq([
-          ::Dough::Forms::ObjectError.new(object: model, field_name: :name, message: "can't be blank", counter: 1),
-          ::Dough::Forms::ObjectError.new(object: model, field_name: :age, message: "can't be blank", counter: 2),
-          ::Dough::Forms::ObjectError.new(object: model, field_name: :age, message: "is not a number", counter: 3),
-        ])
+                                              ::Dough::Forms::ObjectError.new(object: model, field_name: :name, message: "can't be blank", counter: 1),
+                                              ::Dough::Forms::ObjectError.new(object: model, field_name: :age, message: "can't be blank", counter: 2),
+                                              ::Dough::Forms::ObjectError.new(object: model, field_name: :age, message: 'is not a number', counter: 3)
+                                            ])
       end
     end
   end

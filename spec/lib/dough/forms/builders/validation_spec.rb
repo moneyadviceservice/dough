@@ -7,6 +7,8 @@ describe Dough::Forms::Builders::Validation do
     attr_accessor :field_one, :field_two
   end
 
+  subject(:form_builder) { described_class.new(:model, model, {}, {}) }
+
   let(:model) do
     Dough::Forms::Builders::ValidationBuilderModel.new.tap do |m|
       m.class_eval do
@@ -20,22 +22,19 @@ describe Dough::Forms::Builders::Validation do
     end
   end
 
-  subject(:form_builder) { described_class.new(:model, model, {}, {}) }
-
   describe '#view_renderer' do
     it 'do not raise exception' do
-      expect { form_builder.view_renderer }.to_not raise_exception
+      expect { form_builder.view_renderer }.not_to raise_exception
     end
   end
 
   describe '#error_count' do
     it 'returns number of errors' do
-      expect(subject.error_count).to eql(5)
+      expect(subject.error_count).to be(5)
     end
   end
 
   describe '#validation_summary' do
-
     subject(:validation_summary) { form_builder.validation_summary }
 
     context 'when there are no errors' do
@@ -73,7 +72,7 @@ describe Dough::Forms::Builders::Validation do
     context 'with a custom i18n message' do
       it 'returns custom message' do
         I18n.with_locale :test_custom_error do
-          expect(validation_summary).to_not include('is not a number')
+          expect(validation_summary).not_to include('is not a number')
           expect(validation_summary).to     include('custom not a number error')
         end
       end
@@ -88,7 +87,7 @@ describe Dough::Forms::Builders::Validation do
     end
 
     context 'when form has an ID' do
-      subject(:form_builder) { described_class.new(:model, model, {}, {html: {id: 'form_id'}}) }
+      subject(:form_builder) { described_class.new(:model, model, {}, html: { id: 'form_id' }) }
 
       it 'uses the form id to generate the error links' do
         expect(validation_summary).to include('#error-form_id-1')
@@ -102,11 +101,11 @@ describe Dough::Forms::Builders::Validation do
     end
 
     context 'lists errors in order' do
-      #FIXME: Don't like having to call a private method to have to verify list order
+      # FIXME: Don't like having to call a private method to have to verify list order
       let(:errors) { form_builder.send(:errors) }
 
-      before :each do
-        allow(model).to receive(:field_order).and_return([:field_two, :field_one])
+      before do
+        allow(model).to receive(:field_order).and_return(%i[field_two field_one])
       end
 
       it 'field_two should be the first error' do
@@ -123,7 +122,7 @@ describe Dough::Forms::Builders::Validation do
 
   describe '#errors_for' do
     it 'lists all errors for the field' do
-      [:field_one, :field_two].each do |field|
+      %i[field_one field_two].each do |field|
         model.errors[field].each do |error|
           expect(subject.errors_for(model, field)).to include(error)
         end
@@ -131,7 +130,7 @@ describe Dough::Forms::Builders::Validation do
     end
 
     it 'uses the form model by default' do
-      [:field_one, :field_two].each do |field|
+      %i[field_one field_two].each do |field|
         model.errors[field].each do |error|
           expect(subject.errors_for(field)).to include(error)
         end
@@ -139,7 +138,7 @@ describe Dough::Forms::Builders::Validation do
     end
 
     context 'when form has an ID' do
-      subject(:form_builder) { described_class.new(:model, model, {}, {html: {id: 'form_id'}}) }
+      subject(:form_builder) { described_class.new(:model, model, {}, html: { id: 'form_id' }) }
 
       it 'uses the form ID to generate the error id' do
         expect(subject.errors_for(:field_one)).to include('error-form_id-1')
@@ -163,7 +162,7 @@ describe Dough::Forms::Builders::Validation do
     end
 
     describe '#validation_summary' do
-      before :each do
+      before do
         subject.validates(model, another_model)
       end
 

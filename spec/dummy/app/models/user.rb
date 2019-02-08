@@ -10,6 +10,5 @@ class User
     @errors = ActiveModel::Errors.new(self)
   end
 
-  def to_key
-  end
+  def to_key; end
 end

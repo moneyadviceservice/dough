@@ -2,16 +2,16 @@ module Dough
   module Helpers
     class TabSelector
       class << self
-        def selector(section_name, &block)
-          tab_element_id = section_name.to_s.gsub('_', ' ').parameterize
+        def selector(section_name)
+          tab_element_id = section_name.to_s.tr('_', ' ').parameterize
           @content = { element_id: tab_element_id, tabs: [] }
-          block.call(self)
+          yield(self)
           @content
         end
 
-        def section(&block)
+        def section
           @data = { active: false }
-          block.call self
+          yield self
           @content[:tabs] << @data
         end
 
@@ -27,8 +27,8 @@ module Dough
           @data.merge!(heading: heading)
         end
 
-        def content(&block)
-          @data.merge!(content: block.call(self))
+        def content
+          @data.merge!(content: yield(self))
         end
       end
     end
