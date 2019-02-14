@@ -77,7 +77,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
 
   BackToTop.prototype._getScrollAmount = function() {
     return $(window).scrollTop();
-  }
+  };
 
   BackToTop.prototype._resize = function() {
     if (mediaQueries.atSmallViewport()) {

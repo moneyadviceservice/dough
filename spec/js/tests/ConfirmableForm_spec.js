@@ -51,7 +51,7 @@ describe('confirmation form', function () {
     beforeEach(function (done) {
       var self = this;
 
-      requirejs(['jquery', 'ConfirmableForm'], function ($, ConfirmableForm) {
+      requirejs(['jquery', 'ConfirmableForm'], function (jquery, ConfirmableForm) {
         self.$html = $(window.__html__['spec/js/fixtures/ConfirmableFormOnInput.html']).appendTo('body');
         self.$input = self.$html.find('input');
         self.$form = self.$html.find('form');
@@ -69,7 +69,7 @@ describe('confirmation form', function () {
     beforeEach(function (done) {
       var self = this;
 
-      requirejs(['jquery', 'ConfirmableForm'], function ($, ConfirmableForm) {
+      requirejs(['jquery', 'ConfirmableForm'], function (jquery, ConfirmableForm) {
         self.$html = $(window.__html__['spec/js/fixtures/ConfirmableForm.html']).appendTo('body');
         self.$input = self.$html.find('input');
         self.$form = self.$html.find('form');

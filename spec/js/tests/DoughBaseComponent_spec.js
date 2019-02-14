@@ -5,8 +5,7 @@ describe('DoughBaseComponent', function() {
 
   beforeEach(function(done) {
     var self = this;
-    requirejs(['DoughBaseComponent'],
-      function(DoughBaseComponent) {
+    requirejs(['jquery', 'DoughBaseComponent'], function(jquery, DoughBaseComponent) {
       self.$html = $(window.__html__['spec/js/fixtures/DoughBaseComponent.html']);
       self.component = self.$html;
 

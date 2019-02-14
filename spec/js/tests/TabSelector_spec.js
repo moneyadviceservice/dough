@@ -1,5 +1,4 @@
 describe('Tab selector', function() {
-
   'use strict';
 
   var activeClass = 'is-active',
@@ -11,9 +10,14 @@ describe('Tab selector', function() {
 
   beforeEach(function(done) {
     var self = this;
+
+    fixture.setBase('spec/js/fixtures');
+
     requirejs(
         ['jquery', 'TabSelector', 'eventsWithPromises'],
         function($, TabSelector, eventsWithPromises) {
+          fixture.load('TabSelector.html');
+          self.$html = $(fixture.el);
           self.eventsWithPromises = eventsWithPromises;
           self.eventsWithPromises.unsubscribeAll();
           self.TabSelector = TabSelector;
@@ -23,6 +27,7 @@ describe('Tab selector', function() {
 
   afterEach(function() {
     this.eventsWithPromises.unsubscribeAll();
+    fixture.cleanup();
   });
 
   function isOpen($menu) {
@@ -46,9 +51,7 @@ describe('Tab selector', function() {
   }
 
   describe('general functions', function() {
-
     beforeEach(function(done) {
-      this.$html = $(window.__html__['spec/js/fixtures/TabSelector.html']);
       this.$triggersInner = this.$html.find(triggersInner);
       this.tabSelector = new this.TabSelector(this.$html);
       this.tabSelector.init();
@@ -61,7 +64,6 @@ describe('Tab selector', function() {
       this.$html.find(activeTrigger).each(function() {
         expect($(this).text()).to.contain('panel 1');
         expect($(this).text()).to.contain('selected');
-
         expect(activeTarget(_this.$html)).not.to.have.attr('aria-hidden', 'true');
       });
     });
@@ -112,10 +114,8 @@ describe('Tab selector', function() {
   });
 
   describe('collapses at small viewports', function() {
-
     beforeEach(function(done) {
-      this.$html = $(window.__html__['spec/js/fixtures/TabSelector.html']);
-      this.$triggersInner = this.$html.find(triggersInner);
+      this.$triggersInner = this.$html.find('[data-dough-tab-selector-triggers-inner]');
       this.tabSelector = new this.TabSelector(this.$html, {'collapseInSmallViewport': true});
       this.tabSelector.init();
       this.$triggers = this.$triggersInner.find(triggerSelector);
@@ -142,23 +142,24 @@ describe('Tab selector', function() {
 
     it('closes the menu if the viewport is resized to small', function() {
       this.$triggers.last().click();
+
       sinon.stub(this.TabSelector.prototype, '_haveTriggersWrapped').callsFake(function() {
         return true;
       });
+
       this.eventsWithPromises.publish('mediaquery:resize', {
         newSize: 'mq-s'
       });
+
       expect(isOpen(this.$triggersInner)).to.equal(false);
+
       this.TabSelector.prototype._haveTriggersWrapped.restore();
     });
-
   });
 
 
   describe('doesn\'t collapse at small viewports if config supplied', function() {
-
     beforeEach(function(done) {
-      this.$html = $(window.__html__['spec/js/fixtures/TabSelector.html']);
       this.$triggersInner = this.$html.find(triggersInner);
       this.tabSelector = new this.TabSelector(this.$html);
       this.tabSelector.init();
@@ -173,8 +174,5 @@ describe('Tab selector', function() {
       });
       expect(isOpen(this.$triggersInner)).to.equal(true);
     });
-
   });
-
 });
-

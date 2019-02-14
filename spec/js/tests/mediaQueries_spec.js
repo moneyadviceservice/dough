@@ -4,7 +4,7 @@ describe('mediaQueries - fires JS events when breakpoints are crossed', function
   var self = this;
 
   function require(done, config) {
-    requirejs(['squire'], function(squire) {
+    requirejs(['jquery', 'squire'], function(jquery, squire) {
       self.injector = new squire();
 
       self.injector.mock('featureDetect', {
