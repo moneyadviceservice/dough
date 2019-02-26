@@ -18,3 +18,4 @@ docs/js
 .sass-cache/
 .rubocop-*
 *.iml
+package-lock.json
