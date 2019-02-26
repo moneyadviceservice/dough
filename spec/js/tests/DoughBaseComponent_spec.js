@@ -5,9 +5,11 @@ describe('DoughBaseComponent', function() {
 
   beforeEach(function(done) {
     var self = this;
-    requirejs(['DoughBaseComponent'], function(DoughBaseComponent) {
+    requirejs(['DoughBaseComponent', 'DoughEventConstants'],
+      function(DoughBaseComponent, DoughEventConstants) {
       self.$html = $(window.__html__['spec/js/fixtures/DoughBaseComponent.html']);
       self.component = self.$html;
+      self.DoughEventConstants = DoughEventConstants;
       self.DoughBaseComponent = DoughBaseComponent;
       sandbox = sinon.sandbox.create();
       done();
@@ -105,15 +107,14 @@ describe('DoughBaseComponent', function() {
         doughBaseComponent._initialisedSuccess(initialised);
 
         expect(doughBaseComponent.$el.attr('data-dough-dough-base-component-id'))
-          .to
-          .match(/[0-9]+/);
+          .to.match(/[0-9]+/);
       });
 
       it('should trigger a successful event upon initialisation', function() {
         var doughBaseComponent = new this.DoughBaseComponent(this.component),
             spy = sandbox.spy();
 
-        doughBaseComponent.$el.on('INITIALISE-SUCCESS.DoughBaseEvent', spy);
+        doughBaseComponent.$el.on(this.DoughEventConstants.InitialisedSuccess, spy);
         doughBaseComponent._initialisedSuccess(initialised);
 
         expect(spy.called).to.be.true;
@@ -134,7 +135,7 @@ describe('DoughBaseComponent', function() {
         var doughBaseComponent = new this.DoughBaseComponent(this.component),
             spy = sandbox.spy();
 
-        doughBaseComponent.$el.on('INITIALISE-FAILURE.DoughBaseEvent', spy);
+        doughBaseComponent.$el.on(this.DoughEventConstants.InitialisedFailure, spy);
         doughBaseComponent._initialisedFailure(initialised);
 
         expect(spy.called).to.be.true;
