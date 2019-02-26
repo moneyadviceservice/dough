@@ -10,10 +10,11 @@
  * @module DoughBaseComponent
  * @returns {class} DoughBaseComponent
  */
-define(['utilities'], function(utilities) {
+define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConstants) {
   'use strict';
 
-  var DoughBaseComponent;
+  var DoughBaseComponent,
+  indexCounter = 0;
 
   /**
    * @constructor
@@ -30,10 +31,10 @@ define(['utilities'], function(utilities) {
     if (!$el || !$el.length) {
       throw new Error('Element not supplied to DoughBaseComponent constructor');
     }
-
     this.config = $.extend({}, defaultConfig || {}, config || {});
     this.setElement($el);
     this._setComponentName(this.constructor.componentName);
+    this.__id = this._getNextDoughComponentID();
 
     /*
      Populate this array with the data attributes this module will use.
@@ -153,6 +154,11 @@ define(['utilities'], function(utilities) {
    */
   DoughBaseComponent.prototype._initialisedSuccess = function(initialised) {
     this.$el.attr('data-dough-' + this.componentAttributeName + '-initialised', 'yes');
+    this.$el.attr('data-dough-' + this.componentAttributeName + '-id', this.__id);
+    this.$el.trigger(DoughEventConstants.InitialisedSuccess,
+      {
+        'instance': this
+      });
     initialised && initialised.resolve(this.componentName);
   };
 
@@ -161,6 +167,10 @@ define(['utilities'], function(utilities) {
    * promise will be fed back to the component loader
    */
   DoughBaseComponent.prototype._initialisedFailure = function(initialised) {
+    this.$el.trigger(DoughEventConstants.InitialisedFailure,
+      {
+        'instance': this
+      });
     initialised && initialised.reject(this.componentName);
   };
 
@@ -187,6 +197,10 @@ define(['utilities'], function(utilities) {
     if (warning) {
       utilities.log(warning, 'warn');
     }
+  };
+
+  DoughBaseComponent.prototype._getNextDoughComponentID = function() {
+    return (++indexCounter).toString();
   };
 
   return DoughBaseComponent;

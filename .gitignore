@@ -17,3 +17,5 @@ docs/js
 .publish/
 .sass-cache/
 .rubocop-*
+*.iml
+package-lock.json
