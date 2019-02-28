@@ -10,7 +10,7 @@
  * @module DoughBaseComponent
  * @returns {class} DoughBaseComponent
  */
-define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConstants) {
+define(['utilities'], function(utilities) {
   'use strict';
 
   var DoughBaseComponent,
@@ -155,7 +155,7 @@ define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConst
   DoughBaseComponent.prototype._initialisedSuccess = function(initialised) {
     this.$el.attr('data-dough-' + this.componentAttributeName + '-initialised', 'yes');
     this.$el.attr('data-dough-' + this.componentAttributeName + '-id', this.__id);
-    this.$el.trigger(DoughEventConstants.InitialisedSuccess,
+    this.$el.trigger(DoughBaseComponent.EventConstants.InitialisedSuccess,
       {
         'instance': this
       });
@@ -167,7 +167,7 @@ define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConst
    * promise will be fed back to the component loader
    */
   DoughBaseComponent.prototype._initialisedFailure = function(initialised) {
-    this.$el.trigger(DoughEventConstants.InitialisedFailure,
+    this.$el.trigger(DoughBaseComponent.EventConstants.InitialisedFailure,
       {
         'instance': this
       });
@@ -201,6 +201,13 @@ define(['utilities', 'DoughEventConstants'], function(utilities, DoughEventConst
 
   DoughBaseComponent.prototype._getNextDoughComponentID = function() {
     return (++indexCounter).toString();
+  };
+
+  //** Static Properties
+  DoughBaseComponent.EventConstants = {
+    InitialisedSuccess: "INITIALISE-SUCCESS.DoughBaseEvent",
+    InitialisedFailure: "INITIALISE-FAILURE.DoughBaseEvent",
+    ComponentsComplete: "COMPONENTS_COMPLETE.DoughBaseEvent"
   };
 
   return DoughBaseComponent;

@@ -17,7 +17,7 @@
  * @module componentLoader
  * @returns {Function} componentLoader
  */
-define(['jquery', 'rsvp', 'utilities', 'DoughEventConstants'], function($, RSVP, utilities, DoughEventConstants) {
+define(['jquery', 'rsvp', 'utilities'], function($, RSVP, utilities, DoughBaseComponent) {
 
   'use strict';
 
@@ -63,7 +63,7 @@ define(['jquery', 'rsvp', 'utilities', 'DoughEventConstants'], function($, RSVP,
       promises = RSVP.allSettled(initialisedList.promises);
       promises.then(function() {
         $('body').attr('data-dough-component-loader-all-loaded', 'yes');
-        $container.trigger(DoughEventConstants.ComponentsComplete);
+        $container.trigger(DoughBaseComponent.EventConstants.ComponentsComplete);
       });
       return promises;
     },
