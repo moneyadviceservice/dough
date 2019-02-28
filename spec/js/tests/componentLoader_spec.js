@@ -9,10 +9,9 @@ describe('componentLoader', function() {
         range: true
       }
     };
-    requirejs(['componentLoader', 'utilities', 'DoughEventConstants'], function(componentLoader, utilities, DoughEventConstants) {
+    requirejs(['componentLoader', 'utilities'], function(componentLoader, utilities) {
       self.componentLoader = componentLoader;
       self.utilities = utilities;
-      self.doughEventConstants = DoughEventConstants;
       done();
     });
   });

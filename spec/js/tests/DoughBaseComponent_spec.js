@@ -5,11 +5,11 @@ describe('DoughBaseComponent', function() {
 
   beforeEach(function(done) {
     var self = this;
-    requirejs(['DoughBaseComponent', 'DoughEventConstants'],
-      function(DoughBaseComponent, DoughEventConstants) {
+    requirejs(['DoughBaseComponent'],
+      function(DoughBaseComponent) {
       self.$html = $(window.__html__['spec/js/fixtures/DoughBaseComponent.html']);
       self.component = self.$html;
-      self.DoughEventConstants = DoughEventConstants;
+
       self.DoughBaseComponent = DoughBaseComponent;
       sandbox = sinon.sandbox.create();
       done();
@@ -114,7 +114,7 @@ describe('DoughBaseComponent', function() {
         var doughBaseComponent = new this.DoughBaseComponent(this.component),
             spy = sandbox.spy();
 
-        doughBaseComponent.$el.on(this.DoughEventConstants.InitialisedSuccess, spy);
+        doughBaseComponent.$el.on(this.DoughBaseComponent.EventConstants.InitialisedSuccess, spy);
         doughBaseComponent._initialisedSuccess(initialised);
 
         expect(spy.called).to.be.true;
@@ -135,7 +135,7 @@ describe('DoughBaseComponent', function() {
         var doughBaseComponent = new this.DoughBaseComponent(this.component),
             spy = sandbox.spy();
 
-        doughBaseComponent.$el.on(this.DoughEventConstants.InitialisedFailure, spy);
+        doughBaseComponent.$el.on(this.DoughBaseComponent.EventConstants.InitialisedFailure, spy);
         doughBaseComponent._initialisedFailure(initialised);
 
         expect(spy.called).to.be.true;
