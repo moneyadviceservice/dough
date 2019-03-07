@@ -12,8 +12,6 @@ export RAILS_ENV=test
 export BUNDLE_WITHOUT=development:build
 export PATH=./node_modules/.bin:$PATH
 
-exit_code=0
-
 function run {
     declare -a tests_command=("$@")
 
@@ -21,7 +19,7 @@ function run {
     echo "=== Running \`${tests_command[*]}\`"
     if ! ${tests_command[*]}; then
         echo "=== These tests failed."
-        exit_code=1
+        exit 1
     fi
 }
 
@@ -34,8 +32,8 @@ function info {
     fi
 }
 
+run bundle install
 run npm install
-run bundle install --quiet
 run bundle update brakeman --quiet
 run bower install --allow-root
 run bundle exec rspec
@@ -48,4 +46,3 @@ if [ -f /.dockerenv ]; then
   run bundle exec danger --dangerfile=jenkins/Dangerfile --verbose
 fi
 
-exit "$exit_code"

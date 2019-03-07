@@ -10,23 +10,18 @@ fi
 
 export RAILS_ENV=production
 
-exit_code=0
-
 function run {
     declare -a build_command=("$@")
     echo ''
     echo "=== Running \`${build_command[*]}\`"
     if ! ${build_command[*]}; then
         echo "=== This build failed."
-        exit_code=1
+        exit 1
     fi
 }
 
-# (re)install node packages to local dir before tests run
-
+run bundle install
 run npm install
-run bundle install --quiet
 run gem build *.gemspec
 run gem inabox *.gem -g http://gems.dev.mas.local
 
-exit "$exit_code"
