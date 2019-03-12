@@ -5,8 +5,8 @@ describe('utilities', function() {
   before(function(done) {
     var self = this;
     requirejs(
-        ['utilities'],
-        function(utilities) {
+        ['jquery', 'utilities'],
+        function(jquery, utilities) {
           self.mod = utilities;
           done();
         }, done);

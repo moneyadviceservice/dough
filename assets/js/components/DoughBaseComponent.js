@@ -205,9 +205,9 @@ define(['utilities'], function(utilities) {
 
   //** Static Properties
   DoughBaseComponent.EventConstants = {
-    InitialisedSuccess: "INITIALISE-SUCCESS.DoughBaseEvent",
-    InitialisedFailure: "INITIALISE-FAILURE.DoughBaseEvent",
-    ComponentsComplete: "COMPONENTS_COMPLETE.DoughBaseEvent"
+    InitialisedSuccess: 'INITIALISE-SUCCESS.DoughBaseEvent',
+    InitialisedFailure: 'INITIALISE-FAILURE.DoughBaseEvent',
+    ComponentsComplete: 'COMPONENTS_COMPLETE.DoughBaseEvent'
   };
 
   return DoughBaseComponent;

@@ -9,7 +9,7 @@ describe('Visibility toggler', function() {
 
     this.$sandbox = $('<div />').appendTo('body');
 
-    requirejs(['componentLoader'], function(componentLoader) {
+    requirejs(['jquery', 'componentLoader'], function(jquery, componentLoader) {
       self.componentLoader = componentLoader;
 
       self.beforeEachHook = function(done, fixtureHTML) {
