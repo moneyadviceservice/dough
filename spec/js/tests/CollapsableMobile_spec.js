@@ -7,8 +7,8 @@ describe('Visibility toggler on Mobile', function() {
 
     this.$sandbox = $('<div />').appendTo('body');
 
-    requirejs(['componentLoader', 'CollapsableMobile', 'eventsWithPromises'],
-      function(componentLoader, CollapsableMobile, eventsWithPromises) {
+    requirejs(['jquery', 'componentLoader', 'CollapsableMobile', 'eventsWithPromises'],
+      function(jquery, componentLoader, CollapsableMobile, eventsWithPromises) {
         self.componentLoader = componentLoader;
         self.CollapsableMobile = CollapsableMobile;
         self.eventsWithPromises = eventsWithPromises;

@@ -1,5 +1,5 @@
 define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
-  function($, DoughBaseComponent, mediaQueries, utilities) {
+  function(jquery, DoughBaseComponent, mediaQueries, utilities) {
   'use strict';
 
   var defaultConfig = {
@@ -20,7 +20,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     this.$trigger = this.$el.find(this.config.selectors.trigger);
     this.$popup   = this.$el.find(this.config.selectors.popupContainer);
     this.$popupContent = this.$el.find(this.config.selectors.popupContent);
-    this.$container = this.$el.parent();
+    this.$component = this.$el;
     this.offset = 35;
     this.debounceWait = 100;
 
@@ -40,38 +40,44 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
   };
 
   PopupTip.prototype._showPopupTip = function(e) {
-    this.$popup
-      .removeClass(this.config.selectors.inactiveClass)
-      .addClass(this.config.selectors.activeClass);
+    this.$popup.removeClass(this.config.selectors.inactiveClass);
+    this.$popup.addClass(this.config.selectors.activeClass);
     this.$popupContent.focus();
-
-    this._positionPopup(this.$popup, $(e.target));
+    this._positionPopup(this.$popup, e.target);
   };
 
   PopupTip.prototype._resize = function() {
     if (this.$el.find('.is-active').length > 0) {
       var $index = this.$el.find('.is-active');
-      var $trigger = $index.parents('[data-dough-component]').find('[data-dough-popup-trigger]');
+      var trigger = $index.parents('[data-dough-component]').find('[data-dough-popup-trigger]');
 
-      this._positionPopup($index, $trigger);
+      this._positionPopup($index, trigger[0]);
     }
   };
 
-  PopupTip.prototype._positionPopup = function($index, $trigger) {
-    this.$container.css('position', 'relative');
-    $index.css('width', this.$container.width());
+  PopupTip.prototype._positionPopup = function($index, trigger) {
+    var componentPos = this.$component[0].getBoundingClientRect();
+    var triggerPos = trigger.getBoundingClientRect();
+    var indexPos = $index[0].getBoundingClientRect();
+
+    this.$component.css('position', 'relative');
+    $index.css('width', this.$component.width());
 
     if (this.atSmallViewport()) {
-      $index.css('top', $trigger.position().top + this.offset);
+      // mobile view
+      $index.css('top', triggerPos.top - componentPos.top + this.offset);
       $index.css('left', 0);
     } else {
-      $index.css('top', $trigger.position().top + this.offset);
+      // desktop view
+      $index.css('top', triggerPos.top - componentPos.top + this.offset);
 
-      // is icon less or more than 50% across page width
-      if ($trigger.position().left - ($trigger.width() / 2) < ($(window).width() / 2)) {
-        $index.css('left', $trigger.position().left + this.offset);
+      // is icon less or more than 50% across page width?
+      if (triggerPos.left - (triggerPos.width / 2) < ($(window).width() / 2)) {
+        // trigger is on LHS
+        $index.css('left', triggerPos.left - componentPos.left + this.offset);
       } else {
-        $index.css('left', $trigger.position().left - $index.width() - this.offset);
+        // trigger is on RHS
+        $index.css('left', triggerPos.left - indexPos.width - componentPos.left - this.offset);
       }
     }
   };
@@ -88,7 +94,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     } else {
       return false;
     }
-  }
+  };
 
   PopupTip.prototype.init = function(initialised) {
     this._addEvents();

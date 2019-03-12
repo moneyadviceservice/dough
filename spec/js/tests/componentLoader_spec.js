@@ -9,7 +9,7 @@ describe('componentLoader', function() {
         range: true
       }
     };
-    requirejs(['componentLoader', 'utilities'], function(componentLoader, utilities) {
+    requirejs(['jquery', 'componentLoader', 'utilities'], function(jquery, componentLoader, utilities) {
       self.componentLoader = componentLoader;
       self.utilities = utilities;
       done();
@@ -171,7 +171,7 @@ describe('componentLoader', function() {
     beforeEach(function(done) {
       var self = this;
       this.$html = $(window.__html__['spec/js/fixtures/componentLoader.html']);
-      requirejs(['RangeInput', 'TabSelector'], function(RangeInput, TabSelector) {
+      requirejs(['jquery', 'RangeInput', 'TabSelector'], function(jquery, RangeInput, TabSelector) {
         RangeInput.prototype.init = function() {
           throw 'Test error';
         };
@@ -207,7 +207,7 @@ describe('componentLoader', function() {
     beforeEach(function(done) {
       var self = this;
       this.$html = $(window.__html__['spec/js/fixtures/componentLoader.html']);
-      requirejs(['TabSelector'], function(TabSelector) {
+      requirejs(['jquery', 'TabSelector'], function(jquery, TabSelector) {
         self.TabSelector = TabSelector;
         self.TabSelector.isSingleton = true;
         self.componentLoader.init(self.$html)
