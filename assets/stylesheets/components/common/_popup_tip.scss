@@ -45,6 +45,13 @@
 
 .popup-tip__content {
   outline: none;
+  span:not(.popup-tip__title--no-js) {
+    display: block;
+    margin: 0 0 1em;
+  }
+  span:not(.popup-tip__title--no-js):last-child {
+    margin-bottom: 0;
+  }
 }
 
 .popup-tip__title {
