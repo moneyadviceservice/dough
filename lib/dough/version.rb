@@ -1,3 +1,3 @@
 module Dough
-  VERSION = '5.36.2'.freeze
+  VERSION = '5.37.0'.freeze
 end
