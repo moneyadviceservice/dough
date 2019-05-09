@@ -57,10 +57,12 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
 
     this.$bttLink
       .click(function() {
+        // remove show class from button
         $(this).removeClass(self.showClass);
-        self.chatPopupBtn.removeClass('chat-popup--raised');
+        // lower the whatsapp popup
+        self._raiseChatPopup(false);
+        // scroll to top
         self.scrollingToTop = true;
-
         $('html, body').animate({scrollTop: 0}, 800, function() {
           self.scrollingToTop = false;
         });
@@ -87,7 +89,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
       this._position();
       this.$bttLink.removeClass(this.hiddenClass);
       // on resize, validate scroll amount and manage raised class in whatsapp popup
-      !(this._getScrollAmount() < this.config.triggerPoint) ? this.chatPopupBtn.addClass('chat-popup--raised') : this.chatPopupBtn.removeClass('chat-popup--raised');
+      !(this._getScrollAmount() < this.config.triggerPoint) ? this._raiseChatPopup(true) : this._raiseChatPopup(false);
     } else {
       this.atSmallViewport = false;
       this.$bttLink.addClass(this.hiddenClass);
@@ -109,23 +111,21 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
       // we are beyond the scroll point
       if (this.active) {
         this.$bttLink.addClass(this.showClass);
-        if (this.atSmallViewport) {
-          // add class to raise whatsapp popup
-          this.chatPopupBtn.addClass('chat-popup--raised');
-        }
+        // raise whatsapp popup
+        this._raiseChatPopup(true);
       // we are not beyond the scroll point
       } else {
         this.$bttLink.removeClass(this.showClass);
-        if (this.atSmallViewport) {
-          // remove raised class form whatsapp popup
-          this.chatPopupBtn.removeClass('chat-popup--raised');
-        }
+        // lower whatsapp popup
+        this._raiseChatPopup(false);
       }
     }
   };
 
   BackToTop.prototype._raiseChatPopup = function(action) {
-
+    // manage raised states
+    // only raise the popup at small viewports where the button will be visible
+    action && this.atSmallViewport ? this.chatPopupBtn.addClass('chat-popup--raised') : this.chatPopupBtn.removeClass('chat-popup--raised');
   };
 
   /**
