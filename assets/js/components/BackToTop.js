@@ -20,6 +20,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     this.showClass = 'back_to_top__link--shown';
     this.active = false;
     this.scrollingToTop = false;
+    this.chatPopupBtn = $('#js-chat-popup-mobile');
   };
 
   /**
@@ -57,6 +58,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     this.$bttLink
       .click(function() {
         $(this).removeClass(self.showClass);
+        self.chatPopupBtn.removeClass('chat-popup--raised');
         self.scrollingToTop = true;
 
         $('html, body').animate({scrollTop: 0}, 800, function() {
@@ -84,9 +86,13 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
       this.atSmallViewport = true;
       this._position();
       this.$bttLink.removeClass(this.hiddenClass);
+      // on resize, validate scroll amount and manage raised class in whatsapp popup
+      !(this._getScrollAmount() < this.config.triggerPoint) ? this.chatPopupBtn.addClass('chat-popup--raised') : this.chatPopupBtn.removeClass('chat-popup--raised');
     } else {
       this.atSmallViewport = false;
       this.$bttLink.addClass(this.hiddenClass);
+      // lower whatsapp button when button is hidden
+      this.chatPopupBtn.removeClass('chat-popup--raised');
     }
   };
 
@@ -103,11 +109,23 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
       // we are beyond the scroll point
       if (this.active) {
         this.$bttLink.addClass(this.showClass);
+        if (this.atSmallViewport) {
+          // add class to raise whatsapp popup
+          this.chatPopupBtn.addClass('chat-popup--raised');
+        }
       // we are not beyond the scroll point
       } else {
         this.$bttLink.removeClass(this.showClass);
+        if (this.atSmallViewport) {
+          // remove raised class form whatsapp popup
+          this.chatPopupBtn.removeClass('chat-popup--raised');
+        }
       }
     }
+  };
+
+  BackToTop.prototype._raiseChatPopup = function(action) {
+
   };
 
   /**
