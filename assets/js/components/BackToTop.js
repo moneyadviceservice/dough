@@ -60,7 +60,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
         // remove show class from button
         $(this).removeClass(self.showClass);
         // lower the whatsapp popup
-        self._raiseChatPopup(false);
+        self._raisedChatPopup(false);
         // scroll to top
         self.scrollingToTop = true;
         $('html, body').animate({scrollTop: 0}, 800, function() {
@@ -89,12 +89,12 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
       this._position();
       this.$bttLink.removeClass(this.hiddenClass);
       // on resize, validate scroll amount and manage raised class in whatsapp popup
-      !(this._getScrollAmount() < this.config.triggerPoint) ? this._raiseChatPopup(true) : this._raiseChatPopup(false);
+      !(this._getScrollAmount() < this.config.triggerPoint) ? this._raisedChatPopup(true) : this._raisedChatPopup(false);
     } else {
       this.atSmallViewport = false;
       this.$bttLink.addClass(this.hiddenClass);
       // lower whatsapp button when button is hidden
-      this.chatPopupBtn.removeClass('chat-popup--raised');
+      this._raisedChatPopup(false);
     }
   };
 
@@ -112,17 +112,17 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
       if (this.active) {
         this.$bttLink.addClass(this.showClass);
         // raise whatsapp popup
-        this._raiseChatPopup(true);
+        this._raisedChatPopup(true);
       // we are not beyond the scroll point
       } else {
         this.$bttLink.removeClass(this.showClass);
         // lower whatsapp popup
-        this._raiseChatPopup(false);
+        this._raisedChatPopup(false);
       }
     }
   };
 
-  BackToTop.prototype._raiseChatPopup = function(action) {
+  BackToTop.prototype._raisedChatPopup = function(action) {
     // manage raised states
     // only raise the popup at small viewports where the button will be visible
     action && this.atSmallViewport ? this.chatPopupBtn.addClass('chat-popup--raised') : this.chatPopupBtn.removeClass('chat-popup--raised');
