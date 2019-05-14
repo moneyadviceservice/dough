@@ -1,5 +1,5 @@
-define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
-  function($, DoughBaseComponent, mediaQueries, utilities) {
+define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities', 'ChatPopup'],
+  function($, DoughBaseComponent, mediaQueries, utilities, ChatPopup) {
   'use strict';
 
   var BackToTop,
@@ -20,7 +20,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     this.showClass = 'back_to_top__link--shown';
     this.active = false;
     this.scrollingToTop = false;
-    this.chatPopupBtn = $('#js-chat-popup-mobile');
+    this.chatPopup = ChatPopup;
   };
 
   /**
@@ -51,7 +51,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     if (mediaQueries.atSmallViewport()) {
       this.atSmallViewport = true;
     }
-
+    
     $(window).on('resize', utilities.debounce(resizeProxy, 100));
     $(window).on('scroll', $.throttle(100, scrollProxy));
 
@@ -60,7 +60,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
         // remove show class from button
         $(this).removeClass(self.showClass);
         // lower the whatsapp popup
-        self._raisedChatPopup(false);
+        self.chatPopup.raisedChatPopup(false, self.atSmallViewport);
         // scroll to top
         self.scrollingToTop = true;
         $('html, body').animate({scrollTop: 0}, 800, function() {
@@ -89,12 +89,12 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
       this._position();
       this.$bttLink.removeClass(this.hiddenClass);
       // on resize, validate scroll amount and manage raised class in whatsapp popup
-      !(this._getScrollAmount() < this.config.triggerPoint) ? this._raisedChatPopup(true) : this._raisedChatPopup(false);
+      !(this._getScrollAmount() < this.config.triggerPoint) ? this.chatPopup.raisedChatPopup(true, this.atSmallViewport) : this.chatPopup.raisedChatPopup(false, this.atSmallViewport);
     } else {
       this.atSmallViewport = false;
       this.$bttLink.addClass(this.hiddenClass);
       // lower whatsapp button when button is hidden
-      this._raisedChatPopup(false);
+      this.chatPopup.raisedChatPopup(false, this.atSmallViewport);
     }
   };
 
@@ -112,20 +112,14 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
       if (this.active) {
         this.$bttLink.addClass(this.showClass);
         // raise whatsapp popup
-        this._raisedChatPopup(true);
+        this.chatPopup.raisedChatPopup(true, this.atSmallViewport);
       // we are not beyond the scroll point
       } else {
         this.$bttLink.removeClass(this.showClass);
         // lower whatsapp popup
-        this._raisedChatPopup(false);
+        this.chatPopup.raisedChatPopup(false, this.atSmallViewport);
       }
     }
-  };
-
-  BackToTop.prototype._raisedChatPopup = function(action) {
-    // manage raised states
-    // only raise the popup at small viewports where the button will be visible
-    action && this.atSmallViewport ? this.chatPopupBtn.addClass('chat-popup--raised') : this.chatPopupBtn.removeClass('chat-popup--raised');
   };
 
   /**
