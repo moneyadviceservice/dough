@@ -4,8 +4,7 @@ define(['jquery', 'DoughBaseComponent'],
 
   var ChatPopup,
       defaultConfig = {},
-      chatPopupBtn = $('#js-chat-popup-mobile');
-
+      chatPopupBtn = $('#js-chat-popup-mobile');;
 
   ChatPopup = function($el, config) {
     ChatPopup.baseConstructor.call(this, $el, config, defaultConfig);
@@ -19,12 +18,13 @@ define(['jquery', 'DoughBaseComponent'],
   ChatPopup.componentName = 'ChatPopup';
 
   /**
-  * Public method imported in BackToTop.js to manage popup vertical position in article pages
-  */
-  ChatPopup.raisedChatPopup = function(action, atSmallViewport) {
-    // only raise the popup at small viewports where the button will be visible
-    action && atSmallViewport ? chatPopupBtn.addClass('chat-popup--raised') : chatPopupBtn.removeClass('chat-popup--raised');
-  };
+   * Public method imported in BackToTop.js to manage popup vertical position in article pages
+   * @param {boolean} raised - set button raised state
+   * @param {boolean} atSmallViewport - viewport width < 720px
+   */
+  ChatPopup.raisedChatPopup = function(raised, atSmallViewport) {
+    raised && atSmallViewport ? chatPopupBtn.addClass('chat-popup--raised') : chatPopupBtn.removeClass('chat-popup--raised');
+  }
 
   /**
   * @param {Promise} initialised
@@ -34,5 +34,4 @@ define(['jquery', 'DoughBaseComponent'],
   };
 
   return ChatPopup;
-  
 });

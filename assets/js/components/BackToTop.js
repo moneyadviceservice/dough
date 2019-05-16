@@ -20,7 +20,6 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities', 'ChatPopup'
     this.showClass = 'back_to_top__link--shown';
     this.active = false;
     this.scrollingToTop = false;
-    this.chatPopup = ChatPopup;
   };
 
   /**
@@ -60,7 +59,7 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities', 'ChatPopup'
         // remove show class from button
         $(this).removeClass(self.showClass);
         // lower the whatsapp popup
-        self.chatPopup.raisedChatPopup(false, self.atSmallViewport);
+        ChatPopup.raisedChatPopup(false, self.atSmallViewport);
         // scroll to top
         self.scrollingToTop = true;
         $('html, body').animate({scrollTop: 0}, 800, function() {
@@ -89,12 +88,12 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities', 'ChatPopup'
       this._position();
       this.$bttLink.removeClass(this.hiddenClass);
       // on resize, validate scroll amount and manage raised class in whatsapp popup
-      !(this._getScrollAmount() < this.config.triggerPoint) ? this.chatPopup.raisedChatPopup(true, this.atSmallViewport) : this.chatPopup.raisedChatPopup(false, this.atSmallViewport);
+      !(this._getScrollAmount() < this.config.triggerPoint) ? ChatPopup.raisedChatPopup(true, this.atSmallViewport) : ChatPopup.raisedChatPopup(false, this.atSmallViewport);
     } else {
       this.atSmallViewport = false;
       this.$bttLink.addClass(this.hiddenClass);
       // lower whatsapp button when button is hidden
-      this.chatPopup.raisedChatPopup(false, this.atSmallViewport);
+      ChatPopup.raisedChatPopup(false, this.atSmallViewport);
     }
   };
 
@@ -112,12 +111,12 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities', 'ChatPopup'
       if (this.active) {
         this.$bttLink.addClass(this.showClass);
         // raise whatsapp popup
-        this.chatPopup.raisedChatPopup(true, this.atSmallViewport);
+        ChatPopup.raisedChatPopup(true, this.atSmallViewport);
       // we are not beyond the scroll point
       } else {
         this.$bttLink.removeClass(this.showClass);
         // lower whatsapp popup
-        this.chatPopup.raisedChatPopup(false, this.atSmallViewport);
+        ChatPopup.raisedChatPopup(false, this.atSmallViewport);
       }
     }
   };
