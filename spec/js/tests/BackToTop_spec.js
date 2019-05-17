@@ -4,25 +4,30 @@ describe('Back to Top link', function() {
   beforeEach(function(done) {
     var self = this;
 
+    fixture.setBase('spec/js/fixtures');
+
     requirejs(
         ['jquery', 'BackToTop'],
         function($, BackToTop) {
-          self.$html = $(window.__html__['spec/js/fixtures/BackToTop.html']);
-          self.component = self.$html.find('[data-dough-component="BackToTop"]');
+          fixture.load('BackToTop.html');
+          
+          self.component = $(fixture.el).find('[data-dough-component="BackToTop"]');
+          self.component.height(4000);
+
           self.backToTop = new BackToTop(self.component);
           self.triggerPoint = self.backToTop.config.triggerPoint;
           self.showClass = self.backToTop.showClass;
-          self.component.height(4000);
-
+          
           self.backToTop.init();
-          self.back_to_top_link = self.$html.find('.back_to_top__link');
+
+          self.back_to_top_link = $(fixture.el).find('.back_to_top__link');
 
           done();
         }, done);
   });
 
   afterEach(function() {
-    this.$html.remove();
+    fixture.cleanup();
   });
 
   describe('Set up link', function() {
@@ -33,7 +38,7 @@ describe('Back to Top link', function() {
 
   describe('Set up footer', function() {
     it('Adds extra space to footer', function() {
-      expect(this.$html.find('.l-footer-secondary')).to.have.class('back_to_top__spacer');
+      expect($(fixture.el).find('.l-footer-secondary')).to.have.class('back_to_top__spacer');
     });
   });
 

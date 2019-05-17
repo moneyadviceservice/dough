@@ -7,12 +7,19 @@ describe('Chat Popup', function() {
     fixture.setBase('spec/js/fixtures');
 
     requirejs(
-        ['jquery', 'ChatPopup'],
-        function($, ChatPopup) {
+        ['jquery', 'BackToTop', 'ChatPopup'],
+        function($, BackToTop, ChatPopup) {
           fixture.load('ChatPopup.html');
 
-          self.$popupTip = $(fixture.el).find('[data-dough-component="ChatPopup"]');
-          self.chatPopup = ChatPopup;
+          self.$backToTopcomponent = $(fixture.el).find('[data-dough-component="BackToTop"]');
+          self.backToTop = new BackToTop(self.$backToTopcomponent);
+          self.triggerPoint = self.backToTop.config.triggerPoint;
+          self.$backToTopcomponent.height(4000);
+          self.backToTop.init();
+
+          self.$popupComponent = $(fixture.el).find('[data-dough-component="ChatPopup"]');
+          self.chatPopup = new ChatPopup(self.$popupComponent);
+          self.chatPopup.init();
           
           done();
         }, done);
@@ -22,10 +29,37 @@ describe('Chat Popup', function() {
     fixture.cleanup();
   });
 
-  describe('Raised Button', function() {
-    it('Validates original state', function() {
-      // this.chatPopup.raisedChatPopup(true, 1705);
-      expect(this.$popupTip).not.to.have.class('chat-popup--raised');
+  describe('Raising the Webchat and Whatsapp popup in article pages', function() {
+
+    beforeEach(function() {
+      this.stub = sinon.stub(this.backToTop, '_getScrollAmount');
+    });
+
+    afterEach(function() {
+      this.stub.restore();
+    });
+
+    it('Validates original popup state', function() {
+      expect(this.$popupComponent).not.to.have.class('chat-popup--raised');
+    });
+
+    it('Raises the popup in article pages on small screens', function() {
+      
+      // simulate scrolling to over the trigger point
+      this.stub.returns(this.triggerPoint + 1);
+      $(window).trigger('scroll');
+      if (this.backToTop.atSmallViewport) {
+        expect(this.$popupComponent).to.have.class('chat-popup--raised');
+      } else {
+        expect(this.$popupComponent).not.to.have.class('chat-popup--raised');
+      }
+      
+    });
+    it('Doesn\'t raise the popup before trigger point', function() {
+      // simulate scrolling to before the trigger point
+      this.stub.returns(this.triggerPoint - 1);
+      $(window).trigger('scroll');
+      expect(this.$popupComponent).not.to.have.class('chat-popup--raised');
     });
   });
 

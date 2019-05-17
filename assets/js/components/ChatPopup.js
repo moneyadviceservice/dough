@@ -3,11 +3,12 @@ define(['jquery', 'DoughBaseComponent'],
   'use strict';
 
   var ChatPopup,
-      defaultConfig = {},
-      chatPopupBtn = $('#js-chat-popup-mobile');;
+      defaultConfig = {};
 
   ChatPopup = function($el, config) {
     ChatPopup.baseConstructor.call(this, $el, config, defaultConfig);
+
+    this.chatPopupBtn = $el;
   };
 
   /**
@@ -22,8 +23,8 @@ define(['jquery', 'DoughBaseComponent'],
    * @param {boolean} raised - set button raised state
    * @param {boolean} atSmallViewport - viewport width < 720px
    */
-  ChatPopup.raisedChatPopup = function(raised, atSmallViewport) {
-    raised && atSmallViewport ? chatPopupBtn.addClass('chat-popup--raised') : chatPopupBtn.removeClass('chat-popup--raised');
+  ChatPopup.prototype._raisedChatPopup = function(raised, atSmallViewport) {
+    raised && atSmallViewport ? this.chatPopupBtn.addClass('chat-popup--raised') : this.chatPopupBtn.removeClass('chat-popup--raised');
   }
 
   /**
