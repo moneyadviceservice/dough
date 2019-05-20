@@ -7,10 +7,10 @@ describe('Back to Top link', function() {
     fixture.setBase('spec/js/fixtures');
 
     requirejs(
-        ['jquery', 'BackToTop'],
-        function($, BackToTop) {
+        ['jquery', 'BackToTop', 'ChatPopup'],
+        function($, BackToTop, ChatPopup) {
           fixture.load('BackToTop.html');
-          
+
           self.component = $(fixture.el).find('[data-dough-component="BackToTop"]');
           self.component.height(4000);
 
@@ -21,6 +21,11 @@ describe('Back to Top link', function() {
           self.backToTop.init();
 
           self.back_to_top_link = $(fixture.el).find('.back_to_top__link');
+
+          self.ChatPopup = ChatPopup;
+          self.$popupComponent = $(fixture.el).find('[data-dough-component="ChatPopup"]');
+          self.chatPopup = new ChatPopup(self.$popupComponent);
+          self.chatPopup.init();
 
           done();
         }, done);
@@ -74,7 +79,12 @@ describe('Back to Top link', function() {
 
   describe('Tests link behaviour when activated', function() {
     beforeEach(function() {
+      this.popupSpy = sinon.spy(this.ChatPopup.prototype, '_raisedChatPopup');
       this.back_to_top_link.trigger('click');
+    });
+
+    afterEach(function() {
+      this.popupSpy.restore();
     });
 
     it('Returns user to top of page when clicked', function() {
@@ -83,6 +93,11 @@ describe('Back to Top link', function() {
 
     it('Hides link when clicked', function() {
       expect(this.back_to_top_link).to.not.have.class(this.showClass);
+    });
+
+    it('Lowers the Chatpopup when back to top is clicked', function() {
+      sinon.assert.called(this.popupSpy);
+      expect(this.popupSpy.getCalls()[0].args[0]).to.equals(false);
     });
   });
 });

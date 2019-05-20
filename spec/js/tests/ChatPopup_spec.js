@@ -9,7 +9,7 @@ describe('Chat Popup', function() {
     requirejs(
         ['jquery', 'BackToTop', 'ChatPopup'],
         function($, BackToTop, ChatPopup) {
-          fixture.load('ChatPopup.html');
+          fixture.load('BackToTop.html');
 
           self.$backToTopcomponent = $(fixture.el).find('[data-dough-component="BackToTop"]');
           self.backToTop = new BackToTop(self.$backToTopcomponent);
@@ -17,6 +17,7 @@ describe('Chat Popup', function() {
           self.$backToTopcomponent.height(4000);
           self.backToTop.init();
 
+          self.ChatPopup = ChatPopup;
           self.$popupComponent = $(fixture.el).find('[data-dough-component="ChatPopup"]');
           self.chatPopup = new ChatPopup(self.$popupComponent);
           self.chatPopup.init();
@@ -33,10 +34,14 @@ describe('Chat Popup', function() {
 
     beforeEach(function() {
       this.stub = sinon.stub(this.backToTop, '_getScrollAmount');
+      
+      this.popupSpy = sinon.spy(this.ChatPopup.prototype, '_raisedChatPopup');
     });
 
     afterEach(function() {
       this.stub.restore();
+
+      this.popupSpy.restore();
     });
 
     it('Validates original popup state', function() {
@@ -44,13 +49,14 @@ describe('Chat Popup', function() {
     });
 
     it('Raises the popup in article pages on small screens', function() {
-      
       // simulate scrolling to over the trigger point
-      this.stub.returns(this.triggerPoint + 1);
+      this.stub.returns(this.triggerPoint);
       $(window).trigger('scroll');
       if (this.backToTop.atSmallViewport) {
+        sinon.assert.called(this.popupSpy);
         expect(this.$popupComponent).to.have.class('chat-popup--raised');
       } else {
+        sinon.assert.notCalled(this.popupSpy);
         expect(this.$popupComponent).not.to.have.class('chat-popup--raised');
       }
       
@@ -60,6 +66,12 @@ describe('Chat Popup', function() {
       this.stub.returns(this.triggerPoint - 1);
       $(window).trigger('scroll');
       expect(this.$popupComponent).not.to.have.class('chat-popup--raised');
+      if (this.backToTop.atSmallViewport) {
+        sinon.assert.called(this.popupSpy);
+        expect(this.popupSpy.getCalls()[0].args[0]).to.equals(false);
+      } else {
+        sinon.assert.notCalled(this.popupSpy);
+      }
     });
   });
 
