@@ -4,25 +4,35 @@ describe('Back to Top link', function() {
   beforeEach(function(done) {
     var self = this;
 
+    fixture.setBase('spec/js/fixtures');
+
     requirejs(
-        ['jquery', 'BackToTop'],
-        function($, BackToTop) {
-          self.$html = $(window.__html__['spec/js/fixtures/BackToTop.html']);
-          self.component = self.$html.find('[data-dough-component="BackToTop"]');
+        ['jquery', 'BackToTop', 'ChatPopup'],
+        function($, BackToTop, ChatPopup) {
+          fixture.load('BackToTop.html');
+
+          self.component = $(fixture.el).find('[data-dough-component="BackToTop"]');
+          self.component.height(4000);
+
           self.backToTop = new BackToTop(self.component);
           self.triggerPoint = self.backToTop.config.triggerPoint;
           self.showClass = self.backToTop.showClass;
-          self.component.height(4000);
-
+          
           self.backToTop.init();
-          self.back_to_top_link = self.$html.find('.back_to_top__link');
+
+          self.back_to_top_link = $(fixture.el).find('.back_to_top__link');
+
+          self.ChatPopup = ChatPopup;
+          self.$popupComponent = $(fixture.el).find('[data-dough-component="ChatPopup"]');
+          self.chatPopup = new ChatPopup(self.$popupComponent);
+          self.chatPopup.init();
 
           done();
         }, done);
   });
 
   afterEach(function() {
-    this.$html.remove();
+    fixture.cleanup();
   });
 
   describe('Set up link', function() {
@@ -33,7 +43,7 @@ describe('Back to Top link', function() {
 
   describe('Set up footer', function() {
     it('Adds extra space to footer', function() {
-      expect(this.$html.find('.l-footer-secondary')).to.have.class('back_to_top__spacer');
+      expect($(fixture.el).find('.l-footer-secondary')).to.have.class('back_to_top__spacer');
     });
   });
 
@@ -69,7 +79,12 @@ describe('Back to Top link', function() {
 
   describe('Tests link behaviour when activated', function() {
     beforeEach(function() {
+      this.popupSpy = sinon.spy(this.ChatPopup.prototype, '_raisedChatPopup');
       this.back_to_top_link.trigger('click');
+    });
+
+    afterEach(function() {
+      this.popupSpy.restore();
     });
 
     it('Returns user to top of page when clicked', function() {
@@ -78,6 +93,11 @@ describe('Back to Top link', function() {
 
     it('Hides link when clicked', function() {
       expect(this.back_to_top_link).to.not.have.class(this.showClass);
+    });
+
+    it('Lowers the Chatpopup when back to top is clicked', function() {
+      sinon.assert.called(this.popupSpy);
+      expect(this.popupSpy.getCalls()[0].args[0]).to.equals(false);
     });
   });
 });
