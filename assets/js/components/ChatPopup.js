@@ -12,6 +12,9 @@ define(['jquery', 'DoughBaseComponent'],
       this.chatPopupIcon = $('.mobile-webchat--icon');
       this.chatPopupClose = $('.mobile-webchat__close');
       this.popupElements = $('.mobile-webchat__container').children().not('.mobile-webchat--icon');
+      this.serviceSelect = $('.mobile-webchat__form-select');
+      this.whatsappBtn = $('.mobile-webchat__form-button--whatsapp');
+      this.webchatBtn = $('.mobile-webchat__form-button--webchat');
     };
 
     /**
@@ -34,6 +37,16 @@ define(['jquery', 'DoughBaseComponent'],
         event.preventDefault();
         self._togglePopup();
         self._manageTransition(0);
+      });
+      // on select change
+      this.serviceSelect.change(function(event) {
+        console.log(event.target.value);
+        console.log(self.webchatBtn, self.whatsappBtn);
+        if(event.target.value === 'debt_borrowing' || event.target.value === 'pensions_retirement') {
+          self.whatsappBtn[0].style.display = 'flex';
+        } else {
+          self.whatsappBtn[0].style.display = 'none';
+        }
       });
     };
 
