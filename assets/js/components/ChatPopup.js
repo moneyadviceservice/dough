@@ -25,7 +25,7 @@ define(['jquery', 'DoughBaseComponent'],
     ChatPopup.componentName = 'ChatPopup';
 
     ChatPopup.prototype._setupListeners = function () {
-      let self = this;
+      var self = this;
       // on icon click open popup
       this.chatPopupIcon.click(function (event) {
         event.preventDefault();
@@ -40,22 +40,20 @@ define(['jquery', 'DoughBaseComponent'],
       });
       // on select change
       this.serviceSelect.change(function(event) {
-        console.log(event.target.value);
-        console.log(self.webchatBtn, self.whatsappBtn);
         if(event.target.value === 'debt_borrowing' || event.target.value === 'pensions_retirement') {
-          self.whatsappBtn[0].style.display = 'flex';
+          self.whatsappBtn.removeClass('is-hidden');
         } else {
-          self.whatsappBtn[0].style.display = 'none';
+          self.whatsappBtn.addClass('is-hidden');
         }
       });
     };
 
     ChatPopup.prototype._manageTransition = function (opacity) {
-      let self = this;
+      var self = this;
       setTimeout(function () {
         $.each(self.popupElements, function (index, value) {
           value.style.opacity = opacity;
-          value.style.filter = `alpha(opacity=${opacity}00)`; // IE fallback
+          value.style.filter = "alpha(opacity=" + opacity + "00)"; // IE fallback
         });
       }, 100);
     };
