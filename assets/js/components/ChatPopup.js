@@ -68,7 +68,13 @@ define(['jquery', 'DoughBaseComponent'],
      * @param {boolean} atSmallViewport - viewport width < 720px
      */
     ChatPopup.prototype._raisedChatPopup = function (raised, atSmallViewport) {
-      raised && atSmallViewport ? this.chatPopupBtn.addClass('mobile-webchat--raised') : this.chatPopupBtn.removeClass('mobile-webchat--raised');
+      var raisedPopup = raised && atSmallViewport;
+      // check if conditions are met
+      if (raisedPopup) {
+        this.chatPopupBtn.addClass('mobile-webchat--raised')
+      } else {
+        this.chatPopupBtn.removeClass('mobile-webchat--raised')
+      };
     }
 
     /**
