@@ -40,7 +40,7 @@ define(['jquery', 'DoughBaseComponent'],
       });
       // on select change
       this.serviceSelect.change(function(event) {
-        if(event.target.value === 'debt_borrowing' || event.target.value === 'pensions_retirement') {
+        if(event.target.value === 'debt-and-borrowing' || event.target.value === 'pensions-and-retirement') {
           self.whatsappBtn.removeClass('is-hidden');
         } else {
           self.whatsappBtn.addClass('is-hidden');
