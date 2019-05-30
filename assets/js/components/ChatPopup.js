@@ -9,12 +9,12 @@ define(['jquery', 'DoughBaseComponent'],
       ChatPopup.baseConstructor.call(this, $el, config, defaultConfig);
 
       this.chatPopupBtn = $el;
-      this.chatPopupIcon = $('.mobile-webchat--icon');
-      this.chatPopupClose = $('.mobile-webchat__close');
-      this.popupElements = $('.mobile-webchat__container').children().not('.mobile-webchat--icon');
-      this.serviceSelect = $('.mobile-webchat__select');
-      this.whatsappBtn = $('.mobile-webchat__button--whatsapp');
-      this.webchatBtn = $('.mobile-webchat__button--webchat');
+      this.chatPopupIcon = $el.find('[data-dough-webchat-icon]');
+      this.chatPopupClose = $el.find('[data-dough-webchat-close]');
+      this.popupElements = $el.children().not('[data-dough-webchat-icon]');
+      this.serviceSelect = $el.find('[data-dough-webchat-select]');
+      this.whatsappBtn = $el.find('[data-dough-webchat-button-whatsapp]');
+      this.webchatBtn = $el.find('[data-dough-webchat-button-webchat]');
     };
 
     /**
