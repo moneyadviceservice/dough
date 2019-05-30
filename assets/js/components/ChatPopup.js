@@ -12,9 +12,9 @@ define(['jquery', 'DoughBaseComponent'],
       this.chatPopupIcon = $('.mobile-webchat--icon');
       this.chatPopupClose = $('.mobile-webchat__close');
       this.popupElements = $('.mobile-webchat__container').children().not('.mobile-webchat--icon');
-      this.serviceSelect = $('.mobile-webchat__form-select');
-      this.whatsappBtn = $('.mobile-webchat__form-button--whatsapp');
-      this.webchatBtn = $('.mobile-webchat__form-button--webchat');
+      this.serviceSelect = $('.mobile-webchat__select');
+      this.whatsappBtn = $('.mobile-webchat__button--whatsapp');
+      this.webchatBtn = $('.mobile-webchat__button--webchat');
     };
 
     /**
