@@ -126,24 +126,57 @@ describe.only('Chat Popup', function() {
 
   describe('Hides the popup on scroll', function() {
 
+    beforeEach(function() {
+      this.clock = sinon.useFakeTimers();
+      this.stub = sinon.stub(this.chatPopup, '_getScrollAmount');
+    });
+
+    afterEach(function() {
+      this.clock.restore();
+      this.stub.restore();
+    });
+
     it('Doesn\'t hide before reaching the scroll limit', function() {
-      window.scrollTo(699);
-      setTimeout(function() {
-        expect(this.$popupComponent).not.to.have.class('mobile-webchat--hide');
-      },201);
+      this.stub.returns(699);
+      $(window).trigger('scroll');
+      this.clock.tick(201);
+      expect(this.$popupComponent).not.to.have.class('mobile-webchat--hide');
+        
     });
 
     it('Hides after scrolling 700 pixels', function() {
-      window.scrollTo(701);
-      setTimeout(function() {
-        expect(this.$popupComponent).to.have.class('mobile-webchat--hide');
-      },201);
+      this.stub.returns(701);
+      $(window).trigger('scroll');
+      this.clock.tick(201); 
+      expect(this.$popupComponent).to.have.class('mobile-webchat--hide');
     });
 
     it('Reveals on border click', function() {
+      this.stub.returns(701);
+      $(window).trigger('scroll');
+      this.clock.tick(201);
+      expect(this.$popupComponent).to.have.class('mobile-webchat--hide');
 
+      var popupEl = document.querySelectorAll('[data-dough-component="ChatPopup"]')[0];
+      var rect = popupEl.getBoundingClientRect(),
+        posX = rect.left - 1, posY = rect.top;
+      // create event-object with calculated position
+      var ev = document.createEvent('MouseEvent');
+      ev.initMouseEvent(
+        'click',
+        true /* bubble */, 
+        true /* cancelable */,
+        window, 
+        null,
+        0, 0, posX, posY, /* coordinates */
+        false, false, false, false, /* modifier keys */
+        0 /*left*/, 
+        null
+      ); 
+      popupEl.dispatchEvent(ev); // trigger the event on elem
+      expect(this.$popupComponent).not.to.have.class('mobile-webchat--hide');
     });
-    
+
   });
 
 });

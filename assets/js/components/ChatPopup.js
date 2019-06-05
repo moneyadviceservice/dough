@@ -76,8 +76,8 @@ define(['jquery', 'DoughBaseComponent'],
     };
 
     ChatPopup.prototype._setScrollLimits = function () {
-      this.scrollLimitTop = $(window).scrollTop() - 700;
-      this.scrollLimitBottom = $(window).scrollTop() + 700;
+      this.scrollLimitTop = this._getScrollAmount() - 700;
+      this.scrollLimitBottom = this._getScrollAmount() + 700;
       // if limit top is negative set to 0
       if(this.scrollLimitTop < 0) this.scrollLimitTop = 0;
       // define offset for bottom contact panels
@@ -85,11 +85,15 @@ define(['jquery', 'DoughBaseComponent'],
     };
 
     ChatPopup.prototype._outsideScrollLimits = function () {
-      if($(window).scrollTop() < this.scrollLimitTop ||  $(window).scrollTop() > this.scrollLimitBottom) {
+      if(this._getScrollAmount() < this.scrollLimitTop ||  this._getScrollAmount() > this.scrollLimitBottom) {
         return true;
       } else {
         return false;
       }
+    };
+
+    ChatPopup.prototype._getScrollAmount = function() {
+      return $(window).scrollTop();
     };
 
     ChatPopup.prototype._manageTransition = function (opacity) {
