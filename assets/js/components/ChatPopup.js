@@ -15,6 +15,7 @@ define(['jquery', 'DoughBaseComponent'],
       this.serviceSelect = $el.find('[data-dough-webchat-select]');
       this.whatsappBtn = $el.find('[data-dough-webchat-button-whatsapp]');
       this.webchatBtn = $el.find('[data-dough-webchat-button-webchat]');
+      
     };
 
     /**
@@ -37,6 +38,7 @@ define(['jquery', 'DoughBaseComponent'],
         event.preventDefault();
         self._togglePopup();
         self._manageTransition(0);
+        self._setScrollLimits();
       });
       // on select change
       this.serviceSelect.change(function(event) {
@@ -46,6 +48,49 @@ define(['jquery', 'DoughBaseComponent'],
           self.whatsappBtn.addClass('is-hidden');
         }
       });
+
+      // on scroll hide or show
+      $(window).scroll($.throttle(200, function() {
+        // past scroll limits
+        if(!self.chatPopupBtn.hasClass('mobile-webchat--hide') && self._outsideScrollLimits()) {
+          // and popup is closed
+          if(self.chatPopupBtn.hasClass('mobile-webchat--closed')) {
+            self.chatPopupBtn.addClass('mobile-webchat--hide');
+          }
+        }
+        // completely hide when contact panels are reached
+        if($(window).scrollTop() > self.contactPanelsOffset && self.chatPopupBtn.hasClass('mobile-webchat--hide')) {
+          self.chatPopupBtn.addClass('is-hidden');
+        } else {
+          self.chatPopupBtn.removeClass('is-hidden');
+        }
+      }));
+      // on left border clicked reveal popup
+      this.chatPopupBtn.click(function(event){   
+        // left border offset
+        if(event.offsetX < 0) {
+          self.chatPopupBtn.removeClass('mobile-webchat--hide');
+          self._setScrollLimits();
+        }
+      });
+    };
+
+    ChatPopup.prototype._setScrollLimits = function () {
+      this.scrollLimitTop = $(window).scrollTop() - 700;
+      this.scrollLimitBottom = $(window).scrollTop() + 700;
+      // if limit top is negative set to 0
+      if(this.scrollLimitTop < 0) this.scrollLimitTop = 0;
+      // define offset for bottom contact panels
+      this.contactPanelsOffset = $('.l-contact-panels.t-contact-panels').offset().top - $(window).innerHeight();
+      
+    };
+
+    ChatPopup.prototype._outsideScrollLimits = function () {
+      if($(window).scrollTop() < this.scrollLimitTop ||  $(window).scrollTop() > this.scrollLimitBottom) {
+        return true;
+      } else {
+        return false;
+      }
     };
 
     ChatPopup.prototype._manageTransition = function (opacity) {
@@ -81,6 +126,7 @@ define(['jquery', 'DoughBaseComponent'],
      * @param {Promise} initialised
      */
     ChatPopup.prototype.init = function (initialised) {
+      this._setScrollLimits();
       this._setupListeners();
       this._initialisedSuccess(initialised);
     };
