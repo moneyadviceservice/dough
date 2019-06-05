@@ -127,17 +127,23 @@ describe.only('Chat Popup', function() {
   describe('Hides the popup on scroll', function() {
 
     it('Doesn\'t hide before reaching the scroll limit', function() {
-
+      window.scrollTo(699);
+      setTimeout(function() {
+        expect(this.$popupComponent).not.to.have.class('mobile-webchat--hide');
+      },201);
     });
 
     it('Hides after scrolling 700 pixels', function() {
-      window.scrollTo(window.scrollX, window.scrollY + 701);
-      expect(this.$popupComponent).to.have.class('mobile-webchat--hide');
+      window.scrollTo(701);
+      setTimeout(function() {
+        expect(this.$popupComponent).to.have.class('mobile-webchat--hide');
+      },201);
     });
 
     it('Reveals on border click', function() {
 
     });
+    
   });
 
 });
