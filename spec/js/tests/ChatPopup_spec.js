@@ -1,4 +1,4 @@
-describe('Chat Popup', function() {
+describe.only('Chat Popup', function() {
   'use strict';
 
   beforeEach(function(done) {
@@ -19,10 +19,10 @@ describe('Chat Popup', function() {
 
           self.ChatPopup = ChatPopup;
           self.$popupComponent = $(fixture.el).find('[data-dough-component="ChatPopup"]');
-          self.chatPopupIcon = $(fixture.el).find('div.mobile-webchat--icon');
-          self.chatPopupCloseBtn = $(fixture.el).find('button.mobile-webchat__close');
-          self.chatPopupSelect = $(fixture.el).find('.mobile-webchat__form-select');
-          self.whatsappBtn = $(fixture.el).find('.mobile-webchat__form-button--whatsapp');
+          self.chatPopupIcon = $(fixture.el).find('[data-dough-webchat-icon]');
+          self.chatPopupCloseBtn = $(fixture.el).find('[data-dough-webchat-close]');
+          self.chatPopupSelect = $(fixture.el).find('[data-dough-webchat-select]');
+          self.whatsappBtn = $(fixture.el).find('[data-dough-webchat-button-whatsapp]');
           self.chatPopup = new ChatPopup(self.$popupComponent);
           self.chatPopup.init();
           
@@ -70,12 +70,12 @@ describe('Chat Popup', function() {
     });
 
     it('Changes Select to Debt & Borrowing', function() {
-      this.chatPopupSelect.val('debt_borrowing').change();
+      this.chatPopupSelect.val('debt-and-borrowing').change();
       expect(this.whatsappBtn).not.to.have.class('is-hidden');
     });
 
     it('Changes Select to Pensions & Retirement', function() {
-      this.chatPopupSelect.val('pensions_retirement').change();
+      this.chatPopupSelect.val('pensions-and-retirement').change();
       expect(this.whatsappBtn).not.to.have.class('is-hidden');
     });
 
@@ -121,6 +121,22 @@ describe('Chat Popup', function() {
       } else {
         sinon.assert.notCalled(this.popupSpy);
       }
+    });
+  });
+
+  describe('Hides the popup on scroll', function() {
+
+    it('Doesn\'t hide before reaching the scroll limit', function() {
+
+    });
+
+    it('Hides after scrolling 700 pixels', function() {
+      window.scrollTo(window.scrollX, window.scrollY + 701);
+      expect(this.$popupComponent).to.have.class('mobile-webchat--hide');
+    });
+
+    it('Reveals on border click', function() {
+
     });
   });
 
