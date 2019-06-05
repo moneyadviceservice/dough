@@ -49,7 +49,7 @@ define(['jquery', 'DoughBaseComponent'],
         }
       });
 
-      // on scroll hide or show
+      // on scroll hide
       $(window).scroll($.throttle(200, function() {
         // past scroll limits
         if(!self.chatPopupBtn.hasClass('mobile-webchat--hide') && self._outsideScrollLimits()) {
@@ -65,9 +65,9 @@ define(['jquery', 'DoughBaseComponent'],
           self.chatPopupBtn.removeClass('is-hidden');
         }
       }));
-      // on left border clicked reveal popup
+      // on left border click reveal popup
       this.chatPopupBtn.click(function(event){   
-        // left border offset
+        // left border x-axis offset
         if(event.offsetX < 0) {
           self.chatPopupBtn.removeClass('mobile-webchat--hide');
           self._setScrollLimits();
@@ -81,8 +81,7 @@ define(['jquery', 'DoughBaseComponent'],
       // if limit top is negative set to 0
       if(this.scrollLimitTop < 0) this.scrollLimitTop = 0;
       // define offset for bottom contact panels
-      this.contactPanelsOffset = $('.l-contact-panels.t-contact-panels').offset().top - $(window).innerHeight();
-      
+      this.contactPanelsOffset = $('[data-dough-contact-panels]').offset().top - $(window).innerHeight();
     };
 
     ChatPopup.prototype._outsideScrollLimits = function () {
