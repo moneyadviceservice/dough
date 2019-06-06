@@ -3,7 +3,11 @@ define(['jquery', 'DoughBaseComponent'],
     'use strict';
 
     var ChatPopup,
-      defaultConfig = {};
+      defaultConfig = {
+        scrollThrottle: 200,
+        scrollLimit: 700,
+        hiddenClass: 'mobile-webchat--hide'
+      };
 
     ChatPopup = function ($el, config) {
       ChatPopup.baseConstructor.call(this, $el, config, defaultConfig);
@@ -50,16 +54,13 @@ define(['jquery', 'DoughBaseComponent'],
       });
 
       // on scroll hide
-      $(window).scroll($.throttle(200, function() {
+      $(window).scroll($.throttle(defaultConfig.scrollThrottle, function() {
         // past scroll limits
-        if(!self.chatPopupBtn.hasClass('mobile-webchat--hide') && self._outsideScrollLimits()) {
-          // and popup is closed
-          if(self.chatPopupBtn.hasClass('mobile-webchat--closed')) {
-            self.chatPopupBtn.addClass('mobile-webchat--hide');
-          }
+        if(!self.chatPopupBtn.hasClass(defaultConfig.hiddenClass) && self._outsideScrollLimits() && self.chatPopupBtn.hasClass('mobile-webchat--closed')) {
+          self.chatPopupBtn.addClass(defaultConfig.hiddenClass);
         }
         // completely hide when contact panels are reached
-        if($(window).scrollTop() > self.contactPanelsOffset && self.chatPopupBtn.hasClass('mobile-webchat--hide')) {
+        if($(window).scrollTop() > self.contactPanelsOffset && self.chatPopupBtn.hasClass(defaultConfig.hiddenClass)) {
           self.chatPopupBtn.addClass('is-hidden');
         } else {
           self.chatPopupBtn.removeClass('is-hidden');
@@ -69,16 +70,15 @@ define(['jquery', 'DoughBaseComponent'],
       this.chatPopupBtn.click(function(event){   
         // left border x-axis offset
         if(event.offsetX < 0) {
-          self.chatPopupBtn.removeClass('mobile-webchat--hide');
+          self.chatPopupBtn.removeClass(defaultConfig.hiddenClass);
           self._setScrollLimits();
         }
       });
     };
 
     ChatPopup.prototype._setScrollLimits = function () {
-      this.scrollLimitTop = this._getScrollAmount() - 700;
-      this.scrollLimitBottom = this._getScrollAmount() + 700;
-      // if limit top is negative set to 0
+      this.scrollLimitTop = this._getScrollAmount() - defaultConfig.scrollLimit;
+      this.scrollLimitBottom = this._getScrollAmount() + defaultConfig.scrollLimit;
       if(this.scrollLimitTop < 0) this.scrollLimitTop = 0;
       // define offset for bottom contact panels
       this.contactPanelsOffset = $('[data-dough-contact-panels]').offset().top - $(window).innerHeight();

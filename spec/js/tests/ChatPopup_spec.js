@@ -24,6 +24,9 @@ describe.only('Chat Popup', function() {
           self.chatPopupSelect = $(fixture.el).find('[data-dough-webchat-select]');
           self.whatsappBtn = $(fixture.el).find('[data-dough-webchat-button-whatsapp]');
           self.chatPopup = new ChatPopup(self.$popupComponent);
+          self.scrollThrottle = self.chatPopup.config.scrollThrottle;
+          self.scrollLimit = self.chatPopup.config.scrollLimit;
+          self.hiddenClass = self.chatPopup.config.hiddenClass;
           self.chatPopup.init();
           
           done();
@@ -137,25 +140,25 @@ describe.only('Chat Popup', function() {
     });
 
     it('Doesn\'t hide before reaching the scroll limit', function() {
-      this.stub.returns(699);
+      this.stub.returns(this.scrollLimit - 1);
       $(window).trigger('scroll');
-      this.clock.tick(201);
-      expect(this.$popupComponent).not.to.have.class('mobile-webchat--hide');
+      this.clock.tick(this.scrollThrottle);
+      expect(this.$popupComponent).not.to.have.class(this.hiddenClass);
         
     });
 
     it('Hides after scrolling 700 pixels', function() {
-      this.stub.returns(701);
+      this.stub.returns(this.scrollLimit + 1);
       $(window).trigger('scroll');
-      this.clock.tick(201); 
-      expect(this.$popupComponent).to.have.class('mobile-webchat--hide');
+      this.clock.tick(this.scrollThrottle); 
+      expect(this.$popupComponent).to.have.class(this.hiddenClass);
     });
 
     it('Reveals on border click', function() {
-      this.stub.returns(701);
+      this.stub.returns(this.scrollLimit + 1);
       $(window).trigger('scroll');
-      this.clock.tick(201);
-      expect(this.$popupComponent).to.have.class('mobile-webchat--hide');
+      this.clock.tick(this.scrollThrottle);
+      expect(this.$popupComponent).to.have.class(this.hiddenClass);
 
       var popupEl = document.querySelectorAll('[data-dough-component="ChatPopup"]')[0];
       var rect = popupEl.getBoundingClientRect(),
@@ -170,11 +173,13 @@ describe.only('Chat Popup', function() {
         null,
         0, 0, posX, posY, /* coordinates */
         false, false, false, false, /* modifier keys */
-        0 /*left*/, 
+        0, 
         null
-      ); 
-      popupEl.dispatchEvent(ev); // trigger the event on elem
-      expect(this.$popupComponent).not.to.have.class('mobile-webchat--hide');
+      );
+      // trigger the event
+      popupEl.dispatchEvent(ev);
+
+      expect(this.$popupComponent).not.to.have.class(this.hiddenClass);
     });
 
   });
