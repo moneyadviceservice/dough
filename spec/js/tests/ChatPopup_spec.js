@@ -1,4 +1,4 @@
-describe.only('Chat Popup', function() {
+describe('Chat Popup', function() {
   'use strict';
 
   beforeEach(function(done) {
