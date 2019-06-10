@@ -1,18 +1,19 @@
 <div>
   <div>
     <div href="#" class="chat-popup__container mobile-webchat--closed" data-dough-component="ChatPopup">
-      <button class="mobile-webchat__close"></button>
-      <div class="mobile-webchat--icon"></div>
-      <select class="mobile-webchat__form-select">
-        <option value="debt_borrowing"></option>
-        <option value="work_benefits"></option>
-        <option value="pensions_retirement"></option>
+      <button class="mobile-webchat__close" data-dough-webchat-close></button>
+      <div class="mobile-webchat--icon" data-dough-webchat-icon></div>
+      <select class="mobile-webchat__form-select" data-dough-webchat-select>
+        <option value="debt-and-borrowing"></option>
+        <option value="work-and-benefits"></option>
+        <option value="pensions-and-retirement"></option>
       </select>
-      <a class="mobile-webchat__form-button--whatsapp"></a>
+      <a class="mobile-webchat__form-button--whatsapp" data-dough-webchat-button-whatsapp></a>
     </div>
     <div>
       <div data-dough-component="BackToTop"></div>
     </div>
+    <div data-dough-contact-panels></div>
     <div class="l-body">
       <footer>
         <div class="l-footer-secondary"></div>
