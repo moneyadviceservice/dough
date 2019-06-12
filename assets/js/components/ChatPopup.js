@@ -61,9 +61,9 @@ define(['jquery', 'DoughBaseComponent'],
         self._reachedContactPanels() ? self.chatPopupBtn.addClass('is-hidden') : self.chatPopupBtn.removeClass('is-hidden');
       }));
       // on left border click reveal popup
-      this.chatPopupBtn.click(function(event){   
+      this.chatPopupBtn.click(function(event){
         // left border x-axis offset
-        if(event.offsetX < 0) {
+        if(event.offsetX < 20 && self.chatPopupBtn.hasClass(defaultConfig.hiddenClass)) {
           self.chatPopupBtn.removeClass(defaultConfig.hiddenClass);
           self._setScrollLimits();
         }
