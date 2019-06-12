@@ -16,12 +16,13 @@
 }
 
 .popup-tip__container {
+  z-index: 2;
   .js & {
     padding: $baseline-unit*2;
     display: none;
     border: 2px solid $color-grey-dark;
     background-color: $color-white;
-    z-index: 1;
+    
     position: absolute;
     width: 100%;
 
