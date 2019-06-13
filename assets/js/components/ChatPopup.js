@@ -56,7 +56,9 @@ define(['jquery', 'DoughBaseComponent'],
       // on scroll hide
       $(window).scroll($.throttle(defaultConfig.scrollThrottle, function() {
         // past scroll limits
-        if (self._hideChatPopup()) self.chatPopupBtn.addClass(defaultConfig.hiddenClass);
+        if (self._hideChatPopup()) {
+          self.chatPopupBtn.addClass(defaultConfig.hiddenClass);
+        }
         // completely hide when contact panels are reached
         self._reachedContactPanels() ? self.chatPopupBtn.addClass('is-hidden') : self.chatPopupBtn.removeClass('is-hidden');
       }));
@@ -73,7 +75,9 @@ define(['jquery', 'DoughBaseComponent'],
     ChatPopup.prototype._setScrollLimits = function() {
       this.scrollLimitTop = this._getScrollAmount() - defaultConfig.scrollLimit;
       this.scrollLimitBottom = this._getScrollAmount() + defaultConfig.scrollLimit;
-      if (this.scrollLimitTop < 0) this.scrollLimitTop = 0;
+      if (this.scrollLimitTop < 0) {
+        this.scrollLimitTop = 0;
+      }
       // define offset for bottom contact panels
       this.contactPanelsOffset = $('[data-dough-contact-panels]').offset().top - $(window).innerHeight();
     };
