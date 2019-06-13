@@ -1,5 +1,5 @@
 define(['jquery', 'DoughBaseComponent'],
-  function ($, DoughBaseComponent) {
+  function($, DoughBaseComponent) {
     'use strict';
 
     var ChatPopup,
@@ -9,7 +9,7 @@ define(['jquery', 'DoughBaseComponent'],
         hiddenClass: 'mobile-webchat--hide'
       };
 
-    ChatPopup = function ($el, config) {
+    ChatPopup = function($el, config) {
       ChatPopup.baseConstructor.call(this, $el, config, defaultConfig);
 
       this.chatPopupBtn = $el;
@@ -29,16 +29,16 @@ define(['jquery', 'DoughBaseComponent'],
 
     ChatPopup.componentName = 'ChatPopup';
 
-    ChatPopup.prototype._setupListeners = function () {
+    ChatPopup.prototype._setupListeners = function() {
       var self = this;
       // on icon click open popup
-      this.chatPopupIcon.click(function (event) {
+      this.chatPopupIcon.click(function(event) {
         event.preventDefault();
         self._togglePopup();
         self._manageTransition(1);
       });
       // on X click close popup
-      this.chatPopupClose.click(function (event) {
+      this.chatPopupClose.click(function(event) {
         event.preventDefault();
         self._togglePopup();
         self._manageTransition(0);
@@ -46,7 +46,7 @@ define(['jquery', 'DoughBaseComponent'],
       });
       // on select change
       this.serviceSelect.change(function(event) {
-        if(event.target.value === 'debt-and-borrowing' || event.target.value === 'pensions-and-retirement') {
+        if (event.target.value === 'debt-and-borrowing' || event.target.value === 'pensions-and-retirement') {
           self.whatsappBtn.removeClass('is-hidden');
         } else {
           self.whatsappBtn.addClass('is-hidden');
@@ -56,35 +56,35 @@ define(['jquery', 'DoughBaseComponent'],
       // on scroll hide
       $(window).scroll($.throttle(defaultConfig.scrollThrottle, function() {
         // past scroll limits
-        if(self._hideChatPopup()) self.chatPopupBtn.addClass(defaultConfig.hiddenClass);
+        if (self._hideChatPopup()) self.chatPopupBtn.addClass(defaultConfig.hiddenClass);
         // completely hide when contact panels are reached
         self._reachedContactPanels() ? self.chatPopupBtn.addClass('is-hidden') : self.chatPopupBtn.removeClass('is-hidden');
       }));
       // on left border click reveal popup
-      this.chatPopupBtn.click(function(event){
+      this.chatPopupBtn.click(function(event) {
         // left border x-axis offset
-        if(event.offsetX < 20 && self.chatPopupBtn.hasClass(defaultConfig.hiddenClass)) {
+        if (event.offsetX < 20 && self.chatPopupBtn.hasClass(defaultConfig.hiddenClass)) {
           self.chatPopupBtn.removeClass(defaultConfig.hiddenClass);
           self._setScrollLimits();
         }
       });
     };
 
-    ChatPopup.prototype._setScrollLimits = function () {
+    ChatPopup.prototype._setScrollLimits = function() {
       this.scrollLimitTop = this._getScrollAmount() - defaultConfig.scrollLimit;
       this.scrollLimitBottom = this._getScrollAmount() + defaultConfig.scrollLimit;
-      if(this.scrollLimitTop < 0) this.scrollLimitTop = 0;
+      if (this.scrollLimitTop < 0) this.scrollLimitTop = 0;
       // define offset for bottom contact panels
       this.contactPanelsOffset = $('[data-dough-contact-panels]').offset().top - $(window).innerHeight();
     };
 
-    ChatPopup.prototype._hideChatPopup = function () {
-      if(!this.chatPopupBtn.hasClass(defaultConfig.hiddenClass) && this.chatPopupBtn.hasClass('mobile-webchat--closed')){
+    ChatPopup.prototype._hideChatPopup = function() {
+      if (!this.chatPopupBtn.hasClass(defaultConfig.hiddenClass) && this.chatPopupBtn.hasClass('mobile-webchat--closed')){
         return this._getScrollAmount() < this.scrollLimitTop ||  this._getScrollAmount() > this.scrollLimitBottom;
       }
     };
 
-    ChatPopup.prototype._reachedContactPanels = function () {
+    ChatPopup.prototype._reachedContactPanels = function() {
       return $(window).scrollTop() > this.contactPanelsOffset && this.chatPopupBtn.hasClass(defaultConfig.hiddenClass);
     };
 
@@ -92,17 +92,17 @@ define(['jquery', 'DoughBaseComponent'],
       return $(window).scrollTop();
     };
 
-    ChatPopup.prototype._manageTransition = function (opacity) {
+    ChatPopup.prototype._manageTransition = function(opacity) {
       var self = this;
-      setTimeout(function () {
-        $.each(self.popupElements, function (index, value) {
+      setTimeout(function() {
+        $.each(self.popupElements, function(index, value) {
           value.style.opacity = opacity;
           value.style.filter = "alpha(opacity=" + opacity + "00)"; // IE fallback
         });
       }, 100);
     };
 
-    ChatPopup.prototype._togglePopup = function () {
+    ChatPopup.prototype._togglePopup = function() {
       this.chatPopupBtn.toggleClass('mobile-webchat--opened').toggleClass('mobile-webchat--closed');
     };
 
@@ -111,7 +111,7 @@ define(['jquery', 'DoughBaseComponent'],
      * @param {boolean} raised - set button raised state
      * @param {boolean} atSmallViewport - viewport width < 720px
      */
-    ChatPopup.prototype._raisedChatPopup = function (raised, atSmallViewport) {
+    ChatPopup.prototype._raisedChatPopup = function(raised, atSmallViewport) {
       var raisedPopup = raised && atSmallViewport;
       // check if conditions are met
       if (raisedPopup) {
@@ -124,7 +124,7 @@ define(['jquery', 'DoughBaseComponent'],
     /**
      * @param {Promise} initialised
      */
-    ChatPopup.prototype.init = function (initialised) {
+    ChatPopup.prototype.init = function(initialised) {
       this._setScrollLimits();
       this._setupListeners();
       this._initialisedSuccess(initialised);
