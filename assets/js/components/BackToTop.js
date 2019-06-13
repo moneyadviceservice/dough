@@ -1,5 +1,5 @@
-define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
-  function($, DoughBaseComponent, mediaQueries, utilities) {
+define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities', 'ChatPopup'],
+  function($, DoughBaseComponent, mediaQueries, utilities, ChatPopup) {
   'use strict';
 
   var BackToTop,
@@ -20,6 +20,9 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     this.showClass = 'back_to_top__link--shown';
     this.active = false;
     this.scrollingToTop = false;
+    // import the ChatPopup class
+    this.popupComponent = $(document).find('[data-dough-component="ChatPopup"]');
+    this.chatPopup = new ChatPopup(this.popupComponent);
   };
 
   /**
@@ -57,8 +60,8 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
     this.$bttLink
       .click(function() {
         $(this).removeClass(self.showClass);
+        self.chatPopup._raisedChatPopup(false, self.atSmallViewport);
         self.scrollingToTop = true;
-
         $('html, body').animate({scrollTop: 0}, 800, function() {
           self.scrollingToTop = false;
         });
@@ -84,9 +87,16 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
       this.atSmallViewport = true;
       this._position();
       this.$bttLink.removeClass(this.hiddenClass);
+      // on resize, validate scroll amount and manage raised class in whatsapp popup
+      if (this._getScrollAmount() < this.config.triggerPoint) {
+        this.chatPopup._raisedChatPopup(false, this.atSmallViewport);
+      } else {
+        this.chatPopup._raisedChatPopup(true, this.atSmallViewport);
+      }
     } else {
       this.atSmallViewport = false;
       this.$bttLink.addClass(this.hiddenClass);
+      this.chatPopup._raisedChatPopup(false, this.atSmallViewport);
     }
   };
 
@@ -103,9 +113,11 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities'],
       // we are beyond the scroll point
       if (this.active) {
         this.$bttLink.addClass(this.showClass);
+        this.chatPopup._raisedChatPopup(true, this.atSmallViewport);
       // we are not beyond the scroll point
       } else {
         this.$bttLink.removeClass(this.showClass);
+        this.chatPopup._raisedChatPopup(false, this.atSmallViewport);
       }
     }
   };

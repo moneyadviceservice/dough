@@ -23,6 +23,7 @@ require.config({
     mediaQueries: 'assets/js/lib/mediaQueries',
     componentLoader: 'assets/js/lib/componentLoader',
     BackToTop: 'assets/js/components/BackToTop',
+    ChatPopup: 'assets/js/components/ChatPopup',
     Collapsable: 'assets/js/components/Collapsable',
     CollapsableMobile: 'assets/js/components/CollapsableMobile',
     ConfirmableForm: 'assets/js/components/ConfirmableForm',
