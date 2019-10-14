@@ -9,10 +9,10 @@ module Dough
     end
 
     initializer 'dough.assets.precompile' do |app|
-      app.config.assets.precompile += %w[dough/assets/stylesheets/basic.css
-                                         dough/assets/stylesheets/font_files.css
-                                         dough/assets/stylesheets/font_base64.css]
-      app.config.assets.precompile << /\.(?:png|svg|eot|woff|ttf)$/
+      # app.config.assets.precompile += %w[dough/assets/stylesheets/basic.css
+      #                                    dough/assets/stylesheets/font_files.css
+      #                                    dough/assets/stylesheets/font_base64.css]
+      # app.config.assets.precompile << /\.(?:png|svg|eot|woff|ttf)$/
     end
   end
 end
