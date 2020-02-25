@@ -11,6 +11,16 @@ A reusable UI component library from the Money Advice Service, free for use on a
 * [NodeJS]
 * [Gulp]
 
+## Usage
+
+Add the following to your Gemfile and bundle:
+
+Rails 4:
+`gem 'dough-ruby'`
+
+Rails 5:
+`gem 'dough-ruby', require: 'dough'`
+
 ## Installation
 
 Clone the repository:
