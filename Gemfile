@@ -4,6 +4,7 @@ source 'http://gems.dev.mas.local' if ENV['MAS_BUILD']
 gemspec
 
 ruby '2.5.3'
+gem 'rails', '5.0.7.2'
 
 group :development, :test do
   gem 'brakeman', require: false
@@ -15,6 +16,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', '~> 0.63.1', require: false
   gem 'rubocop-rspec'
+  gem 'sass'
   gem 'shoulda-matchers', '~> 2.8.0' # Dough targets 1.9.3 so we need to lock shoulda-matchers to < 3.0
   gem 'tzinfo-data'
 end
