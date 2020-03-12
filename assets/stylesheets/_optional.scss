@@ -1,3 +1,5 @@
 // Use template/settings to include / exclude optional files
 @import 'settings';
-@import 'components/optional/*';
+@import 'components/optional/social_sharing_icons';
+@import 'components/optional/tab_selector';
+@import 'components/optional/tabular_tooltip';
