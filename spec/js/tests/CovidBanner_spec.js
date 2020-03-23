@@ -1,4 +1,4 @@
-describe('Coronavirus Banner', function() {
+describe.only('Coronavirus Banner', function() {
   'use strict';
 
   beforeEach(function(done) {
