@@ -21,7 +21,12 @@ define(['jquery', 'DoughBaseComponent'],
   */
   CovidBanner.prototype.init = function(initialised) {
     this._initialisedSuccess(initialised);
+    this._setUpEvents(); 
   };
+
+  CovidBanner.prototype._setUpEvents = function() {
+
+  }
 
   return CovidBanner;
 });

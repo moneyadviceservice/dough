@@ -12,10 +12,7 @@ describe.only('Coronavirus Banner', function() {
           fixture.load('CovidBanner.html');
 
           self.component = $(fixture.el).find('[data-dough-component="CovidBanner"]');
-
-          self.CovidBanner = new CovidBanner(self.component);
-          
-          self.CovidBanner.init();
+          self.CovidBanner = new CovidBanner(self.component);          
 
           done();
         }, done);
@@ -25,9 +22,19 @@ describe.only('Coronavirus Banner', function() {
     fixture.cleanup();
   });
 
-  describe('Do nothing', function() {
-    it('Does nothing', function() {
-      expect(1).to.equal(1);
+  describe('When the component is initialised', function() {
+    beforeEach(function() {
+      this.setUpEventsSpy = sinon.spy(this.CovidBanner, '_setUpEvents'); 
     });
-  });
+
+    afterEach(function() {
+      this.setUpEventsSpy.restore(); 
+    }); 
+
+    it('Calls the setUpEvents method', function() {
+      this.CovidBanner.init();
+
+      expect(this.setUpEventsSpy.calledOnce).to.be.true; 
+    }); 
+  }); 
 });
