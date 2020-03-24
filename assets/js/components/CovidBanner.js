@@ -7,6 +7,8 @@ define(['jquery', 'DoughBaseComponent'],
 
   CovidBanner = function($el, config) {
     CovidBanner.baseConstructor.call(this, $el, config, defaultConfig);
+
+    this.closeBtn = this.$el.find('[data-dough-close]'); 
   };
 
   /**
@@ -25,8 +27,22 @@ define(['jquery', 'DoughBaseComponent'],
   };
 
   CovidBanner.prototype._setUpEvents = function() {
+    var _this = this; 
 
-  }
+    this.closeBtn.click(function(e) {
+      e.preventDefault(); 
+      _this._setCookie(); 
+      _this._removeBanner(); 
+    }); 
+  }; 
+
+  CovidBanner.prototype._setCookie = function() {
+    console.log('_setCookie!'); 
+  }; 
+
+  CovidBanner.prototype._removeBanner = function() {
+    console.log('_removeBanner!'); 
+  }; 
 
   return CovidBanner;
 });
