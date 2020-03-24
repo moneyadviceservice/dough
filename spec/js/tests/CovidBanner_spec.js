@@ -63,4 +63,21 @@ describe.only('Coronavirus Banner', function() {
       expect(this.removeBannerSpy.calledOnce).to.be.true;
     });
   });
+
+  describe('When the setCookie method is called', function() {
+    beforeEach(function() {
+      // Create some random cookies
+      document.cookie = '';
+      document.cookie = 'firstcookie=randomcookie';
+      document.cookie = 'secondcookie=anotherrandomcookie';
+    }); 
+
+    it('Sets the cookie to the correct value', function() {
+      this.CovidBanner._setCookie(); 
+
+      var allCookies = document.cookie.replace(/ /g, ''); 
+
+      expect(allCookies.indexOf('_covid_banner=y') >= 0).to.be.true; 
+    }); 
+  }); 
 });

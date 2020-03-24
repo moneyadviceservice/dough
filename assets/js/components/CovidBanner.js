@@ -37,7 +37,16 @@ define(['jquery', 'DoughBaseComponent'],
   }; 
 
   CovidBanner.prototype._setCookie = function() {
-    console.log('_setCookie!'); 
+    // check if the _covid_banner cookie exists
+    var allCookies = document.cookie.replace(/ /g, '').split(';'); 
+    var cookieExists = allCookies.some(function(item) {
+      return item.indexOf('_covid_banner=') == 0; 
+    }); 
+
+    // if not then create it with a value of 'y'
+    if (!cookieExists) {
+      document.cookie = '_covid_banner=y';      
+    }
   }; 
 
   CovidBanner.prototype._removeBanner = function() {
