@@ -10,6 +10,7 @@ define(['jquery', 'DoughBaseComponent'],
 
     this.closeBtn = this.$el.find('[data-dough-close]'); 
     this.hideClass = 'covid_banner--hidden'; 
+    this.raisedClass = 'covid_banner--raised'; 
   };
 
   /**
@@ -53,6 +54,21 @@ define(['jquery', 'DoughBaseComponent'],
   CovidBanner.prototype._hideBanner = function() {
     this.$el.addClass(this.hideClass); 
   }; 
+
+  /**
+   * Public method imported in BackToTop.js to manage popup vertical position in article pages
+   * @param {boolean} raised - set button raised state
+   * @param {boolean} atSmallViewport - viewport width < 720px
+   */
+  CovidBanner.prototype._raisedCovidBanner = function(raised, atSmallViewport) {
+    var raisedBanner = raised && atSmallViewport;
+    // check if conditions are met
+    if (raisedBanner) {
+      this.$el.addClass(this.raisedClass)
+    } else {
+      this.$el.removeClass(this.raisedClass)
+    };
+  }
 
   return CovidBanner;
 });
