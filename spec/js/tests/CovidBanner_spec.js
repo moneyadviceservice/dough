@@ -13,7 +13,8 @@ describe.only('Coronavirus Banner', function() {
 
           self.component = $(fixture.el).find('[data-dough-component="CovidBanner"]');
           self.closeBtn = $(fixture.el).find('[data-dough-close]');
-          self.CovidBanner = new CovidBanner(self.component);          
+          self.CovidBanner = new CovidBanner(self.component);    
+          self.hideClass = self.CovidBanner.hideClass;
 
           done();
         }, done);
@@ -43,12 +44,12 @@ describe.only('Coronavirus Banner', function() {
     beforeEach(function() {
       this.CovidBanner.init(); 
       this.setCookieSpy = sinon.spy(this.CovidBanner, '_setCookie');
-      this.removeBannerSpy = sinon.spy(this.CovidBanner, '_removeBanner');
+      this.hideBannerSpy = sinon.spy(this.CovidBanner, '_hideBanner');
     }); 
 
     afterEach(function() {
       this.setCookieSpy.restore(); 
-      this.removeBannerSpy.restore(); 
+      this.hideBannerSpy.restore(); 
     }); 
 
     it('Calls the setCookie method', function() {
@@ -57,10 +58,10 @@ describe.only('Coronavirus Banner', function() {
       expect(this.setCookieSpy.calledOnce).to.be.true;
     });
 
-    it('Calls the removeBanner method', function() {
+    it('Calls the hideBanner method', function() {
       this.closeBtn.trigger('click'); 
 
-      expect(this.removeBannerSpy.calledOnce).to.be.true;
+      expect(this.hideBannerSpy.calledOnce).to.be.true;
     });
   });
 
@@ -78,6 +79,14 @@ describe.only('Coronavirus Banner', function() {
       var allCookies = document.cookie.replace(/ /g, ''); 
 
       expect(allCookies.indexOf('_covid_banner=y') >= 0).to.be.true; 
+    }); 
+  }); 
+
+  describe('When the hideBanner method is called', function() {
+    it('Hides the banner', function() {
+      this.CovidBanner._hideBanner(); 
+
+      expect(this.component).to.have.class(this.hideClass); 
     }); 
   }); 
 });
