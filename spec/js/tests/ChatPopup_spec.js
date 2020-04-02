@@ -82,6 +82,10 @@ describe('Chat Popup', function() {
       expect(this.whatsappBtn).not.to.have.class('is-hidden');
     });
 
+    it('Changes Select to Coronavirus', function() {
+      this.chatPopupSelect.val('coronavirus').change();
+      expect(this.whatsappBtn).not.to.have.class('is-hidden');
+    });
   });
 
   describe('Raising the Webchat and Whatsapp popup in article pages', function() {

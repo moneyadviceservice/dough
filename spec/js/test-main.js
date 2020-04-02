@@ -26,6 +26,7 @@ require.config({
     ChatPopup: 'assets/js/components/ChatPopup',
     Collapsable: 'assets/js/components/Collapsable',
     CollapsableMobile: 'assets/js/components/CollapsableMobile',
+    CovidBanner: 'assets/js/components/CovidBanner',
     ConfirmableForm: 'assets/js/components/ConfirmableForm',
     PopupTip: 'assets/js/components/PopupTip',
     Print: 'assets/js/components/Print',
