@@ -1,5 +1,5 @@
-define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities', 'ChatPopup'],
-  function($, DoughBaseComponent, mediaQueries, utilities, ChatPopup) {
+define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities', 'ChatPopup', 'CovidBanner'],
+  function($, DoughBaseComponent, mediaQueries, utilities, ChatPopup, CovidBanner) {
   'use strict';
 
   var BackToTop,
@@ -23,6 +23,13 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities', 'ChatPopup'
     // import the ChatPopup class
     this.popupComponent = $(document).find('[data-dough-component="ChatPopup"]');
     this.chatPopup = new ChatPopup(this.popupComponent);
+    // import the CovidBanner class
+    if ($(document).find('[data-dough-component="CovidBanner"]').length > 0) {
+      this.covidComponent = $(document).find('[data-dough-component="CovidBanner"]');
+      this.covidBanner = new CovidBanner(this.covidComponent);
+    } else {
+      this.covidBanner = null; 
+    }
   };
 
   /**
@@ -90,13 +97,22 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities', 'ChatPopup'
       // on resize, validate scroll amount and manage raised class in whatsapp popup
       if (this._getScrollAmount() < this.config.triggerPoint) {
         this.chatPopup._raisedChatPopup(false, this.atSmallViewport);
+        if (this.covidBanner) {
+          this.covidBanner._raisedCovidBanner(false, this.atSmallViewport);
+        }
       } else {
         this.chatPopup._raisedChatPopup(true, this.atSmallViewport);
+        if (this.covidBanner) {
+          this.covidBanner._raisedCovidBanner(true, this.atSmallViewport);
+        }
       }
     } else {
       this.atSmallViewport = false;
       this.$bttLink.addClass(this.hiddenClass);
       this.chatPopup._raisedChatPopup(false, this.atSmallViewport);
+      if (this.covidBanner) {
+        this.covidBanner._raisedCovidBanner(false, this.atSmallViewport);
+      }
     }
   };
 
@@ -114,10 +130,16 @@ define(['jquery', 'DoughBaseComponent', 'mediaQueries', 'utilities', 'ChatPopup'
       if (this.active) {
         this.$bttLink.addClass(this.showClass);
         this.chatPopup._raisedChatPopup(true, this.atSmallViewport);
+        if (this.covidBanner) {
+          this.covidBanner._raisedCovidBanner(true, this.atSmallViewport);
+        }
       // we are not beyond the scroll point
       } else {
         this.$bttLink.removeClass(this.showClass);
         this.chatPopup._raisedChatPopup(false, this.atSmallViewport);
+        if (this.covidBanner) {
+          this.covidBanner._raisedCovidBanner(false, this.atSmallViewport);
+        }
       }
     }
   };
