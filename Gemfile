@@ -15,6 +15,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rubocop', '~> 0.63.1', require: false
   gem 'rubocop-rspec'
+  gem 'sass'
   gem 'shoulda-matchers', '~> 2.8.0' # Dough targets 1.9.3 so we need to lock shoulda-matchers to < 3.0
   gem 'sprockets', '~> 3.7.2'
   gem 'tzinfo-data'
