@@ -4,7 +4,7 @@ source 'http://gems.dev.mas.local' if ENV['MAS_BUILD']
 gemspec
 
 ruby '2.5.3'
-gem 'rails', '5.0.7.2'
+gem 'rails', '~> 5.2.4.4'
 
 group :development, :test do
   gem 'brakeman', require: false
