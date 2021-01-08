@@ -67,7 +67,12 @@ define(['StorageAccess'], function(StorageAccess) {
 		var message = document.createElement('div'); 
 		var header; 
 		var headerStyles = {
-			'margin-top': 0
+			'margin-top': 0, 
+			'background-image': 'url(/assets/dough/assets/images/exclamation_mark.svg)', 
+			'background-repeat': 'no-repeat', 
+			'background-position': 'left center', 
+			'background-size': '2.25rem', 
+			'padding-left': '2.5rem'
 		}
 
 		message.innerHTML = 
