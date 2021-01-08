@@ -62,23 +62,30 @@ define(['StorageAccess'], function(StorageAccess) {
 		this.el.style.display = 'block'; 
   }; 
 
-  StorageAccess.prototype.renderLink = function() {
-		var href = window.frames.location.href; 
-		var message = document.createElement('div'); 
-		var header; 
-		var headerStyles = {
-			'margin-top': 0, 
-			'background-image': 'url(/assets/dough/assets/images/exclamation_mark.svg)', 
-			'background-repeat': 'no-repeat', 
-			'background-position': 'left center', 
-			'background-size': '2.25rem', 
-			'padding-left': '2.5rem'
-		}
+	StorageAccess.prototype.renderLink = function() {
+		var frame = window.frames,
+				href = frame.location.href, 
+				locale = frame.I18n.locale, 
+				message = document.createElement('div'), 
+				header, 
+				headerStyles = {
+					'margin-top': 0, 
+					'background-image': 'url(/assets/dough/assets/images/exclamation_mark.svg)', 
+					'background-repeat': 'no-repeat', 
+					'background-position': 'left center', 
+					'background-size': '2.25rem', 
+					'padding-left': '2.5rem'
+				}, 
+				messageHTML = {
+					en: `<h1>Oops!</h1>
+					<p>Sorry, it looks like your browser has blocked our tool. This is most likely due to improved security in relation to the use of cookies.</p>
+					<p>You can still load the tool on this browser by visiting the <a href="${href}" target="_blank" class="storageAccessReferLink">Money Advice Service tool page</a> (opens in a new window) or by visiting this page in a different browser.</p>`, 
+					cy: `<h1>Oops! &#x1F3F4&#xE0067&#xE0062&#xE0077&#xE006C&#xE0073&#xE007F;</h1>
+					<p>Sorry, it looks like your browser has blocked our tool. This is most likely due to improved security in relation to the use of cookies.</p>
+					<p>You can still load the tool on this browser by visiting the <a href="${href}" target="_blank" class="storageAccessReferLink">Money Advice Service tool page</a> (opens in a new window) or by visiting this page in a different browser.</p>`
+				}; 
 
-		message.innerHTML = 
-			`<h1>Oops!</h1>
-			<p>Sorry, it looks like your browser has blocked our tool. This is most likely due to improved security in relation to the use of cookies.</p>
-			<p>You can still load the tool on this browser by visiting the <a href="${href}" target="_blank" class="storageAccessReferLink">Money Advice Service tool page</a> (opens in a new window) or by visiting this page in a different browser.</p>`; 
+		message.innerHTML = messageHTML[locale]; 
 
 		header = message.getElementsByTagName('h1')[0]; 
 
