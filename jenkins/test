@@ -39,7 +39,6 @@ run bower install --allow-root
 run bundle exec rspec
 run sass assets/stylesheets/_templates/karma_tests.scss spec/js/fixtures/stylesheets/lib.css
 run npm test
-run jscs assets/js
 info brakeman -q --no-pager --ensure-latest
 
 if [ -f /.dockerenv ]; then
