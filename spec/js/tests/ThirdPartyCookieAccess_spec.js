@@ -3,16 +3,16 @@
  * It refrences a component that uses ES6 syntax that is not understood by PhnatomJS
  * Replacing Phantom with either Chrome or Firefox causes more problems than it solves for now
  */
-xdescribe('Storage Access component', function () {
+xdescribe('Third Party Cookie Access component', function () {
   'use strict';
 
   beforeEach(function (done) {
     var _this = this;
 
     requirejs(
-      ['StorageAccess'],
-      function (StorageAccess) {
-        _this.obj = new StorageAccess();
+      ['ThirdPartyCookieAccess'],
+      function (ThirdPartyCookieAccess) {
+        _this.obj = new ThirdPartyCookieAccess();
         _this.el = _this.obj.el; 
 
         done();
