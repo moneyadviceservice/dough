@@ -1,9 +1,4 @@
-/**
- * This test is skipped at the minute 
- * It refrences a component that uses ES6 syntax that is not understood by PhnatomJS
- * Replacing Phantom with either Chrome or Firefox causes more problems than it solves for now
- */
-xdescribe('Third Party Cookie Access component', function () {
+describe('Third Party Cookie Access component', function () {
   'use strict';
 
   beforeEach(function (done) {
@@ -35,7 +30,8 @@ xdescribe('Third Party Cookie Access component', function () {
     }); 
   }); 
 
-  describe('On calling the queryDevice method', function() {
+  // TODO: Add test for this method (needs updating for ES6)
+  xdescribe('On calling the queryDevice method', function() {
     it('Calls the correct method on receiving return value', function() {
       var showContentSpy = sinon.spy(this.obj, 'showContent'); 
       var hasAccessSpy = sinon.spy(this.obj, 'hasAccess'); 
@@ -57,8 +53,7 @@ xdescribe('Third Party Cookie Access component', function () {
     }); 
   }); 
 
-  // TODO: Add test for the hasAccess method
-  // This uses promises which doesn't seem to play nice with these tests
+  // TODO: Add test for this method (needs updating for ES6)
   xdescribe('On calling the hasAccess method', function() {
     it('Calls the correct methods on receiving the return value', function() {
       var documentStub = sinon.stub(document); 
@@ -87,7 +82,8 @@ xdescribe('Third Party Cookie Access component', function () {
     }); 
   }); 
 
-  describe('On calling the renderLink method', function() {
+  // TODO: Add test for this method (needs updating for ES6)
+  xdescribe('On calling the renderLink method', function() {
     it('shows the expected content', function() {
       this.obj.renderLink(); 
 
