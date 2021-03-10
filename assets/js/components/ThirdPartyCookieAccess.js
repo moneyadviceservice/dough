@@ -37,7 +37,7 @@ define(['ThirdPartyCookieAccess'], function(ThirdPartyCookieAccess) {
 		console.log('Determining if device has access to Storage/Cookies ...'); 
 
 		document.hasStorageAccess().then(
-			hasAccess => {
+			function(hasAccess) {
 				if (hasAccess) {
 					console.log('We DO have access to Storage/Cookies!');
 
@@ -48,10 +48,7 @@ define(['ThirdPartyCookieAccess'], function(ThirdPartyCookieAccess) {
 					this.renderLink(); 
 				}
 			}
-		).catch(e => {
-			console.log('Could not determine if we have access!'); 
-			console.log(e); 
-		})
+		)
 	}; 
 
 	ThirdPartyCookieAccess.prototype.hideContent = function() {
@@ -77,15 +74,15 @@ define(['ThirdPartyCookieAccess'], function(ThirdPartyCookieAccess) {
 					'padding-left': '2.5rem'
 				},
 				messageHTML = {
-					en: `<h1>Oops!</h1>
-					<p>Sorry, it looks like your browser has blocked our tool. This is most likely due to improved security in relation to the use of cookies.</p>
-					<p>You can still load the tool on this browser by visiting the <a href="${href}" target="_blank" class="ThirdPartyCookieAccessReferLink">Money Advice Service tool page</a> (opens in a new window) or by visiting this page in a different browser.</p>`, 
-					cy: `<h1>Wps!</h1>
-					<p>Mae'n ddrwg gennym, mae'n edrych fel bod eich porwr wedi rhwystro ein teclyn. Mae hyn yn fwyaf tebygol oherwydd gwell diogelwch gan Apple mewn perthynas â defnyddio cwcis.</p>
-					<p>Gallwch ddal llwytho'r teclyn ar y porwr hwn trwy ymweld â <a href="${href}" target="_blank" class="ThirdPartyCookieAccessReferLink">thudalen teclynnau’r Gwasanaeth Cynghori Ariannol</a> (a fydd yn agor mewn ffenest newydd) neu trwy ymweld â'r dudalen hon mewn porwr gwahanol.</p>`
+					en: '<h1>Oops!</h1>' +
+					'<p>Sorry, it looks like your browser has blocked our tool. This is most likely due to improved security in relation to the use of cookies.</p>' + 
+					'<p>You can still load the tool on this browser by visiting the <a href="' + href + '" target="_blank" class="ThirdPartyCookieAccessReferLink">Money Advice Service tool page</a> (opens in a new window) or by visiting this page in a different browser.</p>',
+					cy: '<h1>Wps!</h1>' + 
+					'<p>Mae\'n ddrwg gennym, mae\'n edrych fel bod eich porwr wedi rhwystro ein teclyn. Mae hyn yn fwyaf tebygol oherwydd gwell diogelwch gan Apple mewn perthynas â defnyddio cwcis.</p>' + 
+					'<p>Gallwch ddal llwytho\'r teclyn ar y porwr hwn trwy ymweld â <a href="' + href + '" target="_blank" class="ThirdPartyCookieAccessReferLink">thudalen teclynnau’r Gwasanaeth Cynghori Ariannol</a> (a fydd yn agor mewn ffenest newydd) neu trwy ymweld â\'r dudalen hon mewn porwr gwahanol.</p>'
 				};
 
-		message.innerHTML = messageHTML[locale]; 
+		message.innerHTML = messageHTML[locale];
 
 		header = message.getElementsByTagName('h1')[0]; 
 
@@ -93,7 +90,7 @@ define(['ThirdPartyCookieAccess'], function(ThirdPartyCookieAccess) {
 		this.el.appendChild(message); 
 		this.el.style.display = 'block'; 
 
-		for (let style in headerStyles) {
+		for (var style in headerStyles) {
 			header.style[style] = headerStyles[style];
 		}
 	}; 
