@@ -25,7 +25,7 @@ define(['ThirdPartyCookieAccess'], function(ThirdPartyCookieAccess) {
 		if (isStorageAccessKnown === false) {
 			console.log('`hasStorageAccess` IS NOT known to this browser!'); 
 
-			this.showContent(); 
+			this.showContent();
 		} else {
 			console.log('`hasStorageAccess` IS known to this browser!'); 
 
@@ -34,6 +34,8 @@ define(['ThirdPartyCookieAccess'], function(ThirdPartyCookieAccess) {
 	}; 
 
 	ThirdPartyCookieAccess.prototype.hasAccess = function() {
+		var _this = this;
+
 		console.log('Determining if device has access to Storage/Cookies ...'); 
 
 		document.hasStorageAccess().then(
@@ -41,22 +43,22 @@ define(['ThirdPartyCookieAccess'], function(ThirdPartyCookieAccess) {
 				if (hasAccess) {
 					console.log('We DO have access to Storage/Cookies!');
 
-					this.showContent(); 
+					_this.showContent();
 				} else {
 					console.log('We DO NOT have access to Storage/Cookies!'); 
 
-					this.renderLink(); 
+					_this.renderLink();
 				}
 			}
 		)
 	}; 
 
 	ThirdPartyCookieAccess.prototype.hideContent = function() {
-		this.el.style.display = 'none'; 
+		this.el.style.display = 'none';
 	}; 
 
 	ThirdPartyCookieAccess.prototype.showContent = function() {
-		this.el.style.display = 'block'; 
+		this.el.style.display = 'block';
 	}; 
 
 	ThirdPartyCookieAccess.prototype.renderLink = function() {
