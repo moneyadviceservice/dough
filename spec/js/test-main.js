@@ -33,7 +33,6 @@ require.config({
     TabSelector: 'assets/js/components/TabSelector',
     RangeInput: 'assets/js/components/RangeInput',
     SearchFocus: 'assets/js/components/SearchFocus',
-    ThirdPartyCookieAccess: 'assets/js/components/ThirdPartyCookieAccess',
     FieldHelpText: 'assets/js/components/FieldHelpText',
     Validation: 'assets/js/components/Validation',
     jquery: 'vendor/assets/bower_components/jquery/dist/jquery',
