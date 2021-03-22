@@ -30,6 +30,7 @@
     "gulp-jsdoc": "^0.1.4",
     "jaguarjs-jsdoc": "0.0.1",
     "jquery": "^3.3.1",
+    "jscs": "^1.5.4",
     "jshint": "^2.5.5",
     "karma": "^1.7.0",
     "karma-chai": "^0.1.0",
