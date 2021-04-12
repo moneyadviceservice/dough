@@ -63,13 +63,15 @@ define(['ThirdPartyCookieAccess'], function(ThirdPartyCookieAccess) {
 
 	ThirdPartyCookieAccess.prototype.renderLink = function() {
 		var frame = window.frames,
-				href = frame.location.href, 
+				href = frame.location.href
+					.replace(/[a-z-]*partner-tools/, 'www')
+					.replace(/dev.mas.local/, 'moneyadviceservice.org.uk'),
 				locale = frame.I18n.locale, 
 				message = document.createElement('div'), 
 				header, 
 				headerStyles = {
 					'margin-top': 0,
-					'background-image': 'url(/assets/dough/assets/images/exclamation_mark.svg)',
+					'background-image': 'url(/../../images/exclamation_mark.svg)',
 					'background-repeat': 'no-repeat',
 					'background-position': 'left center',
 					'background-size': '2.25rem',
