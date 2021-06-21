@@ -8,7 +8,9 @@ define(['DoughBaseComponent'],
   'use strict';
 
   var PostMessages, 
-      defaultConfig = {}, 
+      defaultConfig = {
+        masresize: false
+      },
       message = {
         jumpLink: {
           id: '', 
@@ -30,12 +32,13 @@ define(['DoughBaseComponent'],
   PostMessages.componentName = 'PostMessages';
 
   /** 
-   * Adds listeners for click events to jump links
+   * Adds event listeners
    */
   PostMessages.prototype._addEvents = function() {
     var _this = this;
     var anchors = this.$el.find('a');
 
+    // Adds listeners for click events to jump links
     for (var anchor in anchors) {
       if (anchors[anchor].href && anchors[anchor].href.indexOf('#') > -1) {
         $(anchors[anchor]).on('click', function(e) {
@@ -74,11 +77,22 @@ define(['DoughBaseComponent'],
   }
 
   /**
+   * A method to listen for changes to the document height
+   */
+  PostMessages.prototype._masResize = function() {
+    console.log('masResize!'); 
+  }
+
+  /**
   * @param {Promise} initialised
   */
   PostMessages.prototype.init = function(initialised) {
     this._initialisedSuccess(initialised);
-    this._addEvents(); 
+    this._addEvents();
+
+    if (this.config.masresize === true) {
+      this._masResize(); 
+    }
   };
 
   return PostMessages;
