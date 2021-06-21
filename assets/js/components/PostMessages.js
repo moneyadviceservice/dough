@@ -43,7 +43,7 @@ define(['DoughBaseComponent'],
       if (anchors[anchor].href && anchors[anchor].href.indexOf('#') > -1) {
         $(anchors[anchor]).on('click', function(e) {
           e.preventDefault();
-          _this._updateMessage(e.target.href.split('#')[1]);
+          _this._updateMessage('jumpLink', e.target.href.split('#')[1]);
         })
       }
     };
@@ -58,7 +58,7 @@ define(['DoughBaseComponent'],
 
     if (event === 'masResize') {
 
-    } else {
+    } else if (event === 'jumpLink') {
       // Updates the message with vertical offset value for the supplied element
       var offset = this._getOffset(value);
       this.message.jumpLink.id = value;
