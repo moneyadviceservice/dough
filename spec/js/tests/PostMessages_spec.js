@@ -1,4 +1,4 @@
-describe('PostMessages component', function() {
+describe.only('PostMessages component', function() {
   'use strict';
 
   beforeEach(function(done) {
@@ -47,7 +47,7 @@ describe('PostMessages component', function() {
     }); 
   });
 
-  describe.only('masResize method', function() {
+  describe('masResize method', function() {
     it('Calls the updateMessage method with the correct argument on body resize', function() {
       var clock = sinon.useFakeTimers();
       var updateMessageSpy = sinon.spy(this.postMessages, '_updateMessage');
@@ -56,7 +56,7 @@ describe('PostMessages component', function() {
       clock.tick(200);
 
       expect(updateMessageSpy.callCount).to.equal(1); 
-      expect(updateMessageSpy.calledWith('masResize', 1200)).to.be.true; 
+      assert(updateMessageSpy.calledWith('masResize', 1200)); 
 
       clock.restore(); 
       updateMessageSpy.restore(); 
@@ -64,22 +64,22 @@ describe('PostMessages component', function() {
   }); 
 
   describe('On clicking a jump link', function() {
-    it('Calls the updateMessage method with the correct argument', function() {
+    it('Calls the updateMessage method with the correct arguments', function() {
       var updateMessageSpy = sinon.spy(this.postMessages, '_updateMessage'); 
 
       this.postMessages._addEvents();
 
       this.component.find('#jump_link_1').trigger('click');
       expect(updateMessageSpy.callCount).to.equal(1);
-      assert(updateMessageSpy.calledWith('content_1'));
+      assert(updateMessageSpy.calledWith('jumpLink', 'content_1'));
 
       this.component.find('#jump_link_2').trigger('click');
       expect(updateMessageSpy.callCount).to.equal(2);
-      assert(updateMessageSpy.calledWith('content_2'));
+      assert(updateMessageSpy.calledWith('jumpLink', 'content_2'));
 
       this.component.find('#jump_link_3').trigger('click');
       expect(updateMessageSpy.callCount).to.equal(3);
-      assert(updateMessageSpy.calledWith('content_3'));
+      assert(updateMessageSpy.calledWith('jumpLink', 'content_3'));
 
       this.component.find('#external_link').trigger('click');
       expect(updateMessageSpy.callCount).to.equal(3);
@@ -95,15 +95,15 @@ describe('PostMessages component', function() {
     it('Calls the getOffset method with the correct argument', function() {
       var getOffsetSpy = sinon.spy(this.postMessages, '_getOffset');
 
-      this.postMessages._updateMessage('content_1');
+      this.postMessages._updateMessage('jumpLink', 'content_1');
       expect(getOffsetSpy.callCount).to.equal(1);
       assert(getOffsetSpy.calledWith('content_1'));
 
-      this.postMessages._updateMessage('content_2');
+      this.postMessages._updateMessage('jumpLink', 'content_2');
       expect(getOffsetSpy.callCount).to.equal(2);
       assert(getOffsetSpy.calledWith('content_2'));
 
-      this.postMessages._updateMessage('content_3');
+      this.postMessages._updateMessage('jumpLink', 'content_3');
       expect(getOffsetSpy.callCount).to.equal(3);
       assert(getOffsetSpy.calledWith('content_3'));
 
@@ -114,7 +114,7 @@ describe('PostMessages component', function() {
       var getOffsetStub = sinon.stub(this.postMessages, '_getOffset');
 
       getOffsetStub.returns(120); 
-      this.postMessages._updateMessage('content_1');
+      this.postMessages._updateMessage('jumpLink', 'content_1');
 
       expect(this.message.jumpLink.id).to.equal('content_1'); 
       expect(this.message.jumpLink.offset).to.equal(120); 
