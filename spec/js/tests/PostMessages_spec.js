@@ -90,7 +90,7 @@ describe('PostMessages component', function() {
     })
   });
 
-  describe.only('On calling the updateMessage method', function() {
+  describe('On calling the updateMessage method', function() {
     it('Calls the getOffset method where required with the correct argument', function() {
       var getOffsetSpy = sinon.spy(this.postMessages, '_getOffset');
 

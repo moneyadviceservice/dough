@@ -79,6 +79,8 @@ define(['DoughBaseComponent'],
    * Sends the message
    */
   PostMessages.prototype._sendMessage = function() {
+    console.log('message: ', this.message); 
+    
     window.parent.postMessage(this.message, '*');
   }
 
@@ -86,8 +88,6 @@ define(['DoughBaseComponent'],
    * A method to listen for changes to the document height
    */
   PostMessages.prototype._masResize = function(masResize) {
-    console.log('masResize!'); 
-
     var _this = this, 
         currentHeight = 0, 
         timer,
