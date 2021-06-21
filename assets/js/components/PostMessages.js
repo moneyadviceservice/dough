@@ -114,7 +114,7 @@ define(['DoughBaseComponent'],
     this._initialisedSuccess(initialised);
     this._addEvents();
 
-    if (this.config.masresize === true) {
+    if (this.config.masresize) {
       this._masResize(); 
     }
   };
