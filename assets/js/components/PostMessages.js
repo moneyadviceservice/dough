@@ -79,8 +79,26 @@ define(['DoughBaseComponent'],
   /**
    * A method to listen for changes to the document height
    */
-  PostMessages.prototype._masResize = function() {
+  PostMessages.prototype._masResize = function(masResize) {
     console.log('masResize!'); 
+
+    var _this = this, 
+        currentHeight = 0, 
+        timer,
+        bodyNode = document.body, 
+        minFrameHeight = 250;
+
+    timer = setInterval(function() {
+      var documentHeight = Math.max(
+        bodyNode.scrollHeight,
+        minFrameHeight
+      );
+
+      if (documentHeight !== currentHeight) {
+        currentHeight = documentHeight;
+        _this._updateMessage('masResize', documentHeight);
+      }
+    }, 200);
   }
 
   /**

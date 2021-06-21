@@ -23,7 +23,7 @@ describe('PostMessages component', function() {
     fixture.cleanup();
   });
 
-  describe.only('On initialising', function() {
+  describe('On initialising', function() {
     it('Calls the _addEvents method', function() {
       var addEventsSpy = sinon.spy(this.postMessages, '_addEvents'); 
 
@@ -33,7 +33,7 @@ describe('PostMessages component', function() {
       addEventsSpy.restore(); 
     });
 
-    it('Calls the masresize method if method config is true', function() {
+    it('Calls the masResize method if method config is true', function() {
       var masResizeSpy = sinon.spy(this.postMessages, '_masResize'); 
 
       this.postMessages.init(); 
@@ -46,6 +46,22 @@ describe('PostMessages component', function() {
       masResizeSpy.restore();
     }); 
   });
+
+  describe.only('masResize method', function() {
+    it('Calls the updateMessage method with the correct argument on body resize', function() {
+      var clock = sinon.useFakeTimers();
+      var updateMessageSpy = sinon.spy(this.postMessages, '_updateMessage');
+
+      this.postMessages._masResize();
+      clock.tick(200);
+
+      expect(updateMessageSpy.callCount).to.equal(1); 
+      expect(updateMessageSpy.calledWith('masResize', 1200)).to.be.true; 
+
+      clock.restore(); 
+      updateMessageSpy.restore(); 
+    }); 
+  }); 
 
   describe('On clicking a jump link', function() {
     it('Calls the updateMessage method with the correct argument', function() {
