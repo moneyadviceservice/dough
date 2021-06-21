@@ -8,14 +8,9 @@ define(['DoughBaseComponent'],
   'use strict';
 
   var PostMessages, 
+      message,
       defaultConfig = {
         masresize: false
-      },
-      message = {
-        jumpLink: {
-          id: '', 
-          offset: 0
-        }
       };
 
   PostMessages = function($el, config) {
@@ -53,16 +48,19 @@ define(['DoughBaseComponent'],
    * Updates the message with required value
    */
   PostMessages.prototype._updateMessage = function(event, value) {
-    console.log('value: ', value);
-    console.log('event: ', event);
-
     if (event === 'masResize') {
-
+      // Updates the message with height value for document
+      this.message = '';
+      this.message = 'MASRESIZE-' + value;
     } else if (event === 'jumpLink') {
       // Updates the message with vertical offset value for the supplied element
       var offset = this._getOffset(value);
-      this.message.jumpLink.id = value;
-      this.message.jumpLink.offset = offset;
+
+      this.message = {}; 
+      this.message['jumpLink'] = {
+        id: value,
+        offset: offset
+      };
     }
 
     this._sendMessage(); 

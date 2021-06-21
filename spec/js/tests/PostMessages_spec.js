@@ -1,4 +1,4 @@
-describe.only('PostMessages component', function() {
+describe('PostMessages component', function() {
   'use strict';
 
   beforeEach(function(done) {
@@ -13,7 +13,6 @@ describe.only('PostMessages component', function() {
 
         self.component = $(fixture.el).find('[data-dough-component="PostMessages"]');
         self.postMessages = new PostMessages(self.component);
-        self.message = self.postMessages.message; 
 
         done();
       }, done);
@@ -91,7 +90,7 @@ describe.only('PostMessages component', function() {
     })
   });
 
-  describe('On calling the updateMessage method', function() {
+  describe.only('On calling the updateMessage method', function() {
     it('Calls the getOffset method where required with the correct argument', function() {
       var getOffsetSpy = sinon.spy(this.postMessages, '_getOffset');
 
@@ -114,15 +113,20 @@ describe.only('PostMessages component', function() {
     }); 
 
     it('Updates the message with the correct values', function() {
+      // For jumpLink event
       var getOffsetStub = sinon.stub(this.postMessages, '_getOffset');
 
       getOffsetStub.returns(120); 
       this.postMessages._updateMessage('jumpLink', 'content_1');
 
-      expect(this.message.jumpLink.id).to.equal('content_1'); 
-      expect(this.message.jumpLink.offset).to.equal(120); 
+      expect(this.postMessages.message.jumpLink.id).to.equal('content_1'); 
+      expect(this.postMessages.message.jumpLink.offset).to.equal(120); 
 
       getOffsetStub.restore(); 
+
+      // For masResize event
+      this.postMessages._updateMessage('masResize', 1200);
+      expect(this.postMessages.message).to.equal('MASRESIZE-1200'); 
     }); 
 
     it('Calls the sendMessage method', function() {
