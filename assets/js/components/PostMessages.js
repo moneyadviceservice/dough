@@ -50,12 +50,20 @@ define(['DoughBaseComponent'],
   }
 
   /**
-   * Updates the message with vertical offset value for the supplied element
+   * Updates the message with required value
    */
-  PostMessages.prototype._updateMessage = function(id) {
-    var offset = this._getOffset(id);
-    this.message.jumpLink.id = id;
-    this.message.jumpLink.offset = offset;
+  PostMessages.prototype._updateMessage = function(event, value) {
+    console.log('value: ', value);
+    console.log('event: ', event);
+
+    if (event === 'masResize') {
+
+    } else {
+      // Updates the message with vertical offset value for the supplied element
+      var offset = this._getOffset(value);
+      this.message.jumpLink.id = value;
+      this.message.jumpLink.offset = offset;
+    }
 
     this._sendMessage(); 
   }
