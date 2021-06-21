@@ -92,7 +92,7 @@ describe.only('PostMessages component', function() {
   });
 
   describe('On calling the updateMessage method', function() {
-    it('Calls the getOffset method with the correct argument', function() {
+    it('Calls the getOffset method where required with the correct argument', function() {
       var getOffsetSpy = sinon.spy(this.postMessages, '_getOffset');
 
       this.postMessages._updateMessage('jumpLink', 'content_1');
@@ -106,6 +106,9 @@ describe.only('PostMessages component', function() {
       this.postMessages._updateMessage('jumpLink', 'content_3');
       expect(getOffsetSpy.callCount).to.equal(3);
       assert(getOffsetSpy.calledWith('content_3'));
+
+      this.postMessages._updateMessage('masResize', 1200);
+      expect(getOffsetSpy.callCount).to.equal(3);
 
       getOffsetSpy.restore(); 
     }); 
