@@ -70,7 +70,8 @@ define(['DoughBaseComponent'],
         this.message = {}; 
         this.message['scrollToTop'] = {
           offset: 0
-        };      
+        };
+        break; 
     }
 
     this._sendMessage(); 
@@ -89,7 +90,7 @@ define(['DoughBaseComponent'],
    * Sends the message
    */
   PostMessages.prototype._sendMessage = function() {
-    // console.log('message: ', this.message); 
+    console.log('message: ', this.message); 
     
     window.parent.postMessage(this.message, '*');
   }
@@ -97,7 +98,7 @@ define(['DoughBaseComponent'],
   /**
    * A method to update the message on changes to the document height
    */
-  PostMessages.prototype._masResize = function(masResize) {
+  PostMessages.prototype._masResize = function() {
     var _this = this, 
         currentHeight = 0, 
         timer,
@@ -120,22 +121,16 @@ define(['DoughBaseComponent'],
   /**
    * A method to update the message on document reloads
    */
-  PostMessages.prototype._scrollToTop = function(event) {
-    console.log('_scrollToTop!');
-
-    this._updateMessage(event);
+  PostMessages.prototype._scrollToTop = function() {
+    this._updateMessage('scrollToTop', null);
   }
 
   /**
   * @param {Promise} initialised
   */
   PostMessages.prototype.init = function(initialised) {
-    console.log('PostMessages init!'); 
-
     this._initialisedSuccess(initialised);
     this._addEvents();
-
-    console.log('scrollToTop: ', this.config.scrollToTop); 
 
     if (this.config.masresize) {
       this._masResize(); 

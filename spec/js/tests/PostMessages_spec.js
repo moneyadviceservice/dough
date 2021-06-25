@@ -158,7 +158,6 @@ describe.only('PostMessages component', function() {
 
       // For scrollToTop event
       this.postMessages._updateMessage('scrollToTop', null);
-      console.log(this.postMessages.message.scrollToTop.offset); 
       expect(this.postMessages.message.scrollToTop.offset).to.equal(0);
     }); 
 
