@@ -22,7 +22,7 @@ describe('PostMessages component', function() {
     fixture.cleanup();
   });
 
-  describe('On initialising', function() {
+  describe.only('On initialising', function() {
     it('Calls the _addEvents method', function() {
       var addEventsSpy = sinon.spy(this.postMessages, '_addEvents'); 
 
@@ -43,6 +43,19 @@ describe('PostMessages component', function() {
       expect(masResizeSpy.calledOnce).to.be.true; 
 
       masResizeSpy.restore();
+    }); 
+
+    it('Calls the scrollToTop method if method config is true', function() {
+      var scrollToTopSpy = sinon.spy(this.postMessages, '_scrollToTop'); 
+
+      this.postMessages.init(); 
+      expect(scrollToTopSpy.called).to.be.false; 
+
+      this.postMessages.config.scrollToTop = true; 
+      this.postMessages.init(); 
+      expect(scrollToTopSpy.calledOnce).to.be.true; 
+
+      scrollToTopSpy.restore();
     }); 
   });
 

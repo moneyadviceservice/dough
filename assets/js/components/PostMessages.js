@@ -108,15 +108,27 @@ define(['DoughBaseComponent'],
     }, 200);
   }
 
+  PostMessages.prototype._scrollToTop = function() {
+    console.log('_scrollToTop!'); 
+  }
+
   /**
   * @param {Promise} initialised
   */
   PostMessages.prototype.init = function(initialised) {
+    console.log('PostMessages init!'); 
+
     this._initialisedSuccess(initialised);
     this._addEvents();
 
+    console.log('scrollToTop: ', this.config.scrollToTop); 
+
     if (this.config.masresize) {
       this._masResize(); 
+    }
+
+    if (this.config.scrollToTop) {
+      this._scrollToTop();
     }
   };
 
