@@ -10,7 +10,8 @@ define(['DoughBaseComponent'],
   var PostMessages, 
       message,
       defaultConfig = {
-        masresize: false
+        masresize: false, 
+        scrollToTop: false
       };
 
   PostMessages = function($el, config) {
