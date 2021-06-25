@@ -22,7 +22,7 @@ describe('PostMessages component', function() {
     fixture.cleanup();
   });
 
-  describe.only('On initialising', function() {
+  describe('On initialising', function() {
     it('Calls the _addEvents method', function() {
       var addEventsSpy = sinon.spy(this.postMessages, '_addEvents'); 
 
@@ -60,7 +60,7 @@ describe('PostMessages component', function() {
   });
 
   describe('masResize method', function() {
-    it('Calls the updateMessage method with the correct argument on body resize', function() {
+    it('Calls the updateMessage method with the correct arguments', function() {
       var clock = sinon.useFakeTimers();
       var updateMessageSpy = sinon.spy(this.postMessages, '_updateMessage');
 
@@ -73,7 +73,20 @@ describe('PostMessages component', function() {
       clock.restore(); 
       updateMessageSpy.restore(); 
     }); 
-  }); 
+  });
+
+  describe.only('scrollToTop method', function() {
+    it('Calls the updateMessage method with the correct arguments', function() {
+      var updateMessageSpy = sinon.spy(this.postMessages, '_updateMessage');
+
+      this.postMessages._scrollToTop('scrollToTop');
+
+      expect(updateMessageSpy.callCount).to.equal(1); 
+      assert(updateMessageSpy.calledWith('scrollToTop')); 
+
+      updateMessageSpy.restore(); 
+    }); 
+  });
 
   describe('On clicking a jump link', function() {
     it('Calls the updateMessage method with the correct arguments', function() {

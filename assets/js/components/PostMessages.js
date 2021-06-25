@@ -80,13 +80,13 @@ define(['DoughBaseComponent'],
    * Sends the message
    */
   PostMessages.prototype._sendMessage = function() {
-    console.log('message: ', this.message); 
+    // console.log('message: ', this.message); 
     
     window.parent.postMessage(this.message, '*');
   }
 
   /**
-   * A method to listen for changes to the document height
+   * A method to update the message on changes to the document height
    */
   PostMessages.prototype._masResize = function(masResize) {
     var _this = this, 
@@ -108,8 +108,13 @@ define(['DoughBaseComponent'],
     }, 200);
   }
 
-  PostMessages.prototype._scrollToTop = function() {
-    console.log('_scrollToTop!'); 
+  /**
+   * A method to update the message on document reloads
+   */
+  PostMessages.prototype._scrollToTop = function(event) {
+    console.log('_scrollToTop!');
+
+    this._updateMessage(event);
   }
 
   /**
