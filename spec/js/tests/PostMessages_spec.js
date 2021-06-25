@@ -1,4 +1,4 @@
-describe('PostMessages component', function() {
+describe.only('PostMessages component', function() {
   'use strict';
 
   beforeEach(function(done) {
@@ -75,7 +75,7 @@ describe('PostMessages component', function() {
     }); 
   });
 
-  describe.only('scrollToTop method', function() {
+  describe('scrollToTop method', function() {
     it('Calls the updateMessage method with the correct arguments', function() {
       var updateMessageSpy = sinon.spy(this.postMessages, '_updateMessage');
 
@@ -135,6 +135,9 @@ describe('PostMessages component', function() {
       this.postMessages._updateMessage('masResize', 1200);
       expect(getOffsetSpy.callCount).to.equal(3);
 
+      this.postMessages._updateMessage('scrollToTop');
+      expect(getOffsetSpy.callCount).to.equal(3);
+
       getOffsetSpy.restore(); 
     }); 
 
@@ -144,7 +147,6 @@ describe('PostMessages component', function() {
 
       getOffsetStub.returns(120); 
       this.postMessages._updateMessage('jumpLink', 'content_1');
-
       expect(this.postMessages.message.jumpLink.id).to.equal('content_1'); 
       expect(this.postMessages.message.jumpLink.offset).to.equal(120); 
 
@@ -153,12 +155,17 @@ describe('PostMessages component', function() {
       // For masResize event
       this.postMessages._updateMessage('masResize', 1200);
       expect(this.postMessages.message).to.equal('MASRESIZE-1200'); 
+
+      // For scrollToTop event
+      this.postMessages._updateMessage('scrollToTop', null);
+      console.log(this.postMessages.message.scrollToTop.offset); 
+      expect(this.postMessages.message.scrollToTop.offset).to.equal(0);
     }); 
 
     it('Calls the sendMessage method', function() {
       var sendMessageSpy = sinon.spy(this.postMessages, '_sendMessage'); 
 
-      this.postMessages._updateMessage('content_1');
+      this.postMessages._updateMessage();
       expect(sendMessageSpy.calledOnce).to.be.true; 
 
       sendMessageSpy.restore(); 

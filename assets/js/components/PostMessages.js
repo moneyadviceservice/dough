@@ -49,19 +49,28 @@ define(['DoughBaseComponent'],
    * Updates the message with required value
    */
   PostMessages.prototype._updateMessage = function(event, value) {
-    if (event === 'masResize') {
-      // Updates the message with height value for document
-      this.message = '';
-      this.message = 'MASRESIZE-' + value;
-    } else if (event === 'jumpLink') {
-      // Updates the message with vertical offset value for the supplied element
-      var offset = this._getOffset(value);
+    switch(event) {
+      case 'masResize': 
+        // Updates the message with height value for document
+        this.message = '';
+        this.message = 'MASRESIZE-' + value;
+        break;
+      case 'jumpLink': 
+        // Updates the message with vertical offset value for the supplied element
+        var offset = this._getOffset(value);
 
-      this.message = {}; 
-      this.message['jumpLink'] = {
-        id: value,
-        offset: offset
-      };
+        this.message = {}; 
+        this.message['jumpLink'] = {
+          id: value,
+          offset: offset
+        };
+        break; 
+      case 'scrollToTop': 
+        // Updates the message with vertical offset value of 0
+        this.message = {}; 
+        this.message['scrollToTop'] = {
+          offset: 0
+        };      
     }
 
     this._sendMessage(); 
