@@ -1,4 +1,4 @@
-describe('PostMessages component', function() {
+describe.only('PostMessages component', function() {
   'use strict';
 
   beforeEach(function(done) {
@@ -44,10 +44,23 @@ describe('PostMessages component', function() {
 
       masResizeSpy.restore();
     }); 
+
+    it('Calls the scrollToTop method if method config is true', function() {
+      var scrollToTopSpy = sinon.spy(this.postMessages, '_scrollToTop'); 
+
+      this.postMessages.init(); 
+      expect(scrollToTopSpy.called).to.be.false; 
+
+      this.postMessages.config.scrollToTop = true; 
+      this.postMessages.init(); 
+      expect(scrollToTopSpy.calledOnce).to.be.true; 
+
+      scrollToTopSpy.restore();
+    }); 
   });
 
   describe('masResize method', function() {
-    it('Calls the updateMessage method with the correct argument on body resize', function() {
+    it('Calls the updateMessage method with the correct arguments', function() {
       var clock = sinon.useFakeTimers();
       var updateMessageSpy = sinon.spy(this.postMessages, '_updateMessage');
 
@@ -60,7 +73,20 @@ describe('PostMessages component', function() {
       clock.restore(); 
       updateMessageSpy.restore(); 
     }); 
-  }); 
+  });
+
+  describe('scrollToTop method', function() {
+    it('Calls the updateMessage method with the correct arguments', function() {
+      var updateMessageSpy = sinon.spy(this.postMessages, '_updateMessage');
+
+      this.postMessages._scrollToTop('scrollToTop');
+
+      expect(updateMessageSpy.callCount).to.equal(1); 
+      assert(updateMessageSpy.calledWith('scrollToTop')); 
+
+      updateMessageSpy.restore(); 
+    }); 
+  });
 
   describe('On clicking a jump link', function() {
     it('Calls the updateMessage method with the correct arguments', function() {
@@ -109,6 +135,9 @@ describe('PostMessages component', function() {
       this.postMessages._updateMessage('masResize', 1200);
       expect(getOffsetSpy.callCount).to.equal(3);
 
+      this.postMessages._updateMessage('scrollToTop');
+      expect(getOffsetSpy.callCount).to.equal(3);
+
       getOffsetSpy.restore(); 
     }); 
 
@@ -118,7 +147,6 @@ describe('PostMessages component', function() {
 
       getOffsetStub.returns(120); 
       this.postMessages._updateMessage('jumpLink', 'content_1');
-
       expect(this.postMessages.message.jumpLink.id).to.equal('content_1'); 
       expect(this.postMessages.message.jumpLink.offset).to.equal(120); 
 
@@ -127,12 +155,16 @@ describe('PostMessages component', function() {
       // For masResize event
       this.postMessages._updateMessage('masResize', 1200);
       expect(this.postMessages.message).to.equal('MASRESIZE-1200'); 
+
+      // For scrollToTop event
+      this.postMessages._updateMessage('scrollToTop', null);
+      expect(this.postMessages.message.scrollToTop.offset).to.equal(0);
     }); 
 
     it('Calls the sendMessage method', function() {
       var sendMessageSpy = sinon.spy(this.postMessages, '_sendMessage'); 
 
-      this.postMessages._updateMessage('content_1');
+      this.postMessages._updateMessage();
       expect(sendMessageSpy.calledOnce).to.be.true; 
 
       sendMessageSpy.restore(); 

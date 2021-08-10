@@ -10,7 +10,8 @@ define(['DoughBaseComponent'],
   var PostMessages, 
       message,
       defaultConfig = {
-        masresize: false
+        masresize: false, 
+        scrollToTop: false
       };
 
   PostMessages = function($el, config) {
@@ -48,19 +49,29 @@ define(['DoughBaseComponent'],
    * Updates the message with required value
    */
   PostMessages.prototype._updateMessage = function(event, value) {
-    if (event === 'masResize') {
-      // Updates the message with height value for document
-      this.message = '';
-      this.message = 'MASRESIZE-' + value;
-    } else if (event === 'jumpLink') {
-      // Updates the message with vertical offset value for the supplied element
-      var offset = this._getOffset(value);
+    switch(event) {
+      case 'masResize': 
+        // Updates the message with height value for document
+        this.message = '';
+        this.message = 'MASRESIZE-' + value;
+        break;
+      case 'jumpLink': 
+        // Updates the message with vertical offset value for the supplied element
+        var offset = this._getOffset(value);
 
-      this.message = {}; 
-      this.message['jumpLink'] = {
-        id: value,
-        offset: offset
-      };
+        this.message = {}; 
+        this.message['jumpLink'] = {
+          id: value,
+          offset: offset
+        };
+        break; 
+      case 'scrollToTop': 
+        // Updates the message with vertical offset value of 0
+        this.message = {}; 
+        this.message['scrollToTop'] = {
+          offset: 0
+        };
+        break; 
     }
 
     this._sendMessage(); 
@@ -85,9 +96,9 @@ define(['DoughBaseComponent'],
   }
 
   /**
-   * A method to listen for changes to the document height
+   * A method to update the message on changes to the document height
    */
-  PostMessages.prototype._masResize = function(masResize) {
+  PostMessages.prototype._masResize = function() {
     var _this = this, 
         currentHeight = 0, 
         timer,
@@ -108,6 +119,13 @@ define(['DoughBaseComponent'],
   }
 
   /**
+   * A method to update the message on document reloads
+   */
+  PostMessages.prototype._scrollToTop = function() {
+    this._updateMessage('scrollToTop', null);
+  }
+
+  /**
   * @param {Promise} initialised
   */
   PostMessages.prototype.init = function(initialised) {
@@ -116,6 +134,10 @@ define(['DoughBaseComponent'],
 
     if (this.config.masresize) {
       this._masResize(); 
+    }
+
+    if (this.config.scrollToTop) {
+      this._scrollToTop();
     }
   };
 
