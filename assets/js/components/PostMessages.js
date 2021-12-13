@@ -31,7 +31,7 @@ define(['DoughBaseComponent'],
    */
   PostMessages.prototype._addEvents = function() {
     var _this = this;
-    var anchors = this.$el.find('a');
+    var anchors = this.$el.find('a:not(.js-no-jump)');
 
     // Adds listeners for click events to jump links
     for (var anchor in anchors) {
