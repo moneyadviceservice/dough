@@ -30,7 +30,8 @@
       </a>
     </li><li class="social-sharing__item social-sharing__item--email">
       <a class="social-sharing__item__icon"
-        href="mailto:?subject=<%= text %>&amp;body=<%= url %>"
+        href="mailto:?subject=<%= u(text) %>&amp;body=<%= url %>"
+        target="_blank"
         data-dough-shared-on="Email"
       >
         <svg xmlns="http://www.w3.org/2000/svg" class="social-sharing__icon--email svg-icon svg-icon--email" viewBox="18.375 10.556 31.249 18.889" aria-labelledby="social-sharing-email" focusable="false">
