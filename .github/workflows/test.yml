@@ -1,0 +1,38 @@
+name: Test
+
+on: push
+
+jobs:
+  test:
+    name: Run tests
+
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler: 1.17.2
+          bundler-cache: true
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.5.1
+        with:
+          node-version: '14.x'
+
+      - name: Run npm install
+        run: npm install
+
+      - name: Lint Ruby
+        run: bundle exec rubocop
+
+      - name: Lint JS
+        run: jscs assets/js
+
+      - name: Run tests
+        run: bundle exec rspec && ./node_modules/karma/bin/karma start spec/js/karma.conf.js --single-run
