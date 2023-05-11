@@ -25,8 +25,11 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: Run npm install
-        run: npm install
+      - name: Install JS packages
+        run: npm install && bower install
+
+      - name: Add node modules to PATH
+        run: echo "${HOME}/node_modules/.bin" >> $GITHUB_PATH
 
       - name: Lint Ruby
         run: bundle exec rubocop
@@ -35,4 +38,4 @@ jobs:
         run: jscs assets/js
 
       - name: Run tests
-        run: bundle exec rspec && ./node_modules/karma/bin/karma start spec/js/karma.conf.js --single-run
+        run: bundle exec rspec && karma start spec/js/karma.conf.js --single-run
