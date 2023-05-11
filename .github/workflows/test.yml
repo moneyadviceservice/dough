@@ -38,4 +38,4 @@ jobs:
         run: jscs assets/js
 
       - name: Run tests
-        run: bundle exec rspec && karma start spec/js/karma.conf.js --single-run
+        run: bundle exec rspec && npm test
