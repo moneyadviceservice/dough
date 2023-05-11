@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-ruby '2.7.7'
+ruby IO.read('.ruby-version').chomp
 
 gem 'rails', '5.0.7.2'
 
