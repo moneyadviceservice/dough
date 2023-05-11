@@ -29,7 +29,7 @@ jobs:
         run: npm install && npm install -g bower && bower install
 
       - name: Add node modules to PATH
-        run: echo "${HOME}/node_modules/.bin" >> $GITHUB_PATH
+        run: echo "./node_modules/.bin" >> $GITHUB_PATH
 
       - name: Lint Ruby
         run: bundle exec rubocop
