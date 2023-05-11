@@ -13,7 +13,7 @@ group :development, :test do
   gem 'danger-rubocop', require: false
   gem 'pry'
   gem 'rspec-rails'
-  gem 'rubocop', '~> 0.63.1', require: false
+  gem 'rubocop', '0.80.0', require: false
   gem 'rubocop-rspec'
   gem 'sass'
   gem 'shoulda-matchers'
