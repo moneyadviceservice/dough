@@ -28,13 +28,13 @@ describe('mediaQueries - fires JS events when breakpoints are crossed', function
     it('fires a resize event on load', function() {
       var spy = sinon.spy();
       self.eventsWithPromises.subscribe('mediaquery:resize', spy);
-      expect(spy).to.have.been.called;
+      expect(spy).to.have.been.called();
     });
 
     it('only fires one resize event if initialised twice', function() {
       var spy = sinon.spy();
       self.eventsWithPromises.subscribe('mediaquery:resize', spy);
-      expect(spy).to.have.been.calledOnce;
+      expect(spy).to.have.been.calledOnce();
     });
   });
 
