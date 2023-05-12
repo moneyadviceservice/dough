@@ -51,7 +51,10 @@ describe('mediaQueries - fires JS events when breakpoints are crossed', function
   });
 
   afterEach(function() {
-    self.$html.empty();
+    if (self.$html === true) {
+      self.$html.empty();
+    }
+
     self.injector.remove();
   });
 });
