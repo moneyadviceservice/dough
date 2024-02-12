@@ -19,6 +19,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'activemodel'
   s.add_dependency 'activesupport'
-  s.add_dependency 'rails', '>= 3.2', '< 6'
+  s.add_dependency 'rails', '>= 3.2'
   s.add_dependency 'sass-rails'
 end
