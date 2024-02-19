@@ -51,7 +51,7 @@ module Dough
         end
 
         def view_context
-          ActionView::Base.new(lookup_context)
+          ActionView::Base.new(lookup_context, {}, nil)
         end
 
         private

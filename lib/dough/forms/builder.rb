@@ -121,7 +121,7 @@ module Dough
       end
 
       def view_context
-        ActionView::Base.new
+        ActionView::Base.new(lookup_context, {}, nil)
       end
 
       def view_renderer
