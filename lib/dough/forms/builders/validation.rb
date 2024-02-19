@@ -10,14 +10,26 @@ module Dough
         include ActionView::Helpers::TranslationHelper
 
         def validation_summary
-          render 'summary_for_errors', errors: errors, error_prefix: error_prefix
+          view_renderer.render(view_context, partial: 'summary_for_errors', locals: { errors: errors, error_prefix: error_prefix })
+        end
+
+        def compiled_method_container
+          view_context.compiled_method_container
+        end
+
+        def in_rendering_context(options, &blk)
+          view_context.in_rendering_context(options, &blk)
+        end
+
+        def _run(*args, &blk)
+          view_context._run(*args, &blk)
         end
 
         def errors_for(subject = nil, field)
           subject ||= object
           filtered_errors = errors.select { |hash| hash[:object] == subject && hash[:field] == field }
 
-          render partial: 'errors_for_field', collection: filtered_errors, as: 'error', locals: { error_prefix: error_prefix }
+          view_renderer.render(view_context, partial: 'errors_for_field', collection: filtered_errors, as: 'error', locals: { error_prefix: error_prefix })
         end
 
         def validates(*models)
@@ -36,6 +48,10 @@ module Dough
 
         def view_renderer
           ActionView::Renderer.new(lookup_context)
+        end
+
+        def view_context
+          ActionView::Base.new(lookup_context)
         end
 
         private

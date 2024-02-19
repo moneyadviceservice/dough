@@ -14,7 +14,19 @@ module Dough
       #  <%= f.errors_summary %>
       #
       def errors_summary
-        render(errors_summary_partial_name, errors: object_errors) if object_errors.present?
+        view_renderer.render(view_context, partial: errors_summary_partial_name, locals: { errors: object_errors }) if object_errors.present?
+      end
+
+      def compiled_method_container
+        view_context.compiled_method_container
+      end
+
+      def in_rendering_context(options, &blk)
+        view_context.in_rendering_context(options, &blk)
+      end
+
+      def _run(*args, &blk)
+        view_context._run(*args, &blk)
       end
 
       # This is the partial used to render the summary errors.
@@ -106,6 +118,10 @@ module Dough
 
       def lookup_context
         ActionView::LookupContext.new(ActionController::Base.view_paths + partial_paths)
+      end
+
+      def view_context
+        ActionView::Base.new
       end
 
       def view_renderer

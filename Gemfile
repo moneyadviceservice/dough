@@ -4,7 +4,7 @@ gemspec
 
 ruby IO.read('.ruby-version').chomp
 
-gem 'rails', '5.0.7.2'
+gem 'rails', '~> 6.0.0'
 
 group :development, :test do
   gem 'brakeman', require: false
