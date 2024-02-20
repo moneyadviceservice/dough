@@ -15,10 +15,10 @@ describe Dough::Forms::Builders::Validation do
         validates :field_one, numericality: true
       end
       m.valid?
-      m.errors[:base] << 'base error A'
-      m.errors[:field_one] << 'field_one error 1'
-      m.errors[:field_one] << 'field_one error 2'
-      m.errors[:field_two] << 'field_two error 1'
+      m.errors.add(:base, 'base error A')
+      m.errors.add(:field_one, 'field_one error 1')
+      m.errors.add(:field_one, 'field_one error 2')
+      m.errors.add(:field_two, 'field_two error 1')
     end
   end
 
@@ -73,8 +73,8 @@ describe Dough::Forms::Builders::Validation do
     end
 
     it 'lists all errors for the object' do
-      model.errors.each do |_field, error|
-        expect(validation_summary).to include(error)
+      model.errors.each do |error|
+        expect(validation_summary).to include(error.message)
       end
 
       expect(validation_summary).to include('Field one is not a number')
@@ -149,9 +149,9 @@ describe Dough::Forms::Builders::Validation do
   context 'when there are multiple objects' do
     let(:another_model) do
       Dough::Forms::Builders::ValidationBuilderModel.new.tap do |m|
-        m.errors[:field_a] << 'field_a error a'
-        m.errors[:field_a] << 'field_a error b'
-        m.errors[:field_b] << 'field_b error a'
+        m.errors.add(:field_a, 'field_a error a')
+        m.errors.add(:field_a, 'field_a error b')
+        m.errors.add(:field_b, 'field_b error a')
       end
     end
 
@@ -162,8 +162,8 @@ describe Dough::Forms::Builders::Validation do
 
       it 'lists all errors for the objects' do
         [model, another_model].each do |m|
-          m.errors.each do |_field, error|
-            expect(subject.validation_summary).to include(error)
+          m.errors.each do |error|
+            expect(subject.validation_summary).to include(error.message)
           end
         end
       end

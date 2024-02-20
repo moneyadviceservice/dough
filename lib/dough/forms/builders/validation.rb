@@ -53,7 +53,7 @@ module Dough
           field_order = Array(model.try(:field_order))
 
           [].tap do |model_errors|
-            (field_order | model.errors.keys).each do |field|
+            (field_order | model.errors.attribute_names).each do |field|
               model.errors.full_messages_for(field).each do |message|
                 model_errors << [field, message]
               end
