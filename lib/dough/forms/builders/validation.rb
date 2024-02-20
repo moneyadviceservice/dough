@@ -10,26 +10,14 @@ module Dough
         include ActionView::Helpers::TranslationHelper
 
         def validation_summary
-          view_renderer.render(view_context, partial: 'summary_for_errors', locals: { errors: errors, error_prefix: error_prefix })
-        end
-
-        def compiled_method_container
-          view_context.compiled_method_container
-        end
-
-        def in_rendering_context(options, &blk)
-          view_context.in_rendering_context(options, &blk)
-        end
-
-        def _run(*args, &blk)
-          view_context._run(*args, &blk)
+          ApplicationController.render(partial: 'dough/forms/builders/validation/summary_for_errors', locals: { errors: errors, error_prefix: error_prefix })
         end
 
         def errors_for(subject = nil, field)
           subject ||= object
           filtered_errors = errors.select { |hash| hash[:object] == subject && hash[:field] == field }
 
-          view_renderer.render(view_context, partial: 'errors_for_field', collection: filtered_errors, as: 'error', locals: { error_prefix: error_prefix })
+          ApplicationController.render(partial: 'dough/forms/builders/validation/errors_for_field', collection: filtered_errors, as: 'error', locals: { error_prefix: error_prefix })
         end
 
         def validates(*models)
@@ -38,20 +26,6 @@ module Dough
 
         def error_count
           errors.count
-        end
-
-        def lookup_context
-          ActionView::LookupContext.new(
-            ActionController::Base.view_paths + [Dough::Engine.root.join('app/views/dough/forms/builders/validation')]
-          )
-        end
-
-        def view_renderer
-          ActionView::Renderer.new(lookup_context)
-        end
-
-        def view_context
-          ActionView::Base.new(lookup_context, {}, nil)
         end
 
         private
