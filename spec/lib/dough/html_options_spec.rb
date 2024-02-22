@@ -1,6 +1,12 @@
 require 'spec_helper'
 
 describe Dough::HtmlOptions do
+  describe '#classes' do
+    it 'defaults to an empty string' do
+      expect(described_class.new.classes).to eq('')
+    end
+  end
+
   describe 'to_s' do
     subject { described_class.new(id: 'a', classes: 'b c') }
 

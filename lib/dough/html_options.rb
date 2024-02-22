@@ -11,6 +11,10 @@ module Dough
       super
     end
 
+    def classes
+      self[:classes] ||= ''
+    end
+
     def to_s
       hash = table.dup
       hash[:class] = hash.delete(:classes)
