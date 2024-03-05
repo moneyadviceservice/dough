@@ -10,14 +10,22 @@ module Dough
         include ActionView::Helpers::TranslationHelper
 
         def validation_summary
-          render 'summary_for_errors', errors: errors, error_prefix: error_prefix
+          ApplicationController.render(
+            partial: 'dough/forms/builders/validation/summary_for_errors',
+            locals: { errors: errors, error_prefix: error_prefix }
+          )
         end
 
         def errors_for(subject = nil, field)
           subject ||= object
           filtered_errors = errors.select { |hash| hash[:object] == subject && hash[:field] == field }
 
-          render partial: 'errors_for_field', collection: filtered_errors, as: 'error', locals: { error_prefix: error_prefix }
+          ApplicationController.render(
+            partial: 'dough/forms/builders/validation/errors_for_field',
+            collection: filtered_errors,
+            as: 'error',
+            locals: { error_prefix: error_prefix }
+          )
         end
 
         def validates(*models)
@@ -26,16 +34,6 @@ module Dough
 
         def error_count
           errors.count
-        end
-
-        def lookup_context
-          ActionView::LookupContext.new(
-            ActionController::Base.view_paths + [Dough::Engine.root.join('app/views/dough/forms/builders/validation')]
-          )
-        end
-
-        def view_renderer
-          ActionView::Renderer.new(lookup_context)
         end
 
         private
@@ -63,7 +61,7 @@ module Dough
           field_order = Array(model.try(:field_order))
 
           [].tap do |model_errors|
-            (field_order | model.errors.keys).each do |field|
+            (field_order | model.errors.attribute_names).each do |field|
               model.errors.full_messages_for(field).each do |message|
                 model_errors << [field, message]
               end
