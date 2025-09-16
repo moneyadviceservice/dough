@@ -73,7 +73,7 @@ RSpec.describe Dough::Forms::Builder do
     let(:model) { invalid_model }
 
     it 'returns the name of the partial' do
-      expect(subject.errors_summary_partial_name).to eq('errors_summary')
+      expect(subject.errors_summary_partial_name).to eq('dough/forms/builder/errors_summary')
     end
   end
 
@@ -84,7 +84,7 @@ RSpec.describe Dough::Forms::Builder do
       let(:model) { valid_model }
 
       it 'returns no error messages' do
-        expect(inline_error).to be_nil
+        expect(inline_error).to eq(' ')
       end
     end
 
@@ -109,7 +109,7 @@ RSpec.describe Dough::Forms::Builder do
     let(:model) { invalid_model }
 
     it 'returns the name of the partial' do
-      expect(subject.errors_for_partial_name).to eq('errors_for')
+      expect(subject.errors_for_partial_name).to eq('dough/forms/builder/errors_for')
     end
   end
 

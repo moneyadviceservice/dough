@@ -29,6 +29,7 @@ require.config({
     CovidBanner: 'assets/js/components/CovidBanner',
     ConfirmableForm: 'assets/js/components/ConfirmableForm',
     PopupTip: 'assets/js/components/PopupTip',
+    PostMessages: 'assets/js/components/PostMessages',
     Print: 'assets/js/components/Print',
     TabSelector: 'assets/js/components/TabSelector',
     RangeInput: 'assets/js/components/RangeInput',

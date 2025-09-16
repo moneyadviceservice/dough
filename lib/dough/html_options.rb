@@ -7,12 +7,12 @@ module Dough
     def method_missing(m, *args, &block)
       name = m.to_sym
 
-      unless respond_to?(name)
-        new_ostruct_member(name)
-        public_send("#{name.to_sym}=", '')
-      end
+      self[name] = '' unless respond_to?(name)
+      super
+    end
 
-      super(m, *args, &block)
+    def classes
+      self[:classes] ||= ''
     end
 
     def to_s

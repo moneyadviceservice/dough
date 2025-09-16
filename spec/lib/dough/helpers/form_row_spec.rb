@@ -38,7 +38,7 @@ describe ActionView::Helpers::FormBuilder, type: :controller do
 
     def index_with_error
       @user = User.new
-      @user.errors[:name] << 'fail'
+      @user.errors.add(:name, 'fail')
       render inline: '''
                          <%= form_for @user, url: "/" do |f| %>
                            <%= f.form_row(:name) do |row| %>
